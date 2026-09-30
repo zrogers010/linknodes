@@ -10,14 +10,6 @@ const SUPPORTED_CHAINS = [
   { name: 'Avalanche', id: 'avalanche', selector: '6433500567565415381' },
 ]
 
-const EXAMPLE_MESSAGE = {
-  sourceChain: 'arbitrum',
-  destinationChain: 'base',
-  receiver: '0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb',
-  message: 'Hello from Arbitrum!',
-  tokenTransfers: [],
-}
-
 export function CCIPPage() {
   const [sourceChain, setSourceChain] = useState('arbitrum')
   const [destChain, setDestChain] = useState('base')
