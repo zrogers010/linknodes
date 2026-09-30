@@ -233,7 +233,7 @@ export function FeedsPage({ registry }: { registry: Registry }) {
                 {f.chains.map((c) => (
                   <Link
                     key={c.key}
-                    to={`/?chain=${c.key}&feed=${f.slug}`}
+                    to={`/products/data-feeds?chain=${c.key}&feed=${f.slug}`}
                     title={`Query ${f.name} on ${c.label} in the sandbox`}
                     className="rounded-md bg-ink-800 px-1.5 py-0.5 text-[10px] font-medium text-slate-400 transition-colors hover:bg-accent-500 hover:text-white"
                   >

@@ -57,7 +57,7 @@ export function SandboxPage({ registry }: { registry: Registry }) {
   const networkLabel = registry.networks[state.network]?.label ?? state.network
 
   return (
-    <main className="flex min-h-0 flex-1 flex-col overflow-y-auto lg:grid lg:grid-cols-[320px_minmax(0,1fr)_340px] lg:overflow-hidden">
+    <div className="flex min-h-0 flex-1 flex-col overflow-y-auto lg:grid lg:grid-cols-[320px_minmax(0,1fr)_340px] lg:overflow-hidden">
       {/* Mobile route bar: shows the current selection, opens the picker */}
       <button
         onClick={() => setPickerOpen(true)}
@@ -146,6 +146,6 @@ export function SandboxPage({ registry }: { registry: Registry }) {
           </div>
         )}
       </div>
-    </main>
+    </div>
   )
 }
