@@ -1,10 +1,10 @@
-# LinkNodes.io — The Oracle Query Sandbox for Chainlink Developers
+# LinkNodes.io — The Developer Toolkit for Chainlink
 
-The "Postman" for Chainlink. A free, un-gated web utility for interactively querying the
-**entire Chainlink Data Feeds catalog** — 1,400+ live feeds across 13 mainnet chains —
-with no code, no account, and no API key. Search any feed (crypto, forex, equities,
-commodities, macro), fire a live on-chain read, time-travel through historical rounds,
-and grab production-ready integration snippets.
+The "Postman" for Chainlink. A free, un-gated web platform for interactively testing
+**every Chainlink service** — Data Feeds, CCIP, Functions, VRF, and Automation. The Data
+Feeds sandbox is fully live with 1,400+ feeds across 13 mainnets. Additional product
+sandboxes offer interactive previews, architecture exploration, and example code for the
+complete Chainlink suite.
 
 ## Architecture
 
@@ -38,16 +38,30 @@ frontend (React + Tailwind, static)  ──►  backend (FastAPI, stateless)
 
 ## Pages
 
-- **Sandbox (`/`)** — the interactive query console: pick a chain and feed, fire live or
-  historical reads, grab integration snippets.
+### Homepage & Product Suite (`/`)
+- **Marketing homepage** — hero, value proposition, and product cards for the complete
+  Chainlink suite (Data Feeds, CCIP, Functions, VRF, Automation)
+- **Product navigation** — unified tabs across all Chainlink services with consistent UX
+
+### Product Sandboxes
+- **Data Feeds (`/products/data-feeds`)** — fully live interactive sandbox: query 1,400+
+  feeds across 13 chains, time-travel through historical rounds, grab production snippets.
+  The flagship feature with real mainnet data.
+- **CCIP (`/products/ccip`)** — cross-chain messaging preview: explore chain selectors,
+  message structures, and transfer flows. Full testnet sandbox coming soon.
+- **Functions (`/products/functions`)** — serverless compute preview: example JavaScript
+  scripts, API integration patterns, execution flow. Full testnet executor coming soon.
+- **VRF (`/products/vrf`)** — verifiable randomness preview: simulate random number
+  generation, explore use cases, integration examples. Full testnet sandbox coming soon.
+- **Automation (`/products/automation`)** — keeper preview: design upkeep logic,
+  understand execution flow, explore automation strategies. Full testnet registration
+  coming soon.
+
+### Secondary Pages
 - **Feed Catalog (`/feeds`)** — every feed aggregated across chains as sortable cards.
-  Sort by chain coverage (the best public proxy for feed adoption), fastest heartbeat,
-  or name; filter by asset class; click any chain chip to open that exact route in the
-  sandbox.
-- **Node Operators (`/operators`)** — a curated directory of well-known Chainlink node
-  operators (independents, staking providers, telecoms, enterprises) served from
-  `backend/operators.json`. Chainlink publishes no official operator directory, so this
-  list is illustrative and clearly labeled as such.
+  Sort by chain coverage, fastest heartbeat, or name; filter by asset class.
+- **Node Operators (`/operators`)** — curated directory of well-known Chainlink node
+  operators served from `backend/operators.json`.
 
 ## Running locally
 
