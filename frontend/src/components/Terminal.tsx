@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { apiUrl } from '../config'
 import type { CompareResponse, QueryResult, Registry, SandboxState } from '../types'
 import { ComparePanel } from './ComparePanel'
 import { CopyButton } from './CopyButton'
@@ -63,7 +64,7 @@ export function Terminal({
 }: Props) {
   const feed = registry.networks[state.network]?.feeds[state.feed]
   const networkLabel = registry.networks[state.network]?.label ?? state.network
-  const endpoint = `/v1/query/${state.network}/${state.feed}${roundId ? `?round_id=${roundId}` : ''}`
+  const endpoint = apiUrl(`/v1/query/${state.network}/${state.feed}${roundId ? `?round_id=${roundId}` : ''}`)
 
   const deployedChains = Object.values(registry.networks).filter((n) => state.feed in n.feeds).length
   const [compare, setCompare] = useState<CompareResponse | null>(null)
@@ -74,7 +75,7 @@ export function Terminal({
   const runCompare = async () => {
     setComparing(true)
     try {
-      const resp = await fetch(`/v1/compare/${state.feed}`)
+      const resp = await fetch(apiUrl(`/v1/compare/${state.feed}`))
       if (resp.ok) setCompare(await resp.json())
     } finally {
       setComparing(false)
