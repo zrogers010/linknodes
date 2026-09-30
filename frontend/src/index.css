@@ -1,0 +1,63 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  --color-ink-950: #07090f;
+  --color-ink-900: #0b0e17;
+  --color-ink-850: #101523;
+  --color-ink-800: #151b2e;
+  --color-ink-700: #1e2740;
+  --color-ink-600: #2a3554;
+
+  --color-accent-300: #7eb3ff;
+  --color-accent-400: #4d92ff;
+  --color-accent-500: #2470ff;
+  --color-accent-600: #1257e0;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  background: var(--color-ink-950);
+  color: #dbe2f1;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: rgba(36, 112, 255, 0.35);
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-thumb {
+  background: var(--color-ink-600);
+  border-radius: 4px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+@keyframes pulse-ring {
+  0% {
+    box-shadow: 0 0 0 0 rgba(36, 112, 255, 0.5);
+  }
+  70% {
+    box-shadow: 0 0 0 12px rgba(36, 112, 255, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(36, 112, 255, 0);
+  }
+}
+
+.send-pulse {
+  animation: pulse-ring 1.6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}

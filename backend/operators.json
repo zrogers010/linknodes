@@ -1,0 +1,205 @@
+{
+  "disclaimer": "Curated from public announcements and operator websites. Chainlink does not publish an official public directory of node operators; this list is illustrative, not exhaustive or authoritative.",
+  "operators": [
+    {
+      "id": "linkpool",
+      "name": "LinkPool",
+      "type": "independent",
+      "region": "United Kingdom",
+      "since": 2017,
+      "website": "https://linkpool.com",
+      "services": ["Data Feeds", "Data Streams", "Automation", "VRF"],
+      "description": "One of the earliest and best-known Chainlink node operators, running oracle infrastructure since 2017 on owned bare-metal hardware. Also operates RPC endpoints and Ethereum validators for institutional clients."
+    },
+    {
+      "id": "chainlayer",
+      "name": "Chainlayer",
+      "type": "independent",
+      "region": "Netherlands",
+      "since": 2019,
+      "website": "https://chainlayer.io",
+      "services": ["Data Feeds", "Automation"],
+      "description": "Early independent DevOps team focused on high-availability Chainlink oracle nodes, serving price feeds across many EVM chains. Also validates on multiple proof-of-stake networks."
+    },
+    {
+      "id": "p2p",
+      "name": "P2P.org",
+      "type": "staking-provider",
+      "region": "Global",
+      "since": 2019,
+      "website": "https://www.p2p.org",
+      "services": ["Data Feeds", "LINK Staking"],
+      "description": "Enterprise staking and infrastructure provider that has run Chainlink oracle nodes since 2019, alongside validator operations on dozens of proof-of-stake networks."
+    },
+    {
+      "id": "fiews",
+      "name": "Fiews",
+      "type": "independent",
+      "region": "Global",
+      "since": 2019,
+      "website": "https://fiews.io",
+      "services": ["Data Feeds"],
+      "description": "Early Chainlink-focused infrastructure team known for running oracle nodes since the network's mainnet launch and for providing Chainlink-specific RPC services."
+    },
+    {
+      "id": "stakefish",
+      "name": "stakefish",
+      "type": "staking-provider",
+      "region": "Global",
+      "since": 2020,
+      "website": "https://stake.fish",
+      "services": ["Data Feeds"],
+      "description": "One of the largest independent staking providers, operating Chainlink oracle nodes alongside validators for major proof-of-stake networks."
+    },
+    {
+      "id": "01node",
+      "name": "01node",
+      "type": "staking-provider",
+      "region": "Romania",
+      "since": 2019,
+      "website": "https://01node.com",
+      "services": ["Data Feeds"],
+      "description": "European staking and infrastructure operator running Chainlink oracle nodes and validators with a focus on non-custodial, high-uptime operations."
+    },
+    {
+      "id": "simply-staking",
+      "name": "Simply Staking",
+      "type": "staking-provider",
+      "region": "Malta",
+      "since": 2019,
+      "website": "https://simplystaking.com",
+      "services": ["Data Feeds", "Automation"],
+      "description": "Infrastructure operator (formerly Simply VC) running Chainlink oracle nodes since the early feed deployments, with a strong monitoring and tooling focus."
+    },
+    {
+      "id": "vulcan-link",
+      "name": "Vulcan Link",
+      "type": "independent",
+      "region": "Global",
+      "since": 2019,
+      "website": "https://vulcan.link",
+      "services": ["Data Feeds"],
+      "description": "Chainlink-native node operator contributing to price feeds across multiple networks since the early days of the oracle network."
+    },
+    {
+      "id": "matrixed-link",
+      "name": "Matrixed.Link",
+      "type": "independent",
+      "region": "Global",
+      "since": 2020,
+      "website": "https://matrixed.link",
+      "services": ["Data Feeds", "VRF"],
+      "description": "Independent oracle infrastructure team operating Chainlink nodes across many chains, with additional validator operations on proof-of-stake networks."
+    },
+    {
+      "id": "inotel",
+      "name": "Inotel",
+      "type": "independent",
+      "region": "Romania",
+      "since": 2019,
+      "website": "https://inotel.ro",
+      "services": ["Data Feeds"],
+      "description": "Early Chainlink node operator running production oracle infrastructure for price feeds since 2019."
+    },
+    {
+      "id": "ztake",
+      "name": "Ztake",
+      "type": "staking-provider",
+      "region": "United States",
+      "since": 2020,
+      "website": "https://ztake.org",
+      "services": ["Data Feeds"],
+      "description": "Independent staking and oracle operator contributing to Chainlink data feeds alongside validator operations on multiple networks."
+    },
+    {
+      "id": "snz",
+      "name": "SNZ Pool",
+      "type": "staking-provider",
+      "region": "Asia",
+      "since": 2020,
+      "website": "https://snzholding.com",
+      "services": ["Data Feeds"],
+      "description": "Asia-based crypto infrastructure and investment group operating Chainlink oracle nodes as part of a broader validator business."
+    },
+    {
+      "id": "syncnode",
+      "name": "SyncNode",
+      "type": "independent",
+      "region": "Romania",
+      "since": 2019,
+      "website": "https://syncnode.ro",
+      "services": ["Data Feeds"],
+      "description": "Early European Chainlink node operator, active in the operator community since the network's first mainnet price feeds."
+    },
+    {
+      "id": "dextrac",
+      "name": "DexTrac",
+      "type": "independent",
+      "region": "United States",
+      "since": 2019,
+      "website": "https://dextrac.com",
+      "services": ["Data Feeds"],
+      "description": "US-based oracle infrastructure operator running Chainlink nodes for data feeds since the network's early production deployments."
+    },
+    {
+      "id": "t-systems",
+      "name": "Deutsche Telekom MMS (T-Systems)",
+      "type": "telecom",
+      "region": "Germany",
+      "since": 2020,
+      "website": "https://www.telekom-mms.com",
+      "services": ["Data Feeds", "LINK Staking"],
+      "description": "Subsidiary of Deutsche Telekom, one of Europe's largest telecoms, running enterprise-grade Chainlink oracle infrastructure — a flagship example of traditional telecom infrastructure entering Web3."
+    },
+    {
+      "id": "swisscom",
+      "name": "Swisscom",
+      "type": "telecom",
+      "region": "Switzerland",
+      "since": 2021,
+      "website": "https://www.swisscom.ch",
+      "services": ["Data Feeds"],
+      "description": "Switzerland's largest telecom and a major IT provider for the Swiss financial industry, operating Chainlink nodes as part of its digital asset infrastructure strategy."
+    },
+    {
+      "id": "coinbase-cloud",
+      "name": "Coinbase Cloud",
+      "type": "enterprise",
+      "region": "United States",
+      "since": 2020,
+      "website": "https://www.coinbase.com/cloud",
+      "services": ["Data Feeds"],
+      "description": "Coinbase's infrastructure arm (originally via the Bison Trails acquisition), which joined Chainlink as a node operator to provide institutional-grade oracle infrastructure."
+    },
+    {
+      "id": "blockdaemon",
+      "name": "Blockdaemon",
+      "type": "enterprise",
+      "region": "United States",
+      "since": 2021,
+      "website": "https://www.blockdaemon.com",
+      "services": ["Data Feeds"],
+      "description": "Institutional blockchain infrastructure company operating Chainlink oracle nodes alongside one of the industry's largest managed node fleets."
+    },
+    {
+      "id": "everstake",
+      "name": "Everstake",
+      "type": "staking-provider",
+      "region": "Ukraine",
+      "since": 2021,
+      "website": "https://everstake.one",
+      "services": ["Data Feeds"],
+      "description": "Large staking provider operating Chainlink oracle nodes as part of a validator business spanning dozens of proof-of-stake networks."
+    },
+    {
+      "id": "validation-cloud",
+      "name": "Validation Cloud",
+      "type": "enterprise",
+      "region": "Switzerland / United States",
+      "since": 2023,
+      "website": "https://www.validationcloud.io",
+      "services": ["Data Feeds", "LINK Staking"],
+      "description": "Enterprise Web3 infrastructure platform that joined the Chainlink ecosystem to run oracle and staking infrastructure with an institutional compliance focus."
+    }
+  ]
+}
