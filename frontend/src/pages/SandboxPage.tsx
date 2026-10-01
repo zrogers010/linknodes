@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
+import { apiUrl } from '../config'
 import { ControlPanel } from '../components/ControlPanel'
 import { SnippetColumn } from '../components/SnippetColumn'
 import { Terminal } from '../components/Terminal'
@@ -26,7 +27,7 @@ export function SandboxPage({ registry }: { registry: Registry }) {
     const started = performance.now()
     try {
       const qs = rid ? `?round_id=${rid}` : ''
-      const resp = await fetch(`/v1/query/${network}/${feed}${qs}`)
+      const resp = await fetch(apiUrl(`/v1/query/${network}/${feed}${qs}`))
       const body = await resp.json()
       if (seq !== requestSeq.current) return
       setLatencyMs(Math.round(performance.now() - started))

@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { BrowserRouter, Link, NavLink, Route, Routes, useLocation } from 'react-router-dom'
+import { apiUrl } from './config'
 import { FeedsPage } from './pages/FeedsPage'
 import { HomePage } from './pages/HomePage'
 import { OperatorsPage } from './pages/OperatorsPage'
@@ -132,7 +133,7 @@ export default function App() {
   const [registryError, setRegistryError] = useState<string | null>(null)
 
   useEffect(() => {
-    fetch('/v1/registry')
+    fetch(apiUrl('/v1/registry'))
       .then((r) => {
         if (!r.ok) throw new Error(`registry fetch failed: HTTP ${r.status}`)
         return r.json()

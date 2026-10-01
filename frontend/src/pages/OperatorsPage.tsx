@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
+import { apiUrl } from '../config'
 
 interface Operator {
   id: string
@@ -39,7 +40,7 @@ export function OperatorsPage() {
   const [sortKey, setSortKey] = useState<SortKey>('since')
 
   useEffect(() => {
-    fetch('/v1/operators')
+    fetch(apiUrl('/v1/operators'))
       .then((r) => {
         if (!r.ok) throw new Error(`operators fetch failed: HTTP ${r.status}`)
         return r.json()

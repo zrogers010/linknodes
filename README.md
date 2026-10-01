@@ -111,23 +111,31 @@ BNB Smart Chain, Gnosis, Scroll, Linea, Celo, Sonic, ZKsync Era.
 Adding a chain is a single entry in `build_registry.py` (RDD file + RPC URLs) — no code
 changes anywhere else.
 
-## Deployment (< $10/month)
+## Deployment
 
-One command with Docker (frontend on :8080, nginx proxies `/v1` to the engine and
-serves the SPA with fallback):
+### Local Development (docker-compose)
+
+One command to run both services (frontend on :8080, nginx proxies `/v1` to the engine):
 
 ```bash
 docker compose up --build
 ```
 
+### Production (AWS App Runner, ~$10-15/month)
+
+Production-ready Dockerfiles are provided for both backend and frontend services. Deploy as two separate App Runner services with automatic scaling and monitoring.
+
+**See [docs/DEPLOY_APP_RUNNER.md](docs/DEPLOY_APP_RUNNER.md)** for the complete step-by-step guide covering:
+- Building and pushing images to ECR
+- Creating backend and frontend App Runner services
+- Custom domain configuration
+- Cost estimates and monitoring
+- CI/CD setup options
+
 The backend container refreshes the feed catalog from Chainlink's directory at every
 start, so redeploys automatically pick up newly launched feeds.
 
-Or piece by piece:
+### Other Options
 
-- **Backend:** any single small container/instance (Fly.io, Railway, a $5 VPS). It is
-  stateless — scale horizontally by just adding replicas.
-- **Frontend:** `npm run build` produces a static bundle; host on any static CDN tier
-  (Cloudflare Pages, Netlify, S3). Point the host's `/v1/*` rewrite at the backend and
-  enable SPA fallback (serve `index.html` for unknown paths) so `/feeds` and
-  `/operators` resolve on hard refresh.
+- **Backend:** any container platform (Fly.io, Railway, Cloud Run). Stateless design — scale horizontally by adding replicas.
+- **Frontend:** `npm run build` produces a static bundle; host on any CDN (Cloudflare Pages, Netlify, S3). Configure `VITE_API_BASE_URL` during build to point to your backend API.
