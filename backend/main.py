@@ -36,6 +36,9 @@ REGISTRY: dict = json.loads(REGISTRY_PATH.read_text())
 OPERATORS_PATH = Path(__file__).parent / "operators.json"
 OPERATORS: dict = json.loads(OPERATORS_PATH.read_text())
 
+CCIP_REGISTRY_PATH = Path(__file__).parent / "ccip_registry.json"
+CCIP_REGISTRY: dict = json.loads(CCIP_REGISTRY_PATH.read_text())
+
 RPC_TIMEOUT_S = 8.0
 LATEST_CACHE_TTL_S = 5.0       # Chainlink updates on heartbeat/deviation; 5s loses nothing
 HISTORICAL_CACHE_TTL_S = 3600  # past rounds never change
@@ -332,6 +335,60 @@ async def get_operators():
     return OPERATORS
 
 
+@app.get("/v1/ccip/registry")
+async def get_ccip_registry():
+    """Full CCIP registry with router addresses and chain selectors."""
+    return CCIP_REGISTRY
+
+
+@app.get("/v1/ccip/lane/{source}/{destination}")
+async def get_ccip_lane(source: str, destination: str):
+    """Get CCIP lane details for a specific source -> destination route."""
+    source = source.lower()
+    destination = destination.lower()
+    
+    source_net = CCIP_REGISTRY["networks"].get(source)
+    dest_net = CCIP_REGISTRY["networks"].get(destination)
+    
+    if not source_net:
+        raise HTTPException(status_code=400, detail=f"Unknown source network '{source}'.")
+    if not dest_net:
+        raise HTTPException(status_code=400, detail=f"Unknown destination network '{destination}'.")
+    
+    if destination not in source_net.get("supports", []):
+        raise HTTPException(
+            status_code=404,
+            detail=f"CCIP lane from {source_net['label']} to {dest_net['label']} is not supported or not yet enabled.",
+        )
+    
+    return {
+        "success": True,
+        "lane": f"{source} → {destination}",
+        "source": {
+            "network": source,
+            "label": source_net["label"],
+            "chain_id": source_net["chain_id"],
+            "chain_selector": source_net["chain_selector"],
+            "router": source_net["router"],
+            "arm_proxy": source_net.get("arm_proxy"),
+            "explorer": source_net["explorer"],
+            "rpc_urls": source_net["rpc_urls"],
+            "token_pools": CCIP_REGISTRY.get("token_pools", {}).get(source, {}),
+        },
+        "destination": {
+            "network": destination,
+            "label": dest_net["label"],
+            "chain_id": dest_net["chain_id"],
+            "chain_selector": dest_net["chain_selector"],
+            "router": dest_net["router"],
+            "arm_proxy": dest_net.get("arm_proxy"),
+            "explorer": dest_net["explorer"],
+            "rpc_urls": dest_net["rpc_urls"],
+            "token_pools": CCIP_REGISTRY.get("token_pools", {}).get(destination, {}),
+        },
+    }
+
+
 @app.get("/healthz")
 async def healthz():
     return {
@@ -339,6 +396,7 @@ async def healthz():
         "registry_version": REGISTRY["version"],
         "networks": len(REGISTRY["networks"]),
         "feeds": sum(n["feed_count"] for n in REGISTRY["networks"].values()),
+        "ccip_networks": len(CCIP_REGISTRY["networks"]),
         "cache_entries": len(_response_cache),
     }
 
