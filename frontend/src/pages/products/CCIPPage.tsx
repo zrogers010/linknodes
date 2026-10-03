@@ -12,11 +12,11 @@ interface CCIPNetwork {
   arm_proxy?: string
   explorer: string
   rpc_urls: string[]
-  token_pools: Record<string, string>
 }
 
 interface CCIPRegistry {
   version: string
+  data_source_url?: string
   networks: Record<string, {
     label: string
     chain_id: number
@@ -27,7 +27,6 @@ interface CCIPRegistry {
     rpc_urls: string[]
     supports: string[]
   }>
-  token_pools: Record<string, Record<string, string>>
 }
 
 interface LaneData {
@@ -429,48 +428,6 @@ console.log("Message ID:", receipt.logs[0].topics[1]);`
                     </div>
                   </div>
                 </div>
-
-                {/* Token pools */}
-                {(Object.keys(laneData.source.token_pools).length > 0 ||
-                  Object.keys(laneData.destination.token_pools).length > 0) && (
-                  <div className="border-t border-ink-700 p-5">
-                    <h4 className="mb-3 text-sm font-bold text-white">Token Pools (Sample)</h4>
-                    <div className="grid gap-4 sm:grid-cols-2">
-                      {Object.keys(laneData.source.token_pools).length > 0 && (
-                        <div>
-                          <div className="mb-2 text-xs text-slate-500">Source ({laneData.source.label})</div>
-                          <div className="space-y-1.5">
-                            {Object.entries(laneData.source.token_pools).map(([symbol, address]) => (
-                              <div key={symbol} className="flex items-center gap-2 text-xs">
-                                <span className="font-semibold text-slate-400">{symbol}:</span>
-                                <code className="flex-1 rounded bg-ink-950 px-2 py-1 font-mono text-[10px] text-slate-400">
-                                  {address}
-                                </code>
-                                <CopyButton text={address} className="px-1.5 py-0.5 text-[10px]" />
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-                      {Object.keys(laneData.destination.token_pools).length > 0 && (
-                        <div>
-                          <div className="mb-2 text-xs text-slate-500">Destination ({laneData.destination.label})</div>
-                          <div className="space-y-1.5">
-                            {Object.entries(laneData.destination.token_pools).map(([symbol, address]) => (
-                              <div key={symbol} className="flex items-center gap-2 text-xs">
-                                <span className="font-semibold text-slate-400">{symbol}:</span>
-                                <code className="flex-1 rounded bg-ink-950 px-2 py-1 font-mono text-[10px] text-slate-400">
-                                  {address}
-                                </code>
-                                <CopyButton text={address} className="px-1.5 py-0.5 text-[10px]" />
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                )}
               </div>
 
               {/* Code snippets */}

@@ -50,7 +50,7 @@ frontend (React + Tailwind, static)  ──►  backend (FastAPI, stateless)
   The flagship feature with real mainnet data.
 - **CCIP (`/products/ccip`)** — live cross-chain interoperability explorer: pick source
   and destination chains, get router addresses, chain selectors, and production Solidity
-  snippets for ccipSend. Real mainnet addresses for 9 chains with token pool support.
+  snippets for ccipSend. Real mainnet addresses for 9 chains from Chainlink's official directory.
 - **Functions (`/products/functions`)** — serverless compute preview: example JavaScript
   scripts, API integration patterns, execution flow. Full testnet executor coming soon.
 - **VRF (`/products/vrf`)** — verifiable randomness preview: simulate random number
@@ -102,7 +102,7 @@ Open http://localhost:5173.
 | Endpoint | Description |
 | --- | --- |
 | `GET /v1/ccip/registry` | Full CCIP registry (router addresses, chain selectors for 9 mainnets) |
-| `GET /v1/ccip/lane/{source}/{dest}` | Lane details: routers, chain selectors, token pools for a route |
+| `GET /v1/ccip/lane/{source}/{dest}` | Lane details: routers, chain selectors, ARM proxies for a route |
 
 ### Other
 

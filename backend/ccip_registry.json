@@ -2,7 +2,8 @@
   "version": "1.0.0",
   "source": "chainlink-ccip-directory",
   "generated_at": 1786862500,
-  "description": "CCIP router addresses and chain selectors for supported mainnet chains",
+  "description": "CCIP router addresses and chain selectors from Chainlink's official mainnet directory",
+  "data_source_url": "https://docs.chain.link/ccip/directory/mainnet",
   "networks": {
     "ethereum": {
       "label": "Ethereum Mainnet",
@@ -111,28 +112,6 @@
       "router": "0x2a87b2B1Fbf0a8286969E63De8bDb75D8d6F3EF1",
       "arm_proxy": "0x4dA4fb44f0F14a83A3aa76f97EfC6d9F8b56C7b4",
       "supports": ["ethereum", "arbitrum", "base", "bnb", "optimism"]
-    }
-  },
-  "token_pools": {
-    "ethereum": {
-      "LINK": "0xba7f8b5fB1b19c1211c5d49550fcD149177A5Eaf",
-      "USDC": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
-      "WETH": "0x0d77e01e67E2d95Eb66a4D9e4Fc8e5f4f7d3FbFF"
-    },
-    "arbitrum": {
-      "LINK": "0xb5E3468B65F5C522bE13e08dcb4e5D99C4C75B7A",
-      "USDC": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
-      "WETH": "0x1C01F77b05De9D285d334c85C8A1646D5e1e3f58"
-    },
-    "base": {
-      "LINK": "0x9B55cc1EcAF3F51edB0f3F9F2fC1E3d6E41E6F97",
-      "USDC": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
-      "WETH": "0xF0CaF8dEe7c34BD70FC3f3f4d9f7b2eE1F63e4Fc"
-    },
-    "polygon": {
-      "LINK": "0xA0C6A8c7B1fc70a4F8DcC8f7a27F6a3DeB9D8c3F",
-      "USDC": "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174",
-      "WETH": "0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619"
     }
   }
 }

@@ -373,7 +373,6 @@ async def get_ccip_lane(source: str, destination: str):
             "arm_proxy": source_net.get("arm_proxy"),
             "explorer": source_net["explorer"],
             "rpc_urls": source_net["rpc_urls"],
-            "token_pools": CCIP_REGISTRY.get("token_pools", {}).get(source, {}),
         },
         "destination": {
             "network": destination,
@@ -384,7 +383,6 @@ async def get_ccip_lane(source: str, destination: str):
             "arm_proxy": dest_net.get("arm_proxy"),
             "explorer": dest_net["explorer"],
             "rpc_urls": dest_net["rpc_urls"],
-            "token_pools": CCIP_REGISTRY.get("token_pools", {}).get(destination, {}),
         },
     }
 
