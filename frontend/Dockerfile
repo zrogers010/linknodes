@@ -18,6 +18,7 @@ COPY nginx.conf.template /etc/nginx/templates/default.conf.template
 
 RUN chown -R appuser:appuser /usr/share/nginx/html && \
     chown -R appuser:appuser /var/cache/nginx && \
+    chown -R appuser:appuser /etc/nginx/conf.d && \
     touch /var/run/nginx.pid && \
     chown appuser:appuser /var/run/nginx.pid
 
