@@ -16,8 +16,9 @@ frontend (React + Tailwind, static)  ──►  backend (FastAPI, stateless)
                                    (eth_call, read-only, with failover)
 ```
 
-- **No database, no cache layer, no blockchain node.** Every query is a set of concurrent
-  read-only `eth_call`s via `web3.py` `AsyncWeb3` + `asyncio.gather`.
+- **No database, no cache layer, no blockchain node.** Data Feeds queries are concurrent
+  read-only `eth_call`s via `web3.py` `AsyncWeb3` + `asyncio.gather`. CCIP explorer
+  serves static router addresses from `ccip_registry.json` (Chainlink's official directory).
 - **Full official catalog.** `backend/build_registry.py` ingests Chainlink's own
   reference-data directory (the source behind docs.chain.link) and compiles
   `registry.json`: feed addresses, decimals, heartbeats, deviation thresholds, risk
@@ -47,8 +48,9 @@ frontend (React + Tailwind, static)  ──►  backend (FastAPI, stateless)
 - **Data Feeds (`/products/data-feeds`)** — fully live interactive sandbox: query 1,400+
   feeds across 13 chains, time-travel through historical rounds, grab production snippets.
   The flagship feature with real mainnet data.
-- **CCIP (`/products/ccip`)** — cross-chain messaging preview: explore chain selectors,
-  message structures, and transfer flows. Full testnet sandbox coming soon.
+- **CCIP (`/products/ccip`)** — live cross-chain interoperability explorer: pick source
+  and destination chains, get router addresses, chain selectors, and production Solidity
+  snippets for ccipSend. Real mainnet addresses for 9 chains from Chainlink's official directory.
 - **Functions (`/products/functions`)** — serverless compute preview: example JavaScript
   scripts, API integration patterns, execution flow. Full testnet executor coming soon.
 - **VRF (`/products/vrf`)** — verifiable randomness preview: simulate random number
@@ -86,21 +88,40 @@ Open http://localhost:5173.
 
 ## API
 
+### Data Feeds
+
 | Endpoint | Description |
 | --- | --- |
 | `GET /v1/registry` | Full static catalog (chains, feeds, metadata) — gzipped to ~66 KB |
 | `GET /v1/query/{chain}/{feed}` | Live `latestRoundData()` read |
 | `GET /v1/query/{chain}/{feed}?round_id=N` | Historical `getRoundData()` read |
 | `GET /v1/compare/{feed}` | Query a feed on every deployed chain, with spread summary |
+
+### CCIP
+
+| Endpoint | Description |
+| --- | --- |
+| `GET /v1/ccip/registry` | Full CCIP registry (router addresses, chain selectors for 9 mainnets) |
+| `GET /v1/ccip/lane/{source}/{dest}` | Lane details: routers, chain selectors, ARM proxies for a route |
+
+### Other
+
+| Endpoint | Description |
+| --- | --- |
 | `GET /v1/operators` | Curated node operator directory |
 | `GET /healthz` | Liveness probe + catalog stats |
 
 Examples:
 
 ```bash
+# Data Feeds
 curl "http://localhost:8100/v1/query/arbitrum/xau-usd"
 curl "http://localhost:8100/v1/query/ethereum/aapl-usd"
 curl "http://localhost:8100/v1/query/arbitrum/eur-usd?round_id=36893488147419105538"
+
+# CCIP
+curl "http://localhost:8100/v1/ccip/registry"
+curl "http://localhost:8100/v1/ccip/lane/ethereum/arbitrum"
 ```
 
 ## Supported chains

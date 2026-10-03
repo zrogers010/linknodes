@@ -1,0 +1,117 @@
+{
+  "version": "1.0.0",
+  "source": "chainlink-ccip-directory",
+  "generated_at": 1786862500,
+  "description": "CCIP router addresses and chain selectors from Chainlink's official mainnet directory",
+  "data_source_url": "https://docs.chain.link/ccip/directory/mainnet",
+  "networks": {
+    "ethereum": {
+      "label": "Ethereum Mainnet",
+      "chain_id": 1,
+      "chain_selector": "5009297550715157269",
+      "explorer": "https://etherscan.io",
+      "rpc_urls": [
+        "https://ethereum-rpc.publicnode.com"
+      ],
+      "router": "0x80226fc0Ee2b096224EeAc085Bb9a8cba1146f7D",
+      "arm_proxy": "0x411dE17f12D1A34ecC7F45f49844626267c75e81",
+      "supports": ["arbitrum", "avalanche", "base", "bnb", "optimism", "polygon", "wemix", "zksync"]
+    },
+    "arbitrum": {
+      "label": "Arbitrum One",
+      "chain_id": 42161,
+      "chain_selector": "4949039107694359620",
+      "explorer": "https://arbiscan.io",
+      "rpc_urls": [
+        "https://arbitrum-one-rpc.publicnode.com"
+      ],
+      "router": "0x141fa059441E0ca23ce184B6A78bafD2A517DdE8",
+      "arm_proxy": "0x83AE0a143c8c47F32BABC76e1B8E07349864022d",
+      "supports": ["ethereum", "avalanche", "base", "bnb", "optimism", "polygon", "wemix", "zksync"]
+    },
+    "avalanche": {
+      "label": "Avalanche C-Chain",
+      "chain_id": 43114,
+      "chain_selector": "6433500567565415381",
+      "explorer": "https://snowtrace.io",
+      "rpc_urls": [
+        "https://avalanche-c-chain-rpc.publicnode.com"
+      ],
+      "router": "0xF4c7E640EdA248ef95972845a62bdC74237805dB",
+      "arm_proxy": "0xb6dE62F47b0F620B9d0Ae3eAe1A39Fd70cE9C5E8",
+      "supports": ["ethereum", "arbitrum", "base", "bnb", "optimism", "polygon"]
+    },
+    "base": {
+      "label": "Base",
+      "chain_id": 8453,
+      "chain_selector": "15971525489660198786",
+      "explorer": "https://basescan.org",
+      "rpc_urls": [
+        "https://base-rpc.publicnode.com"
+      ],
+      "router": "0x881e3A65B4d4a04dD529061dd0071cf975F58bCD",
+      "arm_proxy": "0xFd01a7E32c5cCa4e0Ea8F3a89a82BE66b9a36696",
+      "supports": ["ethereum", "arbitrum", "avalanche", "bnb", "optimism", "polygon", "zksync"]
+    },
+    "bnb": {
+      "label": "BNB Smart Chain",
+      "chain_id": 56,
+      "chain_selector": "11344663589394136015",
+      "explorer": "https://bscscan.com",
+      "rpc_urls": [
+        "https://bsc-rpc.publicnode.com"
+      ],
+      "router": "0x34B03Cb9086d7D758AC55af71584F81A598759FE",
+      "arm_proxy": "0xE09BF7Faf1B23cD12AE0b8B819029091eCA2f8dB",
+      "supports": ["ethereum", "arbitrum", "avalanche", "base", "optimism", "polygon", "zksync"]
+    },
+    "optimism": {
+      "label": "OP Mainnet",
+      "chain_id": 10,
+      "chain_selector": "3734403246176062136",
+      "explorer": "https://optimistic.etherscan.io",
+      "rpc_urls": [
+        "https://optimism-rpc.publicnode.com"
+      ],
+      "router": "0x3206695CaE29952f4b0c22a169725a865bc8Ce0f",
+      "arm_proxy": "0x86dFE5CBA97F09240DFFD8C1eD014ae027092a46",
+      "supports": ["ethereum", "arbitrum", "avalanche", "base", "bnb", "polygon", "zksync"]
+    },
+    "polygon": {
+      "label": "Polygon PoS",
+      "chain_id": 137,
+      "chain_selector": "4051577828743386545",
+      "explorer": "https://polygonscan.com",
+      "rpc_urls": [
+        "https://polygon-bor-rpc.publicnode.com"
+      ],
+      "router": "0x849c5ED5a80F5B408Dd4969b78c2C8fdf0565Bfe",
+      "arm_proxy": "0x9bF7e7f2c8CaB2FFFF9f6BE77e9E3c6118086E1D",
+      "supports": ["ethereum", "arbitrum", "avalanche", "base", "bnb", "optimism"]
+    },
+    "wemix": {
+      "label": "WEMIX",
+      "chain_id": 1111,
+      "chain_selector": "5142893604156789321",
+      "explorer": "https://explorer.wemix.com",
+      "rpc_urls": [
+        "https://api.wemix.com"
+      ],
+      "router": "0xA8C0c11bf64AF62CDCA6f93D3769B88BdD7cb93D",
+      "arm_proxy": "0x9Cd45f381c985E0eF2Cec7b5038ab0c44ee0b0B8",
+      "supports": ["ethereum", "arbitrum"]
+    },
+    "zksync": {
+      "label": "ZKsync Era",
+      "chain_id": 324,
+      "chain_selector": "6898391096552792247",
+      "explorer": "https://era.zksync.network",
+      "rpc_urls": [
+        "https://mainnet.era.zksync.io"
+      ],
+      "router": "0x2a87b2B1Fbf0a8286969E63De8bDb75D8d6F3EF1",
+      "arm_proxy": "0x4dA4fb44f0F14a83A3aa76f97EfC6d9F8b56C7b4",
+      "supports": ["ethereum", "arbitrum", "base", "bnb", "optimism"]
+    }
+  }
+}
