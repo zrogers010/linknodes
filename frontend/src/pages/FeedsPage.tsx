@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { comparePopularity } from '../popularity'
+import { SEO } from '../components/SEO'
 import type { Registry } from '../types'
 
 type SortKey = 'popularity' | 'coverage' | 'name' | 'heartbeat'
@@ -122,6 +123,11 @@ export function FeedsPage({ registry }: { registry: Registry }) {
 
   return (
     <main className="min-h-0 flex-1 overflow-y-auto p-4 sm:p-6">
+      <SEO 
+        title="Feed Catalog — 1,400+ Chainlink Data Feeds"
+        description="Complete catalog of Chainlink Data Feeds aggregated across 13 mainnets. Browse crypto, forex, equities, commodities, and macro feeds by coverage, heartbeat, and risk rating."
+        path="/feeds"
+      />
       <div className="mx-auto max-w-7xl">
         <div className="mb-1 flex items-baseline gap-3">
           <h2 className="text-xl font-bold text-white">Feed Catalog</h2>

@@ -115,11 +115,8 @@ export function VRFPage() {
                 <div className="mt-5 rounded-lg border border-ink-700 bg-ink-950 p-4">
                   <div className="mb-3 flex items-center justify-between">
                     <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-500">
-                      Generated Random Values (Mock)
+                      Generated Random Values (Preview Only)
                     </h3>
-                    <span className="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-emerald-400">
-                      Verified ✓
-                    </span>
                   </div>
                   <div className="space-y-2">
                     {mockRandoms.map((random, idx) => (
@@ -133,15 +130,15 @@ export function VRFPage() {
                       </div>
                     ))}
                   </div>
-                  <div className="mt-3 rounded-lg border border-ink-700 bg-ink-900 p-3">
+                  <div className="mt-3 rounded-lg border border-sky-500/30 bg-sky-500/5 p-3">
                     <div className="flex items-start gap-2 text-xs">
-                      <svg className="mt-0.5 h-4 w-4 shrink-0 text-emerald-400" viewBox="0 0 20 20" fill="currentColor">
-                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                      <svg className="mt-0.5 h-4 w-4 shrink-0 text-sky-400" viewBox="0 0 20 20" fill="currentColor">
+                        <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
                       </svg>
                       <div className="text-slate-400">
-                        <div className="font-semibold text-emerald-400">Proof verified on-chain</div>
+                        <div className="font-semibold text-sky-400">Preview only</div>
                         <div className="mt-1">
-                          Request ID: 0x{Array.from({ length: 64 }, () => Math.floor(Math.random() * 16).toString(16)).join('')}
+                          These are client-side mock values for demonstration. A live VRF testnet sandbox with real on-chain verification is coming soon.
                         </div>
                       </div>
                     </div>

@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react'
+import { useParams, useNavigate } from 'react-router-dom'
 import { ProductLayout } from '../../components/ProductLayout'
 import { apiUrl } from '../../config'
 import { CopyButton } from '../../components/CopyButton'
+import { SEO } from '../../components/SEO'
 
 interface CCIPNetwork {
   network: string
@@ -37,9 +39,11 @@ interface LaneData {
 }
 
 export function CCIPPage() {
+  const { source, dest } = useParams<{ source?: string; dest?: string }>()
+  const navigate = useNavigate()
   const [registry, setRegistry] = useState<CCIPRegistry | null>(null)
-  const [sourceChain, setSourceChain] = useState('ethereum')
-  const [destChain, setDestChain] = useState('arbitrum')
+  const [sourceChain, setSourceChain] = useState('')
+  const [destChain, setDestChain] = useState('')
   const [laneData, setLaneData] = useState<LaneData | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -49,16 +53,34 @@ export function CCIPPage() {
       .then((r) => r.json())
       .then((data) => {
         setRegistry(data)
-        setSourceChain('ethereum')
-        setDestChain('arbitrum')
+        // Use URL params if provided, otherwise default to ethereum -> arbitrum
+        const defaultSource = source || 'ethereum'
+        const defaultDest = dest || 'arbitrum'
+        
+        // Validate that the chains exist in the registry
+        if (data.networks[defaultSource] && data.networks[defaultDest]) {
+          setSourceChain(defaultSource)
+          setDestChain(defaultDest)
+        } else {
+          // Fallback to ethereum -> arbitrum if URL params are invalid
+          setSourceChain('ethereum')
+          setDestChain('arbitrum')
+        }
       })
       .catch((e) => console.error('Failed to load CCIP registry:', e))
-  }, [])
+  }, [source, dest])
 
   useEffect(() => {
     if (!registry || !sourceChain || !destChain) return
     setLoading(true)
     setError(null)
+    
+    // Update URL to match selected chains
+    const currentPath = `/products/ccip/${sourceChain}/${destChain}`
+    if (window.location.pathname !== currentPath) {
+      navigate(currentPath, { replace: true })
+    }
+    
     fetch(apiUrl(`/v1/ccip/lane/${sourceChain}/${destChain}`))
       .then(async (r) => {
         const data = await r.json()
@@ -75,7 +97,7 @@ export function CCIPPage() {
         setLaneData(null)
       })
       .finally(() => setLoading(false))
-  }, [registry, sourceChain, destChain])
+  }, [registry, sourceChain, destChain, navigate])
 
   const availableDestinations = registry?.networks[sourceChain]?.supports || []
 
@@ -196,31 +218,53 @@ console.log("Message ID:", receipt.logs[0].topics[1]);`
 
   if (!registry) {
     return (
-      <ProductLayout
-        icon="🌉"
-        title="CCIP"
-        tagline="Cross-Chain Interoperability Protocol"
-        status="live"
-        description={<>Loading CCIP registry...</>}
-      >
-        <div className="flex items-center justify-center p-12">
-          <div className="text-slate-400">Loading...</div>
-        </div>
-      </ProductLayout>
+      <>
+        <SEO 
+          title="CCIP — Cross-Chain Interoperability Protocol"
+          description="Explore CCIP lanes across 9 mainnets. Get router addresses, chain selectors, ARM proxies, and production-ready Solidity snippets for cross-chain messaging."
+          path="/products/ccip"
+        />
+        <ProductLayout
+          icon="🌉"
+          title="CCIP"
+          tagline="Cross-Chain Interoperability Protocol"
+          status="live"
+          description={<>Loading CCIP registry...</>}
+        >
+          <div className="flex items-center justify-center p-12">
+            <div className="text-slate-400">Loading...</div>
+          </div>
+        </ProductLayout>
+      </>
     )
   }
 
   const networks = Object.entries(registry.networks)
+  
+  // Generate SEO tags based on selected lane
+  const seoTitle = laneData 
+    ? `CCIP Lane: ${laneData.source.label} → ${laneData.destination.label}`
+    : "CCIP — Cross-Chain Interoperability Protocol"
+  const seoDescription = laneData
+    ? `CCIP lane from ${laneData.source.label} to ${laneData.destination.label}. Router: ${laneData.source.router}, Chain Selector: ${laneData.destination.chain_selector}. Get production-ready Solidity snippets.`
+    : "Explore CCIP lanes across 9 mainnets. Get router addresses, chain selectors, ARM proxies, and production-ready Solidity snippets for cross-chain messaging."
+  const seoPath = source && dest ? `/products/ccip/${source}/${dest}` : "/products/ccip"
 
   return (
-    <ProductLayout
+    <>
+      <SEO 
+        title={seoTitle}
+        description={seoDescription}
+        path={seoPath}
+      />
+      <ProductLayout
       icon="🌉"
       title="CCIP"
       tagline="Cross-Chain Interoperability Protocol"
       status="live"
       description={
         <>
-          Explore CCIP lanes across {networks.length} mainnets. Get router addresses, chain selectors, token pools, and
+          Explore CCIP lanes across {networks.length} mainnets. Get router addresses, chain selectors, ARM proxies, and
           production-ready Solidity snippets for cross-chain messaging and token transfers.
         </>
       }
@@ -499,5 +543,6 @@ console.log("Message ID:", receipt.logs[0].topics[1]);`
         </div>
       </div>
     </ProductLayout>
+    </>
   )
 }
