@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { apiUrl } from '../config'
+import { SEO } from '../components/SEO'
 
 interface Operator {
   id: string
@@ -80,6 +81,11 @@ export function OperatorsPage() {
 
   return (
     <main className="min-h-0 flex-1 overflow-y-auto p-4 sm:p-6">
+      <SEO 
+        title="Node Operators — Chainlink Oracle Providers"
+        description="Directory of Chainlink node operators providing oracle services. Browse independent nodes, staking providers, telecom operators, and enterprise oracle providers."
+        path="/operators"
+      />
       <div className="mx-auto max-w-7xl">
         <div className="mb-1 flex items-baseline gap-3">
           <h2 className="text-xl font-bold text-white">Node Operators</h2>

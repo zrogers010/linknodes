@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { SEO } from '../components/SEO'
 
 const PRODUCTS = [
   {
@@ -56,6 +57,11 @@ const STATUS_BADGE: Record<string, { label: string; className: string }> = {
 export function HomePage() {
   return (
     <main className="min-h-0 flex-1 overflow-y-auto">
+      <SEO 
+        title="The Developer Toolkit for Chainlink"
+        description="Query 1,400+ live Chainlink Data Feeds and explore CCIP lane configuration across 13 mainnets. Free developer toolkit, no wallet required."
+        path="/"
+      />
       {/* Hero section */}
       <section className="border-b border-ink-700 bg-gradient-to-b from-ink-900 to-ink-950">
         <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20 lg:py-24">

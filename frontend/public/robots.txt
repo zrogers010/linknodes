@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+Allow: /products/data-feeds
+Allow: /products/ccip
+Allow: /feeds
+Allow: /operators
+
+Disallow: /products/functions
+Disallow: /products/vrf
+Disallow: /products/automation
+
+Sitemap: https://www.linknodes.io/sitemap.xml

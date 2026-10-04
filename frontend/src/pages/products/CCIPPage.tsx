@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { ProductLayout } from '../../components/ProductLayout'
 import { apiUrl } from '../../config'
 import { CopyButton } from '../../components/CopyButton'
+import { SEO } from '../../components/SEO'
 
 interface CCIPNetwork {
   network: string
@@ -196,24 +197,37 @@ console.log("Message ID:", receipt.logs[0].topics[1]);`
 
   if (!registry) {
     return (
-      <ProductLayout
-        icon="🌉"
-        title="CCIP"
-        tagline="Cross-Chain Interoperability Protocol"
-        status="live"
-        description={<>Loading CCIP registry...</>}
-      >
-        <div className="flex items-center justify-center p-12">
-          <div className="text-slate-400">Loading...</div>
-        </div>
-      </ProductLayout>
+      <>
+        <SEO 
+          title="CCIP — Cross-Chain Interoperability Protocol"
+          description="Explore CCIP lanes across 9 mainnets. Get router addresses, chain selectors, ARM proxies, and production-ready Solidity snippets for cross-chain messaging."
+          path="/products/ccip"
+        />
+        <ProductLayout
+          icon="🌉"
+          title="CCIP"
+          tagline="Cross-Chain Interoperability Protocol"
+          status="live"
+          description={<>Loading CCIP registry...</>}
+        >
+          <div className="flex items-center justify-center p-12">
+            <div className="text-slate-400">Loading...</div>
+          </div>
+        </ProductLayout>
+      </>
     )
   }
 
   const networks = Object.entries(registry.networks)
 
   return (
-    <ProductLayout
+    <>
+      <SEO 
+        title="CCIP — Cross-Chain Interoperability Protocol"
+        description="Explore CCIP lanes across 9 mainnets. Get router addresses, chain selectors, ARM proxies, and production-ready Solidity snippets for cross-chain messaging."
+        path="/products/ccip"
+      />
+      <ProductLayout
       icon="🌉"
       title="CCIP"
       tagline="Cross-Chain Interoperability Protocol"
@@ -499,5 +513,6 @@ console.log("Message ID:", receipt.logs[0].topics[1]);`
         </div>
       </div>
     </ProductLayout>
+    </>
   )
 }
