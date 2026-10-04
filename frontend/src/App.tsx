@@ -173,6 +173,7 @@ export default function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/products/data-feeds" element={<DataFeedsPage registry={registry} />} />
           <Route path="/products/ccip" element={<CCIPPage />} />
+          <Route path="/products/ccip/:source/:dest" element={<CCIPPage />} />
           <Route path="/products/functions" element={<FunctionsPage />} />
           <Route path="/products/vrf" element={<VRFPage />} />
           <Route path="/products/automation" element={<AutomationPage />} />
