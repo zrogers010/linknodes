@@ -15,9 +15,9 @@ const PRODUCTS = [
     name: 'CCIP',
     icon: '🌉',
     tagline: 'Cross-chain interoperability',
-    description: 'Send tokens and arbitrary messages across blockchains. Build cross-chain dApps with Chainlink\'s secure messaging protocol.',
-    status: 'preview',
-    features: ['Token transfers', 'Message passing', 'Multi-chain apps', 'Programmable transfers'],
+    description: 'Explore CCIP lanes across 9 mainnets. Get router addresses, chain selectors, ARM proxies, and production-ready code snippets.',
+    status: 'live',
+    features: ['Router addresses', 'Chain selectors', 'Code snippets', '9 mainnets'],
   },
   {
     id: 'functions',
@@ -49,8 +49,8 @@ const PRODUCTS = [
 ]
 
 const STATUS_BADGE: Record<string, { label: string; className: string }> = {
-  live: { label: 'Live Sandbox', className: 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30' },
-  preview: { label: 'Preview', className: 'bg-sky-500/15 text-sky-400 border-sky-500/30' },
+  live: { label: 'Live', className: 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30' },
+  preview: { label: 'Coming Soon', className: 'bg-amber-500/15 text-amber-400 border-amber-500/30' },
 }
 
 export function HomePage() {
@@ -75,7 +75,7 @@ export function HomePage() {
               </span>
             </h1>
             <p className="mx-auto mb-8 max-w-2xl text-lg leading-relaxed text-slate-400 sm:text-xl">
-              Interactive sandboxes for every Chainlink service. Query live feeds, simulate cross-chain messages, test Functions, generate VRF randomness, and automate contracts — all in your browser, no wallet required.
+              Query 1,400+ live Chainlink Data Feeds and explore CCIP lane configuration across 13 mainnets — all in your browser, no wallet required.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-3">
               <Link
@@ -116,9 +116,9 @@ export function HomePage() {
       <section className="border-b border-ink-700 bg-ink-950">
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6">
           <div className="mb-10 text-center">
-            <h2 className="mb-3 text-3xl font-black text-white">Complete Chainlink Suite</h2>
+            <h2 className="mb-3 text-3xl font-black text-white">Chainlink Developer Tools</h2>
             <p className="mx-auto max-w-2xl text-slate-400">
-              Every Chainlink service, one developer toolkit. Build faster with interactive sandboxes, instant feedback, and production-ready code snippets.
+              Live Data Feeds sandbox with 1,400+ feeds. CCIP lane explorer with router addresses and code snippets. Additional Chainlink services coming soon.
             </p>
           </div>
           
@@ -162,7 +162,7 @@ export function HomePage() {
                       ))}
                     </div>
                     <div className="flex items-center gap-2 pt-2 text-sm font-semibold text-accent-300 transition-transform group-hover:translate-x-1">
-                      <span>{product.status === 'live' ? 'Launch sandbox' : 'Explore preview'}</span>
+                      <span>{product.status === 'live' ? 'Try it now' : 'View examples'}</span>
                       <svg className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
                         <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
                       </svg>

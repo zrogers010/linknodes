@@ -220,7 +220,7 @@ console.log("Message ID:", receipt.logs[0].topics[1]);`
       status="live"
       description={
         <>
-          Explore CCIP lanes across {networks.length} mainnets. Get router addresses, chain selectors, token pools, and
+          Explore CCIP lanes across {networks.length} mainnets. Get router addresses, chain selectors, ARM proxies, and
           production-ready Solidity snippets for cross-chain messaging and token transfers.
         </>
       }

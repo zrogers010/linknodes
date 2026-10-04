@@ -144,7 +144,7 @@ export function ControlPanel({ registry, state, onChange, onFeedPick }: Props) {
         </div>
         <p className="mt-2 font-mono text-[11px] text-slate-500">
           {matches.length} of {net?.feed_count ?? 0} feeds
-          {matches.length > MAX_VISIBLE ? ` · showing first ${MAX_VISIBLE}` : ''}
+          {matches.length > MAX_VISIBLE ? ` · displaying top ${MAX_VISIBLE} by popularity` : ''}
         </p>
       </div>
 
