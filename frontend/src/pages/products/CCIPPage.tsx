@@ -105,9 +105,9 @@ export function CCIPPage() {
     ? `// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-import {IRouterClient} from "@chainlink/contracts-ccip/src/v0.8/ccip/interfaces/IRouterClient.sol";
-import {Client} from "@chainlink/contracts-ccip/src/v0.8/ccip/libraries/Client.sol";
-import {IERC20} from "@chainlink/contracts-ccip/src/v0.8/vendor/openzeppelin-solidity/v4.8.3/contracts/token/ERC20/IERC20.sol";
+import {IRouterClient} from "@chainlink/contracts-ccip/contracts/interfaces/IRouterClient.sol";
+import {Client} from "@chainlink/contracts-ccip/contracts/libraries/Client.sol";
+import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 /// Send a CCIP message from ${laneData.source.label} to ${laneData.destination.label}
 contract CCIPSender {
@@ -118,16 +118,17 @@ contract CCIPSender {
         router = IRouterClient(${laneData.source.router});
     }
 
+    /// @notice Marked payable to accept native gas for fees (feeToken = address(0))
     function sendMessage(
         address receiver,
         string memory message
-    ) external returns (bytes32 messageId) {
+    ) external payable returns (bytes32 messageId) {
         Client.EVM2AnyMessage memory evm2AnyMessage = Client.EVM2AnyMessage({
             receiver: abi.encode(receiver),
             data: abi.encode(message),
             tokenAmounts: new Client.EVMTokenAmount[](0),
             extraArgs: Client._argsToBytes(
-                Client.EVMExtraArgsV1({gasLimit: 200_000})
+                Client.GenericExtraArgsV2({gasLimit: 200_000, allowOutOfOrderExecution: true})
             ),
             feeToken: address(0) // Pay in native token
         });
@@ -139,13 +140,19 @@ contract CCIPSender {
             DESTINATION_CHAIN_SELECTOR,
             evm2AnyMessage
         );
+
+        // Refund excess payment
+        if (msg.value > fees) {
+            payable(msg.sender).transfer(msg.value - fees);
+        }
     }
 
+    /// @notice Marked payable to accept native gas for fees (feeToken = address(0))
     function sendTokens(
         address receiver,
         address token,
         uint256 amount
-    ) external returns (bytes32 messageId) {
+    ) external payable returns (bytes32 messageId) {
         IERC20(token).transferFrom(msg.sender, address(this), amount);
         IERC20(token).approve(address(router), amount);
 
@@ -157,7 +164,7 @@ contract CCIPSender {
             data: "",
             tokenAmounts: tokenAmounts,
             extraArgs: Client._argsToBytes(
-                Client.EVMExtraArgsV1({gasLimit: 0})
+                Client.GenericExtraArgsV2({gasLimit: 0, allowOutOfOrderExecution: true})
             ),
             feeToken: address(0)
         });
@@ -169,6 +176,11 @@ contract CCIPSender {
             DESTINATION_CHAIN_SELECTOR,
             evm2AnyMessage
         );
+
+        // Refund excess payment
+        if (msg.value > fees) {
+            payable(msg.sender).transfer(msg.value - fees);
+        }
     }
 }`
     : ''
@@ -182,12 +194,23 @@ const DESTINATION_CHAIN_SELECTOR = "${laneData.destination.chain_selector}";
 
 const ROUTER_ABI = [
   "function getFee(uint64 destinationChainSelector, tuple(bytes receiver, bytes data, tuple(address token, uint256 amount)[] tokenAmounts, address feeToken, bytes extraArgs) message) view returns (uint256)",
-  "function ccipSend(uint64 destinationChainSelector, tuple(bytes receiver, bytes data, tuple(address token, uint256 amount)[] tokenAmounts, address feeToken, bytes extraArgs) message) payable returns (bytes32)"
+  "function ccipSend(uint64 destinationChainSelector, tuple(bytes receiver, bytes data, tuple(address token, uint256 amount)[] tokenAmounts, address feeToken, bytes extraArgs) message) payable returns (bytes32)",
+  "event CCIPSendRequested(bytes32 indexed messageId)"
 ];
 
 const provider = new ethers.JsonRpcProvider("${laneData.source.rpc_urls?.[0] || 'YOUR_RPC_URL'}");
 const wallet = new ethers.Wallet("YOUR_PRIVATE_KEY", provider);
 const router = new ethers.Contract(ROUTER, ROUTER_ABI, wallet);
+
+// Encode extraArgs with GENERIC_EXTRA_ARGS_V2_TAG (0x181dcf10)
+function encodeExtraArgsV2(gasLimit, allowOutOfOrderExecution) {
+  const abiCoder = ethers.AbiCoder.defaultAbiCoder();
+  const encoded = abiCoder.encode(
+    ["tuple(uint256 gasLimit, bool allowOutOfOrderExecution)"],
+    [[gasLimit, allowOutOfOrderExecution]]
+  );
+  return ethers.concat(["0x181dcf10", encoded]); // Prepend V2 tag
+}
 
 // Encode message data
 const receiverAddress = "0x..."; // Destination contract address
@@ -198,10 +221,7 @@ const ccipMessage = {
   data: ethers.AbiCoder.defaultAbiCoder().encode(["string"], [message]),
   tokenAmounts: [],
   feeToken: ethers.ZeroAddress, // Pay in native token
-  extraArgs: ethers.AbiCoder.defaultAbiCoder().encode(
-    ["tuple(uint256 gasLimit)"],
-    [[200000]]
-  )
+  extraArgs: encodeExtraArgsV2(200000n, true)
 };
 
 // Get fee and send
@@ -212,8 +232,16 @@ const tx = await router.ccipSend(DESTINATION_CHAIN_SELECTOR, ccipMessage, {
   value: fee
 });
 console.log("Message sent! TX:", tx.hash);
+
+// Parse the message ID from CCIPSendRequested event
 const receipt = await tx.wait();
-console.log("Message ID:", receipt.logs[0].topics[1]);`
+const ccipEvent = receipt.logs.find(log => {
+  try {
+    return router.interface.parseLog(log)?.name === "CCIPSendRequested";
+  } catch { return false; }
+});
+const messageId = ccipEvent ? router.interface.parseLog(ccipEvent).args.messageId : null;
+console.log("Message ID:", messageId || "Check event logs manually");`
     : ''
 
   if (!registry) {
