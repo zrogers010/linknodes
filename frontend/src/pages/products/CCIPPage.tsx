@@ -194,8 +194,7 @@ const DESTINATION_CHAIN_SELECTOR = "${laneData.destination.chain_selector}";
 
 const ROUTER_ABI = [
   "function getFee(uint64 destinationChainSelector, tuple(bytes receiver, bytes data, tuple(address token, uint256 amount)[] tokenAmounts, address feeToken, bytes extraArgs) message) view returns (uint256)",
-  "function ccipSend(uint64 destinationChainSelector, tuple(bytes receiver, bytes data, tuple(address token, uint256 amount)[] tokenAmounts, address feeToken, bytes extraArgs) message) payable returns (bytes32)",
-  "event CCIPSendRequested(bytes32 indexed messageId)"
+  "function ccipSend(uint64 destinationChainSelector, tuple(bytes receiver, bytes data, tuple(address token, uint256 amount)[] tokenAmounts, address feeToken, bytes extraArgs) message) payable returns (bytes32)"
 ];
 
 const provider = new ethers.JsonRpcProvider("${laneData.source.rpc_urls?.[0] || 'YOUR_RPC_URL'}");
@@ -224,24 +223,26 @@ const ccipMessage = {
   extraArgs: encodeExtraArgsV2(200000n, true)
 };
 
-// Get fee and send
+// Get fee
 const fee = await router.getFee(DESTINATION_CHAIN_SELECTOR, ccipMessage);
 console.log("Fee:", ethers.formatEther(fee), "ETH");
 
+// Preview the message ID using staticCall (read-only simulation)
+const messageId = await router.ccipSend.staticCall(
+  DESTINATION_CHAIN_SELECTOR,
+  ccipMessage,
+  { value: fee }
+);
+console.log("Message ID (preview):", messageId);
+
+// Send the actual transaction
 const tx = await router.ccipSend(DESTINATION_CHAIN_SELECTOR, ccipMessage, {
   value: fee
 });
-console.log("Message sent! TX:", tx.hash);
+console.log("Transaction hash:", tx.hash);
 
-// Parse the message ID from CCIPSendRequested event
-const receipt = await tx.wait();
-const ccipEvent = receipt.logs.find(log => {
-  try {
-    return router.interface.parseLog(log)?.name === "CCIPSendRequested";
-  } catch { return false; }
-});
-const messageId = ccipEvent ? router.interface.parseLog(ccipEvent).args.messageId : null;
-console.log("Message ID:", messageId || "Check event logs manually");`
+await tx.wait();
+console.log("Message sent successfully!");`
     : ''
 
   if (!registry) {
