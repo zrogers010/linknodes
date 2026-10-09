@@ -7,7 +7,7 @@ RUN groupadd -r appuser && useradd -r -g appuser appuser
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY main.py registry.json operators.json ccip_registry.json build_registry.py ./
+COPY main.py registry.json operators.json ccip_registry.json registry_testnet.json ccip_registry_testnet.json build_registry.py ./
 
 RUN chown -R appuser:appuser /app
 
