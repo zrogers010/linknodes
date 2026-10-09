@@ -99,7 +99,7 @@ jobs:
       - name: Install Solidity dependencies
         run: |
           cd backend
-          npm install --no-save @chainlink/contracts@1.2.0 @chainlink/contracts-ccip@2.0.0 @openzeppelin/contracts
+          npm install --no-save --legacy-peer-deps @chainlink/contracts@1.2.0 @chainlink/contracts-ccip@2.0.0 @openzeppelin/contracts
       
       - name: Compile Solidity snippets with forge
         run: |

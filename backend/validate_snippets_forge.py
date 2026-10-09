@@ -3,7 +3,11 @@ Snippet Validation Script (Forge-based)
 ========================================
 Compiles code snippets using Forge (from Foundry toolchain).
 
-Requires: forge (from foundry), node_modules with @chainlink/contracts + @openzeppelin/contracts
+Requires: 
+- forge (from foundry)
+- node_modules with @chainlink/contracts + @chainlink/contracts-ccip + @openzeppelin/contracts
+- Install with: npm install --no-save --legacy-peer-deps <packages>
+  (--legacy-peer-deps resolves @openzeppelin/contracts peer dependency conflicts)
 
 Run: python validate_snippets_forge.py
 """
@@ -60,7 +64,13 @@ libs = ["{backend_node_modules}"]
 remappings = [
     "@chainlink/contracts/={backend_node_modules}/@chainlink/contracts/",
     "@chainlink/contracts-ccip/={backend_node_modules}/@chainlink/contracts-ccip/",
-    "@openzeppelin/contracts/={backend_node_modules}/@openzeppelin/contracts/"
+    "@openzeppelin/contracts/={backend_node_modules}/@openzeppelin/contracts/",
+    "@openzeppelin/contracts@5.3.0/={backend_node_modules}/@openzeppelin/contracts-5.3.0/",
+    "@openzeppelin/contracts@5.1.0/={backend_node_modules}/@openzeppelin/contracts-5.1.0/",
+    "@openzeppelin/contracts@5.0.2/={backend_node_modules}/@openzeppelin/contracts-5.0.2/",
+    "@openzeppelin/contracts@4.9.6/={backend_node_modules}/@openzeppelin/contracts-4.9.6/",
+    "@openzeppelin/contracts@4.8.3/={backend_node_modules}/@openzeppelin/contracts-4.8.3/",
+    "@openzeppelin/contracts@4.7.3/={backend_node_modules}/@openzeppelin/contracts-4.7.3/"
 ]
 """)
         
@@ -228,13 +238,37 @@ contract CCIPSender is Ownable {
     results.append(valid)
     print(f"  {'✓' if valid else '✗'} {msg}")
     
-    # CCIP Receiver skipped due to npm peer dependency version conflicts in CI
-    # The snippet is correct and included in the frontend, but forge cannot
-    # resolve versioned node_modules paths like @openzeppelin/contracts@5.3.0
-    print("\n🌉 CCIP Receiver (skipped - npm peer dependency conflicts)")
-    print(f"  ⚠️  Skipped (correct snippet, CI-only npm issue)")
+    # 4. CCIP Receiver
+    # This snippet is extracted from frontend/src/pages/products/CCIPPage.tsx
+    # to ensure CI tests what users actually see
+    print("\n🌉 CCIP Receiver")
+    ccip_receiver = """// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+import {CCIPReceiver} from "@chainlink/contracts-ccip/contracts/applications/CCIPReceiver.sol";
+import {Client} from "@chainlink/contracts-ccip/contracts/libraries/Client.sol";
+import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
+
+contract CCIPMessageReceiver is CCIPReceiver, Ownable {
+    string public lastMessage;
+    address public lastSender;
     
-    # 4. VRF v2.5
+    event MessageReceived(bytes32 messageId, uint64 sourceChainSelector, address sender, string message);
+    
+    constructor(address router) CCIPReceiver(router) Ownable(msg.sender) {}
+    
+    function _ccipReceive(Client.Any2EVMMessage memory message) internal override {
+        lastSender = abi.decode(message.sender, (address));
+        lastMessage = abi.decode(message.data, (string));
+        emit MessageReceived(message.messageId, message.sourceChainSelector, lastSender, lastMessage);
+    }
+}"""
+    
+    valid, msg = compile_with_forge(ccip_receiver, "CCIP Receiver")
+    results.append(valid)
+    print(f"  {'✓' if valid else '✗'} {msg}")
+    
+    # 5. VRF v2.5
     print("\n🎲 VRF v2.5")
     vrf = """// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.19;
@@ -284,15 +318,14 @@ contract RandomNumberConsumer is VRFConsumerBaseV2Plus {
     passed = sum(results)
     total = len(results)
     print(f"{'✅' if passed == total else '❌'} {passed}/{total} snippets compiled successfully")
-    print("\nNote: CCIP Receiver snippet is correct but skipped due to")
-    print("npm peer dependency conflicts in CI (forge cannot resolve")
-    print("versioned node_modules paths like @openzeppelin/contracts@5.3.0)")
     
     if passed < total:
-        print("\n⚠️  Some snippets failed to compile. Review errors above.")
+        print("\n❌ COMPILATION FAILED")
+        print("All code snippets shown to users MUST compile successfully.")
+        print("Fix the failing snippets before merging.")
         sys.exit(1)
     
-    print("\n✅ All critical snippets are production-ready!")
+    print("\n✅ All snippets are production-ready and compile-tested!")
     sys.exit(0)
 
 
