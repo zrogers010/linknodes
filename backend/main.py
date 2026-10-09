@@ -126,7 +126,19 @@ app.add_middleware(GZipMiddleware, minimum_size=1024)
 @app.middleware("http")
 async def rate_limit(request: Request, call_next):
     if request.url.path.startswith("/v1/"):
-        ip = request.client.host if request.client else "unknown"
+        # X-Forwarded-For: client, proxy1, proxy2, ..., ALB
+        # The ALB appends the real client IP as the last entry (rightmost trusted hop).
+        # Earlier entries can be spoofed by the client. We trust the last entry when behind ALB.
+        forwarded_for = request.headers.get("X-Forwarded-For")
+        if forwarded_for:
+            # Take the LAST IP in the chain (ALB-appended client IP)
+            # This prevents spoofing: clients can add fake IPs but can't remove the real one the ALB adds
+            ips = [ip.strip() for ip in forwarded_for.split(',')]
+            ip = ips[-1] if ips else "unknown"
+        else:
+            # Direct connection (no proxy/ALB)
+            ip = request.client.host if request.client else "unknown"
+        
         now = time.monotonic()
         bucket = _rate_buckets[ip]
         while bucket and now - bucket[0] > RATE_LIMIT_WINDOW_S:
@@ -144,17 +156,52 @@ async def rate_limit(request: Request, call_next):
     return await call_next(request)
 
 
-def _resolve(network: str, feed: str) -> tuple[dict, dict]:
+def _resolve(network: str, feed: str) -> tuple[dict, dict, str | None]:
+    """
+    Resolve network and feed, returning (network_data, feed_data, resolved_name).
+    resolved_name is set if we fell back to a variant (e.g., eth-usd -> eth-usd-svr).
+    """
     net = REGISTRY["networks"].get(network.lower())
     if not net:
         raise HTTPException(status_code=400, detail=f"Unknown network '{network}'.")
-    feed_meta = net["feeds"].get(feed.lower())
+    
+    # Try exact match first
+    feed_lower = feed.lower()
+    feed_meta = net["feeds"].get(feed_lower)
+    resolved_name = None
+    
+    # If not found, try canonical name resolution (e.g., eth-usd -> eth-usd-svr)
+    # This handles cases where Chainlink renames feeds but the old proxy still works
     if not feed_meta:
-        raise HTTPException(
-            status_code=404,
-            detail=f"Chainlink does not publish a '{feed}' feed on {net['label']}.",
-        )
-    return net, feed_meta
+        # Try common suffixes for SVR (Shared Verification) variants
+        for suffix in ['-svr', '-shared-svr']:
+            variant = f"{feed_lower}{suffix}"
+            if variant in net["feeds"]:
+                feed_meta = net["feeds"][variant]
+                resolved_name = variant
+                break
+        
+        # If still not found, try removing -svr suffix (reverse direction)
+        if not feed_meta and feed_lower.endswith('-svr'):
+            base_name = feed_lower.replace('-svr', '').replace('-shared', '')
+            if base_name in net["feeds"]:
+                feed_meta = net["feeds"][base_name]
+                resolved_name = base_name
+    
+    if not feed_meta:
+        # Provide helpful error with close matches
+        available_feeds = list(net["feeds"].keys())
+        close_matches = [f for f in available_feeds if feed_lower in f or f in feed_lower][:5]
+        
+        error_msg = f"Feed '{feed}' not found on {net['label']}."
+        if close_matches:
+            error_msg += f" Did you mean: {', '.join(close_matches)}?"
+        else:
+            error_msg += f" Available feeds: {len(available_feeds)} total. Try /v1/registry to see all feeds."
+        
+        raise HTTPException(status_code=404, detail=error_msg)
+    
+    return net, feed_meta, resolved_name
 
 
 async def _read_feed(network: str, feed: str, round_id: int | None) -> dict:
@@ -165,7 +212,7 @@ async def _read_feed(network: str, feed: str, round_id: int | None) -> dict:
         cached["meta"] = {**cached["meta"], "cache": "hit"}
         return cached
 
-    net, feed_meta = _resolve(network, feed)
+    net, feed_meta, resolved_name = _resolve(network, feed)
     address = feed_meta["address"]
 
     last_error: Exception | None = None
@@ -246,6 +293,18 @@ async def _read_feed(network: str, feed: str, round_id: int | None) -> dict:
                 "staleness_seconds": max(0, int(time.time()) - updated_at),
             },
         }
+        
+        # Add resolution info if we fell back to a variant
+        if resolved_name:
+            response["meta"]["resolved_from"] = feed
+            response["meta"]["resolved_to"] = resolved_name
+            if "-svr" in resolved_name:
+                response["meta"]["resolution_note"] = (
+                    "Resolved to SVR (Smart Value Recapture) variant. "
+                    "SVR feeds implement Smart Value Recapture to minimize oracle extractable value (OEV). "
+                    "See: https://docs.chain.link/data-feeds/svr-feeds"
+                )
+        
         ttl = HISTORICAL_CACHE_TTL_S if round_id is not None else LATEST_CACHE_TTL_S
         _response_cache[(network, feed, round_id)] = (time.monotonic() + ttl, response)
         if len(_response_cache) > 8192:
@@ -273,6 +332,12 @@ async def query_feed(
         description="Optional historical roundId for getRoundData(); omit for latestRoundData().",
     ),
 ):
+    # Validate uint80 bounds (2^80 - 1 = 1208925819614629174706175)
+    if round_id is not None and round_id > 1208925819614629174706175:
+        raise HTTPException(
+            status_code=422,
+            detail=f"round_id must fit in uint80 (max 1208925819614629174706175). Got: {round_id}",
+        )
     return await _read_feed(network.lower(), feed.lower(), round_id)
 
 
@@ -351,9 +416,9 @@ async def get_ccip_lane(source: str, destination: str):
     dest_net = CCIP_REGISTRY["networks"].get(destination)
     
     if not source_net:
-        raise HTTPException(status_code=400, detail=f"Unknown source network '{source}'.")
+        raise HTTPException(status_code=404, detail=f"Unknown source network '{source}'.")
     if not dest_net:
-        raise HTTPException(status_code=400, detail=f"Unknown destination network '{destination}'.")
+        raise HTTPException(status_code=404, detail=f"Unknown destination network '{destination}'.")
     
     if destination not in source_net.get("supports", []):
         raise HTTPException(
@@ -370,7 +435,8 @@ async def get_ccip_lane(source: str, destination: str):
             "chain_id": source_net["chain_id"],
             "chain_selector": source_net["chain_selector"],
             "router": source_net["router"],
-            "arm_proxy": source_net.get("arm_proxy"),
+            "rmn_proxy": source_net.get("rmn_proxy") or source_net.get("arm_proxy"),
+            "native_fee_token": source_net.get("native_fee_token", "ETH"),
             "explorer": source_net["explorer"],
             "rpc_urls": source_net["rpc_urls"],
         },
@@ -380,7 +446,8 @@ async def get_ccip_lane(source: str, destination: str):
             "chain_id": dest_net["chain_id"],
             "chain_selector": dest_net["chain_selector"],
             "router": dest_net["router"],
-            "arm_proxy": dest_net.get("arm_proxy"),
+            "rmn_proxy": dest_net.get("rmn_proxy") or dest_net.get("arm_proxy"),
+            "native_fee_token": dest_net.get("native_fee_token", "ETH"),
             "explorer": dest_net["explorer"],
             "rpc_urls": dest_net["rpc_urls"],
         },

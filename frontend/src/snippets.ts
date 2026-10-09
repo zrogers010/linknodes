@@ -3,6 +3,26 @@ import type { Registry, SandboxState } from './types'
 export type Lang = 'solidity' | 'javascript' | 'python' | 'curl'
 
 function solidity(address: string, name: string, network: string): string {
+  // Determine if this chain has an L2 sequencer uptime feed
+  const l2Chains = ['arbitrum', 'base', 'optimism', 'scroll', 'linea', 'zksync']
+  const chainKey = network.toLowerCase().split(' ')[0]  // Extract first word
+  const hasSequencer = l2Chains.some(l2 => chainKey.includes(l2))
+  
+  const sequencerCheck = hasSequencer ? `
+    // L2 Sequencer uptime check (only for L2 chains like Arbitrum, Base, OP, etc.)
+    // Sequencer feed: 0 = up, 1 = down. Revert if down or grace period not elapsed.
+    // Find sequencer feed addresses: https://docs.chain.link/data-feeds/l2-sequencer-feeds
+    AggregatorV3Interface internal constant SEQUENCER_FEED =
+        AggregatorV3Interface(0xFdB631F5EE196F0ed6FAa767959853A9F217697D); // Example: Arbitrum
+    uint256 private constant GRACE_PERIOD_TIME = 3600; // 1 hour
+
+    function _checkSequencer() internal view {
+        (, int256 answer, uint256 startedAt,,) = SEQUENCER_FEED.latestRoundData();
+        require(answer == 0, "Sequencer down");
+        require(block.timestamp - startedAt > GRACE_PERIOD_TIME, "Grace period not over");
+    }
+` : ''
+
   return `// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
@@ -10,27 +30,47 @@ import {AggregatorV3Interface} from
     "@chainlink/contracts/src/v0.8/shared/interfaces/AggregatorV3Interface.sol";
 
 /// ${name} Chainlink feed on ${network}
+/// Safe integration: staleness check, answer validation, decimals handling
 contract PriceConsumer {
     AggregatorV3Interface internal constant FEED =
         AggregatorV3Interface(${address});
-
-    function latestPrice() external view returns (int256 answer, uint256 updatedAt) {
-        (, answer, , updatedAt, ) = FEED.latestRoundData();
+    ${sequencerCheck}
+    /// Returns latest price with safety checks
+    function latestPrice() external view returns (int256 price, uint8 decimals) {${hasSequencer ? '\n        _checkSequencer();' : ''}
+        (uint80 roundId, int256 answer,, uint256 updatedAt,) = FEED.latestRoundData();
+        
+        // Safety checks
+        require(answer > 0, "Invalid price");
+        require(updatedAt > 0, "Round not complete");
+        require(roundId > 0, "Invalid round");
+        
+        // Staleness check: revert if price older than heartbeat + buffer
+        // Adjust HEARTBEAT based on feed (3600 for most crypto, 86400 for equities)
+        uint256 HEARTBEAT = 3600;
+        require(block.timestamp - updatedAt <= HEARTBEAT + 900, "Stale price");
+        
+        return (answer, FEED.decimals());
     }
 
-    /// Historical lookup -- pass a roundId from a previous latestRoundData().
+    /// Historical lookup -- pass a roundId from a previous latestRoundData()
     function priceAtRound(uint80 roundId) external view returns (int256 answer) {
-        (, answer, , , ) = FEED.getRoundData(roundId);
+        (, answer,, uint256 updatedAt,) = FEED.getRoundData(roundId);
+        require(answer > 0, "Invalid price");
+        require(updatedAt > 0, "Round not complete");
     }
 
-    function decimals() external view returns (uint8) {
-        return FEED.decimals();
+    /// Get human-readable price (scaled by decimals)
+    function getScaledPrice() external view returns (uint256) {
+        (int256 price, uint8 decimals) = this.latestPrice();
+        // Example: convert to 18 decimals for DeFi integrations
+        return uint256(price) * 10**(18 - decimals);
     }
 }`
 }
 
 function javascript(address: string, name: string, rpc: string): string {
-  return `// npm install ethers
+  return `// Save as feed-query.mjs (note .mjs extension for ES modules)
+// npm install ethers
 import { ethers } from "ethers";
 
 const FEED = "${address}"; // ${name}
@@ -50,6 +90,13 @@ const [decimals, [roundId, answer, , updatedAt]] = await Promise.all([
 
 console.log("price:", ethers.formatUnits(answer, decimals));
 console.log("updated:", new Date(Number(updatedAt) * 1000).toISOString());
+
+// Staleness check
+const HEARTBEAT = 3600; // seconds (adjust based on feed)
+const age = Math.floor(Date.now() / 1000) - Number(updatedAt);
+if (age > HEARTBEAT + 900) {
+  console.warn(\`⚠️  Price is stale (\${age}s old)\`);
+}
 
 // Historical round (roundIds encode the proxy phase in the upper 16 bits):
 const [, prevAnswer] = await feed.getRoundData(roundId - 1n);
