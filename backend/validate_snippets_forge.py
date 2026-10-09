@@ -54,7 +54,7 @@ out = "out"
 libs = ["node_modules"]
 remappings = [
     "@chainlink/contracts/=node_modules/@chainlink/contracts/",
-    "@chainlink/contracts-ccip/=node_modules/@chainlink/contracts/",
+    "@chainlink/contracts-ccip/=node_modules/@chainlink/contracts-ccip/",
     "@openzeppelin/contracts/=node_modules/@openzeppelin/contracts/"
 ]
 """)
