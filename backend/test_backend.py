@@ -119,21 +119,74 @@ def main():
         expected_fields=["success", "payload", "meta"]
     ))
     
-    # Test 7: Query ETH/USD on Base (canonical name resolution)
-    results.append(test(
-        "Query ETH/USD on Base (canonical resolution)",
-        f"{BASE_URL}/v1/query/base/eth-usd",
-        expected_fields=["success", "payload", "meta"]
-    ))
+    # Test 7: Query ETH/USD on Base (canonical proxy, no fallback)
+    print(f"\n{'='*60}")
+    print("TEST: Query ETH/USD on Base (canonical proxy)")
+    print(f"{'='*60}")
+    try:
+        url = f"{BASE_URL}/v1/query/base/eth-usd"
+        print(f"URL: {url}")
+        req = urllib.request.Request(url)
+        with urllib.request.urlopen(req) as response:
+            data = json.loads(response.read())
+            
+            # Verify it returns the canonical proxy, not SVR
+            expected_address = "0x71041dddad3595F9CEd3DcCFBe3D1F4b0a16Bb70"
+            actual_address = data.get("meta", {}).get("contract_address")
+            
+            if actual_address != expected_address:
+                print(f"❌ FAIL: Expected address {expected_address}, got {actual_address}")
+                results.append(False)
+            elif "resolved_to" in data.get("meta", {}):
+                print(f"❌ FAIL: Should not have resolved_to field (canonical feed should match exactly)")
+                print(f"   resolved_to: {data['meta']['resolved_to']}")
+                results.append(False)
+            else:
+                print(f"✅ Address: {actual_address} (canonical)")
+                print(f"✅ No resolved_to field (exact match, no fallback)")
+                results.append(True)
+    except Exception as e:
+        print(f"❌ FAIL: {e}")
+        results.append(False)
     
-    # Test 8: Invalid feed with close matches
+    # Test 8: Query ETH/USD on Arbitrum (canonical proxy, no fallback)
+    print(f"\n{'='*60}")
+    print("TEST: Query ETH/USD on Arbitrum (canonical proxy)")
+    print(f"{'='*60}")
+    try:
+        url = f"{BASE_URL}/v1/query/arbitrum/eth-usd"
+        print(f"URL: {url}")
+        req = urllib.request.Request(url)
+        with urllib.request.urlopen(req) as response:
+            data = json.loads(response.read())
+            
+            # Verify it returns the canonical proxy, not SVR
+            expected_address = "0x639Fe6ab55C921f74e7fac1ee960C0B6293ba612"
+            actual_address = data.get("meta", {}).get("contract_address")
+            
+            if actual_address != expected_address:
+                print(f"❌ FAIL: Expected address {expected_address}, got {actual_address}")
+                results.append(False)
+            elif "resolved_to" in data.get("meta", {}):
+                print(f"❌ FAIL: Should not have resolved_to field (canonical feed should match exactly)")
+                print(f"   resolved_to: {data['meta']['resolved_to']}")
+                results.append(False)
+            else:
+                print(f"✅ Address: {actual_address} (canonical)")
+                print(f"✅ No resolved_to field (exact match, no fallback)")
+                results.append(True)
+    except Exception as e:
+        print(f"❌ FAIL: {e}")
+        results.append(False)
+    
+    # Test 9: Invalid feed with close matches
     results.append(test(
         "Invalid feed (should suggest close matches)",
         f"{BASE_URL}/v1/query/ethereum/eth-usdd",
         expected_status=404
     ))
     
-    # Test 9: Round ID validation (should 422)
+    # Test 10: Round ID validation (should 422)
     huge_round_id = 10**25  # Way bigger than uint80
     results.append(test(
         "Huge round_id (should 422)",
