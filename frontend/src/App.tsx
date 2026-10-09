@@ -1,8 +1,10 @@
 import { useEffect, useMemo, useState } from 'react'
 import { BrowserRouter, Link, NavLink, Route, Routes, useLocation } from 'react-router-dom'
 import { apiUrl } from './config'
-import { FeedsPage } from './pages/FeedsPage'
+import { FeedIndexPage } from './pages/FeedIndexPage'
+import { FeedDetailPage } from './pages/FeedDetailPage'
 import { HomePage } from './pages/HomePage'
+import { NotFoundPage } from './pages/NotFoundPage'
 import { OperatorsPage } from './pages/OperatorsPage'
 import { AutomationPage } from './pages/products/AutomationPage'
 import { CCIPPage } from './pages/products/CCIPPage'
@@ -177,8 +179,11 @@ export default function App() {
           <Route path="/products/functions" element={<FunctionsPage />} />
           <Route path="/products/vrf" element={<VRFPage />} />
           <Route path="/products/automation" element={<AutomationPage />} />
-          <Route path="/feeds" element={<FeedsPage registry={registry} />} />
+          <Route path="/feeds" element={<FeedIndexPage />} />
+          <Route path="/feeds/:chain" element={<FeedIndexPage />} />
+          <Route path="/feeds/:chain/:feed" element={<FeedDetailPage />} />
           <Route path="/operators" element={<OperatorsPage />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </div>
     </BrowserRouter>
