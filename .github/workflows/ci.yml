@@ -275,7 +275,7 @@ jobs:
             exit 1
           fi
           
-          if ! echo "$HTML" | grep -q "<title>Ethereum → Arbitrum CCIP Lane"; then
+          if ! echo "$HTML" | grep -q "<title>Ethereum Mainnet → Arbitrum One CCIP Lane"; then
             echo "❌ /products/ccip/ethereum/arbitrum missing correct title"
             exit 1
           fi
