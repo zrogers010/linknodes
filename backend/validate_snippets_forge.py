@@ -46,24 +46,23 @@ def compile_with_forge(code: str, name: str) -> tuple[bool, str]:
         contract_file = src_dir / "Contract.sol"
         contract_file.write_text(code)
         
-        # Create foundry.toml
+        # Get absolute path to backend node_modules
+        backend_node_modules = Path.cwd() / 'node_modules'
+        if not backend_node_modules.exists():
+            return False, "node_modules not found in backend directory"
+        
+        # Create foundry.toml with absolute path to node_modules
         foundry_toml = tmppath / "foundry.toml"
-        foundry_toml.write_text("""[profile.default]
+        foundry_toml.write_text(f"""[profile.default]
 src = "src"
 out = "out"
-libs = ["node_modules"]
+libs = ["{backend_node_modules}"]
 remappings = [
-    "@chainlink/contracts/=node_modules/@chainlink/contracts/",
-    "@chainlink/contracts-ccip/=node_modules/@chainlink/contracts-ccip/",
-    "@openzeppelin/contracts/=node_modules/@openzeppelin/contracts/"
+    "@chainlink/contracts/={backend_node_modules}/@chainlink/contracts/",
+    "@chainlink/contracts-ccip/={backend_node_modules}/@chainlink/contracts-ccip/",
+    "@openzeppelin/contracts/={backend_node_modules}/@openzeppelin/contracts/"
 ]
 """)
-        
-        # Copy node_modules if exists
-        backend_node_modules = Path('node_modules')
-        if backend_node_modules.exists():
-            import shutil
-            shutil.copytree(backend_node_modules, tmppath / 'node_modules', dirs_exist_ok=True)
         
         # Try to compile
         try:
