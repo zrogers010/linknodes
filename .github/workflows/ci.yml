@@ -129,11 +129,6 @@ jobs:
           cd frontend
           npm run build
       
-      - name: Generate sitemap
-        run: |
-          cd frontend
-          node generate-sitemap.js
-      
       - name: Verify sitemap
         run: |
           cd frontend
@@ -142,9 +137,65 @@ jobs:
           # Count CCIP lanes in sitemap
           LANE_COUNT=$(grep -c "ccip/" public/sitemap.xml || true)
           echo "Sitemap contains $LANE_COUNT CCIP lanes"
-          # Should have ~49 lanes (may vary as chains are added)
+          # Count feed pages in sitemap
+          FEED_COUNT=$(grep -c "/feeds/" public/sitemap.xml || true)
+          echo "Sitemap contains $FEED_COUNT feed pages"
+          # Should have ~49 CCIP lanes
           if [ "$LANE_COUNT" -lt 40 ]; then
             echo "❌ Too few CCIP lanes in sitemap (expected ~49)"
             exit 1
           fi
-          echo "✅ Sitemap looks good"
+          # Should have ~1400+ feed pages
+          if [ "$FEED_COUNT" -lt 1400 ]; then
+            echo "❌ Too few feed pages in sitemap (expected ~1400+)"
+            exit 1
+          fi
+          echo "✅ Sitemap looks good: $LANE_COUNT CCIP lanes, $FEED_COUNT feed pages"
+
+      - name: Verify OG image
+        run: |
+          cd frontend
+          test -f public/og-default.png
+          echo "✅ OG image generated"
+
+  seo-tests:
+    name: SEO Meta Tags & 404 Tests
+    runs-on: ubuntu-latest
+    needs: frontend-build
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      
+      - name: Install frontend dependencies
+        run: |
+          cd frontend
+          npm ci
+      
+      - name: Build frontend
+        run: |
+          cd frontend
+          npm run build
+      
+      - name: Start preview server
+        run: |
+          cd frontend
+          npx serve -s dist -l 8080 &
+          sleep 3
+          curl -f http://localhost:8080/ || exit 1
+      
+      - name: Run SEO tests
+        run: |
+          cd frontend
+          TEST_URL=http://localhost:8080 npm run test:seo
+      
+      - name: Stop preview server
+        if: always()
+        run: |
+          pkill -f "serve" || true
+
