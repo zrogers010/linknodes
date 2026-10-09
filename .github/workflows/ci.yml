@@ -366,7 +366,8 @@ jobs:
       
       - name: Run frontend container
         run: |
-          docker run -d --name test-frontend -p 8080:80 linknodes-frontend:test
+          # PORT env var defaults to 8080 in Dockerfile, nginx listens on that
+          docker run -d --name test-frontend -p 8080:8080 linknodes-frontend:test
           sleep 5
           
           # Verify container is running
@@ -377,8 +378,8 @@ jobs:
           fi
           
           # Check if nginx is listening
-          if ! docker exec test-frontend netstat -tlnp | grep -q ':80'; then
-            echo "❌ Nginx is not listening on port 80"
+          if ! docker exec test-frontend netstat -tlnp | grep -q ':8080'; then
+            echo "❌ Nginx is not listening on port 8080"
             docker logs test-frontend
             exit 1
           fi
