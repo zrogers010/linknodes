@@ -4,12 +4,10 @@ import { ControlPanel } from '../components/ControlPanel'
 import { SnippetColumn } from '../components/SnippetColumn'
 import { Terminal } from '../components/Terminal'
 import { useUrlState } from '../hooks/useUrlState'
-import { useEnvironment } from '../EnvironmentContext'
 import type { QueryResult, Registry } from '../types'
 
-export function SandboxPage({ registry, initialNetwork, initialFeed }: { registry: Registry; initialNetwork?: string; initialFeed?: string }) {
-  const { environment } = useEnvironment()
-  const [state, updateState] = useUrlState(initialNetwork, initialFeed)
+export function SandboxPage({ registry }: { registry: Registry }) {
+  const [state, updateState] = useUrlState()
   const [roundId, setRoundId] = useState('')
   const [result, setResult] = useState<QueryResult | null>(null)
   const [error, setError] = useState<string | null>(null)
