@@ -1,0 +1,144 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  backend-tests:
+    name: Backend Tests
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      
+      - name: Install backend dependencies
+        run: |
+          cd backend
+          pip install -r requirements.txt
+      
+      - name: Start backend server
+        run: |
+          cd backend
+          python -m uvicorn main:app --host 127.0.0.1 --port 8100 &
+          sleep 5
+          curl -f http://127.0.0.1:8100/healthz || exit 1
+      
+      - name: Run backend integration tests
+        run: |
+          cd backend
+          python test_backend.py
+      
+      - name: Stop backend server
+        if: always()
+        run: |
+          pkill -f "uvicorn main:app" || true
+
+  validate-ccip:
+    name: Validate CCIP Registry
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      
+      - name: Install web3
+        run: pip install web3
+      
+      - name: Validate CCIP registry structure
+        run: |
+          cd backend
+          python validate_ccip_registry.py
+      
+      - name: Verify CCIP data matches official API (manual check)
+        run: |
+          echo "⚠️  Skipping live API verification in CI (network-dependent)"
+          echo "Run 'python backend/verify_ccip_data.py' manually to verify"
+
+  compile-snippets:
+    name: Compile Solidity Snippets
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      
+      - name: Install Foundry (includes solc)
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: nightly
+      
+      - name: Verify solc installation
+        run: |
+          solc --version
+      
+      - name: Compile Solidity snippets
+        run: |
+          cd backend
+          python validate_snippets.py
+
+  frontend-build:
+    name: Frontend Build
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      
+      - name: Install frontend dependencies
+        run: |
+          cd frontend
+          npm ci
+      
+      - name: Build frontend
+        run: |
+          cd frontend
+          npm run build
+      
+      - name: Generate sitemap
+        run: |
+          cd frontend
+          node generate-sitemap.js
+      
+      - name: Verify sitemap
+        run: |
+          cd frontend
+          # Check that sitemap exists and has content
+          test -f public/sitemap.xml
+          # Count CCIP lanes in sitemap
+          LANE_COUNT=$(grep -c "ccip/" public/sitemap.xml || true)
+          echo "Sitemap contains $LANE_COUNT CCIP lanes"
+          # Should have ~49 lanes (may vary as chains are added)
+          if [ "$LANE_COUNT" -lt 40 ]; then
+            echo "❌ Too few CCIP lanes in sitemap (expected ~49)"
+            exit 1
+          fi
+          echo "✅ Sitemap looks good"

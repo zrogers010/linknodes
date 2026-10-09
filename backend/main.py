@@ -126,13 +126,17 @@ app.add_middleware(GZipMiddleware, minimum_size=1024)
 @app.middleware("http")
 async def rate_limit(request: Request, call_next):
     if request.url.path.startswith("/v1/"):
-        # Use X-Forwarded-For when behind ALB/proxy, fallback to direct client IP
-        # Only trust X-Forwarded-For in production behind ALB; for direct access use client.host
+        # X-Forwarded-For: client, proxy1, proxy2, ..., ALB
+        # The ALB appends the real client IP as the last entry (rightmost trusted hop).
+        # Earlier entries can be spoofed by the client. We trust the last entry when behind ALB.
         forwarded_for = request.headers.get("X-Forwarded-For")
         if forwarded_for:
-            # X-Forwarded-For can be a comma-separated list; take the first (client) IP
-            ip = forwarded_for.split(',')[0].strip()
+            # Take the LAST IP in the chain (ALB-appended client IP)
+            # This prevents spoofing: clients can add fake IPs but can't remove the real one the ALB adds
+            ips = [ip.strip() for ip in forwarded_for.split(',')]
+            ip = ips[-1] if ips else "unknown"
         else:
+            # Direct connection (no proxy/ALB)
             ip = request.client.host if request.client else "unknown"
         
         now = time.monotonic()
@@ -152,7 +156,11 @@ async def rate_limit(request: Request, call_next):
     return await call_next(request)
 
 
-def _resolve(network: str, feed: str) -> tuple[dict, dict]:
+def _resolve(network: str, feed: str) -> tuple[dict, dict, str | None]:
+    """
+    Resolve network and feed, returning (network_data, feed_data, resolved_name).
+    resolved_name is set if we fell back to a variant (e.g., eth-usd -> eth-usd-svr).
+    """
     net = REGISTRY["networks"].get(network.lower())
     if not net:
         raise HTTPException(status_code=400, detail=f"Unknown network '{network}'.")
@@ -160,6 +168,7 @@ def _resolve(network: str, feed: str) -> tuple[dict, dict]:
     # Try exact match first
     feed_lower = feed.lower()
     feed_meta = net["feeds"].get(feed_lower)
+    resolved_name = None
     
     # If not found, try canonical name resolution (e.g., eth-usd -> eth-usd-svr)
     # This handles cases where Chainlink renames feeds but the old proxy still works
@@ -169,6 +178,7 @@ def _resolve(network: str, feed: str) -> tuple[dict, dict]:
             variant = f"{feed_lower}{suffix}"
             if variant in net["feeds"]:
                 feed_meta = net["feeds"][variant]
+                resolved_name = variant
                 break
         
         # If still not found, try removing -svr suffix (reverse direction)
@@ -176,6 +186,7 @@ def _resolve(network: str, feed: str) -> tuple[dict, dict]:
             base_name = feed_lower.replace('-svr', '').replace('-shared', '')
             if base_name in net["feeds"]:
                 feed_meta = net["feeds"][base_name]
+                resolved_name = base_name
     
     if not feed_meta:
         # Provide helpful error with close matches
@@ -190,7 +201,7 @@ def _resolve(network: str, feed: str) -> tuple[dict, dict]:
         
         raise HTTPException(status_code=404, detail=error_msg)
     
-    return net, feed_meta
+    return net, feed_meta, resolved_name
 
 
 async def _read_feed(network: str, feed: str, round_id: int | None) -> dict:
@@ -201,7 +212,7 @@ async def _read_feed(network: str, feed: str, round_id: int | None) -> dict:
         cached["meta"] = {**cached["meta"], "cache": "hit"}
         return cached
 
-    net, feed_meta = _resolve(network, feed)
+    net, feed_meta, resolved_name = _resolve(network, feed)
     address = feed_meta["address"]
 
     last_error: Exception | None = None
@@ -282,6 +293,18 @@ async def _read_feed(network: str, feed: str, round_id: int | None) -> dict:
                 "staleness_seconds": max(0, int(time.time()) - updated_at),
             },
         }
+        
+        # Add resolution info if we fell back to a variant
+        if resolved_name:
+            response["meta"]["resolved_from"] = feed
+            response["meta"]["resolved_to"] = resolved_name
+            if "-svr" in resolved_name:
+                response["meta"]["resolution_note"] = (
+                    "Resolved to SVR (Shared Verification Record) variant. "
+                    "SVR feeds include OEV (Oracle Extractable Value) recapture mechanisms. "
+                    "See: https://docs.chain.link/data-feeds/svr-feeds"
+                )
+        
         ttl = HISTORICAL_CACHE_TTL_S if round_id is not None else LATEST_CACHE_TTL_S
         _response_cache[(network, feed, round_id)] = (time.monotonic() + ttl, response)
         if len(_response_cache) > 8192:
