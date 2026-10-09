@@ -205,8 +205,20 @@ jobs:
           # Wait for nginx to start
           sleep 3
           
-          # Verify nginx is running
-          curl -f http://localhost:8080/ || { echo "❌ Nginx failed to start"; exit 1; }
+          # Check if nginx is actually running
+          if ! docker ps | grep -q test-nginx; then
+            echo "❌ Nginx container exited"
+            docker logs test-nginx
+            exit 1
+          fi
+          
+          # Verify nginx is serving content
+          if ! curl -f http://localhost:8080/ > /dev/null 2>&1; then
+            echo "❌ Nginx failed to respond"
+            docker logs test-nginx
+            exit 1
+          fi
+          
           echo "✅ Nginx started"
       
       - name: Test valid routes return 200 with unique meta tags
