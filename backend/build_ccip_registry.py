@@ -18,11 +18,11 @@ import time
 import urllib.request
 from pathlib import Path
 
-CCIP_API_URL = "https://docs.chain.link/api/ccip/v1/chains?environment=mainnet"
+MAINNET_API_URL = "https://docs.chain.link/api/ccip/v1/chains?environment=mainnet"
+TESTNET_API_URL = "https://docs.chain.link/api/ccip/v1/chains?environment=testnet"
 
 # RPC endpoints for the chains we want to include (subset of the 75+ available)
-# Expand this list to add more chains
-INCLUDED_CHAINS = {
+MAINNET_CHAINS = {
     1: ("ethereum", "Ethereum Mainnet", "https://etherscan.io", 
         ["https://ethereum-rpc.publicnode.com"]),
     42161: ("arbitrum", "Arbitrum One", "https://arbiscan.io", 
@@ -41,6 +41,23 @@ INCLUDED_CHAINS = {
            ["https://api.wemix.com"]),
     324: ("zksync", "ZKsync Era", "https://era.zksync.network", 
           ["https://mainnet.era.zksync.io"]),
+}
+
+TESTNET_CHAINS = {
+    11155111: ("sepolia", "Ethereum Sepolia", "https://sepolia.etherscan.io", 
+               ["https://ethereum-sepolia-rpc.publicnode.com"]),
+    421614: ("arbitrum-sepolia", "Arbitrum Sepolia", "https://sepolia.arbiscan.io", 
+             ["https://arbitrum-sepolia-rpc.publicnode.com"]),
+    84532: ("base-sepolia", "Base Sepolia", "https://sepolia.basescan.org", 
+            ["https://base-sepolia-rpc.publicnode.com"]),
+    11155420: ("optimism-sepolia", "OP Sepolia", "https://sepolia-optimism.etherscan.io", 
+               ["https://optimism-sepolia-rpc.publicnode.com"]),
+    80002: ("polygon-amoy", "Polygon Amoy", "https://amoy.polygonscan.com", 
+            ["https://polygon-amoy-bor-rpc.publicnode.com"]),
+    43113: ("avalanche-fuji", "Avalanche Fuji", "https://testnet.snowtrace.io", 
+            ["https://avalanche-fuji-c-chain-rpc.publicnode.com"]),
+    97: ("bnb-testnet", "BNB Testnet", "https://testnet.bscscan.com", 
+         ["https://bsc-testnet-rpc.publicnode.com"]),
 }
 
 
@@ -86,7 +103,7 @@ def validate_checksum(address: str) -> bool:
     return True
 
 
-def fetch_lane_support(official_data: dict, chain_id: int) -> list[str]:
+def fetch_lane_support(official_data: dict, chain_id: int, included_chains: dict) -> list[str]:
     """
     Determine supported destination chains for a source chain by checking
     the official API's lane data (if available) or returning common lanes.
@@ -100,7 +117,7 @@ def fetch_lane_support(official_data: dict, chain_id: int) -> list[str]:
         return supported
     
     # Check each potential destination
-    for dest_id, (dest_key, _, _, _) in INCLUDED_CHAINS.items():
+    for dest_id, (dest_key, _, _, _) in included_chains.items():
         if dest_id == chain_id:
             continue
         # For now, we'll use conservative lane discovery
@@ -108,7 +125,7 @@ def fetch_lane_support(official_data: dict, chain_id: int) -> list[str]:
         # The audit showed some lanes are listed incorrectly, so we'll be conservative
         # and only include well-known stable lanes
         
-        # Major hubs support most chains
+        # Mainnet major hubs support most chains
         if chain_id in [1, 42161, 43114, 8453, 56, 10, 137]:  # Major chains
             if dest_id in [1, 42161, 43114, 8453, 56, 10, 137]:  # to major chains
                 supported.append(dest_key)
@@ -120,14 +137,19 @@ def fetch_lane_support(official_data: dict, chain_id: int) -> list[str]:
         elif chain_id == 324:
             if dest_id in [1, 42161, 8453, 56, 10]:  # zkSync -> major chains
                 supported.append(dest_key)
+        # Testnet chains - most support each other
+        elif chain_id in [11155111, 421614, 84532, 11155420, 80002, 43113, 97]:  # Testnets
+            if dest_id in [11155111, 421614, 84532, 11155420, 80002, 43113, 97]:  # to testnets
+                supported.append(dest_key)
     
     return sorted(supported)
 
 
-def main() -> None:
-    print("Fetching CCIP registry from Chainlink API...")
+def build_ccip_registry(api_url: str, included_chains: dict, environment: str) -> dict:
+    """Build CCIP registry for a specific environment."""
+    print(f"\nFetching CCIP {environment} registry from Chainlink API...")
     req = urllib.request.Request(
-        CCIP_API_URL,
+        api_url,
         headers={'User-Agent': 'LinkNodes-Registry-Builder/1.0'}
     )
     
@@ -136,24 +158,25 @@ def main() -> None:
         official_data = json.loads(resp.read())
     except Exception as e:
         print(f"Error fetching CCIP API: {e}", file=sys.stderr)
-        sys.exit(1)
+        return None
     
     total_chains = len(official_data['data']['evm'])
     print(f"Fetched {total_chains} chains from official API")
-    print(f"Building registry for {len(INCLUDED_CHAINS)} chains...\n")
+    print(f"Building registry for {len(included_chains)} chains...\n")
     
     registry = {
         "version": "2.0.0",
+        "environment": environment,
         "source": "chainlink-ccip-api",
-        "source_url": CCIP_API_URL,
+        "source_url": api_url,
         "generated_at": int(time.time()),
-        "description": "CCIP router addresses and chain selectors from Chainlink's official mainnet API",
+        "description": f"CCIP router addresses and chain selectors from Chainlink's official {environment} API",
         "networks": {}
     }
     
     validation_errors = []
     
-    for chain_id, (key, label, explorer, rpcs) in INCLUDED_CHAINS.items():
+    for chain_id, (key, label, explorer, rpcs) in included_chains.items():
         chain_data = official_data['data']['evm'].get(str(chain_id))
         if not chain_data:
             print(f"⚠️  Chain {chain_id} ({key}) not found in official API")
@@ -173,8 +196,15 @@ def main() -> None:
         fee_tokens = chain_data.get('feeTokens', [])
         native_token = next((t for t in fee_tokens if t in ['ETH', 'BNB', 'POL', 'MATIC', 'AVAX', 'CRO', 'BONE', 'XDAI']), fee_tokens[0] if fee_tokens else 'ETH')
         
+        # Get LINK token address from feeTokens
+        link_token = None
+        for token_data in chain_data.get('feeTokens', []):
+            if isinstance(token_data, dict) and token_data.get('symbol') == 'LINK':
+                link_token = token_data.get('address')
+                break
+        
         # Determine supported lanes (conservative approach for now)
-        supported = fetch_lane_support(official_data, chain_id)
+        supported = fetch_lane_support(official_data, chain_id, included_chains)
         
         registry['networks'][key] = {
             "label": label,
@@ -183,12 +213,13 @@ def main() -> None:
             "explorer": explorer,
             "rpc_urls": rpcs,
             "router": router,
-            "rmn_proxy": rmn,  # Official API calls it "rmn", we'll use rmn_proxy for clarity
+            "rmn_proxy": rmn,
             "native_fee_token": native_token,
+            "link_token": link_token,
             "supports": supported
         }
         
-        print(f"✓ {label:<20} selector={selector} router={router[:10]}...")
+        print(f"✓ {label:<25} selector={selector} router={router[:10]}...")
     
     if validation_errors:
         print("\n⚠️  Validation errors found:")
@@ -196,10 +227,31 @@ def main() -> None:
             print(f"  - {error}")
         print("\nContinuing anyway (warnings only)...\n")
     
-    out_path = Path(__file__).parent / "ccip_registry.json"
-    out_path.write_text(json.dumps(registry, indent=2))
-    print(f"\n✓ Wrote {out_path.name}: {len(registry['networks'])} networks")
-    print(f"  File size: {out_path.stat().st_size / 1024:.1f} KB")
+    return registry
+
+
+def main() -> None:
+    print("=" * 70)
+    print("Building CCIP Registries")
+    print("=" * 70)
+    
+    # Build mainnet registry
+    mainnet_registry = build_ccip_registry(MAINNET_API_URL, MAINNET_CHAINS, "mainnet")
+    if mainnet_registry:
+        out_path = Path(__file__).parent / "ccip_registry.json"
+        out_path.write_text(json.dumps(mainnet_registry, indent=2))
+        print(f"\n✓ Wrote {out_path.name}: {len(mainnet_registry['networks'])} networks")
+        print(f"  File size: {out_path.stat().st_size / 1024:.1f} KB")
+    
+    # Build testnet registry
+    testnet_registry = build_ccip_registry(TESTNET_API_URL, TESTNET_CHAINS, "testnet")
+    if testnet_registry:
+        out_path = Path(__file__).parent / "ccip_registry_testnet.json"
+        out_path.write_text(json.dumps(testnet_registry, indent=2))
+        print(f"\n✓ Wrote {out_path.name}: {len(testnet_registry['networks'])} networks")
+        print(f"  File size: {out_path.stat().st_size / 1024:.1f} KB")
+    
+    print("\n" + "=" * 70)
 
 
 if __name__ == "__main__":

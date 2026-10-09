@@ -4,6 +4,7 @@ import { ProductLayout } from '../../components/ProductLayout'
 import { apiUrl } from '../../config'
 import { CopyButton } from '../../components/CopyButton'
 import { SEO } from '../../components/SEO'
+import { useEnvironment } from '../../EnvironmentContext'
 
 interface CCIPNetwork {
   network: string
@@ -43,6 +44,7 @@ interface LaneData {
 export function CCIPPage() {
   const { source, dest } = useParams<{ source?: string; dest?: string }>()
   const navigate = useNavigate()
+  const { environment } = useEnvironment()
   const [registry, setRegistry] = useState<CCIPRegistry | null>(null)
   const [sourceChain, setSourceChain] = useState('')
   const [destChain, setDestChain] = useState('')
@@ -55,22 +57,24 @@ export function CCIPPage() {
       .then((r) => r.json())
       .then((data) => {
         setRegistry(data)
-        // Use URL params if provided, otherwise default to ethereum -> arbitrum
-        const defaultSource = source || 'ethereum'
-        const defaultDest = dest || 'arbitrum'
+        // Use URL params if provided, otherwise default based on environment
+        const defaultSource = source || (environment === 'testnet' ? 'sepolia' : 'ethereum')
+        const defaultDest = dest || (environment === 'testnet' ? 'arbitrum-sepolia' : 'arbitrum')
         
         // Validate that the chains exist in the registry
         if (data.networks[defaultSource] && data.networks[defaultDest]) {
           setSourceChain(defaultSource)
           setDestChain(defaultDest)
         } else {
-          // Fallback to ethereum -> arbitrum if URL params are invalid
-          setSourceChain('ethereum')
-          setDestChain('arbitrum')
+          // Fallback based on environment
+          const fallbackSource = environment === 'testnet' ? 'sepolia' : 'ethereum'
+          const fallbackDest = environment === 'testnet' ? 'arbitrum-sepolia' : 'arbitrum'
+          setSourceChain(fallbackSource)
+          setDestChain(fallbackDest)
         }
       })
       .catch((e) => console.error('Failed to load CCIP registry:', e))
-  }, [source, dest])
+  }, [source, dest, environment])
 
   useEffect(() => {
     if (!registry || !sourceChain || !destChain) return
@@ -576,6 +580,30 @@ console.log("Message sent successfully!");`
             </>
           )}
 
+          {/* Testnet Faucets */}
+          {environment === 'testnet' && laneData && (
+            <div className="mt-6 rounded-xl border border-blue-500/30 bg-blue-500/5 p-5">
+              <h3 className="mb-3 text-sm font-bold text-white">Testnet Faucets</h3>
+              <p className="mb-3 text-sm text-slate-400">
+                Get free testnet tokens to test CCIP transactions:
+              </p>
+              <div className="flex flex-wrap gap-3">
+                <a
+                  href="https://faucets.chain.link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-lg border border-ink-600 bg-ink-800 px-4 py-2 text-sm font-semibold text-slate-200 transition-colors hover:border-blue-500 hover:text-blue-300"
+                >
+                  Chainlink Faucets
+                  <svg className="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z" />
+                    <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          )}
+
           {/* Resources */}
           <div className="mt-6 rounded-xl border border-accent-500/30 bg-accent-500/5 p-5">
             <h3 className="mb-3 text-sm font-bold text-white">Resources</h3>
@@ -593,12 +621,12 @@ console.log("Message sent successfully!");`
                 </svg>
               </a>
               <a
-                href="https://docs.chain.link/ccip/directory/mainnet"
+                href={`https://docs.chain.link/ccip/directory/${environment === 'testnet' ? 'testnet' : 'mainnet'}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 rounded-lg border border-ink-600 bg-ink-800 px-4 py-2 text-sm font-semibold text-slate-200 transition-colors hover:border-accent-500 hover:text-accent-300"
               >
-                CCIP Mainnet Directory
+                CCIP {environment === 'testnet' ? 'Testnet' : 'Mainnet'} Directory
                 <svg className="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor">
                   <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z" />
                   <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z" />

@@ -17,7 +17,7 @@ function hashFile(filepath) {
   return crypto.createHash('sha256').update(content).digest('hex');
 }
 
-const filesToCheck = ['registry.json', 'ccip_registry.json'];
+const filesToCheck = ['registry.json', 'ccip_registry.json', 'registry_testnet.json', 'ccip_registry_testnet.json'];
 let allMatch = true;
 
 console.log('Checking registry data sync...\n');

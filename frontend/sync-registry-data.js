@@ -20,8 +20,8 @@ if (!fs.existsSync(dataDir)) {
   fs.mkdirSync(dataDir, { recursive: true });
 }
 
-// Copy registry files
-const filesToSync = ['registry.json', 'ccip_registry.json'];
+// Copy registry files (mainnet + testnet)
+const filesToSync = ['registry.json', 'ccip_registry.json', 'registry_testnet.json', 'ccip_registry_testnet.json'];
 
 for (const filename of filesToSync) {
   const srcPath = path.join(backendDir, filename);
