@@ -367,11 +367,18 @@ jobs:
       - name: Run frontend container
         run: |
           docker run -d --name test-frontend -p 8080:80 linknodes-frontend:test
-          sleep 3
+          sleep 5
           
           # Verify container is running
           if ! docker ps | grep -q test-frontend; then
             echo "❌ Frontend container exited"
+            docker logs test-frontend
+            exit 1
+          fi
+          
+          # Check if nginx is listening
+          if ! docker exec test-frontend netstat -tlnp | grep -q ':80'; then
+            echo "❌ Nginx is not listening on port 80"
             docker logs test-frontend
             exit 1
           fi
