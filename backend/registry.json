@@ -1,7 +1,7 @@
 {
  "version": "2.0.0",
  "source": "chainlink-reference-data-directory",
- "generated_at": 1786862500,
+ "generated_at": 1791555357,
  "networks": {
   "ethereum": {
    "label": "Ethereum",
@@ -12,7 +12,7 @@
     "https://eth.llamarpc.com",
     "https://rpc.ankr.com/eth"
    ],
-   "feed_count": 255,
+   "feed_count": 258,
    "feeds": {
     "1inch-eth": {
      "name": "1INCH / ETH",
@@ -107,7 +107,7 @@
      "address": "0x651b101f72F82630cf59c68E6EE4305aFBd3B1F5",
      "decimals": 18,
      "heartbeat": 86400,
-     "deviation_threshold_pct": 0.5,
+     "deviation_threshold_pct": 0.2,
      "category": "custom",
      "feed_type": "Crypto",
      "asset_name": "APXUSD / USD Exchange Rate",
@@ -223,6 +223,28 @@
      "asset_name": "Bitget Wrapped Bitcoin (BGBTC)",
      "market_hours": "Crypto"
     },
+    "bilon-usd-calculated-24-5-kalman-shared-svr": {
+     "name": "BILon-USD (Calculated)",
+     "address": "0x254599afD7f9F3f18775fC24693Ba0d1cE8A4Ac6",
+     "decimals": 8,
+     "heartbeat": 86400,
+     "deviation_threshold_pct": 0.5,
+     "category": "custom",
+     "feed_type": "Equities",
+     "asset_name": "SPDR Bloomberg 1-3 Month T-Bill ETF (Ondo Tokenized ETF)",
+     "market_hours": "us_equities_24/5"
+    },
+    "bilon-usd-ondo-api": {
+     "name": "BILon-USD (Ondo API)",
+     "address": "0x3CB6d31DAB574111dE818507083024d4C3c717e0",
+     "decimals": 8,
+     "heartbeat": 86400,
+     "deviation_threshold_pct": 0.5,
+     "category": "custom",
+     "feed_type": "Crypto",
+     "asset_name": "SPDR Bloomberg 1-3 Month T-Bill ETF (Ondo API)",
+     "market_hours": "us_equities_24/5"
+    },
     "bnb-usd": {
      "name": "BNB / USD",
      "address": "0x14e613AC84a31f709eadbdF89C6CC390fDc9540A",
@@ -289,17 +311,6 @@
      "asset_name": "Bitcoin",
      "market_hours": "Crypto"
     },
-    "btcy-nav": {
-     "name": "BTCY NAV",
-     "address": "0x5a33E6CB085E2DdD0df558c0D7d71a27be6b9131",
-     "decimals": 18,
-     "heartbeat": 86400,
-     "deviation_threshold_pct": 0.5,
-     "category": "custom",
-     "feed_type": "Index fund",
-     "asset_name": "AARC BTCY",
-     "market_hours": ""
-    },
     "c1usd-por": {
      "name": "C1USD Reserves",
      "address": "0xAFa801e508613be7CA88D2d0fDB3F84f4c1B0384",
@@ -310,17 +321,6 @@
      "feed_type": "Fiat",
      "asset_name": "US Dollar (USD) total reserves",
      "market_hours": ""
-    },
-    "c3m-eur": {
-     "name": "C3M / EUR",
-     "address": "0xD41390267Afec3fA5b4c0B3aA6c706556CCE75ec",
-     "decimals": 8,
-     "heartbeat": 86400,
-     "deviation_threshold_pct": 2,
-     "category": "custom",
-     "feed_type": "Equities",
-     "asset_name": "Amundi ETF Govies 0-6 Months Euro Investment Grade UCITS ETF",
-     "market_hours": "Euronext_Milan"
     },
     "cad-usd": {
      "name": "CAD / USD",
@@ -509,17 +509,6 @@
      "asset_name": "crvUSD",
      "market_hours": "Crypto"
     },
-    "cspx-usd": {
-     "name": "CSPX / USD",
-     "address": "0xF4E1B57FB228879D057ac5AE33973e8C53e4A0e0",
-     "decimals": 8,
-     "heartbeat": 86400,
-     "deviation_threshold_pct": 2,
-     "category": "low",
-     "feed_type": "Equities",
-     "asset_name": "iShares Core S&P 500 UCITS ETF",
-     "market_hours": "LSE"
-    },
     "cusd-aum": {
      "name": "cUSD AUM",
      "address": "0x16caE6d6ffb4AE01e206b928de925Ac0C8C8116A",
@@ -595,17 +584,6 @@
      "category": "custom",
      "feed_type": "Crypto",
      "asset_name": "eETH",
-     "market_hours": "Crypto"
-    },
-    "eigen-usd": {
-     "name": "EIGEN / USD",
-     "address": "0xf2917e602C2dCa458937fad715bb1E465305A4A1",
-     "decimals": 8,
-     "heartbeat": 86400,
-     "deviation_threshold_pct": 2,
-     "category": "low",
-     "feed_type": "Crypto",
-     "asset_name": "Eigenlayer",
      "market_hours": "Crypto"
     },
     "enj-eth": {
@@ -916,6 +894,17 @@
      "asset_name": "The Graph",
      "market_hours": "Crypto"
     },
+    "hastra-auto-wylds-exchange-rate-shared-svr": {
+     "name": "Hastra Auto / WYLDS Exchange Rate",
+     "address": "0xeFdfd2Afb9840C53aF2Fe754e76Fbe324e03e859",
+     "decimals": 18,
+     "heartbeat": 86400,
+     "deviation_threshold_pct": 0.05,
+     "category": "custom",
+     "feed_type": "Crypto",
+     "asset_name": "HASTRAAUTO",
+     "market_hours": "Crypto"
+    },
     "hbtc-por": {
      "name": "HBTC Proof of Reserves",
      "address": "0x0A8cD0115B1EE87EbA5b8E06A9a15ED93e230f7a",
@@ -959,28 +948,6 @@
      "feed_type": "Crypto",
      "asset_name": "iShares Gold Trust (Ondo Tokenized ETF)",
      "market_hours": "us_equities_24/5"
-    },
-    "ib01-usd": {
-     "name": "IB01 / USD",
-     "address": "0x32d1463EB53b73C095625719Afa544D5426354cB",
-     "decimals": 8,
-     "heartbeat": 86400,
-     "deviation_threshold_pct": 2,
-     "category": "low",
-     "feed_type": "Equities",
-     "asset_name": "iShares Treasury Bond 0-1yr UCITS ETF",
-     "market_hours": "LSE"
-    },
-    "ibta-usd": {
-     "name": "IBTA / USD",
-     "address": "0xd27e6D02b72eB6FCe04Ad5690C419196B4EF2885",
-     "decimals": 8,
-     "heartbeat": 86400,
-     "deviation_threshold_pct": 2,
-     "category": "low",
-     "feed_type": "Equities",
-     "asset_name": "iShares Treasury Bond 1-3yr UCITS ETF",
-     "market_hours": "LSE"
     },
     "idr-usd": {
      "name": "IDR / USD",
@@ -1174,7 +1141,7 @@
      "address": "0x70c158c7731Da2C14BC84aEBa39A4FF703DDc7d2",
      "decimals": 8,
      "heartbeat": 86400,
-     "deviation_threshold_pct": 0.1,
+     "deviation_threshold_pct": 0.01,
      "category": "custom",
      "feed_type": "Crypto",
      "asset_name": "Bitcoin (BTC)",
@@ -1213,17 +1180,6 @@
      "asset_name": "M",
      "market_hours": ""
     },
-    "m-reserves": {
-     "name": "M Reserves",
-     "address": "0x83BefF09647663136A00cF2C30Ed948FeaffA2a6",
-     "decimals": 8,
-     "heartbeat": 86400,
-     "deviation_threshold_pct": 0.5,
-     "category": "custom",
-     "feed_type": "Stablecoin",
-     "asset_name": "M Reserves",
-     "market_hours": "Crypto"
-    },
     "mana-eth": {
      "name": "MANA / ETH",
      "address": "0x82A44D92D6c329826dc557c5E1Be6ebeC5D5FeB9",
@@ -1233,17 +1189,6 @@
      "category": "medium",
      "feed_type": "Crypto",
      "asset_name": "Decentraland",
-     "market_hours": "Crypto"
-    },
-    "mavia-usd": {
-     "name": "MAVIA / USD",
-     "address": "0x29d26C008e8f201eD0D864b1Fd9392D29d0C8e96",
-     "decimals": 8,
-     "heartbeat": 86400,
-     "deviation_threshold_pct": 2,
-     "category": "medium",
-     "feed_type": "Crypto",
-     "asset_name": "Heroes of Mavia",
      "market_hours": "Crypto"
     },
     "mcap-usd": {
@@ -1334,6 +1279,17 @@
      "asset_name": "MetaMask USD",
      "market_hours": "Crypto"
     },
+    "mwin-nav": {
+     "name": "MWIN NAV",
+     "address": "0x3EC0233530c548Ab984eb06BEE8a2E404aeA7557",
+     "decimals": 8,
+     "heartbeat": 86400,
+     "deviation_threshold_pct": 1e-07,
+     "category": "unranked",
+     "feed_type": "Other",
+     "asset_name": "",
+     "market_hours": ""
+    },
     "mxn-usd": {
      "name": "MXN / USD",
      "address": "0xdb4881Ab0ad6b8423f76dd8C9d65542749a1dB77",
@@ -1400,6 +1356,17 @@
      "asset_name": "Origin Ether",
      "market_hours": "Crypto"
     },
+    "openusd-usd": {
+     "name": "OUSD / USD",
+     "address": "0xaf0311CCc42d22D2624fEC8024119cb71bBc7418",
+     "decimals": 8,
+     "heartbeat": 86400,
+     "deviation_threshold_pct": 0.5,
+     "category": "new",
+     "feed_type": "Crypto",
+     "asset_name": "Open USD",
+     "market_hours": "Crypto"
+    },
     "paxg-usd": {
      "name": "PAXG / USD",
      "address": "0x9944D86CEB9160aF5C5feB251FD671923323f8C3",
@@ -1409,6 +1376,17 @@
      "category": "low",
      "feed_type": "Crypto",
      "asset_name": "Pax Gold",
+     "market_hours": "Crypto"
+    },
+    "paxgy-gold-exchange-rate": {
+     "name": "PAXGy / Gold Exchange Rate",
+     "address": "0xaaA69F0bC7E355581a83002B597Fe5c6C134ae08",
+     "decimals": 18,
+     "heartbeat": 86400,
+     "deviation_threshold_pct": 0.5,
+     "category": "custom",
+     "feed_type": "Crypto",
+     "asset_name": "Pax Gold Yield",
      "market_hours": "Crypto"
     },
     "pce-price-index-level": {
@@ -1475,28 +1453,6 @@
      "category": "custom",
      "feed_type": "Crypto",
      "asset_name": "Calculated PST-USDC Exchange Rate",
-     "market_hours": "Crypto"
-    },
-    "pumpbtc-btc-exchange-rate": {
-     "name": "PumpBTC / BTC Exchange Rate",
-     "address": "0x6CE4Ef3689F26edD40ed3ccbE3Cc29dab62C915f",
-     "decimals": 18,
-     "heartbeat": 86400,
-     "deviation_threshold_pct": 1e-07,
-     "category": "custom",
-     "feed_type": "Crypto",
-     "asset_name": "PumpBTC / BTC Exchange Rate",
-     "market_hours": "Crypto"
-    },
-    "pumpbtc-por": {
-     "name": "PumpBTC Proof of Reserves",
-     "address": "0xe80baC615c38D01c101B0B1b943b05E20C8c2f76",
-     "decimals": 18,
-     "heartbeat": 86400,
-     "deviation_threshold_pct": 5,
-     "category": "custom",
-     "feed_type": "Crypto",
-     "asset_name": "Bitcoin (BTC)",
      "market_hours": "Crypto"
     },
     "pyusd-usd": {
@@ -1741,6 +1697,28 @@
      "asset_name": "Singapore Dollar",
      "market_hours": "Forex"
     },
+    "sgovon-usd": {
+     "name": "SGOVon / USD (Ondo API)",
+     "address": "0x03A624CB084536eA9cB51AbEeecBF47b325130C1",
+     "decimals": 8,
+     "heartbeat": 86400,
+     "deviation_threshold_pct": 0.5,
+     "category": "custom",
+     "feed_type": "Crypto",
+     "asset_name": "iShares 0-3 Month Treasury Bond ETF (Ondo API)",
+     "market_hours": "NYSE"
+    },
+    "sgovon-usd-calculated": {
+     "name": "SGOVon / USD (Calculated)",
+     "address": "0xfE45662E9fA552464289B0568D4A846c6F284Db9",
+     "decimals": 8,
+     "heartbeat": 86400,
+     "deviation_threshold_pct": 0.5,
+     "category": "custom",
+     "feed_type": "Equities",
+     "asset_name": "iShares 0-3 Month Treasury Bond ETF",
+     "market_hours": "us_equities_24/5"
+    },
     "shib-eth": {
      "name": "SHIB / ETH",
      "address": "0x8dD1CD88F43aF196ae478e91b9F5E4Ac69A97C61",
@@ -1772,6 +1750,17 @@
      "category": "high",
      "feed_type": "Crypto",
      "asset_name": "Sky",
+     "market_hours": "Crypto"
+    },
+    "slp-usd-exchange-rate": {
+     "name": "SLP / USD Exchange Rate",
+     "address": "0x0e095dD47bdE0d7cdb57a72bB98B6419dfBB505b",
+     "decimals": 8,
+     "heartbeat": 86400,
+     "deviation_threshold_pct": 0.5,
+     "category": "custom",
+     "feed_type": "Crypto",
+     "asset_name": "SIVO SLP Vault",
      "market_hours": "Crypto"
     },
     "snx-eth": {
@@ -2032,7 +2021,7 @@
      "address": "0xC353ac4b425f818Ad87E228bf816E15c2173AC07",
      "decimals": 8,
      "heartbeat": 86400,
-     "deviation_threshold_pct": 0.5,
+     "deviation_threshold_pct": 0.1,
      "category": "custom",
      "feed_type": "Crypto",
      "asset_name": "Strategy Inc Variable Rate Perpetual Stretch Preferred Stock",
@@ -2047,6 +2036,17 @@
      "category": "custom",
      "feed_type": "Crypto",
      "asset_name": "SUSD1+ / USD1 Exchange Rate",
+     "market_hours": "Crypto"
+    },
+    "susdai-usd": {
+     "name": "SUSDAI / USD",
+     "address": "0xF7E906179255EF13270604197610B79bFfe546ca",
+     "decimals": 8,
+     "heartbeat": 86400,
+     "deviation_threshold_pct": 0.5,
+     "category": "new",
+     "feed_type": "Crypto",
+     "asset_name": "Staked USDai",
      "market_hours": "Crypto"
     },
     "susdai-usdai-exchange-rate": {
@@ -2379,17 +2379,6 @@
      "asset_name": "Argentine Peso",
      "market_hours": "Forex_ARS"
     },
-    "usd0++-usd": {
-     "name": "USD0++ / USD",
-     "address": "0xFC9e30Cf89f8A00dba3D34edf8b65BCDAdeCC1cB",
-     "decimals": 8,
-     "heartbeat": 86400,
-     "deviation_threshold_pct": 0.5,
-     "category": "high",
-     "feed_type": "Crypto",
-     "asset_name": "Staked USD0",
-     "market_hours": "Crypto"
-    },
     "usd0-usd": {
      "name": "USD0 / USD",
      "address": "0x7e891DEbD8FA0A4Cf6BE58Ddff5a8ca174FebDCB",
@@ -2610,6 +2599,61 @@
      "asset_name": "USDW Reserves",
      "market_hours": ""
     },
+    "usfron-usd-calculated": {
+     "name": "USFRon-USD (Calculated)",
+     "address": "0xC5D98E16Bcb6Cf753BA27A24Df2A04c2F0267E57",
+     "decimals": 8,
+     "heartbeat": 86400,
+     "deviation_threshold_pct": 0.5,
+     "category": "custom",
+     "feed_type": "Crypto",
+     "asset_name": "WisdomTree Floating Rate Treasury Fund (Ondo Tokenized ETF)",
+     "market_hours": "NYSE"
+    },
+    "usfron-usd-ondo-api": {
+     "name": "USFRon-USD (Ondo API)",
+     "address": "0x09d6EbF4662b5534BD5feD4159A113Ca9d471098",
+     "decimals": 8,
+     "heartbeat": 86400,
+     "deviation_threshold_pct": 0.5,
+     "category": "custom",
+     "feed_type": "Crypto",
+     "asset_name": "WisdomTree Floating Rate Treasury Fund (Ondo API)",
+     "market_hours": "us_equities_24/5"
+    },
+    "ushp-index-implied-price-shared-svr": {
+     "name": "USHP Index Implied Price",
+     "address": "0xD1227843AD572bf2Bc8D1E4B00fCd28E82c07C63",
+     "decimals": 4,
+     "heartbeat": 86400,
+     "deviation_threshold_pct": 1e-07,
+     "category": "custom",
+     "feed_type": "Crypto",
+     "asset_name": "USHP",
+     "market_hours": "Crypto"
+    },
+    "ushp-nav-shared-svr": {
+     "name": "USHP NAV",
+     "address": "0x9105815744777F098C120D7b56ef56eE01e1fBbD",
+     "decimals": 4,
+     "heartbeat": 86400,
+     "deviation_threshold_pct": 1e-07,
+     "category": "unranked",
+     "feed_type": "Other",
+     "asset_name": "",
+     "market_hours": ""
+    },
+    "ushp-usd-valuation": {
+     "name": "USHP Reference Price",
+     "address": "0x18C287900D9bac0b6C8BB702645D627F1B4C15eE",
+     "decimals": 4,
+     "heartbeat": 86400,
+     "deviation_threshold_pct": 1e-07,
+     "category": "custom",
+     "feed_type": "Crypto",
+     "asset_name": "USHP-USD Valuation (Calculated)",
+     "market_hours": "Crypto"
+    },
     "uspc-nav": {
      "name": "USPC NAV",
      "address": "0x02ae69C812DD749c32afb4F1723F6833EeF3d7a3",
@@ -2620,17 +2664,6 @@
      "feed_type": "Tokenized asset",
      "asset_name": "Coinshift USPC",
      "market_hours": ""
-    },
-    "usr-usd": {
-     "name": "USR / USD",
-     "address": "0x34ad75691e25A8E9b681AAA85dbeB7ef6561B42c",
-     "decimals": 8,
-     "heartbeat": 86400,
-     "deviation_threshold_pct": 0.5,
-     "category": "medium",
-     "feed_type": "Crypto",
-     "asset_name": "Resolv USR",
-     "market_hours": "Crypto"
     },
     "ust-eth": {
      "name": "USTC / ETH",
@@ -2829,7 +2862,7 @@
     "https://arb1.arbitrum.io/rpc",
     "https://arbitrum-one-rpc.publicnode.com"
    ],
-   "feed_count": 248,
+   "feed_count": 249,
    "feeds": {
     "0g-usd": {
      "name": "0G / USD",
@@ -3436,17 +3469,6 @@
      "asset_name": "Dogecoin",
      "market_hours": "Crypto"
     },
-    "dolo-usd": {
-     "name": "DOLO / USD",
-     "address": "0x17d8D87dF3E279c737568aB0C5cC3fF750aB763e",
-     "decimals": 8,
-     "heartbeat": 43200,
-     "deviation_threshold_pct": 0.5,
-     "category": "medium",
-     "feed_type": "Crypto",
-     "asset_name": "Dolomite",
-     "market_hours": "Crypto"
-    },
     "dot-usd": {
      "name": "DOT / USD",
      "address": "0xa6bC5bAF2000424e90434bA7104ee399dEe80DEc",
@@ -3711,6 +3733,28 @@
      "asset_name": "GHO",
      "market_hours": "Crypto"
     },
+    "glv-usdg-usdg-usd": {
+     "name": "GLV [USDG-USDG] / USD",
+     "address": "0x82029620D4b7B72E607C0c9738729bE2B3bB8310",
+     "decimals": 18,
+     "heartbeat": 86400,
+     "deviation_threshold_pct": 0.25,
+     "category": "new",
+     "feed_type": "Crypto",
+     "asset_name": "GLV [USDG-USDG]",
+     "market_hours": "Crypto"
+    },
+    "gm-btc-usd-usdg-usdg-usd-exchange-rate": {
+     "name": "GM:BTC/USD [USDG-USDG] / USD Exchange Rate",
+     "address": "0xebA2D3551084f6B31B02DA452F298348E8D266b7",
+     "decimals": 18,
+     "heartbeat": 86400,
+     "deviation_threshold_pct": 0.25,
+     "category": "new",
+     "feed_type": "Crypto",
+     "asset_name": "GLV [GM:BTC-USD]",
+     "market_hours": "Crypto"
+    },
     "gm-btc-usd-wbtc-wbtc": {
      "name": "GM BTC/USD [WBTC-WBTC]",
      "address": "0x19eCDd6DDc12597ec4A522fB1E25b1A580B605B7",
@@ -3720,6 +3764,17 @@
      "category": "custom",
      "feed_type": "Crypto",
      "asset_name": "GM BTC/USD [WBTC-WBTC]",
+     "market_hours": "Crypto"
+    },
+    "gm-eth-usd-usdg-usdg-usd-exchange-rate": {
+     "name": "GM:ETH/USD [USDG-USDG] / USD Exchange Rate",
+     "address": "0x0F37d480cAE857Ed8679503777C6cC83fd3677a4",
+     "decimals": 18,
+     "heartbeat": 86400,
+     "deviation_threshold_pct": 0.25,
+     "category": "custom",
+     "feed_type": "Crypto",
+     "asset_name": "GM:ETH/USD [USDG-USDG] / USD Exchange Rate",
      "market_hours": "Crypto"
     },
     "gm-eth-usd-weth-weth": {
@@ -4151,17 +4206,6 @@
      "asset_name": "Maker",
      "market_hours": "Crypto"
     },
-    "mln-usd": {
-     "name": "MLN / USD",
-     "address": "0xD07de6e37A011CCAfD375d7eb130205E0fa24d69",
-     "decimals": 8,
-     "heartbeat": 86400,
-     "deviation_threshold_pct": 0.5,
-     "category": "medium",
-     "feed_type": "Crypto",
-     "asset_name": "Enzyme",
-     "market_hours": "Crypto"
-    },
     "mnt-usd": {
      "name": "MNT / USD",
      "address": "0x37DDEE84dE03d039e1Bf809b7a01EDd2c4665771",
@@ -4547,17 +4591,6 @@
      "asset_name": "RYT on Arbitrum",
      "market_hours": "Crypto"
     },
-    "ryt-nav": {
-     "name": "RYT NAV",
-     "address": "0xBf4C6D59070F5649670E3d4f9033673D3489c4E9",
-     "decimals": 18,
-     "heartbeat": 86400,
-     "deviation_threshold_pct": 1e-07,
-     "category": "custom",
-     "feed_type": "Money market fund",
-     "asset_name": "RYT",
-     "market_hours": ""
-    },
     "s-usd": {
      "name": "S / USD",
      "address": "0xFeaC1A3936514746e70170c0f539e70b23d36F19",
@@ -4567,6 +4600,17 @@
      "category": "unranked",
      "feed_type": "Other",
      "asset_name": "",
+     "market_hours": "Crypto"
+    },
+    "saveth-aveth-exchange-rate": {
+     "name": "savETH / avETH Exchange Rate",
+     "address": "0x0903de580Fc5c33ef2543a866FeA5EfceF2dE6DF",
+     "decimals": 18,
+     "heartbeat": 86400,
+     "deviation_threshold_pct": 0.05,
+     "category": "custom",
+     "feed_type": "Crypto",
+     "asset_name": "Avant Staked ETH",
      "market_hours": "Crypto"
     },
     "savusd-avusd-exchange-rate": {
@@ -4866,6 +4910,17 @@
      "asset_name": "syrupUSDC / USDC Exchange Rate",
      "market_hours": "Crypto"
     },
+    "syrupusdg-usdg-exchange-rate": {
+     "name": "SYRUPUSDG / USDG Exchange Rate",
+     "address": "0x6b1aBf37cFB16deedD27D7C23168e7dF4feD8AFF",
+     "decimals": 18,
+     "heartbeat": 86400,
+     "deviation_threshold_pct": 0.05,
+     "category": "custom",
+     "feed_type": "Crypto",
+     "asset_name": "syrupUSDG",
+     "market_hours": "Crypto"
+    },
     "syrupusdt-usd-exchange-rate": {
      "name": "SYRUPUSDT / USD Exchange Rate",
      "address": "0xdB0c64eFa0395063033b10769A80c62F885A620a",
@@ -4875,6 +4930,17 @@
      "category": "custom",
      "feed_type": "Crypto",
      "asset_name": "syrupUSDT-USD Exchange Rate",
+     "market_hours": "Crypto"
+    },
+    "syzusd-yzusd-exchange-rate": {
+     "name": "SYZUSD / YZUSD Exchange Rate",
+     "address": "0xfB54e0e87A73242AeB26F01ABA856ba2946A6F18",
+     "decimals": 18,
+     "heartbeat": 86400,
+     "deviation_threshold_pct": 0.1,
+     "category": "custom",
+     "feed_type": "Crypto",
+     "asset_name": "SYZUSD / YZUSD Exchange Rate",
      "market_hours": "Crypto"
     },
     "tac-usd": {
@@ -5515,28 +5581,6 @@
      "asset_name": "yUSD / USD Exchange Rate",
      "market_hours": "Crypto"
     },
-    "zar-usd": {
-     "name": "ZAR / USD",
-     "address": "0xA9cC9B5Ea2584239365Ea6b985868D121CB7Aea6",
-     "decimals": 8,
-     "heartbeat": 86400,
-     "deviation_threshold_pct": 0.3,
-     "category": "low",
-     "feed_type": "Forex",
-     "asset_name": "South African Rand",
-     "market_hours": "Forex"
-    },
-    "zbtc-por": {
-     "name": "zBTC Proof of Reserves",
-     "address": "0xd9344493d99153Ad4353D604A1d80d4089004c5D",
-     "decimals": 8,
-     "heartbeat": 86400,
-     "deviation_threshold_pct": 0.1,
-     "category": "custom",
-     "feed_type": "Crypto",
-     "asset_name": "Bitcoin (BTC)",
-     "market_hours": "Crypto"
-    },
     "zec-usd": {
      "name": "ZEC / USD",
      "address": "0x21082CA28570f0ccfb089465bFaEfDc77b00D367",
@@ -5569,7 +5613,7 @@
     "https://mainnet.base.org",
     "https://base-rpc.publicnode.com"
    ],
-   "feed_count": 176,
+   "feed_count": 180,
    "feeds": {
     "aave-network-emergency-count-base": {
      "name": "AAVE Network Emergency Count (Base)",
@@ -5604,9 +5648,9 @@
      "asset_name": "Aave",
      "market_hours": "Crypto"
     },
-    "ada-usd": {
+    "ada-usd-shared-svr": {
      "name": "ADA / USD",
-     "address": "0x34cD971a092d5411bD69C10a5F0A7EEF72C69041",
+     "address": "0x5299a0e1e79BaebA0EAB96C10727DF35489aAA38",
      "decimals": 8,
      "heartbeat": 86400,
      "deviation_threshold_pct": 0.5,
@@ -5615,9 +5659,9 @@
      "asset_name": "Cardano",
      "market_hours": "Crypto"
     },
-    "ada-usd-shared-svr": {
+    "ada-usd-shared-svr-2": {
      "name": "ADA / USD",
-     "address": "0x5299a0e1e79BaebA0EAB96C10727DF35489aAA38",
+     "address": "0xf4DF589BeAbE63fEF977c73b9150BD2bdA1e346C",
      "decimals": 8,
      "heartbeat": 86400,
      "deviation_threshold_pct": 0.5,
@@ -5657,6 +5701,17 @@
      "category": "low",
      "feed_type": "Crypto",
      "asset_name": "Aptos",
+     "market_hours": "Crypto"
+    },
+    "apxusd-usd-exchange-rate-shared-svr": {
+     "name": "APXUSD / USD Exchange Rate",
+     "address": "0x2B5f2D558BEb94d2FE5D97f53b564B5e17715c39",
+     "decimals": 18,
+     "heartbeat": 86400,
+     "deviation_threshold_pct": 0.5,
+     "category": "custom",
+     "feed_type": "Crypto",
+     "asset_name": "APXUSD / USD Exchange Rate",
      "market_hours": "Crypto"
     },
     "arkb-reserves": {
@@ -5747,10 +5802,10 @@
      "asset_name": "Brazilian Real",
      "market_hours": "Forex_BRL"
     },
-    "btc-usd": {
+    "btc-usd-shared-svr": {
      "name": "BTC / USD",
-     "address": "0x64c911996D3c6aC71f9b455B1E8E7266BcbD848F",
-     "decimals": 8,
+     "address": "0x8D9e0911A532e2a3C005667B475E6F9742355f2b",
+     "decimals": 18,
      "heartbeat": 1200,
      "deviation_threshold_pct": 0.1,
      "category": "low",
@@ -5758,10 +5813,10 @@
      "asset_name": "Bitcoin",
      "market_hours": "Crypto"
     },
-    "btc-usd-shared-svr": {
+    "btc-usd-shared-svr-2": {
      "name": "BTC / USD",
-     "address": "0x8D9e0911A532e2a3C005667B475E6F9742355f2b",
-     "decimals": 18,
+     "address": "0xC01502b887D09B0f329981764268fC32a94cB453",
+     "decimals": 8,
      "heartbeat": 1200,
      "deviation_threshold_pct": 0.1,
      "category": "low",
@@ -6077,17 +6132,6 @@
      "asset_name": "Degen (Base)",
      "market_hours": "Crypto"
     },
-    "doge-usd": {
-     "name": "DOGE / USD",
-     "address": "0x8422f3d3CAFf15Ca682939310d6A5e619AE08e57",
-     "decimals": 8,
-     "heartbeat": 86400,
-     "deviation_threshold_pct": 0.5,
-     "category": "low",
-     "feed_type": "Crypto",
-     "asset_name": "Dogecoin",
-     "market_hours": "Crypto"
-    },
     "doge-usd-shared-svr": {
      "name": "DOGE / USD",
      "address": "0x304adeae3041d6D0745249FD4583e8C542De67d6",
@@ -6099,10 +6143,21 @@
      "asset_name": "Dogecoin",
      "market_hours": "Crypto"
     },
-    "eth-usd": {
-     "name": "ETH / USD",
-     "address": "0x71041dddad3595F9CEd3DcCFBe3D1F4b0a16Bb70",
+    "doge-usd-shared-svr-2": {
+     "name": "DOGE / USD",
+     "address": "0x249d22434438889106DbB59a576a1787b115E52d",
      "decimals": 8,
+     "heartbeat": 86400,
+     "deviation_threshold_pct": 0.5,
+     "category": "low",
+     "feed_type": "Crypto",
+     "asset_name": "Dogecoin",
+     "market_hours": "Crypto"
+    },
+    "eth-usd-shared-svr": {
+     "name": "ETH / USD",
+     "address": "0x5731Ae06077c79A3B292498940211E0aE7130bd3",
+     "decimals": 18,
      "heartbeat": 1200,
      "deviation_threshold_pct": 0.15,
      "category": "low",
@@ -6110,10 +6165,10 @@
      "asset_name": "Ethereum",
      "market_hours": "Crypto"
     },
-    "eth-usd-shared-svr": {
+    "eth-usd-shared-svr-2": {
      "name": "ETH / USD",
-     "address": "0x5731Ae06077c79A3B292498940211E0aE7130bd3",
-     "decimals": 18,
+     "address": "0x50015f8b17fb2C290Dde41fDc246ed0dcEE93a8b",
+     "decimals": 8,
      "heartbeat": 1200,
      "deviation_threshold_pct": 0.15,
      "category": "low",
@@ -6215,9 +6270,9 @@
      "decimals": 8,
      "heartbeat": 86400,
      "deviation_threshold_pct": 1e-07,
-     "category": "unranked",
-     "feed_type": "Other",
-     "asset_name": "",
+     "category": "custom",
+     "feed_type": "Fiat",
+     "asset_name": "US Dollar (USD) total reserves at FMV",
      "market_hours": ""
     },
     "gbp-usd": {
@@ -6273,6 +6328,17 @@
      "category": "low",
      "feed_type": "Crypto",
      "asset_name": "HOME",
+     "market_hours": "Crypto"
+    },
+    "hype-usd-shared-svr": {
+     "name": "HYPE / USD",
+     "address": "0xEdB56c5DE751eD3182DDa337f7d9ab33cf091DcA",
+     "decimals": 8,
+     "heartbeat": 86400,
+     "deviation_threshold_pct": 0.5,
+     "category": "low",
+     "feed_type": "Crypto",
+     "asset_name": "Hyperliquid",
      "market_hours": "Crypto"
     },
     "ibtc-por": {
@@ -6407,9 +6473,9 @@
      "asset_name": "Chainlink",
      "market_hours": "Crypto"
     },
-    "ltc-usd": {
+    "ltc-usd-shared-svr-2": {
      "name": "LTC / USD",
-     "address": "0x206a34e47093125fbf4C75b7c7E88b84c6A77a69",
+     "address": "0xa03A14F790eb8F5Ff73227278a3bb6eDE57Dc8c9",
      "decimals": 8,
      "heartbeat": 86400,
      "deviation_threshold_pct": 0.5,
@@ -6427,17 +6493,6 @@
      "category": "high",
      "feed_type": "Crypto",
      "asset_name": "Mamo",
-     "market_hours": "Crypto"
-    },
-    "mavia-usd": {
-     "name": "MAVIA / USD",
-     "address": "0x979447581b39caCA33EF0CA8208592393D16cc13",
-     "decimals": 8,
-     "heartbeat": 86400,
-     "deviation_threshold_pct": 0.5,
-     "category": "medium",
-     "feed_type": "Crypto",
-     "asset_name": "Heroes of Mavia",
      "market_hours": "Crypto"
     },
     "mew-usd": {
@@ -6537,6 +6592,28 @@
      "category": "low",
      "feed_type": "Crypto",
      "asset_name": "Optimism",
+     "market_hours": "Crypto"
+    },
+    "openusd-usd": {
+     "name": "OUSD / USD",
+     "address": "0xa718561C4592217b9fa301ADdD183FE4F347E096",
+     "decimals": 8,
+     "heartbeat": 86400,
+     "deviation_threshold_pct": 0.5,
+     "category": "new",
+     "feed_type": "Crypto",
+     "asset_name": "Open USD",
+     "market_hours": "Crypto"
+    },
+    "paxg-usd-shared-svr": {
+     "name": "PAXG / USD",
+     "address": "0xd49c546D32D5472a7F7704EC183128512a1B2fcb",
+     "decimals": 8,
+     "heartbeat": 86400,
+     "deviation_threshold_pct": 0.5,
+     "category": "low",
+     "feed_type": "Crypto",
+     "asset_name": "Pax Gold",
      "market_hours": "Crypto"
     },
     "pce-price-index-level": {
@@ -6803,9 +6880,9 @@
      "asset_name": "Synthetix Network",
      "market_hours": "Crypto"
     },
-    "sol-usd": {
+    "sol-usd-shared-svr": {
      "name": "SOL / USD",
-     "address": "0x975043adBb80fc32276CbF9Bbcfd4A601a12462D",
+     "address": "0xDa5Fd22F9382e57534fEdA4fF544878aa1cf401f",
      "decimals": 8,
      "heartbeat": 86400,
      "deviation_threshold_pct": 0.5,
@@ -6814,9 +6891,9 @@
      "asset_name": "Solana",
      "market_hours": "Crypto"
     },
-    "sol-usd-shared-svr": {
+    "sol-usd-shared-svr-2": {
      "name": "SOL / USD",
-     "address": "0xDa5Fd22F9382e57534fEdA4fF544878aa1cf401f",
+     "address": "0x5D424D5a664a9f3c820F422297077d49877F9C93",
      "decimals": 8,
      "heartbeat": 86400,
      "deviation_threshold_pct": 0.5,
@@ -6966,6 +7043,17 @@
      "category": "medium",
      "feed_type": "Crypto",
      "asset_name": "tBTC",
+     "market_hours": "Crypto"
+    },
+    "tenbin-aggregated-off-chain-reserves": {
+     "name": "Tenbin Aggregated Off-Chain Reserves",
+     "address": "0x7b1C8C60c05913aF3Aa21BaE3B32A02Ab4f39Bd3",
+     "decimals": 8,
+     "heartbeat": 86400,
+     "deviation_threshold_pct": 0.5,
+     "category": "custom",
+     "feed_type": "Crypto",
+     "asset_name": "Tenbin Aggregated Off-Chain Reserves",
      "market_hours": "Crypto"
     },
     "teth-reserves": {
@@ -7265,17 +7353,6 @@
      "asset_name": "Moonwell",
      "market_hours": "Crypto"
     },
-    "wmtx-usd": {
-     "name": "WMTx / USD",
-     "address": "0x311681f6E0b34670Fb03e066cc08C6D09149a44c",
-     "decimals": 8,
-     "heartbeat": 86400,
-     "deviation_threshold_pct": 0.5,
-     "category": "medium",
-     "feed_type": "Crypto",
-     "asset_name": "World Mobile Token",
-     "market_hours": "Crypto"
-    },
     "woeth-oeth-exchange-rate": {
      "name": "wOETH / OETH Exchange Rate",
      "address": "0xe96EB1EDa83d18cbac224233319FA5071464e1b9",
@@ -7386,9 +7463,9 @@
      "asset_name": "Exchange Rate XGLD / XAUT",
      "market_hours": "Crypto"
     },
-    "xrp-usd": {
+    "xrp-usd-shared-svr": {
      "name": "XRP / USD",
-     "address": "0x9f0C1dD78C4CBdF5b9cf923a549A201EdC676D34",
+     "address": "0xF35059FB4471333F81E4F39fA40260FF53Dc340b",
      "decimals": 8,
      "heartbeat": 86400,
      "deviation_threshold_pct": 0.5,
@@ -7397,9 +7474,9 @@
      "asset_name": "XRP",
      "market_hours": "Crypto"
     },
-    "xrp-usd-shared-svr": {
+    "xrp-usd-shared-svr-2": {
      "name": "XRP / USD",
-     "address": "0xF35059FB4471333F81E4F39fA40260FF53Dc340b",
+     "address": "0x281F1D237Fa1382d96f7A4fd190500D182042e3b",
      "decimals": 8,
      "heartbeat": 86400,
      "deviation_threshold_pct": 0.5,
@@ -7496,6 +7573,17 @@
      "asset_name": "South African Rand",
      "market_hours": "Forex"
     },
+    "zec-usd-shared-svr": {
+     "name": "ZEC / USD",
+     "address": "0x69e5BC4988a9AF30Ec827C5609c0D41028446ec0",
+     "decimals": 18,
+     "heartbeat": 86400,
+     "deviation_threshold_pct": 0.5,
+     "category": "medium",
+     "feed_type": "Crypto",
+     "asset_name": "ZCash",
+     "market_hours": "Crypto"
+    },
     "zro-usd": {
      "name": "ZRO / USD",
      "address": "0xdc31a4CCfCA039BeC6222e20BE7770E12581bfEB",
@@ -7583,17 +7671,6 @@
      "category": "custom",
      "feed_type": "Crypto",
      "asset_name": "agETH / ETH Exchange Rate",
-     "market_hours": "Crypto"
-    },
-    "aleth-usd": {
-     "name": "ALETH / USD",
-     "address": "0x0805fAA94F056C06c2a69e115Aa7633EfD3efDca",
-     "decimals": 8,
-     "heartbeat": 86400,
-     "deviation_threshold_pct": 0.5,
-     "category": "high",
-     "feed_type": "Crypto",
-     "asset_name": "Alchemix ETH",
      "market_hours": "Crypto"
     },
     "algo-usd": {
@@ -7734,10 +7811,10 @@
      "decimals": 18,
      "heartbeat": 86400,
      "deviation_threshold_pct": 0.5,
-     "category": "unranked",
-     "feed_type": "Other",
-     "asset_name": "",
-     "market_hours": ""
+     "category": "custom",
+     "feed_type": "Crypto",
+     "asset_name": "BEHYPE",
+     "market_hours": "Crypto"
     },
     "bnb-usd": {
      "name": "BNB / USD",
@@ -7921,8 +7998,8 @@
      "decimals": 18,
      "heartbeat": 86400,
      "deviation_threshold_pct": 0.5,
-     "category": "unranked",
-     "feed_type": "Other",
+     "category": "low",
+     "feed_type": "Crypto",
      "asset_name": "Ether.fi",
      "market_hours": "Crypto"
     },
@@ -7943,8 +8020,8 @@
      "decimals": 8,
      "heartbeat": 86400,
      "deviation_threshold_pct": 0.5,
-     "category": "unranked",
-     "feed_type": "Other",
+     "category": "low",
+     "feed_type": "Crypto",
      "asset_name": "Euro Coin",
      "market_hours": "Crypto"
     },
@@ -7998,8 +8075,8 @@
      "decimals": 8,
      "heartbeat": 86400,
      "deviation_threshold_pct": 0.5,
-     "category": "unranked",
-     "feed_type": "Other",
+     "category": "high",
+     "feed_type": "Crypto",
      "asset_name": "Frax USD",
      "market_hours": "Crypto"
     },
@@ -8009,8 +8086,8 @@
      "decimals": 8,
      "heartbeat": 86400,
      "deviation_threshold_pct": 0.5,
-     "category": "unranked",
-     "feed_type": "Other",
+     "category": "medium",
+     "feed_type": "Crypto",
      "asset_name": "GHO",
      "market_hours": "Crypto"
     },
@@ -8053,8 +8130,8 @@
      "decimals": 8,
      "heartbeat": 86400,
      "deviation_threshold_pct": 0.5,
-     "category": "unranked",
-     "feed_type": "Other",
+     "category": "low",
+     "feed_type": "Crypto",
      "asset_name": "Hyperliquid",
      "market_hours": "Crypto"
     },
@@ -8309,6 +8386,17 @@
      "category": "low",
      "feed_type": "Crypto",
      "asset_name": "PAX Gold",
+     "market_hours": "Crypto"
+    },
+    "paxgy-gold-exchange-rate": {
+     "name": "PAXGy / Gold Exchange Rate",
+     "address": "0xDD12d3De4964eC93F81752c8F2552f053124B180",
+     "decimals": 18,
+     "heartbeat": 86400,
+     "deviation_threshold_pct": 0.5,
+     "category": "custom",
+     "feed_type": "Crypto",
+     "asset_name": "Pax Gold Yield",
      "market_hours": "Crypto"
     },
     "pce-price-index-level": {
@@ -8669,9 +8757,9 @@
      "decimals": 8,
      "heartbeat": 86400,
      "deviation_threshold_pct": 0.5,
-     "category": "unranked",
-     "feed_type": "Other",
-     "asset_name": "",
+     "category": "new",
+     "feed_type": "Equities",
+     "asset_name": "Invesco Short Term Treasury ETF",
      "market_hours": "NYSE"
     },
     "tbtc-usd": {
@@ -9256,7 +9344,7 @@
     "https://polygon-bor-rpc.publicnode.com",
     "https://polygon-rpc.com"
    ],
-   "feed_count": 121,
+   "feed_count": 119,
    "feeds": {
     "1inch-usd": {
      "name": "1INCH / USD",
@@ -9764,17 +9852,6 @@
      "asset_name": "Filecoin",
      "market_hours": "Crypto"
     },
-    "ftt-usd": {
-     "name": "FTT / USD",
-     "address": "0x817A7D43f0277Ca480AE03Ec76Fc63A2EC7114bA",
-     "decimals": 8,
-     "heartbeat": 86400,
-     "deviation_threshold_pct": 0.5,
-     "category": "medium",
-     "feed_type": "Crypto",
-     "asset_name": "FTX Token",
-     "market_hours": "Crypto"
-    },
     "gbp-usd": {
      "name": "GBP / USD",
      "address": "0x099a2540848573e94fb1Ca0Fa420b00acbBc845a",
@@ -10103,17 +10180,6 @@
      "category": "low",
      "feed_type": "Net asset value",
      "asset_name": "R25 rcUSD+",
-     "market_hours": ""
-    },
-    "ryt-nav": {
-     "name": "RYT NAV",
-     "address": "0xdefcBDC0a5f5fBBdF520dC97be8d6d025B18da05",
-     "decimals": 18,
-     "heartbeat": 86400,
-     "deviation_threshold_pct": 1e-07,
-     "category": "custom",
-     "feed_type": "Money market fund",
-     "asset_name": "RYT",
      "market_hours": ""
     },
     "ryt-polygon": {
@@ -10599,7 +10665,7 @@
     "https://api.avax.network/ext/bc/C/rpc",
     "https://avalanche-c-chain-rpc.publicnode.com"
    ],
-   "feed_count": 89,
+   "feed_count": 91,
    "feeds": {
     "aave-network-emergency-count-avalanche": {
      "name": "AAVE Network Emergency Count (Avalanche)",
@@ -10953,6 +11019,17 @@
      "asset_name": "GMX",
      "market_hours": "Crypto"
     },
+    "hinc-nav": {
+     "name": "HINC NAV",
+     "address": "0x526aD3cb43a49C7cfD229708b11456d7C9c6D9eA",
+     "decimals": 8,
+     "heartbeat": 86400,
+     "deviation_threshold_pct": 1e-07,
+     "category": "unranked",
+     "feed_type": "Other",
+     "asset_name": "",
+     "market_hours": ""
+    },
     "joe-usd": {
      "name": "JOE / USD",
      "address": "0x02D35d3a8aC3e1626d3eE09A78Dd87286F5E8e3a",
@@ -10974,6 +11051,17 @@
      "feed_type": "Forex",
      "asset_name": "Japanese Yen",
      "market_hours": "Forex"
+    },
+    "krw-usd": {
+     "name": "KRW / USD",
+     "address": "0x42677eec284D594A8d99aE102Cc7Fd9Aaf8f4D2d",
+     "decimals": 8,
+     "heartbeat": 86400,
+     "deviation_threshold_pct": 0.3,
+     "category": "low",
+     "feed_type": "Forex",
+     "asset_name": "Won",
+     "market_hours": "Forex_KRW"
     },
     "link-avax": {
      "name": "LINK / AVAX",
@@ -11029,6 +11117,17 @@
      "feed_type": "Crypto",
      "asset_name": "MAI",
      "market_hours": "Crypto"
+    },
+    "mwin-nav": {
+     "name": "MWIN NAV",
+     "address": "0x4f16bb738C589852B6E7Ce202D2ce7906C547E05",
+     "decimals": 8,
+     "heartbeat": 86400,
+     "deviation_threshold_pct": 1e-07,
+     "category": "unranked",
+     "feed_type": "Other",
+     "asset_name": "",
+     "market_hours": ""
     },
     "near-usd": {
      "name": "NEAR / USD",
@@ -11536,17 +11635,6 @@
      "asset_name": "Copper",
      "market_hours": "Precious_Metals"
     },
-    "xsolvbtc-nav": {
-     "name": "xSolvBTC NAV",
-     "address": "0x55b5dc7d7CDD5d3b2Eb189bf11140839076E5d40",
-     "decimals": 18,
-     "heartbeat": 86400,
-     "deviation_threshold_pct": 1e-07,
-     "category": "custom",
-     "feed_type": "Crypto",
-     "asset_name": "Bitcoin (BTC)",
-     "market_hours": ""
-    },
     "ybtc-btc-exchange-rate": {
      "name": "YBTC-BTC Exchange Rate",
      "address": "0xAba063634dA21488a0C8A4415cf7651a013B12B5",
@@ -11590,7 +11678,7 @@
     "https://bsc-dataseed.bnbchain.org",
     "https://bsc-rpc.publicnode.com"
    ],
-   "feed_count": 173,
+   "feed_count": 171,
    "feeds": {
     "1inch-usd": {
      "name": "1INCH / USD",
@@ -13363,17 +13451,6 @@
      "asset_name": "XRP",
      "market_hours": "Crypto"
     },
-    "xsolvbtc-nav": {
-     "name": "xSolvBTC NAV",
-     "address": "0x68ff0d4499c68Cf4471143930422ae8F17f6Cd58",
-     "decimals": 18,
-     "heartbeat": 86400,
-     "deviation_threshold_pct": 1e-07,
-     "category": "custom",
-     "feed_type": "Crypto",
-     "asset_name": "Bitcoin (BTC)",
-     "market_hours": ""
-    },
     "xsolvbtc-solvbtc-exchange-rate-shared-svr": {
      "name": "xSolvBTC / SolvBTC Exchange Rate",
      "address": "0x3d0eB83D2c7c944c0278A5240E520C1F472D7577",
@@ -13483,17 +13560,6 @@
      "feed_type": "Crypto",
      "asset_name": "yUSD / USD Exchange Rate",
      "market_hours": "Crypto"
-    },
-    "zar-usd": {
-     "name": "ZAR / USD",
-     "address": "0xDE1952A1bF53f8E558cc761ad2564884E55B2c6F",
-     "decimals": 8,
-     "heartbeat": 86400,
-     "deviation_threshold_pct": 0.3,
-     "category": "low",
-     "feed_type": "Forex",
-     "asset_name": "South African Rand",
-     "market_hours": "Forex"
     }
    }
   },
@@ -13505,7 +13571,7 @@
     "https://rpc.gnosischain.com",
     "https://gnosis-rpc.publicnode.com"
    ],
-   "feed_count": 33,
+   "feed_count": 32,
    "feeds": {
     "aave-network-emergency-count-xdai": {
      "name": "AAVE Network Emergency Count (Gnosis Chain)",
@@ -13649,17 +13715,6 @@
      "feed_type": "Forex",
      "asset_name": "Euro",
      "market_hours": "Forex"
-    },
-    "ftt-usd": {
-     "name": "FTT / USD",
-     "address": "0x0CaE8f5c10931f0Ce87Ed9BbB71391C6E93C2C26",
-     "decimals": 8,
-     "heartbeat": 86400,
-     "deviation_threshold_pct": 2,
-     "category": "medium",
-     "feed_type": "Crypto",
-     "asset_name": "FTX Token",
-     "market_hours": "Crypto"
     },
     "gho-usd": {
      "name": "GHO / USD",
@@ -15049,7 +15104,7 @@
     "https://rpc.soniclabs.com",
     "https://sonic-rpc.publicnode.com"
    ],
-   "feed_count": 39,
+   "feed_count": 36,
    "feeds": {
     "bes-s-exchange-rate": {
      "name": "beS / S Exchange Rate",
@@ -15128,17 +15183,6 @@
      "asset_name": "GHO",
      "market_hours": "Crypto"
     },
-    "lbtc-btc": {
-     "name": "LBTC / BTC",
-     "address": "0xA63b1614D17536C22fDB4c1a58023E35d08Cccef",
-     "decimals": 8,
-     "heartbeat": 86400,
-     "deviation_threshold_pct": 0.5,
-     "category": "medium",
-     "feed_type": "Crypto",
-     "asset_name": "LBTC / BTC",
-     "market_hours": "Crypto"
-    },
     "link-usd": {
      "name": "LINK / USD",
      "address": "0x26e450ca14D7bF598C89f212010c691434486119",
@@ -15171,17 +15215,6 @@
      "feed_type": "Macroeconomics",
      "asset_name": "",
      "market_hours": ""
-    },
-    "pumpbtc-btc-exchange-rate": {
-     "name": "PumpBTC / BTC Exchange Rate",
-     "address": "0xd3b87e6F953B1126056b914A8CBE78035fB3E241",
-     "decimals": 18,
-     "heartbeat": 86400,
-     "deviation_threshold_pct": 1e-07,
-     "category": "custom",
-     "feed_type": "Crypto",
-     "asset_name": "PumpBTC / BTC Exchange Rate",
-     "market_hours": "Crypto"
     },
     "real-final-sales-to-private-domestic-purchasers-level": {
      "name": "Real Final Sales to Private Domestic Purchasers \u2014 Level",
@@ -15468,17 +15501,6 @@
      "feed_type": "Crypto",
      "asset_name": "yUSD / USD Exchange Rate",
      "market_hours": "Crypto"
-    },
-    "zar-usd": {
-     "name": "ZAR / USD",
-     "address": "0xfdee80dec97AF9AddcDccD208eC09d7Ea5eEbB9a",
-     "decimals": 8,
-     "heartbeat": 86400,
-     "deviation_threshold_pct": 0.3,
-     "category": "low",
-     "feed_type": "Forex",
-     "asset_name": "South African Rand",
-     "market_hours": "Forex"
     }
    }
   },

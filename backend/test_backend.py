@@ -98,42 +98,139 @@ def main():
         expected_fields=["success", "lane", "source", "destination"]
     ))
     
-    # Test 4: Invalid CCIP Lane (should 404)
+    # Test 4: Invalid CCIP Lane - unknown network (should 404)
     results.append(test(
-        "Invalid CCIP Lane (should 404)",
+        "Invalid CCIP Lane - unknown network (should 404)",
         f"{BASE_URL}/v1/ccip/lane/ethereum/invalid",
         expected_status=404
     ))
     
-    # Test 5: Data Feeds Registry
+    # Test 5: Unsupported CCIP Lane - valid networks but no route (should 404)
+    print(f"\n{'='*60}")
+    print("TEST: Unsupported CCIP Lane (ethereum → zksync)")
+    print(f"{'='*60}")
+    try:
+        url = f"{BASE_URL}/v1/ccip/lane/ethereum/zksync"
+        print(f"URL: {url}")
+        req = urllib.request.Request(url)
+        with urllib.request.urlopen(req) as response:
+            print(f"❌ FAIL: Expected 404, got {response.status}")
+            results.append(False)
+    except urllib.error.HTTPError as e:
+        if e.code == 404:
+            data = json.loads(e.read())
+            print(f"✅ Status: 404 (expected)")
+            print(f"✅ Message: {data.get('detail', '')}")
+            # Verify it mentions the lane is not supported
+            if "not supported" in data.get('detail', '').lower():
+                print(f"✅ Error message correctly explains lane is unsupported")
+                results.append(True)
+            else:
+                print(f"❌ FAIL: Error message should mention lane is not supported")
+                results.append(False)
+        else:
+            print(f"❌ FAIL: Expected 404, got {e.code}")
+            results.append(False)
+    except Exception as e:
+        print(f"❌ FAIL: {e}")
+        results.append(False)
+    
+    # Test 6: Data Feeds Registry
     results.append(test(
         "Data Feeds Registry",
         f"{BASE_URL}/v1/registry",
         expected_fields=["version", "networks"]
     ))
     
-    # Test 6: Query ETH/USD on Ethereum
+    # Test 7: Query ETH/USD on Ethereum
     results.append(test(
         "Query ETH/USD on Ethereum",
         f"{BASE_URL}/v1/query/ethereum/eth-usd",
         expected_fields=["success", "payload", "meta"]
     ))
     
-    # Test 7: Query ETH/USD on Base (canonical name resolution)
-    results.append(test(
-        "Query ETH/USD on Base (canonical resolution)",
-        f"{BASE_URL}/v1/query/base/eth-usd",
-        expected_fields=["success", "payload", "meta"]
-    ))
+    # Test 8: Query ETH/USD on Base (SVR fallback with transparency)
+    print(f"\n{'='*60}")
+    print("TEST: Query ETH/USD on Base (SVR fallback)")
+    print(f"{'='*60}")
+    try:
+        url = f"{BASE_URL}/v1/query/base/eth-usd"
+        print(f"URL: {url}")
+        req = urllib.request.Request(url)
+        with urllib.request.urlopen(req) as response:
+            data = json.loads(response.read())
+            meta = data.get("meta", {})
+            
+            # Verify transparency fields are present (SVR fallback happened)
+            if "resolved_from" not in meta:
+                print(f"❌ FAIL: Missing resolved_from field (SVR fallback should be transparent)")
+                results.append(False)
+            elif "resolved_to" not in meta:
+                print(f"❌ FAIL: Missing resolved_to field (SVR fallback should be transparent)")
+                results.append(False)
+            elif "resolution_note" not in meta:
+                print(f"❌ FAIL: Missing resolution_note field (SVR fallback should be transparent)")
+                results.append(False)
+            elif meta["resolved_from"] != "eth-usd":
+                print(f"❌ FAIL: resolved_from should be 'eth-usd', got '{meta['resolved_from']}'")
+                results.append(False)
+            elif meta["resolved_to"] != "eth-usd-svr":
+                print(f"❌ FAIL: resolved_to should be 'eth-usd-svr' (prefer plain -svr), got '{meta['resolved_to']}'")
+                results.append(False)
+            elif "Smart Value Recapture" not in meta["resolution_note"]:
+                print(f"❌ FAIL: resolution_note should mention 'Smart Value Recapture'")
+                results.append(False)
+            else:
+                print(f"✅ resolved_from: {meta['resolved_from']}")
+                print(f"✅ resolved_to: {meta['resolved_to']} (plain -svr variant preferred)")
+                print(f"✅ resolution_note present: {len(meta['resolution_note'])} chars")
+                print(f"✅ Address: {meta.get('contract_address')} (eth-usd-svr)")
+                # Verify it's the correct eth-usd-svr address
+                if meta.get('contract_address') == "0xa4250cE1aA15Ff4cb5E5a8655293b65694e436Ed":
+                    print(f"✅ Correct eth-usd-svr address")
+                results.append(True)
+    except Exception as e:
+        print(f"❌ FAIL: {e}")
+        results.append(False)
     
-    # Test 8: Invalid feed with close matches
+    # Test 9: Query ETH/USD on Arbitrum (canonical proxy, no fallback)
+    print(f"\n{'='*60}")
+    print("TEST: Query ETH/USD on Arbitrum (canonical proxy)")
+    print(f"{'='*60}")
+    try:
+        url = f"{BASE_URL}/v1/query/arbitrum/eth-usd"
+        print(f"URL: {url}")
+        req = urllib.request.Request(url)
+        with urllib.request.urlopen(req) as response:
+            data = json.loads(response.read())
+            
+            # Verify it returns the canonical proxy, not SVR
+            expected_address = "0x639Fe6ab55C921f74e7fac1ee960C0B6293ba612"
+            actual_address = data.get("meta", {}).get("contract_address")
+            
+            if actual_address != expected_address:
+                print(f"❌ FAIL: Expected address {expected_address}, got {actual_address}")
+                results.append(False)
+            elif "resolved_to" in data.get("meta", {}):
+                print(f"❌ FAIL: Should not have resolved_to field (canonical feed should match exactly)")
+                print(f"   resolved_to: {data['meta']['resolved_to']}")
+                results.append(False)
+            else:
+                print(f"✅ Address: {actual_address} (canonical)")
+                print(f"✅ No resolved_to field (exact match, no fallback)")
+                results.append(True)
+    except Exception as e:
+        print(f"❌ FAIL: {e}")
+        results.append(False)
+    
+    # Test 10: Invalid feed with close matches
     results.append(test(
         "Invalid feed (should suggest close matches)",
         f"{BASE_URL}/v1/query/ethereum/eth-usdd",
         expected_status=404
     ))
     
-    # Test 9: Round ID validation (should 422)
+    # Test 11: Round ID validation (should 422)
     huge_round_id = 10**25  # Way bigger than uint80
     results.append(test(
         "Huge round_id (should 422)",
