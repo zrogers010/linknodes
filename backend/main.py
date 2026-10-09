@@ -300,8 +300,8 @@ async def _read_feed(network: str, feed: str, round_id: int | None) -> dict:
             response["meta"]["resolved_to"] = resolved_name
             if "-svr" in resolved_name:
                 response["meta"]["resolution_note"] = (
-                    "Resolved to SVR (Shared Verification Record) variant. "
-                    "SVR feeds include OEV (Oracle Extractable Value) recapture mechanisms. "
+                    "Resolved to SVR (Smart Value Recapture) variant. "
+                    "SVR feeds implement Smart Value Recapture to minimize oracle extractable value (OEV). "
                     "See: https://docs.chain.link/data-feeds/svr-feeds"
                 )
         

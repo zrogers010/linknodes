@@ -84,21 +84,27 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
       
-      - name: Install Foundry (includes solc)
+      - name: Install Foundry
         uses: foundry-rs/foundry-toolchain@v1
         with:
           version: nightly
       
-      - name: Verify solc installation
+      - name: Verify forge installation
         run: |
-          solc --version
+          forge --version
+          # Foundry's solc is via: forge build (not standalone solc)
       
-      - name: Compile Solidity snippets
+      - name: Install Solidity dependencies
         run: |
           cd backend
-          python validate_snippets.py
+          npm install --no-save @chainlink/contracts@1.2.0 @openzeppelin/contracts@5.0.0
+      
+      - name: Compile Solidity snippets with forge
+        run: |
+          cd backend
+          python validate_snippets_forge.py
 
   frontend-build:
     name: Frontend Build
@@ -111,7 +117,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
       
       - name: Install frontend dependencies
         run: |
