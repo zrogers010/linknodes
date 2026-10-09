@@ -4,10 +4,12 @@ import { ControlPanel } from '../components/ControlPanel'
 import { SnippetColumn } from '../components/SnippetColumn'
 import { Terminal } from '../components/Terminal'
 import { useUrlState } from '../hooks/useUrlState'
+import { useEnvironment } from '../EnvironmentContext'
 import type { QueryResult, Registry } from '../types'
 
-export function SandboxPage({ registry }: { registry: Registry }) {
-  const [state, updateState] = useUrlState()
+export function SandboxPage({ registry, initialNetwork, initialFeed }: { registry: Registry; initialNetwork?: string; initialFeed?: string }) {
+  const { environment } = useEnvironment()
+  const [state, updateState] = useUrlState(initialNetwork, initialFeed)
   const [roundId, setRoundId] = useState('')
   const [result, setResult] = useState<QueryResult | null>(null)
   const [error, setError] = useState<string | null>(null)
@@ -26,8 +28,8 @@ export function SandboxPage({ registry }: { registry: Registry }) {
     setError(null)
     const started = performance.now()
     try {
-      const qs = rid ? `?round_id=${rid}` : ''
-      const resp = await fetch(apiUrl(`/v1/query/${network}/${feed}${qs}`))
+      const qs = rid ? `&round_id=${rid}` : ''
+      const resp = await fetch(apiUrl(`/v1/query/${network}/${feed}${qs}`, environment))
       const body = await resp.json()
       if (seq !== requestSeq.current) return
       setLatencyMs(Math.round(performance.now() - started))
@@ -45,7 +47,7 @@ export function SandboxPage({ registry }: { registry: Registry }) {
     } finally {
       if (seq === requestSeq.current) setLoading(false)
     }
-  }, [])
+  }, [environment])
 
   // Auto-query whenever the route changes -- covers first load, shared links,
   // and every selection in the picker. Round IDs are feed-specific, so reset.
@@ -106,6 +108,20 @@ export function SandboxPage({ registry }: { registry: Registry }) {
           />
         </div>
       </div>
+
+      {environment === 'testnet' && (
+        <div className="border-b border-blue-500/30 bg-blue-500/5 px-4 py-2 text-sm text-slate-300 lg:col-span-3">
+          <span className="font-semibold text-blue-300">Testnet Mode:</span> Need tokens?{' '}
+          <a
+            href="https://faucets.chain.link"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-semibold text-blue-400 underline hover:text-blue-300"
+          >
+            Get free testnet tokens →
+          </a>
+        </div>
+      )}
 
       <Terminal
         registry={registry}

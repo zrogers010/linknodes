@@ -30,14 +30,30 @@ from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.responses import JSONResponse
 from web3 import AsyncWeb3
 
-REGISTRY_PATH = Path(__file__).parent / "registry.json"
-REGISTRY: dict = json.loads(REGISTRY_PATH.read_text())
+REGISTRY_MAINNET_PATH = Path(__file__).parent / "registry.json"
+REGISTRY_MAINNET: dict = json.loads(REGISTRY_MAINNET_PATH.read_text())
+
+REGISTRY_TESTNET_PATH = Path(__file__).parent / "registry_testnet.json"
+REGISTRY_TESTNET: dict = json.loads(REGISTRY_TESTNET_PATH.read_text())
 
 OPERATORS_PATH = Path(__file__).parent / "operators.json"
 OPERATORS: dict = json.loads(OPERATORS_PATH.read_text())
 
-CCIP_REGISTRY_PATH = Path(__file__).parent / "ccip_registry.json"
-CCIP_REGISTRY: dict = json.loads(CCIP_REGISTRY_PATH.read_text())
+CCIP_REGISTRY_MAINNET_PATH = Path(__file__).parent / "ccip_registry.json"
+CCIP_REGISTRY_MAINNET: dict = json.loads(CCIP_REGISTRY_MAINNET_PATH.read_text())
+
+CCIP_REGISTRY_TESTNET_PATH = Path(__file__).parent / "ccip_registry_testnet.json"
+CCIP_REGISTRY_TESTNET: dict = json.loads(CCIP_REGISTRY_TESTNET_PATH.read_text())
+
+
+def get_registry(environment: str = "mainnet") -> dict:
+    """Get the appropriate registry based on environment."""
+    return REGISTRY_TESTNET if environment == "testnet" else REGISTRY_MAINNET
+
+
+def get_ccip_registry(environment: str = "mainnet") -> dict:
+    """Get the appropriate CCIP registry based on environment."""
+    return CCIP_REGISTRY_TESTNET if environment == "testnet" else CCIP_REGISTRY_MAINNET
 
 RPC_TIMEOUT_S = 8.0
 LATEST_CACHE_TTL_S = 5.0       # Chainlink updates on heartbeat/deviation; 5s loses nothing
@@ -156,12 +172,21 @@ async def rate_limit(request: Request, call_next):
     return await call_next(request)
 
 
-def _resolve(network: str, feed: str) -> tuple[dict, dict, str | None]:
+def _resolve(network: str, feed: str, environment: str = "mainnet") -> tuple[dict, dict, str | None]:
     """
     Resolve network and feed, returning (network_data, feed_data, resolved_name).
     resolved_name is set if we fell back to a variant (e.g., eth-usd -> eth-usd-svr).
+    Chain slugs are globally unique, so if not found in the requested environment, try the other.
     """
-    net = REGISTRY["networks"].get(network.lower())
+    registry = get_registry(environment)
+    net = registry["networks"].get(network.lower())
+    
+    # If not found in requested environment, try the other environment (chain slugs are unique)
+    if not net:
+        alt_env = "testnet" if environment == "mainnet" else "mainnet"
+        alt_registry = get_registry(alt_env)
+        net = alt_registry["networks"].get(network.lower())
+    
     if not net:
         raise HTTPException(status_code=400, detail=f"Unknown network '{network}'.")
     
@@ -203,15 +228,16 @@ def _resolve(network: str, feed: str) -> tuple[dict, dict, str | None]:
     return net, feed_meta, resolved_name
 
 
-async def _read_feed(network: str, feed: str, round_id: int | None) -> dict:
+async def _read_feed(network: str, feed: str, round_id: int | None, environment: str = "mainnet") -> dict:
     """Core read path: micro-cache, then concurrent eth_calls with RPC failover."""
-    cache_entry = _response_cache.get((network, feed, round_id))
+    cache_key = (environment, network, feed, round_id)
+    cache_entry = _response_cache.get(cache_key)
     if cache_entry and cache_entry[0] > time.monotonic():
         cached = dict(cache_entry[1])
         cached["meta"] = {**cached["meta"], "cache": "hit"}
         return cached
 
-    net, feed_meta, resolved_name = _resolve(network, feed)
+    net, feed_meta, resolved_name = _resolve(network, feed, environment)
     address = feed_meta["address"]
 
     last_error: Exception | None = None
@@ -305,7 +331,7 @@ async def _read_feed(network: str, feed: str, round_id: int | None) -> dict:
                 )
         
         ttl = HISTORICAL_CACHE_TTL_S if round_id is not None else LATEST_CACHE_TTL_S
-        _response_cache[(network, feed, round_id)] = (time.monotonic() + ttl, response)
+        _response_cache[cache_key] = (time.monotonic() + ttl, response)
         if len(_response_cache) > 8192:
             now = time.monotonic()
             for key in [k for k, (exp, _) in _response_cache.items() if exp <= now]:
@@ -316,9 +342,14 @@ async def _read_feed(network: str, feed: str, round_id: int | None) -> dict:
 
 
 @app.get("/v1/registry")
-async def get_registry():
+async def api_get_registry(
+    environment: str = Query("mainnet", description="Environment: mainnet or testnet")
+):
     """Full static catalog so the frontend renders every selector from one source of truth."""
-    return REGISTRY
+    env = environment.lower()
+    if env not in ["mainnet", "testnet"]:
+        raise HTTPException(status_code=400, detail="environment must be 'mainnet' or 'testnet'")
+    return get_registry(env)
 
 
 @app.get("/v1/query/{network}/{feed}")
@@ -330,6 +361,7 @@ async def query_feed(
         ge=0,
         description="Optional historical roundId for getRoundData(); omit for latestRoundData().",
     ),
+    environment: str = Query("mainnet", description="Environment: mainnet or testnet"),
 ):
     # Validate uint80 bounds (2^80 - 1 = 1208925819614629174706175)
     if round_id is not None and round_id > 1208925819614629174706175:
@@ -337,24 +369,35 @@ async def query_feed(
             status_code=422,
             detail=f"round_id must fit in uint80 (max 1208925819614629174706175). Got: {round_id}",
         )
-    return await _read_feed(network.lower(), feed.lower(), round_id)
+    env = environment.lower()
+    if env not in ["mainnet", "testnet"]:
+        raise HTTPException(status_code=400, detail="environment must be 'mainnet' or 'testnet'")
+    return await _read_feed(network.lower(), feed.lower(), round_id, env)
 
 
 @app.get("/v1/compare/{feed}")
-async def compare_feed(feed: str):
+async def compare_feed(
+    feed: str,
+    environment: str = Query("mainnet", description="Environment: mainnet or testnet"),
+):
     """Query a feed on every chain it is deployed on, concurrently, and
     summarize the cross-chain spread."""
+    env = environment.lower()
+    if env not in ["mainnet", "testnet"]:
+        raise HTTPException(status_code=400, detail="environment must be 'mainnet' or 'testnet'")
+    
     feed = feed.lower()
-    networks = [key for key, net in REGISTRY["networks"].items() if feed in net["feeds"]]
+    registry = get_registry(env)
+    networks = [key for key, net in registry["networks"].items() if feed in net["feeds"]]
     if not networks:
         raise HTTPException(status_code=404, detail=f"No chain publishes a '{feed}' feed.")
 
     async def read_one(network: str) -> dict:
         try:
-            r = await _read_feed(network, feed, None)
+            r = await _read_feed(network, feed, None, env)
             return {
                 "network": network,
-                "network_label": REGISTRY["networks"][network]["label"],
+                "network_label": registry["networks"][network]["label"],
                 "success": True,
                 "price": r["payload"]["price"],
                 "unix_timestamp": r["payload"]["unix_timestamp"],
@@ -367,7 +410,7 @@ async def compare_feed(feed: str):
         except HTTPException as exc:
             return {
                 "network": network,
-                "network_label": REGISTRY["networks"][network]["label"],
+                "network_label": registry["networks"][network]["label"],
                 "success": False,
                 "error": exc.detail,
             }
@@ -400,19 +443,42 @@ async def get_operators():
 
 
 @app.get("/v1/ccip/registry")
-async def get_ccip_registry():
+async def api_get_ccip_registry(
+    environment: str = Query("mainnet", description="Environment: mainnet or testnet")
+):
     """Full CCIP registry with router addresses and chain selectors."""
-    return CCIP_REGISTRY
+    env = environment.lower()
+    if env not in ["mainnet", "testnet"]:
+        raise HTTPException(status_code=400, detail="environment must be 'mainnet' or 'testnet'")
+    return get_ccip_registry(env)
 
 
 @app.get("/v1/ccip/lane/{source}/{destination}")
-async def get_ccip_lane(source: str, destination: str):
+async def get_ccip_lane(
+    source: str,
+    destination: str,
+    environment: str = Query("mainnet", description="Environment: mainnet or testnet"),
+):
     """Get CCIP lane details for a specific source -> destination route."""
+    env = environment.lower()
+    if env not in ["mainnet", "testnet"]:
+        raise HTTPException(status_code=400, detail="environment must be 'mainnet' or 'testnet'")
+    
     source = source.lower()
     destination = destination.lower()
     
-    source_net = CCIP_REGISTRY["networks"].get(source)
-    dest_net = CCIP_REGISTRY["networks"].get(destination)
+    ccip_registry = get_ccip_registry(env)
+    source_net = ccip_registry["networks"].get(source)
+    dest_net = ccip_registry["networks"].get(destination)
+    
+    # If not found in requested environment, try the other environment (chain slugs are unique)
+    if not source_net or not dest_net:
+        alt_env = "testnet" if env == "mainnet" else "mainnet"
+        alt_ccip_registry = get_ccip_registry(alt_env)
+        if not source_net:
+            source_net = alt_ccip_registry["networks"].get(source)
+        if not dest_net:
+            dest_net = alt_ccip_registry["networks"].get(destination)
     
     if not source_net:
         raise HTTPException(status_code=404, detail=f"Unknown source network '{source}'.")
@@ -457,10 +523,17 @@ async def get_ccip_lane(source: str, destination: str):
 async def healthz():
     return {
         "status": "ok",
-        "registry_version": REGISTRY["version"],
-        "networks": len(REGISTRY["networks"]),
-        "feeds": sum(n["feed_count"] for n in REGISTRY["networks"].values()),
-        "ccip_networks": len(CCIP_REGISTRY["networks"]),
+        "registry_version": REGISTRY_MAINNET["version"],
+        "mainnet": {
+            "networks": len(REGISTRY_MAINNET["networks"]),
+            "feeds": sum(n["feed_count"] for n in REGISTRY_MAINNET["networks"].values()),
+            "ccip_networks": len(CCIP_REGISTRY_MAINNET["networks"]),
+        },
+        "testnet": {
+            "networks": len(REGISTRY_TESTNET["networks"]),
+            "feeds": sum(n["feed_count"] for n in REGISTRY_TESTNET["networks"].values()),
+            "ccip_networks": len(CCIP_REGISTRY_TESTNET["networks"]),
+        },
         "cache_entries": len(_response_cache),
     }
 

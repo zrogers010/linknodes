@@ -12,9 +12,13 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Read registries from frontend/data/
+// Read mainnet registries from frontend/data/
 const feedsRegistry = JSON.parse(fs.readFileSync(path.join(__dirname, 'data/registry.json'), 'utf8'));
 const ccipRegistry = JSON.parse(fs.readFileSync(path.join(__dirname, 'data/ccip_registry.json'), 'utf8'));
+
+// Read testnet registries from frontend/data/
+const feedsRegistryTestnet = JSON.parse(fs.readFileSync(path.join(__dirname, 'data/registry_testnet.json'), 'utf8'));
+const ccipRegistryTestnet = JSON.parse(fs.readFileSync(path.join(__dirname, 'data/ccip_registry_testnet.json'), 'utf8'));
 
 // Read the built index.html template
 const distPath = path.join(__dirname, 'dist');
@@ -164,20 +168,29 @@ for (const page of productPages) {
   fileCount++;
 }
 
-// 2. CCIP lane pages
+// 2. CCIP lane pages (mainnet + testnet)
 const ccipLanes = [];
 for (const [sourceId, sourceNetwork] of Object.entries(ccipRegistry.networks)) {
   const supports = sourceNetwork.supports || [];
   for (const destId of supports) {
     if (ccipRegistry.networks[destId]) {
-      ccipLanes.push({ source: sourceId, dest: destId });
+      ccipLanes.push({ source: sourceId, dest: destId, registry: ccipRegistry });
+    }
+  }
+}
+
+for (const [sourceId, sourceNetwork] of Object.entries(ccipRegistryTestnet.networks)) {
+  const supports = sourceNetwork.supports || [];
+  for (const destId of supports) {
+    if (ccipRegistryTestnet.networks[destId]) {
+      ccipLanes.push({ source: sourceId, dest: destId, registry: ccipRegistryTestnet });
     }
   }
 }
 
 for (const lane of ccipLanes) {
-  const sourceName = ccipRegistry.networks[lane.source].label;
-  const destName = ccipRegistry.networks[lane.dest].label;
+  const sourceName = lane.registry.networks[lane.source].label;
+  const destName = lane.registry.networks[lane.dest].label;
   
   const html = injectMetaTags(template, {
     title: `${sourceName} → ${destName} CCIP Lane | LinkNodes.io`,
@@ -198,7 +211,7 @@ const feedIndexHtml = injectMetaTags(template, {
 writeHtmlFile('feeds', feedIndexHtml);
 fileCount++;
 
-// 4. Per-chain feed index pages
+// 4. Per-chain feed index pages (mainnet + testnet)
 for (const [chainId, network] of Object.entries(feedsRegistry.networks)) {
   const html = injectMetaTags(template, {
     title: `${network.label} Data Feeds — ${network.feed_count} Chainlink Oracles | LinkNodes.io`,
@@ -210,8 +223,47 @@ for (const [chainId, network] of Object.entries(feedsRegistry.networks)) {
   fileCount++;
 }
 
-// 5. Individual feed pages
+for (const [chainId, network] of Object.entries(feedsRegistryTestnet.networks)) {
+  const html = injectMetaTags(template, {
+    title: `${network.label} Data Feeds — ${network.feed_count} Chainlink Oracles | LinkNodes.io`,
+    description: `Browse ${network.feed_count} Chainlink price feeds on ${network.label}. Get proxy addresses, heartbeats, decimals, and copy-ready Solidity/JS code for ${network.label} data feeds.`,
+    canonical: `${SITE_URL}/feeds/${chainId}`
+  });
+  
+  writeHtmlFile(`feeds/${chainId}`, html);
+  fileCount++;
+}
+
+// 5. Individual feed pages (mainnet + testnet)
 for (const [chainId, network] of Object.entries(feedsRegistry.networks)) {
+  for (const [feedSlug, feed] of Object.entries(network.feeds)) {
+    const jsonLd = {
+      '@context': 'https://schema.org',
+      '@type': 'DataFeed',
+      name: feed.name,
+      description: `Chainlink ${feed.name} price feed on ${network.label}`,
+      provider: {
+        '@type': 'Organization',
+        name: 'Chainlink',
+        url: 'https://chain.link'
+      },
+      url: `${SITE_URL}/feeds/${chainId}/${feedSlug}`,
+      identifier: feed.address
+    };
+    
+    const html = injectMetaTags(template, {
+      title: `${feed.name} on ${network.label} — Live Chainlink Price Feed | LinkNodes.io`,
+      description: `Get ${feed.name} price data from Chainlink on ${network.label}. Proxy: ${feed.address}. Heartbeat: ${feed.heartbeat}s. Decimals: ${feed.decimals}. Free production code snippets.`,
+      canonical: `${SITE_URL}/feeds/${chainId}/${feedSlug}`,
+      jsonLd
+    });
+    
+    writeHtmlFile(`feeds/${chainId}/${feedSlug}`, html);
+    fileCount++;
+  }
+}
+
+for (const [chainId, network] of Object.entries(feedsRegistryTestnet.networks)) {
   for (const [feedSlug, feed] of Object.entries(network.feeds)) {
     const jsonLd = {
       '@context': 'https://schema.org',

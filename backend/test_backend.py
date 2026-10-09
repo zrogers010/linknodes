@@ -81,7 +81,7 @@ def main():
     results.append(test(
         "Health Check",
         f"{BASE_URL}/healthz",
-        expected_fields=["status", "registry_version", "ccip_networks"]
+        expected_fields=["status", "registry_version", "mainnet", "testnet"]
     ))
     
     # Test 2: CCIP Registry
@@ -236,6 +236,34 @@ def main():
         "Huge round_id (should 422)",
         f"{BASE_URL}/v1/query/ethereum/eth-usd?round_id={huge_round_id}",
         expected_status=422
+    ))
+    
+    # Test 12: Testnet registry
+    results.append(test(
+        "Testnet Registry",
+        f"{BASE_URL}/v1/registry?environment=testnet",
+        expected_fields=["version", "environment", "networks"]
+    ))
+    
+    # Test 13: Testnet feed query (Sepolia ETH/USD)
+    results.append(test(
+        "Query ETH/USD on Sepolia (testnet)",
+        f"{BASE_URL}/v1/query/sepolia/eth-usd?environment=testnet",
+        expected_fields=["success", "payload", "meta"]
+    ))
+    
+    # Test 14: Testnet CCIP registry
+    results.append(test(
+        "Testnet CCIP Registry",
+        f"{BASE_URL}/v1/ccip/registry?environment=testnet",
+        expected_fields=["version", "environment", "networks"]
+    ))
+    
+    # Test 15: Testnet CCIP lane (Sepolia -> Arbitrum Sepolia)
+    results.append(test(
+        "CCIP Lane: Sepolia -> Arbitrum Sepolia (testnet)",
+        f"{BASE_URL}/v1/ccip/lane/sepolia/arbitrum-sepolia?environment=testnet",
+        expected_fields=["success", "lane", "source", "destination"]
     ))
     
     # Summary

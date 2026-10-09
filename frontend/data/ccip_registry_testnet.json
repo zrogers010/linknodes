@@ -1,0 +1,157 @@
+{
+  "version": "2.0.0",
+  "environment": "testnet",
+  "source": "chainlink-ccip-api",
+  "source_url": "https://docs.chain.link/api/ccip/v1/chains?environment=testnet",
+  "generated_at": 1791565201,
+  "description": "CCIP router addresses and chain selectors from Chainlink's official testnet API",
+  "networks": {
+    "sepolia": {
+      "label": "Ethereum Sepolia",
+      "chain_id": 11155111,
+      "chain_selector": "16015286601757825753",
+      "explorer": "https://sepolia.etherscan.io",
+      "rpc_urls": [
+        "https://ethereum-sepolia-rpc.publicnode.com"
+      ],
+      "router": "0x0BF3dE8c5D3e8A2B34D2BEeB17ABfCeBaf363A59",
+      "rmn_proxy": "0xba3f6251de62dED61Ff98590cB2fDf6871FbB991",
+      "native_fee_token": "ETH",
+      "link_token": null,
+      "supports": [
+        "arbitrum-sepolia",
+        "avalanche-fuji",
+        "base-sepolia",
+        "bnb-testnet",
+        "optimism-sepolia",
+        "polygon-amoy"
+      ]
+    },
+    "arbitrum-sepolia": {
+      "label": "Arbitrum Sepolia",
+      "chain_id": 421614,
+      "chain_selector": "3478487238524512106",
+      "explorer": "https://sepolia.arbiscan.io",
+      "rpc_urls": [
+        "https://arbitrum-sepolia-rpc.publicnode.com"
+      ],
+      "router": "0x2a9C5afB0d0e4BAb2BCdaE109EC4b0c4Be15a165",
+      "rmn_proxy": "0x9527E2d01A3064ef6b50c1Da1C0cC523803BCFF2",
+      "native_fee_token": "ETH",
+      "link_token": null,
+      "supports": [
+        "avalanche-fuji",
+        "base-sepolia",
+        "bnb-testnet",
+        "optimism-sepolia",
+        "polygon-amoy",
+        "sepolia"
+      ]
+    },
+    "base-sepolia": {
+      "label": "Base Sepolia",
+      "chain_id": 84532,
+      "chain_selector": "10344971235874465080",
+      "explorer": "https://sepolia.basescan.org",
+      "rpc_urls": [
+        "https://base-sepolia-rpc.publicnode.com"
+      ],
+      "router": "0xD3b06cEbF099CE7DA4AcCf578aaebFDBd6e88a93",
+      "rmn_proxy": "0x99360767a4705f68CcCb9533195B761648d6d807",
+      "native_fee_token": "ETH",
+      "link_token": null,
+      "supports": [
+        "arbitrum-sepolia",
+        "avalanche-fuji",
+        "bnb-testnet",
+        "optimism-sepolia",
+        "polygon-amoy",
+        "sepolia"
+      ]
+    },
+    "optimism-sepolia": {
+      "label": "OP Sepolia",
+      "chain_id": 11155420,
+      "chain_selector": "5224473277236331295",
+      "explorer": "https://sepolia-optimism.etherscan.io",
+      "rpc_urls": [
+        "https://optimism-sepolia-rpc.publicnode.com"
+      ],
+      "router": "0x114A20A10b43D4115e5aeef7345a1A71d2a60C57",
+      "rmn_proxy": "0xb40A3109075965cc09E93719e33E748abf680dAe",
+      "native_fee_token": "ETH",
+      "link_token": null,
+      "supports": [
+        "arbitrum-sepolia",
+        "avalanche-fuji",
+        "base-sepolia",
+        "bnb-testnet",
+        "polygon-amoy",
+        "sepolia"
+      ]
+    },
+    "polygon-amoy": {
+      "label": "Polygon Amoy",
+      "chain_id": 80002,
+      "chain_selector": "16281711391670634445",
+      "explorer": "https://amoy.polygonscan.com",
+      "rpc_urls": [
+        "https://polygon-amoy-bor-rpc.publicnode.com"
+      ],
+      "router": "0x9C32fCB86BF0f4a1A8921a9Fe46de3198bb884B2",
+      "rmn_proxy": "0x7c1e545A40750Ee8761282382D51E017BAC68CBB",
+      "native_fee_token": "POL",
+      "link_token": null,
+      "supports": [
+        "arbitrum-sepolia",
+        "avalanche-fuji",
+        "base-sepolia",
+        "bnb-testnet",
+        "optimism-sepolia",
+        "sepolia"
+      ]
+    },
+    "avalanche-fuji": {
+      "label": "Avalanche Fuji",
+      "chain_id": 43113,
+      "chain_selector": "14767482510784806043",
+      "explorer": "https://testnet.snowtrace.io",
+      "rpc_urls": [
+        "https://avalanche-fuji-c-chain-rpc.publicnode.com"
+      ],
+      "router": "0xF694E193200268f9a4868e4Aa017A0118C9a8177",
+      "rmn_proxy": "0xAc8CFc3762a979628334a0E4C1026244498E821b",
+      "native_fee_token": "AVAX",
+      "link_token": null,
+      "supports": [
+        "arbitrum-sepolia",
+        "base-sepolia",
+        "bnb-testnet",
+        "optimism-sepolia",
+        "polygon-amoy",
+        "sepolia"
+      ]
+    },
+    "bnb-testnet": {
+      "label": "BNB Testnet",
+      "chain_id": 97,
+      "chain_selector": "13264668187771770619",
+      "explorer": "https://testnet.bscscan.com",
+      "rpc_urls": [
+        "https://bsc-testnet-rpc.publicnode.com"
+      ],
+      "router": "0xE1053aE1857476f36A3C62580FF9b016E8EE8F6f",
+      "rmn_proxy": "0xA8C0c11bf64AF62CDCA6f93D3769B88BdD7cb93D",
+      "native_fee_token": "LINK",
+      "link_token": null,
+      "supports": [
+        "arbitrum-sepolia",
+        "avalanche-fuji",
+        "base-sepolia",
+        "optimism-sepolia",
+        "polygon-amoy",
+        "sepolia"
+      ]
+    }
+  }
+}
