@@ -11,7 +11,8 @@ interface CCIPNetwork {
   chain_id: number
   chain_selector: string
   router: string
-  arm_proxy?: string
+  rmn_proxy?: string
+  native_fee_token?: string
   explorer: string
   rpc_urls: string[]
 }
@@ -24,7 +25,8 @@ interface CCIPRegistry {
     chain_id: number
     chain_selector: string
     router: string
-    arm_proxy?: string
+    rmn_proxy?: string
+    native_fee_token?: string
     explorer: string
     rpc_urls: string[]
     supports: string[]
@@ -108,21 +110,28 @@ pragma solidity ^0.8.20;
 import {IRouterClient} from "@chainlink/contracts-ccip/contracts/interfaces/IRouterClient.sol";
 import {Client} from "@chainlink/contracts-ccip/contracts/libraries/Client.sol";
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
+import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 
-/// Send a CCIP message from ${laneData.source.label} to ${laneData.destination.label}
-contract CCIPSender {
+/// Send CCIP messages from ${laneData.source.label} to ${laneData.destination.label}
+/// Native fee token: ${laneData.source.native_fee_token || 'ETH'}
+contract CCIPSender is Ownable {
+    using SafeERC20 for IERC20;
+
     IRouterClient public immutable router;
     uint64 public constant DESTINATION_CHAIN_SELECTOR = ${laneData.destination.chain_selector};
 
-    constructor() {
+    error InsufficientFee(uint256 required, uint256 provided);
+
+    constructor() Ownable(msg.sender) {
         router = IRouterClient(${laneData.source.router});
     }
 
-    /// @notice Marked payable to accept native gas for fees (feeToken = address(0))
+    /// Send a message (paying fee in native ${laneData.source.native_fee_token || 'ETH'})
     function sendMessage(
         address receiver,
         string memory message
-    ) external payable returns (bytes32 messageId) {
+    ) external payable onlyOwner returns (bytes32 messageId) {
         Client.EVM2AnyMessage memory evm2AnyMessage = Client.EVM2AnyMessage({
             receiver: abi.encode(receiver),
             data: abi.encode(message),
@@ -130,31 +139,33 @@ contract CCIPSender {
             extraArgs: Client._argsToBytes(
                 Client.GenericExtraArgsV2({gasLimit: 200_000, allowOutOfOrderExecution: true})
             ),
-            feeToken: address(0) // Pay in native token
+            feeToken: address(0) // Native token
         });
 
         uint256 fees = router.getFee(DESTINATION_CHAIN_SELECTOR, evm2AnyMessage);
-        require(msg.value >= fees, "Insufficient fee");
+        if (msg.value < fees) revert InsufficientFee(fees, msg.value);
 
         messageId = router.ccipSend{value: fees}(
             DESTINATION_CHAIN_SELECTOR,
             evm2AnyMessage
         );
 
-        // Refund excess payment
+        // Refund excess (use call, not transfer, to avoid 2300 gas limit issues)
         if (msg.value > fees) {
-            payable(msg.sender).transfer(msg.value - fees);
+            (bool success, ) = msg.sender.call{value: msg.value - fees}("");
+            require(success, "Refund failed");
         }
     }
 
-    /// @notice Marked payable to accept native gas for fees (feeToken = address(0))
+    /// Send tokens (paying fee in native ${laneData.source.native_fee_token || 'ETH'})
     function sendTokens(
         address receiver,
         address token,
         uint256 amount
-    ) external payable returns (bytes32 messageId) {
-        IERC20(token).transferFrom(msg.sender, address(this), amount);
-        IERC20(token).approve(address(router), amount);
+    ) external payable onlyOwner returns (bytes32 messageId) {
+        // Use SafeERC20 for secure token transfers
+        IERC20(token).safeTransferFrom(msg.sender, address(this), amount);
+        IERC20(token).safeIncreaseAllowance(address(router), amount);
 
         Client.EVMTokenAmount[] memory tokenAmounts = new Client.EVMTokenAmount[](1);
         tokenAmounts[0] = Client.EVMTokenAmount({token: token, amount: amount});
@@ -170,17 +181,43 @@ contract CCIPSender {
         });
 
         uint256 fees = router.getFee(DESTINATION_CHAIN_SELECTOR, evm2AnyMessage);
-        require(msg.value >= fees, "Insufficient fee");
+        if (msg.value < fees) revert InsufficientFee(fees, msg.value);
 
         messageId = router.ccipSend{value: fees}(
             DESTINATION_CHAIN_SELECTOR,
             evm2AnyMessage
         );
 
-        // Refund excess payment
         if (msg.value > fees) {
-            payable(msg.sender).transfer(msg.value - fees);
+            (bool success, ) = msg.sender.call{value: msg.value - fees}("");
+            require(success, "Refund failed");
         }
+    }
+
+    /// Withdraw any tokens sent to this contract
+    function withdraw(address token, uint256 amount) external onlyOwner {
+        IERC20(token).safeTransfer(msg.sender, amount);
+    }
+
+    receive() external payable {}
+}
+
+/// CCIP Receiver Example (deploy on ${laneData.destination.label})
+import {IAny2EVMMessageReceiver} from "@chainlink/contracts-ccip/contracts/interfaces/IAny2EVMMessageReceiver.sol";
+import {CCIPReceiver} from "@chainlink/contracts-ccip/contracts/applications/CCIPReceiver.sol";
+
+contract CCIPMessageReceiver is CCIPReceiver, Ownable {
+    string public lastMessage;
+    address public lastSender;
+
+    event MessageReceived(bytes32 messageId, uint64 sourceChainSelector, address sender, string message);
+
+    constructor(address router) CCIPReceiver(router) Ownable(msg.sender) {}
+
+    function _ccipReceive(Client.Any2EVMMessage memory message) internal override {
+        lastSender = abi.decode(message.sender, (address));
+        lastMessage = abi.decode(message.data, (string));
+        emit MessageReceived(message.messageId, message.sourceChainSelector, lastSender, lastMessage);
     }
 }`
     : ''
@@ -250,7 +287,7 @@ console.log("Message sent successfully!");`
       <>
         <SEO 
           title="CCIP — Cross-Chain Interoperability Protocol"
-          description="Explore CCIP lanes across 9 mainnets. Get router addresses, chain selectors, ARM proxies, and production-ready Solidity snippets for cross-chain messaging."
+          description="Explore CCIP lanes across 9 mainnets. Get router addresses, chain selectors, RMN proxies, and production-ready Solidity snippets for cross-chain messaging."
           path="/products/ccip"
         />
         <ProductLayout
@@ -276,7 +313,7 @@ console.log("Message sent successfully!");`
     : "CCIP — Cross-Chain Interoperability Protocol"
   const seoDescription = laneData
     ? `CCIP lane from ${laneData.source.label} to ${laneData.destination.label}. Router: ${laneData.source.router}, Chain Selector: ${laneData.destination.chain_selector}. Get production-ready Solidity snippets.`
-    : "Explore CCIP lanes across 9 mainnets. Get router addresses, chain selectors, ARM proxies, and production-ready Solidity snippets for cross-chain messaging."
+    : "Explore CCIP lanes across 9 mainnets. Get router addresses, chain selectors, RMN proxies, and production-ready Solidity snippets for cross-chain messaging."
   const seoPath = source && dest ? `/products/ccip/${source}/${dest}` : "/products/ccip"
 
   return (
@@ -293,7 +330,7 @@ console.log("Message sent successfully!");`
       status="live"
       description={
         <>
-          Explore CCIP lanes across {networks.length} mainnets. Get router addresses, chain selectors, ARM proxies, and
+          Explore CCIP lanes across {networks.length} mainnets. Get router addresses, chain selectors, RMN proxies, and
           production-ready Solidity snippets for cross-chain messaging and token transfers.
         </>
       }
@@ -416,16 +453,16 @@ console.log("Message sent successfully!");`
                           <CopyButton text={laneData.source.router} className="px-2 py-1" />
                         </div>
                       </div>
-                      {laneData.source.arm_proxy && (
+                      {laneData.source.rmn_proxy && (
                         <div>
                           <div className="mb-1 text-[10px] font-semibold uppercase tracking-wider text-slate-500">
-                            ARM Proxy
+                            RMN Proxy
                           </div>
                           <div className="group flex items-center gap-2">
                             <code className="flex-1 rounded bg-ink-900 px-2 py-1.5 font-mono text-[11px] text-slate-300">
-                              {laneData.source.arm_proxy}
+                              {laneData.source.rmn_proxy}
                             </code>
-                            <CopyButton text={laneData.source.arm_proxy} className="px-2 py-1" />
+                            <CopyButton text={laneData.source.rmn_proxy} className="px-2 py-1" />
                           </div>
                         </div>
                       )}
@@ -473,16 +510,16 @@ console.log("Message sent successfully!");`
                           <CopyButton text={laneData.destination.router} className="px-2 py-1" />
                         </div>
                       </div>
-                      {laneData.destination.arm_proxy && (
+                      {laneData.destination.rmn_proxy && (
                         <div>
                           <div className="mb-1 text-[10px] font-semibold uppercase tracking-wider text-slate-500">
-                            ARM Proxy
+                            RMN Proxy
                           </div>
                           <div className="group flex items-center gap-2">
                             <code className="flex-1 rounded bg-ink-900 px-2 py-1.5 font-mono text-[11px] text-slate-300">
-                              {laneData.destination.arm_proxy}
+                              {laneData.destination.rmn_proxy}
                             </code>
-                            <CopyButton text={laneData.destination.arm_proxy} className="px-2 py-1" />
+                            <CopyButton text={laneData.destination.rmn_proxy} className="px-2 py-1" />
                           </div>
                         </div>
                       )}

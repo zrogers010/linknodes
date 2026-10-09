@@ -126,7 +126,15 @@ app.add_middleware(GZipMiddleware, minimum_size=1024)
 @app.middleware("http")
 async def rate_limit(request: Request, call_next):
     if request.url.path.startswith("/v1/"):
-        ip = request.client.host if request.client else "unknown"
+        # Use X-Forwarded-For when behind ALB/proxy, fallback to direct client IP
+        # Only trust X-Forwarded-For in production behind ALB; for direct access use client.host
+        forwarded_for = request.headers.get("X-Forwarded-For")
+        if forwarded_for:
+            # X-Forwarded-For can be a comma-separated list; take the first (client) IP
+            ip = forwarded_for.split(',')[0].strip()
+        else:
+            ip = request.client.host if request.client else "unknown"
+        
         now = time.monotonic()
         bucket = _rate_buckets[ip]
         while bucket and now - bucket[0] > RATE_LIMIT_WINDOW_S:
@@ -148,12 +156,40 @@ def _resolve(network: str, feed: str) -> tuple[dict, dict]:
     net = REGISTRY["networks"].get(network.lower())
     if not net:
         raise HTTPException(status_code=400, detail=f"Unknown network '{network}'.")
-    feed_meta = net["feeds"].get(feed.lower())
+    
+    # Try exact match first
+    feed_lower = feed.lower()
+    feed_meta = net["feeds"].get(feed_lower)
+    
+    # If not found, try canonical name resolution (e.g., eth-usd -> eth-usd-svr)
+    # This handles cases where Chainlink renames feeds but the old proxy still works
     if not feed_meta:
-        raise HTTPException(
-            status_code=404,
-            detail=f"Chainlink does not publish a '{feed}' feed on {net['label']}.",
-        )
+        # Try common suffixes for SVR (Shared Verification) variants
+        for suffix in ['-svr', '-shared-svr']:
+            variant = f"{feed_lower}{suffix}"
+            if variant in net["feeds"]:
+                feed_meta = net["feeds"][variant]
+                break
+        
+        # If still not found, try removing -svr suffix (reverse direction)
+        if not feed_meta and feed_lower.endswith('-svr'):
+            base_name = feed_lower.replace('-svr', '').replace('-shared', '')
+            if base_name in net["feeds"]:
+                feed_meta = net["feeds"][base_name]
+    
+    if not feed_meta:
+        # Provide helpful error with close matches
+        available_feeds = list(net["feeds"].keys())
+        close_matches = [f for f in available_feeds if feed_lower in f or f in feed_lower][:5]
+        
+        error_msg = f"Feed '{feed}' not found on {net['label']}."
+        if close_matches:
+            error_msg += f" Did you mean: {', '.join(close_matches)}?"
+        else:
+            error_msg += f" Available feeds: {len(available_feeds)} total. Try /v1/registry to see all feeds."
+        
+        raise HTTPException(status_code=404, detail=error_msg)
+    
     return net, feed_meta
 
 
@@ -273,6 +309,12 @@ async def query_feed(
         description="Optional historical roundId for getRoundData(); omit for latestRoundData().",
     ),
 ):
+    # Validate uint80 bounds (2^80 - 1 = 1208925819614629174706175)
+    if round_id is not None and round_id > 1208925819614629174706175:
+        raise HTTPException(
+            status_code=422,
+            detail=f"round_id must fit in uint80 (max 1208925819614629174706175). Got: {round_id}",
+        )
     return await _read_feed(network.lower(), feed.lower(), round_id)
 
 
@@ -351,9 +393,9 @@ async def get_ccip_lane(source: str, destination: str):
     dest_net = CCIP_REGISTRY["networks"].get(destination)
     
     if not source_net:
-        raise HTTPException(status_code=400, detail=f"Unknown source network '{source}'.")
+        raise HTTPException(status_code=404, detail=f"Unknown source network '{source}'.")
     if not dest_net:
-        raise HTTPException(status_code=400, detail=f"Unknown destination network '{destination}'.")
+        raise HTTPException(status_code=404, detail=f"Unknown destination network '{destination}'.")
     
     if destination not in source_net.get("supports", []):
         raise HTTPException(
@@ -370,7 +412,8 @@ async def get_ccip_lane(source: str, destination: str):
             "chain_id": source_net["chain_id"],
             "chain_selector": source_net["chain_selector"],
             "router": source_net["router"],
-            "arm_proxy": source_net.get("arm_proxy"),
+            "rmn_proxy": source_net.get("rmn_proxy") or source_net.get("arm_proxy"),
+            "native_fee_token": source_net.get("native_fee_token", "ETH"),
             "explorer": source_net["explorer"],
             "rpc_urls": source_net["rpc_urls"],
         },
@@ -380,7 +423,8 @@ async def get_ccip_lane(source: str, destination: str):
             "chain_id": dest_net["chain_id"],
             "chain_selector": dest_net["chain_selector"],
             "router": dest_net["router"],
-            "arm_proxy": dest_net.get("arm_proxy"),
+            "rmn_proxy": dest_net.get("rmn_proxy") or dest_net.get("arm_proxy"),
+            "native_fee_token": dest_net.get("native_fee_token", "ETH"),
             "explorer": dest_net["explorer"],
             "rpc_urls": dest_net["rpc_urls"],
         },

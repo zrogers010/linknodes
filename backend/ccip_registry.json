@@ -1,9 +1,9 @@
 {
-  "version": "1.0.0",
-  "source": "chainlink-ccip-directory",
-  "generated_at": 1786862500,
-  "description": "CCIP router addresses and chain selectors from Chainlink's official mainnet directory",
-  "data_source_url": "https://docs.chain.link/ccip/directory/mainnet",
+  "version": "2.0.0",
+  "source": "chainlink-ccip-api",
+  "source_url": "https://docs.chain.link/api/ccip/v1/chains?environment=mainnet",
+  "generated_at": 1791520140,
+  "description": "CCIP router addresses and chain selectors from Chainlink's official mainnet API",
   "networks": {
     "ethereum": {
       "label": "Ethereum Mainnet",
@@ -14,8 +14,16 @@
         "https://ethereum-rpc.publicnode.com"
       ],
       "router": "0x80226fc0Ee2b096224EeAc085Bb9a8cba1146f7D",
-      "arm_proxy": "0x411dE17f12D1A34ecC7F45f49844626267c75e81",
-      "supports": ["arbitrum", "avalanche", "base", "bnb", "optimism", "polygon", "wemix", "zksync"]
+      "rmn_proxy": "0x411dE17f12D1A34ecC7F45f49844626267c75e81",
+      "native_fee_token": "ETH",
+      "supports": [
+        "arbitrum",
+        "avalanche",
+        "base",
+        "bnb",
+        "optimism",
+        "polygon"
+      ]
     },
     "arbitrum": {
       "label": "Arbitrum One",
@@ -26,8 +34,16 @@
         "https://arbitrum-one-rpc.publicnode.com"
       ],
       "router": "0x141fa059441E0ca23ce184B6A78bafD2A517DdE8",
-      "arm_proxy": "0x83AE0a143c8c47F32BABC76e1B8E07349864022d",
-      "supports": ["ethereum", "avalanche", "base", "bnb", "optimism", "polygon", "wemix", "zksync"]
+      "rmn_proxy": "0xC311a21e6fEf769344EB1515588B9d535662a145",
+      "native_fee_token": "ETH",
+      "supports": [
+        "avalanche",
+        "base",
+        "bnb",
+        "ethereum",
+        "optimism",
+        "polygon"
+      ]
     },
     "avalanche": {
       "label": "Avalanche C-Chain",
@@ -38,8 +54,16 @@
         "https://avalanche-c-chain-rpc.publicnode.com"
       ],
       "router": "0xF4c7E640EdA248ef95972845a62bdC74237805dB",
-      "arm_proxy": "0xb6dE62F47b0F620B9d0Ae3eAe1A39Fd70cE9C5E8",
-      "supports": ["ethereum", "arbitrum", "base", "bnb", "optimism", "polygon"]
+      "rmn_proxy": "0xcBD48A8eB077381c3c4Eb36b402d7283aB2b11Bc",
+      "native_fee_token": "AVAX",
+      "supports": [
+        "arbitrum",
+        "base",
+        "bnb",
+        "ethereum",
+        "optimism",
+        "polygon"
+      ]
     },
     "base": {
       "label": "Base",
@@ -50,8 +74,16 @@
         "https://base-rpc.publicnode.com"
       ],
       "router": "0x881e3A65B4d4a04dD529061dd0071cf975F58bCD",
-      "arm_proxy": "0xFd01a7E32c5cCa4e0Ea8F3a89a82BE66b9a36696",
-      "supports": ["ethereum", "arbitrum", "avalanche", "bnb", "optimism", "polygon", "zksync"]
+      "rmn_proxy": "0xC842c69d54F83170C42C4d556B4F6B2ca53Dd3E8",
+      "native_fee_token": "ETH",
+      "supports": [
+        "arbitrum",
+        "avalanche",
+        "bnb",
+        "ethereum",
+        "optimism",
+        "polygon"
+      ]
     },
     "bnb": {
       "label": "BNB Smart Chain",
@@ -62,8 +94,16 @@
         "https://bsc-rpc.publicnode.com"
       ],
       "router": "0x34B03Cb9086d7D758AC55af71584F81A598759FE",
-      "arm_proxy": "0xE09BF7Faf1B23cD12AE0b8B819029091eCA2f8dB",
-      "supports": ["ethereum", "arbitrum", "avalanche", "base", "optimism", "polygon", "zksync"]
+      "rmn_proxy": "0x9e09697842194f77d315E0907F1Bda77922e8f84",
+      "native_fee_token": "BNB",
+      "supports": [
+        "arbitrum",
+        "avalanche",
+        "base",
+        "ethereum",
+        "optimism",
+        "polygon"
+      ]
     },
     "optimism": {
       "label": "OP Mainnet",
@@ -74,8 +114,16 @@
         "https://optimism-rpc.publicnode.com"
       ],
       "router": "0x3206695CaE29952f4b0c22a169725a865bc8Ce0f",
-      "arm_proxy": "0x86dFE5CBA97F09240DFFD8C1eD014ae027092a46",
-      "supports": ["ethereum", "arbitrum", "avalanche", "base", "bnb", "polygon", "zksync"]
+      "rmn_proxy": "0x55b3FCa23EdDd28b1f5B4a3C7975f63EFd2d06CE",
+      "native_fee_token": "ETH",
+      "supports": [
+        "arbitrum",
+        "avalanche",
+        "base",
+        "bnb",
+        "ethereum",
+        "polygon"
+      ]
     },
     "polygon": {
       "label": "Polygon PoS",
@@ -86,8 +134,16 @@
         "https://polygon-bor-rpc.publicnode.com"
       ],
       "router": "0x849c5ED5a80F5B408Dd4969b78c2C8fdf0565Bfe",
-      "arm_proxy": "0x9bF7e7f2c8CaB2FFFF9f6BE77e9E3c6118086E1D",
-      "supports": ["ethereum", "arbitrum", "avalanche", "base", "bnb", "optimism"]
+      "rmn_proxy": "0xf1ceAa46D8d13Cac9fC38aaEF3d3d14754C5A9c2",
+      "native_fee_token": "POL",
+      "supports": [
+        "arbitrum",
+        "avalanche",
+        "base",
+        "bnb",
+        "ethereum",
+        "optimism"
+      ]
     },
     "wemix": {
       "label": "WEMIX",
@@ -97,21 +153,32 @@
       "rpc_urls": [
         "https://api.wemix.com"
       ],
-      "router": "0xA8C0c11bf64AF62CDCA6f93D3769B88BdD7cb93D",
-      "arm_proxy": "0x9Cd45f381c985E0eF2Cec7b5038ab0c44ee0b0B8",
-      "supports": ["ethereum", "arbitrum"]
+      "router": "0x7798b795Fde864f4Cd1b124a38Ba9619B7F8A442",
+      "rmn_proxy": "0x2375959c6571AC7a83c164C6FCcbd09E7782773d",
+      "native_fee_token": "LINK",
+      "supports": [
+        "arbitrum",
+        "ethereum"
+      ]
     },
     "zksync": {
       "label": "ZKsync Era",
       "chain_id": 324,
-      "chain_selector": "6898391096552792247",
+      "chain_selector": "1562403441176082196",
       "explorer": "https://era.zksync.network",
       "rpc_urls": [
         "https://mainnet.era.zksync.io"
       ],
-      "router": "0x2a87b2B1Fbf0a8286969E63De8bDb75D8d6F3EF1",
-      "arm_proxy": "0x4dA4fb44f0F14a83A3aa76f97EfC6d9F8b56C7b4",
-      "supports": ["ethereum", "arbitrum", "base", "bnb", "optimism"]
+      "router": "0x748Fd769d81F5D94752bf8B0875E9301d0ba71bB",
+      "rmn_proxy": "0x2aBB46A2D32220b8801CE96CAbC32dd2dA7b7B20",
+      "native_fee_token": "ETH",
+      "supports": [
+        "arbitrum",
+        "base",
+        "bnb",
+        "ethereum",
+        "optimism"
+      ]
     }
   }
 }

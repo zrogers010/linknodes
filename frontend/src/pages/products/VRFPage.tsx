@@ -156,28 +156,57 @@ export function VRFPage() {
 {`// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.19;
 
-import "@chainlink/contracts/src/v0.8/vrf/VRFConsumerBaseV2.sol";
+import {VRFConsumerBaseV2Plus} from "@chainlink/contracts/src/v0.8/vrf/dev/VRFConsumerBaseV2Plus.sol";
+import {VRFV2PlusClient} from "@chainlink/contracts/src/v0.8/vrf/dev/libraries/VRFV2PlusClient.sol";
 
-contract RandomNumberConsumer is VRFConsumerBaseV2 {
+/// VRF v2.5 consumer (subscription or direct funding)
+contract RandomNumberConsumer is VRFConsumerBaseV2Plus {
     uint256[] public randomWords;
     uint256 public requestId;
     
-    function requestRandomWords() external {
-        requestId = COORDINATOR.requestRandomWords(
-            keyHash,
-            subscriptionId,
-            requestConfirmations,
-            callbackGasLimit,
-            numWords
-        );
+    // VRF v2.5 configuration (example values for Ethereum mainnet)
+    uint256 public subscriptionId;
+    bytes32 public keyHash = 0x9e9e46732b32662b9adc6f3abdf6c5e926a666d174a4d6b8e39c96b87e28a796;
+    uint32 public callbackGasLimit = 100000;
+    uint16 public requestConfirmations = 3;
+    uint32 public numWords = 1;
+    
+    constructor(uint256 _subscriptionId) 
+        VRFConsumerBaseV2Plus(0x271682DEB8C4E0901D1a1550aD2e64D568E69909) // VRF Coordinator v2.5
+    {
+        subscriptionId = _subscriptionId;
     }
     
+    /// Request random words (subscription-based)
+    function requestRandomWords() external returns (uint256) {
+        requestId = s_vrfCoordinator.requestRandomWords(
+            VRFV2PlusClient.RandomWordsRequest({
+                keyHash: keyHash,
+                subId: subscriptionId,
+                requestConfirmations: requestConfirmations,
+                callbackGasLimit: callbackGasLimit,
+                numWords: numWords,
+                extraArgs: VRFV2PlusClient._argsToBytes(
+                    VRFV2PlusClient.ExtraArgsV1({nativePayment: false}) // Pay in LINK
+                )
+            })
+        );
+        return requestId;
+    }
+    
+    /// Callback function (called by VRF Coordinator with random values)
     function fulfillRandomWords(
         uint256 _requestId,
-        uint256[] memory _randomWords
+        uint256[] calldata _randomWords
     ) internal override {
         randomWords = _randomWords;
-        // Use your random numbers here
+        // Use your random numbers here (e.g., mint NFT with random trait)
+    }
+    
+    /// Get latest random word
+    function getRandomWord() external view returns (uint256) {
+        require(randomWords.length > 0, "No random words yet");
+        return randomWords[0];
     }
 }`}
               </pre>
