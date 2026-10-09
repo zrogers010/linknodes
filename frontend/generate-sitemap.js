@@ -7,12 +7,12 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Read the CCIP registry
-const ccipRegistryPath = path.join(__dirname, '../backend/ccip_registry.json');
+// Read the CCIP registry from frontend/data/
+const ccipRegistryPath = path.join(__dirname, 'data/ccip_registry.json');
 const ccipRegistry = JSON.parse(fs.readFileSync(ccipRegistryPath, 'utf8'));
 
-// Read the Data Feeds registry
-const feedsRegistryPath = path.join(__dirname, '../backend/registry.json');
+// Read the Data Feeds registry from frontend/data/
+const feedsRegistryPath = path.join(__dirname, 'data/registry.json');
 const feedsRegistry = JSON.parse(fs.readFileSync(feedsRegistryPath, 'utf8'));
 
 // Generate all valid CCIP lanes

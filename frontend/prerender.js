@@ -12,9 +12,9 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Read registries
-const feedsRegistry = JSON.parse(fs.readFileSync(path.join(__dirname, '../backend/registry.json'), 'utf8'));
-const ccipRegistry = JSON.parse(fs.readFileSync(path.join(__dirname, '../backend/ccip_registry.json'), 'utf8'));
+// Read registries from frontend/data/
+const feedsRegistry = JSON.parse(fs.readFileSync(path.join(__dirname, 'data/registry.json'), 'utf8'));
+const ccipRegistry = JSON.parse(fs.readFileSync(path.join(__dirname, 'data/ccip_registry.json'), 'utf8'));
 
 // Read the built index.html template
 const distPath = path.join(__dirname, 'dist');

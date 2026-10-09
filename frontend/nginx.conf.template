@@ -13,8 +13,14 @@ server {
         add_header Cache-Control "public, max-age=31536000, immutable";
     }
 
-    # SPA fallback so /feeds and /operators resolve on hard refresh
+    # Serve prerendered HTML files or fall back to 404
     location / {
-        try_files $uri $uri/ /index.html;
+        try_files $uri $uri/index.html =404;
+    }
+
+    # Custom 404 page
+    error_page 404 /404.html;
+    location = /404.html {
+        internal;
     }
 }

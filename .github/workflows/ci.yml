@@ -332,3 +332,159 @@ jobs:
           docker stop test-nginx || true
           docker rm test-nginx || true
 
+  check-registry-sync:
+    name: Check Registry Data Sync
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      
+      - name: Check registry sync
+        run: |
+          cd frontend
+          node check-registry-sync.js
+
+  docker-build-frontend:
+    name: Docker Build - Frontend
+    runs-on: ubuntu-latest
+    needs: check-registry-sync
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Build frontend Docker image (production-style)
+        run: |
+          # Build exactly as production does: context=frontend/, VITE_API_BASE_URL empty
+          docker build -f frontend/Dockerfile --build-arg VITE_API_BASE_URL= -t linknodes-frontend:test frontend
+      
+      - name: Run frontend container
+        run: |
+          # PORT env var defaults to 8080 in Dockerfile, nginx listens on that
+          docker run -d --name test-frontend -p 8080:8080 linknodes-frontend:test
+          sleep 5
+          
+          # Verify container is running
+          if ! docker ps | grep -q test-frontend; then
+            echo "❌ Frontend container exited"
+            docker logs test-frontend
+            exit 1
+          fi
+          
+          # Check if nginx is listening
+          if ! docker exec test-frontend netstat -tlnp | grep -q ':8080'; then
+            echo "❌ Nginx is not listening on port 8080"
+            docker logs test-frontend
+            exit 1
+          fi
+          
+          echo "✅ Frontend container started"
+      
+      - name: Test prerendered routes
+        run: |
+          echo "Testing prerendered routes in Docker image..."
+          
+          # Test eth-usd feed
+          RESPONSE=$(curl -s -w "\n%{http_code}" http://localhost:8080/feeds/ethereum/eth-usd)
+          HTTP_CODE=$(echo "$RESPONSE" | tail -1)
+          HTML=$(echo "$RESPONSE" | head -n -1)
+          
+          if [ "$HTTP_CODE" != "200" ]; then
+            echo "❌ /feeds/ethereum/eth-usd returned $HTTP_CODE"
+            exit 1
+          fi
+          
+          if ! echo "$HTML" | grep -q "<title>ETH / USD on Ethereum"; then
+            echo "❌ Missing correct title"
+            exit 1
+          fi
+          
+          echo "✅ /feeds/ethereum/eth-usd works"
+          
+          # Test 404
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8080/nope)
+          if [ "$HTTP_CODE" != "404" ]; then
+            echo "❌ /nope returned $HTTP_CODE (expected 404)"
+            exit 1
+          fi
+          
+          echo "✅ 404 works"
+          echo ""
+          echo "✅ Docker image works correctly"
+      
+      - name: Stop container
+        if: always()
+        run: |
+          docker stop test-frontend || true
+          docker rm test-frontend || true
+
+  docker-build-backend:
+    name: Docker Build - Backend
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Build backend Docker image (production-style)
+        run: |
+          # Build exactly as production does: context=backend/
+          docker build -f backend/Dockerfile -t linknodes-backend:test backend
+      
+      - name: Run backend container
+        run: |
+          docker run -d --name test-backend -p 8080:8080 linknodes-backend:test
+          sleep 3
+          
+          # Verify container is running
+          if ! docker ps | grep -q test-backend; then
+            echo "❌ Backend container exited"
+            docker logs test-backend
+            exit 1
+          fi
+          
+          echo "✅ Backend container started"
+      
+      - name: Test backend API
+        run: |
+          echo "Testing backend API..."
+          
+          # Test healthz
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8080/healthz)
+          if [ "$HTTP_CODE" != "200" ]; then
+            echo "❌ /healthz returned $HTTP_CODE"
+            exit 1
+          fi
+          echo "✅ /healthz works"
+          
+          # Test registry endpoint
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8080/v1/registry)
+          if [ "$HTTP_CODE" != "200" ]; then
+            echo "❌ /v1/registry returned $HTTP_CODE"
+            exit 1
+          fi
+          echo "✅ /v1/registry works"
+          
+          # Test feed query
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8080/v1/query/ethereum/eth-usd)
+          if [ "$HTTP_CODE" != "200" ]; then
+            echo "❌ /v1/query/ethereum/eth-usd returned $HTTP_CODE"
+            exit 1
+          fi
+          echo "✅ /v1/query works"
+          
+          echo ""
+          echo "✅ Backend Docker image works correctly"
+      
+      - name: Stop container
+        if: always()
+        run: |
+          docker stop test-backend || true
+          docker rm test-backend || true
+
