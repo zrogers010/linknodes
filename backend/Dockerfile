@@ -17,4 +17,4 @@ ENV PORT=8080
 
 EXPOSE 8080
 
-CMD sh -c "python build_registry.py 2>/dev/null || echo 'Registry refresh skipped, using baked-in catalog (recommended for stability)'; uvicorn main:app --host 0.0.0.0 --port ${PORT}"
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8080"]
