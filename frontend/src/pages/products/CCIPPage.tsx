@@ -53,7 +53,7 @@ export function CCIPPage() {
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
-    fetch(apiUrl('/v1/ccip/registry', environment))
+    fetch(apiUrl('/v1/ccip/registry'))
       .then((r) => r.json())
       .then((data) => {
         setRegistry(data)
@@ -87,7 +87,7 @@ export function CCIPPage() {
       navigate(currentPath, { replace: true })
     }
     
-    fetch(apiUrl(`/v1/ccip/lane/${sourceChain}/${destChain}`, environment))
+    fetch(apiUrl(`/v1/ccip/lane/${sourceChain}/${destChain}`))
       .then(async (r) => {
         const data = await r.json()
         if (!r.ok) {

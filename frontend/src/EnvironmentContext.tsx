@@ -1,7 +1,6 @@
 import { createContext, useContext, useState, useEffect } from 'react'
 import type { ReactNode } from 'react'
 import type { Registry } from './types'
-import { apiUrl } from './config'
 
 interface EnvironmentContextType {
   environment: 'mainnet' | 'testnet'
@@ -28,8 +27,8 @@ export function EnvironmentProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     Promise.all([
-      fetch(apiUrl('/v1/registry', 'mainnet')).then(r => r.json()),
-      fetch(apiUrl('/v1/registry', 'testnet')).then(r => r.json()),
+      fetch('/data/registry.json').then(r => r.json()),
+      fetch('/data/registry_testnet.json').then(r => r.json()),
     ])
       .then(([mainnet, testnet]) => {
         setRegistryMainnet(mainnet)

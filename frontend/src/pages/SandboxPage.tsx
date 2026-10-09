@@ -29,7 +29,7 @@ export function SandboxPage({ registry, initialNetwork, initialFeed }: { registr
     const started = performance.now()
     try {
       const qs = rid ? `&round_id=${rid}` : ''
-      const resp = await fetch(apiUrl(`/v1/query/${network}/${feed}${qs}`, environment))
+      const resp = await fetch(apiUrl(`/v1/query/${network}/${feed}${qs}`))
       const body = await resp.json()
       if (seq !== requestSeq.current) return
       setLatencyMs(Math.round(performance.now() - started))
