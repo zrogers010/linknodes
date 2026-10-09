@@ -1,0 +1,184 @@
+{
+  "version": "2.0.0",
+  "source": "chainlink-ccip-api",
+  "source_url": "https://docs.chain.link/api/ccip/v1/chains?environment=mainnet",
+  "generated_at": 1791520140,
+  "description": "CCIP router addresses and chain selectors from Chainlink's official mainnet API",
+  "networks": {
+    "ethereum": {
+      "label": "Ethereum Mainnet",
+      "chain_id": 1,
+      "chain_selector": "5009297550715157269",
+      "explorer": "https://etherscan.io",
+      "rpc_urls": [
+        "https://ethereum-rpc.publicnode.com"
+      ],
+      "router": "0x80226fc0Ee2b096224EeAc085Bb9a8cba1146f7D",
+      "rmn_proxy": "0x411dE17f12D1A34ecC7F45f49844626267c75e81",
+      "native_fee_token": "ETH",
+      "supports": [
+        "arbitrum",
+        "avalanche",
+        "base",
+        "bnb",
+        "optimism",
+        "polygon"
+      ]
+    },
+    "arbitrum": {
+      "label": "Arbitrum One",
+      "chain_id": 42161,
+      "chain_selector": "4949039107694359620",
+      "explorer": "https://arbiscan.io",
+      "rpc_urls": [
+        "https://arbitrum-one-rpc.publicnode.com"
+      ],
+      "router": "0x141fa059441E0ca23ce184B6A78bafD2A517DdE8",
+      "rmn_proxy": "0xC311a21e6fEf769344EB1515588B9d535662a145",
+      "native_fee_token": "ETH",
+      "supports": [
+        "avalanche",
+        "base",
+        "bnb",
+        "ethereum",
+        "optimism",
+        "polygon"
+      ]
+    },
+    "avalanche": {
+      "label": "Avalanche C-Chain",
+      "chain_id": 43114,
+      "chain_selector": "6433500567565415381",
+      "explorer": "https://snowtrace.io",
+      "rpc_urls": [
+        "https://avalanche-c-chain-rpc.publicnode.com"
+      ],
+      "router": "0xF4c7E640EdA248ef95972845a62bdC74237805dB",
+      "rmn_proxy": "0xcBD48A8eB077381c3c4Eb36b402d7283aB2b11Bc",
+      "native_fee_token": "AVAX",
+      "supports": [
+        "arbitrum",
+        "base",
+        "bnb",
+        "ethereum",
+        "optimism",
+        "polygon"
+      ]
+    },
+    "base": {
+      "label": "Base",
+      "chain_id": 8453,
+      "chain_selector": "15971525489660198786",
+      "explorer": "https://basescan.org",
+      "rpc_urls": [
+        "https://base-rpc.publicnode.com"
+      ],
+      "router": "0x881e3A65B4d4a04dD529061dd0071cf975F58bCD",
+      "rmn_proxy": "0xC842c69d54F83170C42C4d556B4F6B2ca53Dd3E8",
+      "native_fee_token": "ETH",
+      "supports": [
+        "arbitrum",
+        "avalanche",
+        "bnb",
+        "ethereum",
+        "optimism",
+        "polygon"
+      ]
+    },
+    "bnb": {
+      "label": "BNB Smart Chain",
+      "chain_id": 56,
+      "chain_selector": "11344663589394136015",
+      "explorer": "https://bscscan.com",
+      "rpc_urls": [
+        "https://bsc-rpc.publicnode.com"
+      ],
+      "router": "0x34B03Cb9086d7D758AC55af71584F81A598759FE",
+      "rmn_proxy": "0x9e09697842194f77d315E0907F1Bda77922e8f84",
+      "native_fee_token": "BNB",
+      "supports": [
+        "arbitrum",
+        "avalanche",
+        "base",
+        "ethereum",
+        "optimism",
+        "polygon"
+      ]
+    },
+    "optimism": {
+      "label": "OP Mainnet",
+      "chain_id": 10,
+      "chain_selector": "3734403246176062136",
+      "explorer": "https://optimistic.etherscan.io",
+      "rpc_urls": [
+        "https://optimism-rpc.publicnode.com"
+      ],
+      "router": "0x3206695CaE29952f4b0c22a169725a865bc8Ce0f",
+      "rmn_proxy": "0x55b3FCa23EdDd28b1f5B4a3C7975f63EFd2d06CE",
+      "native_fee_token": "ETH",
+      "supports": [
+        "arbitrum",
+        "avalanche",
+        "base",
+        "bnb",
+        "ethereum",
+        "polygon"
+      ]
+    },
+    "polygon": {
+      "label": "Polygon PoS",
+      "chain_id": 137,
+      "chain_selector": "4051577828743386545",
+      "explorer": "https://polygonscan.com",
+      "rpc_urls": [
+        "https://polygon-bor-rpc.publicnode.com"
+      ],
+      "router": "0x849c5ED5a80F5B408Dd4969b78c2C8fdf0565Bfe",
+      "rmn_proxy": "0xf1ceAa46D8d13Cac9fC38aaEF3d3d14754C5A9c2",
+      "native_fee_token": "POL",
+      "supports": [
+        "arbitrum",
+        "avalanche",
+        "base",
+        "bnb",
+        "ethereum",
+        "optimism"
+      ]
+    },
+    "wemix": {
+      "label": "WEMIX",
+      "chain_id": 1111,
+      "chain_selector": "5142893604156789321",
+      "explorer": "https://explorer.wemix.com",
+      "rpc_urls": [
+        "https://api.wemix.com"
+      ],
+      "router": "0x7798b795Fde864f4Cd1b124a38Ba9619B7F8A442",
+      "rmn_proxy": "0x2375959c6571AC7a83c164C6FCcbd09E7782773d",
+      "native_fee_token": "LINK",
+      "supports": [
+        "arbitrum",
+        "ethereum"
+      ]
+    },
+    "zksync": {
+      "label": "ZKsync Era",
+      "chain_id": 324,
+      "chain_selector": "1562403441176082196",
+      "explorer": "https://era.zksync.network",
+      "rpc_urls": [
+        "https://mainnet.era.zksync.io"
+      ],
+      "router": "0x748Fd769d81F5D94752bf8B0875E9301d0ba71bB",
+      "rmn_proxy": "0x2aBB46A2D32220b8801CE96CAbC32dd2dA7b7B20",
+      "native_fee_token": "ETH",
+      "supports": [
+        "arbitrum",
+        "base",
+        "bnb",
+        "ethereum",
+        "optimism"
+      ]
+    }
+  }
+}
