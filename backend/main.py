@@ -170,11 +170,10 @@ def _resolve(network: str, feed: str) -> tuple[dict, dict, str | None]:
     feed_meta = net["feeds"].get(feed_lower)
     resolved_name = None
     
-    # If not found, try canonical name resolution (e.g., eth-usd -> eth-usd-svr)
-    # This handles cases where Chainlink renames feeds but the old proxy still works
+    # If not found, try SVR (Smart Value Recapture) variants
+    # Prefer plain -svr, then -shared-svr, then -shared-svr-2
     if not feed_meta:
-        # Try common suffixes for SVR (Shared Verification) variants
-        for suffix in ['-svr', '-shared-svr']:
+        for suffix in ['-svr', '-shared-svr', '-shared-svr-2']:
             variant = f"{feed_lower}{suffix}"
             if variant in net["feeds"]:
                 feed_meta = net["feeds"][variant]

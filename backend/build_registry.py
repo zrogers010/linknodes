@@ -115,49 +115,6 @@ CHAINS: dict[str, tuple[str, str, int, str, list[str]]] = {
 
 SKIP_CATEGORIES = {"deprecating", "hidden"}
 
-# Canonical feeds that exist on-chain but aren't in Chainlink's reference directory
-# These are the standard proxies that users expect when querying by pair name (e.g., "eth-usd")
-# Chainlink's directory sometimes only lists SVR variants for these feeds
-CANONICAL_OVERRIDES: dict[str, dict[str, dict]] = {
-    "base": {
-        "eth-usd": {
-            "name": "ETH / USD",
-            "address": "0x71041dddad3595F9CEd3DcCFBe3D1F4b0a16Bb70",
-            "decimals": 8,
-            "heartbeat": 1200,
-            "deviation_threshold_pct": 0.15,
-            "category": "low",
-            "feed_type": "Crypto",
-            "asset_name": "Ethereum",
-            "market_hours": "Crypto",
-        },
-        "btc-usd": {
-            "name": "BTC / USD",
-            "address": "0x64c911996D3c6aC71f9b455B1E8E7266BcbD848F",
-            "decimals": 8,
-            "heartbeat": 1200,
-            "deviation_threshold_pct": 0.15,
-            "category": "low",
-            "feed_type": "Crypto",
-            "asset_name": "Bitcoin",
-            "market_hours": "Crypto",
-        },
-    },
-    "arbitrum": {
-        "eth-usd": {
-            "name": "ETH / USD",
-            "address": "0x639Fe6ab55C921f74e7fac1ee960C0B6293ba612",
-            "decimals": 8,
-            "heartbeat": 3600,
-            "deviation_threshold_pct": 0.15,
-            "category": "low",
-            "feed_type": "Crypto",
-            "asset_name": "Ethereum",
-            "market_hours": "Crypto",
-        },
-    },
-}
-
 
 def include(feed: dict) -> bool:
     docs = feed.get("docs") or {}
@@ -210,14 +167,6 @@ def main() -> None:
                 if slug in feeds:
                     continue
                 feeds[slug] = compact(feed)
-            
-            # Apply canonical overrides - these are standard proxies that exist on-chain
-            # but aren't in Chainlink's reference directory (which sometimes only lists SVR variants)
-            # Canonical feeds always win over directory entries
-            if key in CANONICAL_OVERRIDES:
-                for feed_name, feed_data in CANONICAL_OVERRIDES[key].items():
-                    feeds[feed_name] = feed_data
-
 
             registry["networks"][key] = {
                 "label": label,

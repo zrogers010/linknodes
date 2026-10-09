@@ -149,9 +149,9 @@ def main():
         expected_fields=["success", "payload", "meta"]
     ))
     
-    # Test 8: Query ETH/USD on Base (canonical proxy, no fallback)
+    # Test 8: Query ETH/USD on Base (SVR fallback with transparency)
     print(f"\n{'='*60}")
-    print("TEST: Query ETH/USD on Base (canonical proxy)")
+    print("TEST: Query ETH/USD on Base (SVR fallback)")
     print(f"{'='*60}")
     try:
         url = f"{BASE_URL}/v1/query/base/eth-usd"
@@ -159,21 +159,35 @@ def main():
         req = urllib.request.Request(url)
         with urllib.request.urlopen(req) as response:
             data = json.loads(response.read())
+            meta = data.get("meta", {})
             
-            # Verify it returns the canonical proxy, not SVR
-            expected_address = "0x71041dddad3595F9CEd3DcCFBe3D1F4b0a16Bb70"
-            actual_address = data.get("meta", {}).get("contract_address")
-            
-            if actual_address != expected_address:
-                print(f"❌ FAIL: Expected address {expected_address}, got {actual_address}")
+            # Verify transparency fields are present (SVR fallback happened)
+            if "resolved_from" not in meta:
+                print(f"❌ FAIL: Missing resolved_from field (SVR fallback should be transparent)")
                 results.append(False)
-            elif "resolved_to" in data.get("meta", {}):
-                print(f"❌ FAIL: Should not have resolved_to field (canonical feed should match exactly)")
-                print(f"   resolved_to: {data['meta']['resolved_to']}")
+            elif "resolved_to" not in meta:
+                print(f"❌ FAIL: Missing resolved_to field (SVR fallback should be transparent)")
+                results.append(False)
+            elif "resolution_note" not in meta:
+                print(f"❌ FAIL: Missing resolution_note field (SVR fallback should be transparent)")
+                results.append(False)
+            elif meta["resolved_from"] != "eth-usd":
+                print(f"❌ FAIL: resolved_from should be 'eth-usd', got '{meta['resolved_from']}'")
+                results.append(False)
+            elif meta["resolved_to"] != "eth-usd-svr":
+                print(f"❌ FAIL: resolved_to should be 'eth-usd-svr' (prefer plain -svr), got '{meta['resolved_to']}'")
+                results.append(False)
+            elif "Smart Value Recapture" not in meta["resolution_note"]:
+                print(f"❌ FAIL: resolution_note should mention 'Smart Value Recapture'")
                 results.append(False)
             else:
-                print(f"✅ Address: {actual_address} (canonical)")
-                print(f"✅ No resolved_to field (exact match, no fallback)")
+                print(f"✅ resolved_from: {meta['resolved_from']}")
+                print(f"✅ resolved_to: {meta['resolved_to']} (plain -svr variant preferred)")
+                print(f"✅ resolution_note present: {len(meta['resolution_note'])} chars")
+                print(f"✅ Address: {meta.get('contract_address')} (eth-usd-svr)")
+                # Verify it's the correct eth-usd-svr address
+                if meta.get('contract_address') == "0xa4250cE1aA15Ff4cb5E5a8655293b65694e436Ed":
+                    print(f"✅ Correct eth-usd-svr address")
                 results.append(True)
     except Exception as e:
         print(f"❌ FAIL: {e}")

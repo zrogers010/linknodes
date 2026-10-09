@@ -1,7 +1,7 @@
 {
  "version": "2.0.0",
  "source": "chainlink-reference-data-directory",
- "generated_at": 1791523845,
+ "generated_at": 1791555357,
  "networks": {
   "ethereum": {
    "label": "Ethereum",
@@ -3517,8 +3517,8 @@
      "name": "ETH / USD",
      "address": "0x639Fe6ab55C921f74e7fac1ee960C0B6293ba612",
      "decimals": 8,
-     "heartbeat": 3600,
-     "deviation_threshold_pct": 0.15,
+     "heartbeat": 1755,
+     "deviation_threshold_pct": 0.05,
      "category": "low",
      "feed_type": "Crypto",
      "asset_name": "Ethereum",
@@ -5613,7 +5613,7 @@
     "https://mainnet.base.org",
     "https://base-rpc.publicnode.com"
    ],
-   "feed_count": 182,
+   "feed_count": 180,
    "feeds": {
     "aave-network-emergency-count-base": {
      "name": "AAVE Network Emergency Count (Base)",
@@ -5801,17 +5801,6 @@
      "feed_type": "Forex",
      "asset_name": "Brazilian Real",
      "market_hours": "Forex_BRL"
-    },
-    "btc-usd": {
-     "name": "BTC / USD",
-     "address": "0x64c911996D3c6aC71f9b455B1E8E7266BcbD848F",
-     "decimals": 8,
-     "heartbeat": 1200,
-     "deviation_threshold_pct": 0.15,
-     "category": "low",
-     "feed_type": "Crypto",
-     "asset_name": "Bitcoin",
-     "market_hours": "Crypto"
     },
     "btc-usd-shared-svr": {
      "name": "BTC / USD",
@@ -6163,17 +6152,6 @@
      "category": "low",
      "feed_type": "Crypto",
      "asset_name": "Dogecoin",
-     "market_hours": "Crypto"
-    },
-    "eth-usd": {
-     "name": "ETH / USD",
-     "address": "0x71041dddad3595F9CEd3DcCFBe3D1F4b0a16Bb70",
-     "decimals": 8,
-     "heartbeat": 1200,
-     "deviation_threshold_pct": 0.15,
-     "category": "low",
-     "feed_type": "Crypto",
-     "asset_name": "Ethereum",
      "market_hours": "Crypto"
     },
     "eth-usd-shared-svr": {
