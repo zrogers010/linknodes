@@ -98,28 +98,58 @@ def main():
         expected_fields=["success", "lane", "source", "destination"]
     ))
     
-    # Test 4: Invalid CCIP Lane (should 404)
+    # Test 4: Invalid CCIP Lane - unknown network (should 404)
     results.append(test(
-        "Invalid CCIP Lane (should 404)",
+        "Invalid CCIP Lane - unknown network (should 404)",
         f"{BASE_URL}/v1/ccip/lane/ethereum/invalid",
         expected_status=404
     ))
     
-    # Test 5: Data Feeds Registry
+    # Test 5: Unsupported CCIP Lane - valid networks but no route (should 404)
+    print(f"\n{'='*60}")
+    print("TEST: Unsupported CCIP Lane (ethereum → zksync)")
+    print(f"{'='*60}")
+    try:
+        url = f"{BASE_URL}/v1/ccip/lane/ethereum/zksync"
+        print(f"URL: {url}")
+        req = urllib.request.Request(url)
+        with urllib.request.urlopen(req) as response:
+            print(f"❌ FAIL: Expected 404, got {response.status}")
+            results.append(False)
+    except urllib.error.HTTPError as e:
+        if e.code == 404:
+            data = json.loads(e.read())
+            print(f"✅ Status: 404 (expected)")
+            print(f"✅ Message: {data.get('detail', '')}")
+            # Verify it mentions the lane is not supported
+            if "not supported" in data.get('detail', '').lower():
+                print(f"✅ Error message correctly explains lane is unsupported")
+                results.append(True)
+            else:
+                print(f"❌ FAIL: Error message should mention lane is not supported")
+                results.append(False)
+        else:
+            print(f"❌ FAIL: Expected 404, got {e.code}")
+            results.append(False)
+    except Exception as e:
+        print(f"❌ FAIL: {e}")
+        results.append(False)
+    
+    # Test 6: Data Feeds Registry
     results.append(test(
         "Data Feeds Registry",
         f"{BASE_URL}/v1/registry",
         expected_fields=["version", "networks"]
     ))
     
-    # Test 6: Query ETH/USD on Ethereum
+    # Test 7: Query ETH/USD on Ethereum
     results.append(test(
         "Query ETH/USD on Ethereum",
         f"{BASE_URL}/v1/query/ethereum/eth-usd",
         expected_fields=["success", "payload", "meta"]
     ))
     
-    # Test 7: Query ETH/USD on Base (canonical proxy, no fallback)
+    # Test 8: Query ETH/USD on Base (canonical proxy, no fallback)
     print(f"\n{'='*60}")
     print("TEST: Query ETH/USD on Base (canonical proxy)")
     print(f"{'='*60}")
@@ -149,7 +179,7 @@ def main():
         print(f"❌ FAIL: {e}")
         results.append(False)
     
-    # Test 8: Query ETH/USD on Arbitrum (canonical proxy, no fallback)
+    # Test 9: Query ETH/USD on Arbitrum (canonical proxy, no fallback)
     print(f"\n{'='*60}")
     print("TEST: Query ETH/USD on Arbitrum (canonical proxy)")
     print(f"{'='*60}")
@@ -179,14 +209,14 @@ def main():
         print(f"❌ FAIL: {e}")
         results.append(False)
     
-    # Test 9: Invalid feed with close matches
+    # Test 10: Invalid feed with close matches
     results.append(test(
         "Invalid feed (should suggest close matches)",
         f"{BASE_URL}/v1/query/ethereum/eth-usdd",
         expected_status=404
     ))
     
-    # Test 10: Round ID validation (should 422)
+    # Test 11: Round ID validation (should 422)
     huge_round_id = 10**25  # Way bigger than uint80
     results.append(test(
         "Huge round_id (should 422)",
