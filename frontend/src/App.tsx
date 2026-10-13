@@ -11,6 +11,7 @@ import { CCIPPage } from './pages/products/CCIPPage'
 import { DataFeedsPage } from './pages/products/DataFeedsPage'
 import { FunctionsPage } from './pages/products/FunctionsPage'
 import { VRFPage } from './pages/products/VRFPage'
+import { EnvironmentProvider, useEnvironment } from './EnvironmentContext'
 import type { Registry } from './types'
 
 const PRODUCT_NAV = [
@@ -29,6 +30,7 @@ const SECONDARY_NAV = [
 function Navigation({ registry }: { registry: Registry }) {
   const location = useLocation()
   const isProductPage = location.pathname.startsWith('/products/')
+  const { environment, setEnvironment } = useEnvironment()
   
   const totalFeeds = useMemo(
     () => Object.values(registry.networks).reduce((sum, n) => sum + n.feed_count, 0),
@@ -74,6 +76,13 @@ function Navigation({ registry }: { registry: Registry }) {
         )}
 
         <div className="ml-auto flex items-center gap-2">
+          <button
+            onClick={() => setEnvironment(environment === 'mainnet' ? 'testnet' : 'mainnet')}
+            className="rounded-lg border border-ink-600 bg-ink-800 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-wide text-slate-300 transition-colors hover:border-accent-500/50 hover:bg-ink-750"
+            title="Toggle between Mainnet and Testnet"
+          >
+            {environment === 'mainnet' ? '🟢 Mainnet' : '🟡 Testnet'}
+          </button>
           <span className="hidden rounded-full border border-ink-600 bg-ink-800 px-2.5 py-1 font-mono text-[10px] text-slate-400 lg:inline">
             {totalFeeds.toLocaleString()} feeds · {Object.keys(registry.networks).length} chains
           </span>
@@ -167,25 +176,27 @@ export default function App() {
   }
 
   return (
-    <BrowserRouter>
-      <div className="flex h-full flex-col">
-        <Navigation registry={registry} />
+    <EnvironmentProvider>
+      <BrowserRouter>
+        <div className="flex h-full flex-col">
+          <Navigation registry={registry} />
 
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/products/data-feeds" element={<DataFeedsPage registry={registry} />} />
-          <Route path="/products/ccip" element={<CCIPPage />} />
-          <Route path="/products/ccip/:source/:dest" element={<CCIPPage />} />
-          <Route path="/products/functions" element={<FunctionsPage />} />
-          <Route path="/products/vrf" element={<VRFPage />} />
-          <Route path="/products/automation" element={<AutomationPage />} />
-          <Route path="/feeds" element={<FeedIndexPage />} />
-          <Route path="/feeds/:chain" element={<FeedIndexPage />} />
-          <Route path="/feeds/:chain/:feed" element={<FeedDetailPage />} />
-          <Route path="/operators" element={<OperatorsPage />} />
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
-      </div>
-    </BrowserRouter>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/products/data-feeds" element={<DataFeedsPage registry={registry} />} />
+            <Route path="/products/ccip" element={<CCIPPage />} />
+            <Route path="/products/ccip/:source/:dest" element={<CCIPPage />} />
+            <Route path="/products/functions" element={<FunctionsPage />} />
+            <Route path="/products/vrf" element={<VRFPage />} />
+            <Route path="/products/automation" element={<AutomationPage />} />
+            <Route path="/feeds" element={<FeedIndexPage />} />
+            <Route path="/feeds/:chain" element={<FeedIndexPage />} />
+            <Route path="/feeds/:chain/:feed" element={<FeedDetailPage />} />
+            <Route path="/operators" element={<OperatorsPage />} />
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+        </div>
+      </BrowserRouter>
+    </EnvironmentProvider>
   )
 }

@@ -4,17 +4,20 @@ export type Lang = 'solidity' | 'javascript' | 'python' | 'curl'
 
 function solidity(address: string, name: string, network: string): string {
   // Determine if this chain has an L2 sequencer uptime feed
+  // Testnet sequencer feeds may not be available, so we'll show a conditional check
   const l2Chains = ['arbitrum', 'base', 'optimism', 'scroll', 'linea', 'zksync']
   const chainKey = network.toLowerCase().split(' ')[0]  // Extract first word
+  const isTestnet = network.toLowerCase().includes('sepolia') || network.toLowerCase().includes('amoy') || network.toLowerCase().includes('fuji') || network.toLowerCase().includes('testnet')
   const hasSequencer = l2Chains.some(l2 => chainKey.includes(l2))
+  const showSequencerNote = hasSequencer && isTestnet
   
   const sequencerCheck = hasSequencer ? `
     // L2 Sequencer uptime check (only for L2 chains like Arbitrum, Base, OP, etc.)
-    // Sequencer feed: 0 = up, 1 = down. Revert if down or grace period not elapsed.
+    // Sequencer feed: 0 = up, 1 = down. Revert if down or grace period not elapsed.${showSequencerNote ? `
+    // NOTE: ${network} may not have a published sequencer uptime feed.` : ''}
     // Find sequencer feed addresses: https://docs.chain.link/data-feeds/l2-sequencer-feeds
     AggregatorV3Interface internal constant SEQUENCER_FEED =
-        AggregatorV3Interface(0xFdB631F5EE196F0ed6FAa767959853A9F217697D); // Example: Arbitrum
-    uint256 private constant GRACE_PERIOD_TIME = 3600; // 1 hour
+        AggregatorV3Interface(0xFdB631F5EE196F0ed6FAa767959853A9F217697D); // Example: Arbitrum mainnet
 
     function _checkSequencer() internal view {
         (, int256 answer, uint256 startedAt,,) = SEQUENCER_FEED.latestRoundData();

@@ -7,15 +7,21 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Read the CCIP registry from frontend/data/
+// Read mainnet registries from frontend/data/
 const ccipRegistryPath = path.join(__dirname, 'data/ccip_registry.json');
 const ccipRegistry = JSON.parse(fs.readFileSync(ccipRegistryPath, 'utf8'));
 
-// Read the Data Feeds registry from frontend/data/
 const feedsRegistryPath = path.join(__dirname, 'data/registry.json');
 const feedsRegistry = JSON.parse(fs.readFileSync(feedsRegistryPath, 'utf8'));
 
-// Generate all valid CCIP lanes
+// Read testnet registries from frontend/data/
+const ccipRegistryTestnetPath = path.join(__dirname, 'data/ccip_registry_testnet.json');
+const ccipRegistryTestnet = JSON.parse(fs.readFileSync(ccipRegistryTestnetPath, 'utf8'));
+
+const feedsRegistryTestnetPath = path.join(__dirname, 'data/registry_testnet.json');
+const feedsRegistryTestnet = JSON.parse(fs.readFileSync(feedsRegistryTestnetPath, 'utf8'));
+
+// Generate all valid CCIP lanes (mainnet + testnet)
 const lanes = [];
 for (const [sourceId, sourceNetwork] of Object.entries(ccipRegistry.networks)) {
   const supports = sourceNetwork.supports || [];
@@ -26,7 +32,16 @@ for (const [sourceId, sourceNetwork] of Object.entries(ccipRegistry.networks)) {
   }
 }
 
-// Generate all feed pages
+for (const [sourceId, sourceNetwork] of Object.entries(ccipRegistryTestnet.networks)) {
+  const supports = sourceNetwork.supports || [];
+  for (const destId of supports) {
+    if (ccipRegistryTestnet.networks[destId]) {
+      lanes.push({ source: sourceId, dest: destId });
+    }
+  }
+}
+
+// Generate all feed pages (mainnet + testnet)
 const feedPages = [];
 for (const [chainId, network] of Object.entries(feedsRegistry.networks)) {
   // Add chain index page
@@ -46,8 +61,26 @@ for (const [chainId, network] of Object.entries(feedsRegistry.networks)) {
   }
 }
 
-console.log(`Found ${lanes.length} valid CCIP lanes`);
-console.log(`Found ${feedPages.length} feed pages`);
+for (const [chainId, network] of Object.entries(feedsRegistryTestnet.networks)) {
+  // Add chain index page
+  feedPages.push({
+    url: `/feeds/${chainId}`,
+    priority: 0.8,
+    changefreq: 'daily'
+  });
+  
+  // Add individual feed pages
+  for (const feedSlug of Object.keys(network.feeds)) {
+    feedPages.push({
+      url: `/feeds/${chainId}/${feedSlug}`,
+      priority: 0.7,
+      changefreq: 'daily'
+    });
+  }
+}
+
+console.log(`Found ${lanes.length} valid CCIP lanes (mainnet + testnet)`);
+console.log(`Found ${feedPages.length} feed pages (mainnet + testnet)`);
 
 // Generate sitemap XML
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>

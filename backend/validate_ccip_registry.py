@@ -53,17 +53,16 @@ def validate_chain_selector(selector: str) -> tuple[bool, str]:
         return False, "Not a valid integer"
 
 
-def main():
-    registry_path = Path(__file__).parent / "ccip_registry.json"
-    
+def validate_registry(registry_path: Path):
+    """Validate a single CCIP registry file."""
     if not registry_path.exists():
         print(f"Error: {registry_path} not found")
-        sys.exit(1)
+        return False
     
     registry = json.loads(registry_path.read_text())
     
     print("=" * 60)
-    print("CCIP Registry Validation")
+    print(f"CCIP Registry Validation: {registry_path.name}")
     print("=" * 60)
     print(f"Version: {registry.get('version')}")
     print(f"Source: {registry.get('source')}")
@@ -132,7 +131,25 @@ def main():
     
     print("=" * 60)
     
-    sys.exit(1 if errors else 0)
+    return len(errors) == 0
+
+
+def main():
+    base_dir = Path(__file__).parent
+    registry_files = ["ccip_registry.json", "ccip_registry_testnet.json"]
+    
+    all_passed = True
+    for filename in registry_files:
+        registry_path = base_dir / filename
+        if registry_path.exists():
+            passed = validate_registry(registry_path)
+            all_passed = all_passed and passed
+            print()
+        else:
+            print(f"⚠️  {filename} not found, skipping")
+            print()
+    
+    sys.exit(0 if all_passed else 1)
 
 
 if __name__ == "__main__":

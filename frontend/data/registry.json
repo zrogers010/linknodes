@@ -1,7 +1,8 @@
 {
  "version": "2.0.0",
+ "environment": "mainnet",
  "source": "chainlink-reference-data-directory",
- "generated_at": 1791555357,
+ "generated_at": 1791568117,
  "networks": {
   "ethereum": {
    "label": "Ethereum",

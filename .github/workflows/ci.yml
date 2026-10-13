@@ -440,7 +440,7 @@ jobs:
       - name: Run backend container
         run: |
           docker run -d --name test-backend -p 8080:8080 linknodes-backend:test
-          sleep 3
+          sleep 5
           
           # Verify container is running
           if ! docker ps | grep -q test-backend; then
@@ -450,6 +450,8 @@ jobs:
           fi
           
           echo "✅ Backend container started"
+          echo "Container logs:"
+          docker logs test-backend
       
       - name: Test backend API
         run: |
@@ -459,6 +461,8 @@ jobs:
           HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8080/healthz)
           if [ "$HTTP_CODE" != "200" ]; then
             echo "❌ /healthz returned $HTTP_CODE"
+            echo "Container logs:"
+            docker logs test-backend
             exit 1
           fi
           echo "✅ /healthz works"

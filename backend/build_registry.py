@@ -19,7 +19,7 @@ import httpx
 RDD_BASE = "https://reference-data-directory.vercel.app"
 
 # chain key -> (RDD file, label, chain_id, explorer, rpc urls)
-CHAINS: dict[str, tuple[str, str, int, str, list[str]]] = {
+MAINNET_CHAINS: dict[str, tuple[str, str, int, str, list[str]]] = {
     "ethereum": (
         "feeds-mainnet",
         "Ethereum",
@@ -113,6 +113,58 @@ CHAINS: dict[str, tuple[str, str, int, str, list[str]]] = {
     ),
 }
 
+TESTNET_CHAINS: dict[str, tuple[str, str, int, str, list[str]]] = {
+    "sepolia": (
+        "feeds-ethereum-testnet-sepolia",
+        "Ethereum Sepolia",
+        11155111,
+        "https://sepolia.etherscan.io",
+        ["https://ethereum-sepolia-rpc.publicnode.com", "https://rpc.sepolia.org"],
+    ),
+    "arbitrum-sepolia": (
+        "feeds-ethereum-testnet-sepolia-arbitrum-1",
+        "Arbitrum Sepolia",
+        421614,
+        "https://sepolia.arbiscan.io",
+        ["https://sepolia-rollup.arbitrum.io/rpc", "https://arbitrum-sepolia-rpc.publicnode.com"],
+    ),
+    "base-sepolia": (
+        "feeds-ethereum-testnet-sepolia-base-1",
+        "Base Sepolia",
+        84532,
+        "https://sepolia.basescan.org",
+        ["https://sepolia.base.org", "https://base-sepolia-rpc.publicnode.com"],
+    ),
+    "optimism-sepolia": (
+        "feeds-ethereum-testnet-sepolia-optimism-1",
+        "OP Sepolia",
+        11155420,
+        "https://sepolia-optimism.etherscan.io",
+        ["https://sepolia.optimism.io", "https://optimism-sepolia-rpc.publicnode.com"],
+    ),
+    "polygon-amoy": (
+        "feeds-polygon-testnet-amoy",
+        "Polygon Amoy",
+        80002,
+        "https://amoy.polygonscan.com",
+        ["https://rpc-amoy.polygon.technology", "https://polygon-amoy-bor-rpc.publicnode.com"],
+    ),
+    "avalanche-fuji": (
+        "feeds-avalanche-fuji",
+        "Avalanche Fuji",
+        43113,
+        "https://testnet.snowtrace.io",
+        ["https://api.avax-test.network/ext/bc/C/rpc", "https://avalanche-fuji-c-chain-rpc.publicnode.com"],
+    ),
+    "bnb-testnet": (
+        "feeds-bsc-testnet",
+        "BNB Testnet",
+        97,
+        "https://testnet.bscscan.com",
+        ["https://bsc-testnet-rpc.publicnode.com", "https://data-seed-prebsc-1-s1.bnbchain.org:8545"],
+    ),
+}
+
 SKIP_CATEGORIES = {"deprecating", "hidden"}
 
 
@@ -142,9 +194,28 @@ def compact(feed: dict) -> dict:
     }
 
 
-def main() -> None:
+def verify_rpc_chain_id(rpc_url: str, expected_chain_id: int) -> bool:
+    """Verify RPC returns the expected chain ID."""
+    try:
+        resp = httpx.post(
+            rpc_url,
+            json={"jsonrpc": "2.0", "method": "eth_chainId", "params": [], "id": 1},
+            timeout=5,
+        )
+        result = resp.json().get("result")
+        if result:
+            actual_chain_id = int(result, 16)
+            return actual_chain_id == expected_chain_id
+    except Exception:
+        pass
+    return False
+
+
+def build_registry(chains: dict, environment: str) -> dict:
+    """Build registry for a specific environment (mainnet or testnet)."""
     registry: dict = {
         "version": "2.0.0",
+        "environment": environment,
         "source": "chainlink-reference-data-directory",
         "generated_at": int(time.time()),
         "networks": {},
@@ -152,37 +223,74 @@ def main() -> None:
     total = 0
 
     with httpx.Client(timeout=30) as client:
-        for key, (rdd_file, label, chain_id, explorer, rpcs) in CHAINS.items():
-            resp = client.get(f"{RDD_BASE}/{rdd_file}.json")
-            resp.raise_for_status()
-            raw = resp.json()
+        for key, (rdd_file, label, chain_id, explorer, rpcs) in chains.items():
+            print(f"{label:<25} ", end="", flush=True)
+            
+            # Verify first RPC
+            if verify_rpc_chain_id(rpcs[0], chain_id):
+                print(f"✓ chain_id={chain_id:<8} ", end="", flush=True)
+            else:
+                print(f"⚠ chain_id unverified ", end="", flush=True)
+            
+            try:
+                resp = client.get(f"{RDD_BASE}/{rdd_file}.json")
+                resp.raise_for_status()
+                raw = resp.json()
 
-            feeds: dict[str, dict] = {}
-            for feed in raw:
-                if not include(feed):
-                    continue
-                slug = feed["path"]
-                # RDD occasionally lists duplicate paths (e.g. SVR variants);
-                # first entry wins, which matches docs.chain.link ordering.
-                if slug in feeds:
-                    continue
-                feeds[slug] = compact(feed)
+                feeds: dict[str, dict] = {}
+                for feed in raw:
+                    if not include(feed):
+                        continue
+                    slug = feed["path"]
+                    # RDD occasionally lists duplicate paths (e.g. SVR variants);
+                    # first entry wins, which matches docs.chain.link ordering.
+                    if slug in feeds:
+                        continue
+                    feeds[slug] = compact(feed)
 
-            registry["networks"][key] = {
-                "label": label,
-                "chain_id": chain_id,
-                "explorer": explorer,
-                "rpc_urls": rpcs,
-                "feed_count": len(feeds),
-                "feeds": dict(sorted(feeds.items())),
-            }
-            total += len(feeds)
-            print(f"{label:<20} {len(feeds):>5} feeds")
+                registry["networks"][key] = {
+                    "label": label,
+                    "chain_id": chain_id,
+                    "explorer": explorer,
+                    "rpc_urls": rpcs,
+                    "feed_count": len(feeds),
+                    "feeds": dict(sorted(feeds.items())),
+                }
+                total += len(feeds)
+                print(f"{len(feeds):>4} feeds")
+            except Exception as e:
+                print(f"ERROR: {e}")
+                continue
 
+    return registry, total
+
+
+def main() -> None:
+    print("=" * 70)
+    print("Building Data Feeds Registries")
+    print("=" * 70)
+    
+    # Build mainnet registry
+    print("\nMAINNET:")
+    print("-" * 70)
+    mainnet_registry, mainnet_total = build_registry(MAINNET_CHAINS, "mainnet")
     out = Path(__file__).parent / "registry.json"
-    out.write_text(json.dumps(registry, indent=1))
-    print(f"\nwrote {out.name}: {total} feeds across {len(CHAINS)} chains "
+    out.write_text(json.dumps(mainnet_registry, indent=1))
+    print(f"\n✓ Wrote {out.name}: {mainnet_total} feeds across {len(MAINNET_CHAINS)} chains "
           f"({out.stat().st_size / 1024:.0f} KB)")
+    
+    # Build testnet registry
+    print("\nTESTNET:")
+    print("-" * 70)
+    testnet_registry, testnet_total = build_registry(TESTNET_CHAINS, "testnet")
+    out = Path(__file__).parent / "registry_testnet.json"
+    out.write_text(json.dumps(testnet_registry, indent=1))
+    print(f"\n✓ Wrote {out.name}: {testnet_total} feeds across {len(TESTNET_CHAINS)} chains "
+          f"({out.stat().st_size / 1024:.0f} KB)")
+    
+    print("\n" + "=" * 70)
+    print(f"Total: {mainnet_total + testnet_total} feeds across {len(MAINNET_CHAINS) + len(TESTNET_CHAINS)} chains")
+    print("=" * 70)
 
 
 if __name__ == "__main__":
