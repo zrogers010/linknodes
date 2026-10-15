@@ -1,7 +1,7 @@
-import type { ReactNode } from 'react'
+import type { ReactNode, ComponentType, SVGProps } from 'react'
 
 interface ProductLayoutProps {
-  icon: string
+  icon: ComponentType<SVGProps<SVGSVGElement>>
   title: string
   tagline: string
   status: 'live' | 'preview' | 'coming-soon'
@@ -10,31 +10,31 @@ interface ProductLayoutProps {
 }
 
 const STATUS_CONFIG = {
-  live: { label: 'Live Sandbox', className: 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30' },
-  preview: { label: 'Preview', className: 'bg-sky-500/15 text-sky-400 border-sky-500/30' },
-  'coming-soon': { label: 'Coming Soon', className: 'bg-amber-500/15 text-amber-400 border-amber-500/30' },
+  live: { label: 'Live Sandbox', className: 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20' },
+  preview: { label: 'Preview', className: 'bg-slate-500/10 text-slate-400 border-slate-500/20' },
+  'coming-soon': { label: 'Coming Soon', className: 'bg-slate-500/10 text-slate-400 border-slate-500/20' },
 }
 
-export function ProductLayout({ icon, title, tagline, status, description, children }: ProductLayoutProps) {
+export function ProductLayout({ icon: IconComponent, title, tagline, status, description, children }: ProductLayoutProps) {
   const statusConfig = STATUS_CONFIG[status]
   
   return (
     <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
       {/* Product header */}
-      <div className="shrink-0 border-b border-ink-700 bg-ink-900 px-4 py-4 sm:px-6">
-        <div className="flex items-start gap-4">
-          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-accent-500/20 to-accent-600/20 text-2xl shadow-lg shadow-accent-500/20 sm:h-14 sm:w-14 sm:text-3xl">
-            {icon}
+      <div className="shrink-0 border-b border-ink-700 bg-ink-900 px-4 py-3 sm:px-6">
+        <div className="flex items-start gap-3">
+          <div className="flex h-9 w-9 shrink-0 items-center justify-center border border-ink-600 bg-ink-800 text-accent-400 sm:h-10 sm:w-10">
+            <IconComponent width={18} height={18} />
           </div>
           <div className="min-w-0 flex-1">
             <div className="flex flex-wrap items-center gap-2">
-              <h1 className="text-xl font-bold text-white sm:text-2xl">{title}</h1>
-              <span className={`rounded-full border px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider ${statusConfig.className}`}>
+              <h1 className="text-lg font-bold text-white sm:text-xl">{title}</h1>
+              <span className={`border px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider ${statusConfig.className}`}>
                 {statusConfig.label}
               </span>
             </div>
-            <p className="mt-1 text-sm font-semibold text-accent-400 sm:text-base">{tagline}</p>
-            <div className="mt-2 text-sm text-slate-400">{description}</div>
+            <p className="mt-0.5 text-xs font-medium text-slate-400 sm:text-sm">{tagline}</p>
+            <div className="mt-1.5 text-xs text-slate-500 sm:text-sm">{description}</div>
           </div>
         </div>
       </div>

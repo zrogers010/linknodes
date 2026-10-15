@@ -98,7 +98,7 @@ console.log("updated:", new Date(Number(updatedAt) * 1000).toISOString());
 const HEARTBEAT = 3600; // seconds (adjust based on feed)
 const age = Math.floor(Date.now() / 1000) - Number(updatedAt);
 if (age > HEARTBEAT + 900) {
-  console.warn(\`⚠️  Price is stale (\${age}s old)\`);
+  console.warn(\`Price is stale (\${age}s old)\`);
 }
 
 // Historical round (roundIds encode the proxy phase in the upper 16 bits):

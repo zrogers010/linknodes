@@ -222,7 +222,6 @@ export function Terminal({
           )}
           {!loading && !result && !error && (
             <div className="flex h-full flex-col items-center justify-center gap-3 text-center">
-              <div className="text-4xl">📡</div>
               <p className="max-w-sm text-sm text-slate-500">
                 Pick any of the {registry.networks[state.network]?.feed_count ?? 0} feeds on{' '}
                 {networkLabel} — the live on-chain round loads automatically.

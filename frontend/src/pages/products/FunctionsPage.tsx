@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { ProductLayout } from '../../components/ProductLayout'
+import { CodeIcon } from '../../components/icons/Icon'
 
 const EXAMPLE_SCRIPTS = [
   {
@@ -42,45 +43,41 @@ export function FunctionsPage() {
   
   return (
     <ProductLayout
-      icon="⚡"
+      icon={CodeIcon}
       title="Chainlink Functions"
-      tagline="Serverless Web2 Compute for Smart Contracts"
+      tagline="Serverless compute"
       status="preview"
       description={
         <>
-          Run custom JavaScript on Chainlink's decentralized oracle network. Fetch any API, run computations off-chain, and bring the results on-chain with cryptographic proof. The ultimate bridge between Web2 and Web3.
+          Execute custom JavaScript on Chainlink DON. Fetch external APIs, run computations, and connect any off-chain data source to your smart contracts with cryptographic verification.
         </>
       }
     >
       <div className="p-4 sm:p-6">
         <div className="mx-auto max-w-6xl">
           {/* Capabilities grid */}
-          <div className="mb-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            <div className="rounded-xl border border-ink-700 bg-ink-900 p-5">
-              <div className="mb-2 text-2xl">🌐</div>
-              <h3 className="mb-1 text-sm font-bold text-white">Any API</h3>
-              <p className="text-xs text-slate-400">
+          <div className="mb-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="border border-ink-700 bg-ink-900 p-4">
+              <h3 className="mb-1 text-xs font-bold text-white">Any API</h3>
+              <p className="text-[11px] text-slate-400">
                 Call any HTTP endpoint — REST APIs, GraphQL, webhooks, authenticated services
               </p>
             </div>
-            <div className="rounded-xl border border-ink-700 bg-ink-900 p-5">
-              <div className="mb-2 text-2xl">🔐</div>
-              <h3 className="mb-1 text-sm font-bold text-white">Secrets Management</h3>
-              <p className="text-xs text-slate-400">
+            <div className="border border-ink-700 bg-ink-900 p-4">
+              <h3 className="mb-1 text-xs font-bold text-white">Secrets Management</h3>
+              <p className="text-[11px] text-slate-400">
                 Store API keys and credentials encrypted. Access them securely in your scripts
               </p>
             </div>
-            <div className="rounded-xl border border-ink-700 bg-ink-900 p-5">
-              <div className="mb-2 text-2xl">⚙️</div>
-              <h3 className="mb-1 text-sm font-bold text-white">Custom Logic</h3>
-              <p className="text-xs text-slate-400">
+            <div className="border border-ink-700 bg-ink-900 p-4">
+              <h3 className="mb-1 text-xs font-bold text-white">Custom Logic</h3>
+              <p className="text-[11px] text-slate-400">
                 Run JavaScript computations, data transformations, and aggregations
               </p>
             </div>
-            <div className="rounded-xl border border-ink-700 bg-ink-900 p-5">
-              <div className="mb-2 text-2xl">🔗</div>
-              <h3 className="mb-1 text-sm font-bold text-white">Decentralized</h3>
-              <p className="text-xs text-slate-400">
+            <div className="border border-ink-700 bg-ink-900 p-4">
+              <h3 className="mb-1 text-xs font-bold text-white">Decentralized</h3>
+              <p className="text-[11px] text-slate-400">
                 Consensus across multiple nodes ensures tamper-proof results
               </p>
             </div>
@@ -185,59 +182,41 @@ export function FunctionsPage() {
 
           {/* Use cases */}
           <div className="mt-8">
-            <h2 className="mb-4 text-lg font-bold text-white">What You Can Build</h2>
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              <div className="rounded-xl border border-ink-700 bg-ink-900 p-5">
-                <h3 className="mb-2 flex items-center gap-2 text-sm font-bold text-white">
-                  <span>📊</span>
-                  <span>Custom Price Feeds</span>
-                </h3>
-                <p className="text-xs text-slate-400">
+            <h2 className="mb-4 text-base font-bold text-white">What You Can Build</h2>
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="border border-ink-700 bg-ink-900 p-4">
+                <h3 className="mb-1 text-xs font-bold text-white">Custom Price Feeds</h3>
+                <p className="text-[11px] text-slate-400">
                   Aggregate data from any API to create custom price feeds for long-tail assets or specialized markets.
                 </p>
               </div>
-              <div className="rounded-xl border border-ink-700 bg-ink-900 p-5">
-                <h3 className="mb-2 flex items-center gap-2 text-sm font-bold text-white">
-                  <span>🔔</span>
-                  <span>Event-driven Actions</span>
-                </h3>
-                <p className="text-xs text-slate-400">
+              <div className="border border-ink-700 bg-ink-900 p-4">
+                <h3 className="mb-1 text-xs font-bold text-white">Event-driven Actions</h3>
+                <p className="text-[11px] text-slate-400">
                   Monitor external systems and trigger on-chain actions when specific conditions are met.
                 </p>
               </div>
-              <div className="rounded-xl border border-ink-700 bg-ink-900 p-5">
-                <h3 className="mb-2 flex items-center gap-2 text-sm font-bold text-white">
-                  <span>🎯</span>
-                  <span>Sports & Gaming</span>
-                </h3>
-                <p className="text-xs text-slate-400">
+              <div className="border border-ink-700 bg-ink-900 p-4">
+                <h3 className="mb-1 text-xs font-bold text-white">Sports & Gaming</h3>
+                <p className="text-[11px] text-slate-400">
                   Bring real-world event outcomes on-chain for prediction markets, fantasy sports, and gaming.
                 </p>
               </div>
-              <div className="rounded-xl border border-ink-700 bg-ink-900 p-5">
-                <h3 className="mb-2 flex items-center gap-2 text-sm font-bold text-white">
-                  <span>🌡️</span>
-                  <span>IoT & Real-world Data</span>
-                </h3>
-                <p className="text-xs text-slate-400">
+              <div className="border border-ink-700 bg-ink-900 p-4">
+                <h3 className="mb-1 text-xs font-bold text-white">IoT & Real-world Data</h3>
+                <p className="text-[11px] text-slate-400">
                   Connect IoT sensors, weather data, shipping info, or any real-world data stream to your contract.
                 </p>
               </div>
-              <div className="rounded-xl border border-ink-700 bg-ink-900 p-5">
-                <h3 className="mb-2 flex items-center gap-2 text-sm font-bold text-white">
-                  <span>🔍</span>
-                  <span>Data Aggregation</span>
-                </h3>
-                <p className="text-xs text-slate-400">
+              <div className="border border-ink-700 bg-ink-900 p-4">
+                <h3 className="mb-1 text-xs font-bold text-white">Data Aggregation</h3>
+                <p className="text-[11px] text-slate-400">
                   Combine multiple data sources, compute averages, detect outliers, and deliver high-quality feeds.
                 </p>
               </div>
-              <div className="rounded-xl border border-ink-700 bg-ink-900 p-5">
-                <h3 className="mb-2 flex items-center gap-2 text-sm font-bold text-white">
-                  <span>🎨</span>
-                  <span>Dynamic NFTs</span>
-                </h3>
-                <p className="text-xs text-slate-400">
+              <div className="border border-ink-700 bg-ink-900 p-4">
+                <h3 className="mb-1 text-xs font-bold text-white">Dynamic NFTs</h3>
+                <p className="text-[11px] text-slate-400">
                   Update NFT metadata based on real-world events, social stats, or any external data source.
                 </p>
               </div>

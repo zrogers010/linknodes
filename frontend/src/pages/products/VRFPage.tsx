@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { ProductLayout } from '../../components/ProductLayout'
+import { DicesIcon } from '../../components/icons/Icon'
 
 export function VRFPage() {
   const [numWords, setNumWords] = useState(1)
@@ -16,45 +17,41 @@ export function VRFPage() {
   
   return (
     <ProductLayout
-      icon="🎲"
+      icon={DicesIcon}
       title="Chainlink VRF"
-      tagline="Verifiable Random Function"
+      tagline="Verifiable randomness"
       status="preview"
       description={
         <>
-          Generate provably fair and tamper-proof random numbers on-chain. Perfect for NFT mints, gaming, lotteries, and any application requiring cryptographically secure randomness with on-chain verification.
+          Generate cryptographically provable random numbers on-chain. On-chain verification ensures results cannot be manipulated by miners, validators, or node operators.
         </>
       }
     >
       <div className="p-4 sm:p-6">
         <div className="mx-auto max-w-6xl">
           {/* Feature cards */}
-          <div className="mb-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            <div className="rounded-xl border border-ink-700 bg-ink-900 p-5">
-              <div className="mb-2 text-2xl">✅</div>
-              <h3 className="mb-1 text-sm font-bold text-white">Cryptographic Proof</h3>
-              <p className="text-xs text-slate-400">
+          <div className="mb-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="border border-ink-700 bg-ink-900 p-4">
+              <h3 className="mb-1 text-xs font-bold text-white">Cryptographic Proof</h3>
+              <p className="text-[11px] text-slate-400">
                 Each random number includes a cryptographic proof verifiable on-chain
               </p>
             </div>
-            <div className="rounded-xl border border-ink-700 bg-ink-900 p-5">
-              <div className="mb-2 text-2xl">🔒</div>
-              <h3 className="mb-1 text-sm font-bold text-white">Tamper-proof</h3>
-              <p className="text-xs text-slate-400">
+            <div className="border border-ink-700 bg-ink-900 p-4">
+              <h3 className="mb-1 text-xs font-bold text-white">Tamper-proof</h3>
+              <p className="text-[11px] text-slate-400">
                 No oracle, miner, or user can manipulate the outcome — guaranteed fairness
               </p>
             </div>
-            <div className="rounded-xl border border-ink-700 bg-ink-900 p-5">
-              <div className="mb-2 text-2xl">⚡</div>
-              <h3 className="mb-1 text-sm font-bold text-white">Two Request Methods</h3>
-              <p className="text-xs text-slate-400">
+            <div className="border border-ink-700 bg-ink-900 p-4">
+              <h3 className="mb-1 text-xs font-bold text-white">Two Request Methods</h3>
+              <p className="text-[11px] text-slate-400">
                 Choose between subscription-based or direct funding for maximum flexibility
               </p>
             </div>
-            <div className="rounded-xl border border-ink-700 bg-ink-900 p-5">
-              <div className="mb-2 text-2xl">📈</div>
-              <h3 className="mb-1 text-sm font-bold text-white">Battle-tested</h3>
-              <p className="text-xs text-slate-400">
+            <div className="border border-ink-700 bg-ink-900 p-4">
+              <h3 className="mb-1 text-xs font-bold text-white">Battle-tested</h3>
+              <p className="text-[11px] text-slate-400">
                 Millions of random numbers generated across thousands of applications
               </p>
             </div>
@@ -215,59 +212,41 @@ contract RandomNumberConsumer is VRFConsumerBaseV2Plus {
 
           {/* Use cases */}
           <div className="mt-8">
-            <h2 className="mb-4 text-lg font-bold text-white">Popular Use Cases</h2>
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              <div className="rounded-xl border border-ink-700 bg-ink-900 p-5">
-                <h3 className="mb-2 flex items-center gap-2 text-sm font-bold text-white">
-                  <span>🎨</span>
-                  <span>NFT Minting</span>
-                </h3>
-                <p className="text-xs text-slate-400">
+            <h2 className="mb-4 text-base font-bold text-white">Popular Use Cases</h2>
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="border border-ink-700 bg-ink-900 p-4">
+                <h3 className="mb-1 text-xs font-bold text-white">NFT Minting</h3>
+                <p className="text-[11px] text-slate-400">
                   Fair distribution of rare traits. Generate unpredictable metadata at mint time that no one can game.
                 </p>
               </div>
-              <div className="rounded-xl border border-ink-700 bg-ink-900 p-5">
-                <h3 className="mb-2 flex items-center gap-2 text-sm font-bold text-white">
-                  <span>🎮</span>
-                  <span>Gaming</span>
-                </h3>
-                <p className="text-xs text-slate-400">
+              <div className="border border-ink-700 bg-ink-900 p-4">
+                <h3 className="mb-1 text-xs font-bold text-white">Gaming</h3>
+                <p className="text-[11px] text-slate-400">
                   Loot drops, enemy spawns, critical hits — provably fair randomness for blockchain games.
                 </p>
               </div>
-              <div className="rounded-xl border border-ink-700 bg-ink-900 p-5">
-                <h3 className="mb-2 flex items-center gap-2 text-sm font-bold text-white">
-                  <span>🎰</span>
-                  <span>Lotteries & Raffles</span>
-                </h3>
-                <p className="text-xs text-slate-400">
+              <div className="border border-ink-700 bg-ink-900 p-4">
+                <h3 className="mb-1 text-xs font-bold text-white">Lotteries & Raffles</h3>
+                <p className="text-[11px] text-slate-400">
                   Pick verifiably random winners. Users can cryptographically prove the outcome was fair.
                 </p>
               </div>
-              <div className="rounded-xl border border-ink-700 bg-ink-900 p-5">
-                <h3 className="mb-2 flex items-center gap-2 text-sm font-bold text-white">
-                  <span>🎯</span>
-                  <span>Random Assignment</span>
-                </h3>
-                <p className="text-xs text-slate-400">
+              <div className="border border-ink-700 bg-ink-900 p-4">
+                <h3 className="mb-1 text-xs font-bold text-white">Random Assignment</h3>
+                <p className="text-[11px] text-slate-400">
                   Assign tasks, seats, or resources randomly without bias. Perfect for DAOs and governance.
                 </p>
               </div>
-              <div className="rounded-xl border border-ink-700 bg-ink-900 p-5">
-                <h3 className="mb-2 flex items-center gap-2 text-sm font-bold text-white">
-                  <span>🔀</span>
-                  <span>Shuffling</span>
-                </h3>
-                <p className="text-xs text-slate-400">
+              <div className="border border-ink-700 bg-ink-900 p-4">
+                <h3 className="mb-1 text-xs font-bold text-white">Shuffling</h3>
+                <p className="text-[11px] text-slate-400">
                   Randomize order in card games, battle queues, or any system requiring fair shuffling.
                 </p>
               </div>
-              <div className="rounded-xl border border-ink-700 bg-ink-900 p-5">
-                <h3 className="mb-2 flex items-center gap-2 text-sm font-bold text-white">
-                  <span>🌟</span>
-                  <span>Surprise Mechanics</span>
-                </h3>
-                <p className="text-xs text-slate-400">
+              <div className="border border-ink-700 bg-ink-900 p-4">
+                <h3 className="mb-1 text-xs font-bold text-white">Surprise Mechanics</h3>
+                <p className="text-[11px] text-slate-400">
                   Create engaging, unpredictable experiences while maintaining cryptographic fairness.
                 </p>
               </div>

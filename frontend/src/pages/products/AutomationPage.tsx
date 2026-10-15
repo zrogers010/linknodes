@@ -1,10 +1,11 @@
 import { useState } from 'react'
 import { ProductLayout } from '../../components/ProductLayout'
+import { ClockIcon } from '../../components/icons/Icon'
 
 const AUTOMATION_TYPES = [
-  { id: 'time', name: 'Time-based', icon: '⏰', description: 'Execute at specific times or intervals' },
-  { id: 'custom', name: 'Custom Logic', icon: '🔍', description: 'Trigger based on custom conditions' },
-  { id: 'log', name: 'Log Triggers', icon: '📋', description: 'React to emitted contract events' },
+  { id: 'time', name: 'Time-based', description: 'Execute at specific times or intervals' },
+  { id: 'custom', name: 'Custom Logic', description: 'Trigger based on custom conditions' },
+  { id: 'log', name: 'Log Triggers', description: 'React to emitted contract events' },
 ]
 
 const EXAMPLE_CONDITIONS = [
@@ -34,33 +35,32 @@ export function AutomationPage() {
   
   return (
     <ProductLayout
-      icon="🤖"
+      icon={ClockIcon}
       title="Chainlink Automation"
-      tagline="Decentralized Smart Contract Automation"
+      tagline="Decentralized keepers"
       status="preview"
       description={
         <>
-          Trigger smart contract functions automatically using decentralized keepers. Execute time-based tasks, monitor custom conditions, and react to events — all without running your own infrastructure.
+          Trigger smart contract functions automatically based on time schedules or custom conditions. Off-load maintenance tasks and state transitions from manual EOA calls without running keeper infrastructure.
         </>
       }
     >
       <div className="p-4 sm:p-6">
         <div className="mx-auto max-w-6xl">
           {/* Automation types */}
-          <div className="mb-8 grid gap-4 sm:grid-cols-3">
+          <div className="mb-8 grid gap-3 sm:grid-cols-3">
             {AUTOMATION_TYPES.map((type) => (
               <button
                 key={type.id}
                 onClick={() => setSelectedType(type.id)}
-                className={`rounded-xl border p-5 text-left transition-all ${
+                className={`border p-4 text-left transition-all ${
                   selectedType === type.id
                     ? 'border-accent-500 bg-accent-500/10'
                     : 'border-ink-700 bg-ink-900 hover:border-ink-600'
                 }`}
               >
-                <div className="mb-2 text-2xl">{type.icon}</div>
-                <h3 className="mb-1 text-sm font-bold text-white">{type.name}</h3>
-                <p className="text-xs text-slate-400">{type.description}</p>
+                <h3 className="mb-1 text-xs font-bold text-white">{type.name}</h3>
+                <p className="text-[11px] text-slate-400">{type.description}</p>
               </button>
             ))}
           </div>
@@ -218,59 +218,41 @@ contract MyAutomatedContract is AutomationCompatibleInterface {
 
           {/* Popular use cases grid */}
           <div className="mt-8">
-            <h2 className="mb-4 text-lg font-bold text-white">What You Can Automate</h2>
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              <div className="rounded-xl border border-ink-700 bg-ink-900 p-5">
-                <h3 className="mb-2 flex items-center gap-2 text-sm font-bold text-white">
-                  <span>💰</span>
-                  <span>DeFi Strategies</span>
-                </h3>
-                <p className="text-xs text-slate-400">
+            <h2 className="mb-4 text-base font-bold text-white">What You Can Automate</h2>
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="border border-ink-700 bg-ink-900 p-4">
+                <h3 className="mb-1 text-xs font-bold text-white">DeFi Strategies</h3>
+                <p className="text-[11px] text-slate-400">
                   Auto-compound yields, rebalance portfolios, trigger stop-losses, and manage positions without manual intervention.
                 </p>
               </div>
-              <div className="rounded-xl border border-ink-700 bg-ink-900 p-5">
-                <h3 className="mb-2 flex items-center gap-2 text-sm font-bold text-white">
-                  <span>⚖️</span>
-                  <span>Liquidations</span>
-                </h3>
-                <p className="text-xs text-slate-400">
+              <div className="border border-ink-700 bg-ink-900 p-4">
+                <h3 className="mb-1 text-xs font-bold text-white">Liquidations</h3>
+                <p className="text-[11px] text-slate-400">
                   Monitor lending protocols and automatically liquidate undercollateralized positions as they reach thresholds.
                 </p>
               </div>
-              <div className="rounded-xl border border-ink-700 bg-ink-900 p-5">
-                <h3 className="mb-2 flex items-center gap-2 text-sm font-bold text-white">
-                  <span>🎨</span>
-                  <span>NFT Mechanics</span>
-                </h3>
-                <p className="text-xs text-slate-400">
+              <div className="border border-ink-700 bg-ink-900 p-4">
+                <h3 className="mb-1 text-xs font-bold text-white">NFT Mechanics</h3>
+                <p className="text-[11px] text-slate-400">
                   Scheduled reveals, dynamic trait updates, auction endings, and time-based NFT state changes.
                 </p>
               </div>
-              <div className="rounded-xl border border-ink-700 bg-ink-900 p-5">
-                <h3 className="mb-2 flex items-center gap-2 text-sm font-bold text-white">
-                  <span>🗳️</span>
-                  <span>DAO Operations</span>
-                </h3>
-                <p className="text-xs text-slate-400">
+              <div className="border border-ink-700 bg-ink-900 p-4">
+                <h3 className="mb-1 text-xs font-bold text-white">DAO Operations</h3>
+                <p className="text-[11px] text-slate-400">
                   Execute passed proposals, distribute rewards, update parameters, and run scheduled governance tasks.
                 </p>
               </div>
-              <div className="rounded-xl border border-ink-700 bg-ink-900 p-5">
-                <h3 className="mb-2 flex items-center gap-2 text-sm font-bold text-white">
-                  <span>🎮</span>
-                  <span>Gaming Logic</span>
-                </h3>
-                <p className="text-xs text-slate-400">
+              <div className="border border-ink-700 bg-ink-900 p-4">
+                <h3 className="mb-1 text-xs font-bold text-white">Gaming Logic</h3>
+                <p className="text-[11px] text-slate-400">
                   Turn-based mechanics, scheduled events, reward distributions, and automated game state management.
                 </p>
               </div>
-              <div className="rounded-xl border border-ink-700 bg-ink-900 p-5">
-                <h3 className="mb-2 flex items-center gap-2 text-sm font-bold text-white">
-                  <span>⚡</span>
-                  <span>System Maintenance</span>
-                </h3>
-                <p className="text-xs text-slate-400">
+              <div className="border border-ink-700 bg-ink-900 p-4">
+                <h3 className="mb-1 text-xs font-bold text-white">System Maintenance</h3>
+                <p className="text-[11px] text-slate-400">
                   Clear expired data, reset counters, clean up storage, and perform routine contract maintenance tasks.
                 </p>
               </div>
