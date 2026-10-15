@@ -12,14 +12,15 @@ import { DataFeedsPage } from './pages/products/DataFeedsPage'
 import { FunctionsPage } from './pages/products/FunctionsPage'
 import { VRFPage } from './pages/products/VRFPage'
 import { EnvironmentProvider, useEnvironment } from './EnvironmentContext'
+import { BarChart3Icon, NetworkIcon, CodeIcon, DicesIcon, ClockIcon, HexagonIcon } from './components/icons/Icon'
 import type { Registry } from './types'
 
 const PRODUCT_NAV = [
-  { to: '/products/data-feeds', label: 'Data Feeds', icon: '📊' },
-  { to: '/products/ccip', label: 'CCIP', icon: '🌉' },
-  { to: '/products/functions', label: 'Functions', icon: '⚡' },
-  { to: '/products/vrf', label: 'VRF', icon: '🎲' },
-  { to: '/products/automation', label: 'Automation', icon: '🤖' },
+  { to: '/products/data-feeds', label: 'Data Feeds', icon: BarChart3Icon },
+  { to: '/products/ccip', label: 'CCIP', icon: NetworkIcon },
+  { to: '/products/functions', label: 'Functions', icon: CodeIcon },
+  { to: '/products/vrf', label: 'VRF', icon: DicesIcon },
+  { to: '/products/automation', label: 'Automation', icon: ClockIcon },
 ]
 
 const SECONDARY_NAV = [
@@ -39,18 +40,18 @@ function Navigation({ registry }: { registry: Registry }) {
 
   return (
     <header className="shrink-0 border-b border-ink-700 bg-ink-900">
-      <div className="flex items-center gap-3 px-4 py-3 sm:px-5">
-        <Link to="/" className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-accent-500 font-mono text-sm font-black text-white shadow-lg shadow-accent-500/30 transition-transform hover:scale-105">
-          ⛓
+      <div className="flex items-center gap-3 px-4 py-2.5 sm:px-5">
+        <Link to="/" className="flex h-7 w-7 shrink-0 items-center justify-center border border-ink-600 bg-ink-800 text-accent-400 transition-colors hover:border-accent-500 hover:text-accent-300">
+          <HexagonIcon size={16} />
         </Link>
         <div className="min-w-0">
           <Link to="/" className="group">
-            <h1 className="text-[15px] font-bold leading-tight tracking-tight text-white transition-colors group-hover:text-accent-300">
-              LinkNodes<span className="text-accent-400">.io</span>
+            <h1 className="text-sm font-bold leading-tight tracking-tight text-white transition-colors group-hover:text-accent-300">
+              LinkNodes<span className="text-slate-500">.io</span>
             </h1>
           </Link>
-          <p className="hidden text-[11px] leading-tight text-slate-500 sm:block">
-            The developer toolkit for Chainlink
+          <p className="hidden text-[10px] leading-tight text-slate-500 sm:block">
+            Chainlink developer toolkit
           </p>
         </div>
 
@@ -62,10 +63,10 @@ function Navigation({ registry }: { registry: Registry }) {
                 to={item.to}
                 end={item.end}
                 className={({ isActive }) =>
-                  `rounded-lg px-3 py-1.5 text-[13px] font-medium transition-colors ${
+                  `px-3 py-1.5 text-xs font-medium transition-colors ${
                     isActive
-                      ? 'bg-accent-500/15 text-accent-300'
-                      : 'text-slate-400 hover:bg-ink-800 hover:text-slate-200'
+                      ? 'text-accent-400'
+                      : 'text-slate-400 hover:text-slate-200'
                   }`
                 }
               >
@@ -78,55 +79,55 @@ function Navigation({ registry }: { registry: Registry }) {
         <div className="ml-auto flex items-center gap-2">
           <button
             onClick={() => setEnvironment(environment === 'mainnet' ? 'testnet' : 'mainnet')}
-            className="rounded-lg border border-ink-600 bg-ink-800 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-wide text-slate-300 transition-colors hover:border-accent-500/50 hover:bg-ink-750"
+            className="border border-ink-600 bg-ink-800 px-2.5 py-1 text-[10px] font-medium uppercase tracking-wide text-slate-300 transition-colors hover:border-ink-500 hover:bg-ink-750"
             title="Toggle between Mainnet and Testnet"
           >
-            {environment === 'mainnet' ? '🟢 Mainnet' : '🟡 Testnet'}
+            {environment === 'mainnet' ? 'Mainnet' : 'Testnet'}
           </button>
-          <span className="hidden rounded-full border border-ink-600 bg-ink-800 px-2.5 py-1 font-mono text-[10px] text-slate-400 lg:inline">
+          <span className="hidden border border-ink-600 bg-ink-800 px-2.5 py-1 font-mono text-[10px] text-slate-400 lg:inline">
             {totalFeeds.toLocaleString()} feeds · {Object.keys(registry.networks).length} chains
-          </span>
-          <span className="hidden rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-emerald-400 md:inline">
-            Free · No keys · No accounts
           </span>
         </div>
       </div>
 
       {/* Product navigation */}
       {isProductPage && (
-        <nav className="flex items-center gap-1 overflow-x-auto border-t border-ink-700 bg-ink-950 px-3 py-2 sm:px-5">
-          {PRODUCT_NAV.map((item) => (
-            <NavLink
-              key={item.to}
-              to={item.to}
-              className={({ isActive }) =>
-                `flex shrink-0 items-center gap-1.5 rounded-lg px-3 py-1.5 text-[13px] font-medium transition-colors ${
-                  isActive
-                    ? 'bg-accent-500/15 text-accent-300'
-                    : 'text-slate-400 hover:bg-ink-800 hover:text-slate-200'
-                }`
-              }
-            >
-              <span className="text-base">{item.icon}</span>
-              <span>{item.label}</span>
-            </NavLink>
-          ))}
+        <nav className="flex items-center gap-px overflow-x-auto border-t border-ink-700 bg-ink-950 px-3 sm:px-5">
+          {PRODUCT_NAV.map((item) => {
+            const IconComponent = item.icon
+            return (
+              <NavLink
+                key={item.to}
+                to={item.to}
+                className={({ isActive }) =>
+                  `flex shrink-0 items-center gap-1.5 border-b-2 px-3 py-2 text-xs font-medium transition-colors ${
+                    isActive
+                      ? 'border-accent-500 text-accent-400'
+                      : 'border-transparent text-slate-400 hover:text-slate-200'
+                  }`
+                }
+              >
+                <IconComponent size={14} />
+                <span>{item.label}</span>
+              </NavLink>
+            )
+          })}
         </nav>
       )}
       
       {/* Mobile secondary nav row */}
       {!isProductPage && (
-        <nav className="flex items-center gap-1 border-t border-ink-700 px-3 py-2 sm:hidden">
+        <nav className="flex items-center gap-1 border-t border-ink-700 px-3 py-1.5 sm:hidden">
           {SECONDARY_NAV.map((item) => (
             <NavLink
               key={item.to}
               to={item.to}
               end={item.end}
               className={({ isActive }) =>
-                `flex-1 rounded-lg px-3 py-1.5 text-center text-[13px] font-medium transition-colors ${
+                `flex-1 px-3 py-1.5 text-center text-xs font-medium transition-colors ${
                   isActive
-                    ? 'bg-accent-500/15 text-accent-300'
-                    : 'text-slate-400 hover:bg-ink-800 hover:text-slate-200'
+                    ? 'text-accent-400'
+                    : 'text-slate-400 hover:text-slate-200'
                 }`
               }
             >
