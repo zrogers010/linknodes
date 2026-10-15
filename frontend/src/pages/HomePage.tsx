@@ -1,116 +1,108 @@
 import { Link } from 'react-router-dom'
 import { SEO } from '../components/SEO'
+import { ChartBarIcon, NetworkIcon, CodeIcon, DicesIcon, ClockIcon, CheckIcon, ChevronRightIcon } from '../components/icons/Icon'
 
 const PRODUCTS = [
   {
     id: 'data-feeds',
     name: 'Data Feeds',
-    icon: '📊',
-    tagline: 'Real-time price oracles',
-    description: 'Query 1,400+ live price feeds across 13 chains. Get crypto, forex, equities, commodities, and macro data on-chain with sub-minute updates.',
+    icon: ChartBarIcon,
+    tagline: 'Price oracle sandbox',
+    description: 'Query 1,400+ live price feeds across 13 mainnets. Browse crypto, forex, equities, commodities, and economic data with historical rounds and aggregation details.',
     status: 'live',
-    features: ['1,400+ feeds', '13 mainnets', 'Sub-second latency', 'Historical rounds'],
+    features: ['1,400+ feeds', '13 mainnets', 'Historical data', 'Live queries'],
   },
   {
     id: 'ccip',
     name: 'CCIP',
-    icon: '🌉',
-    tagline: 'Cross-chain interoperability',
-    description: 'Explore CCIP lanes across 9 mainnets. Get router addresses, chain selectors, ARM proxies, and production-ready code snippets.',
+    icon: NetworkIcon,
+    tagline: 'Cross-chain messaging',
+    description: 'Explore CCIP lanes across 9 mainnets. View router addresses, chain selectors, RMN proxies, and copy Solidity integration snippets for message and token transfers.',
     status: 'live',
     features: ['Router addresses', 'Chain selectors', 'Code snippets', '9 mainnets'],
   },
   {
     id: 'functions',
     name: 'Functions',
-    icon: '⚡',
-    tagline: 'Serverless Web2 compute',
-    description: 'Execute custom JavaScript on Chainlink\'s decentralized oracle network. Fetch APIs, run computations, and bring any off-chain data on-chain.',
+    icon: CodeIcon,
+    tagline: 'Serverless compute',
+    description: 'Execute custom JavaScript on Chainlink DON. Fetch external APIs, run computations, and connect any off-chain data source to your smart contracts.',
     status: 'preview',
-    features: ['Any API call', 'Custom JS logic', 'Secrets management', 'Decentralized execution'],
+    features: ['Any API call', 'Custom JS logic', 'Secrets management', 'DON execution'],
   },
   {
     id: 'vrf',
     name: 'VRF',
-    icon: '🎲',
+    icon: DicesIcon,
     tagline: 'Verifiable randomness',
-    description: 'Generate provably fair random numbers on-chain. Perfect for NFT mints, gaming, lotteries, and any application requiring tamper-proof randomness.',
+    description: 'Generate cryptographically provable random numbers on-chain. On-chain verification ensures results cannot be manipulated by miners, validators, or node operators.',
     status: 'preview',
-    features: ['Cryptographic proof', 'On-chain verification', 'Instant finality', 'Gas-efficient'],
+    features: ['Cryptographic proof', 'On-chain verification', 'Fast finality', 'Gas-efficient'],
   },
   {
     id: 'automation',
     name: 'Automation',
-    icon: '🤖',
+    icon: ClockIcon,
     tagline: 'Decentralized keepers',
-    description: 'Trigger smart contract functions automatically based on time or custom conditions. Automate DeFi strategies, NFT reveals, and maintenance tasks.',
+    description: 'Trigger smart contract functions automatically based on time schedules or custom conditions. Off-load maintenance tasks and state transitions from manual EOA calls.',
     status: 'preview',
     features: ['Time-based triggers', 'Custom logic', 'Gas optimization', 'Reliable execution'],
   },
 ]
 
 const STATUS_BADGE: Record<string, { label: string; className: string }> = {
-  live: { label: 'Live', className: 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30' },
-  preview: { label: 'Coming Soon', className: 'bg-amber-500/15 text-amber-400 border-amber-500/30' },
+  live: { label: 'Live', className: 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20' },
+  preview: { label: 'Coming Soon', className: 'bg-slate-500/10 text-slate-400 border-slate-500/20' },
 }
 
 export function HomePage() {
   return (
     <main className="min-h-0 flex-1 overflow-y-auto">
       <SEO 
-        title="The Developer Toolkit for Chainlink"
+        title="Chainlink Developer Toolkit — LinkNodes"
         description="Query 1,400+ live Chainlink Data Feeds and explore CCIP lane configuration across 13 mainnets. Free developer toolkit, no wallet required."
         path="/"
       />
       {/* Hero section */}
-      <section className="border-b border-ink-700 bg-gradient-to-b from-ink-900 to-ink-950">
-        <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20 lg:py-24">
-          <div className="text-center">
-            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-accent-500/30 bg-accent-500/10 px-4 py-1.5 text-sm">
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent-400 opacity-75"></span>
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-accent-500"></span>
-              </span>
-              <span className="font-semibold text-accent-300">The Developer Toolkit for Chainlink</span>
+      <section className="border-b border-ink-700 bg-ink-900">
+        <div className="mx-auto max-w-5xl px-4 py-12 sm:px-6 sm:py-16 lg:py-20">
+          <div className="max-w-3xl">
+            <div className="mb-3 inline-block border border-ink-600 bg-ink-800 px-2.5 py-1 text-xs font-medium uppercase tracking-wide text-slate-400">
+              Developer Toolkit
             </div>
-            <h1 className="mb-5 text-4xl font-black leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl">
-              Test, debug, and ship
-              <br />
-              <span className="bg-gradient-to-r from-accent-300 to-accent-500 bg-clip-text text-transparent">
-                Chainlink integrations
-              </span>
+            <h1 className="mb-4 text-3xl font-bold leading-tight tracking-tight text-white sm:text-4xl lg:text-5xl">
+              Chainlink oracle sandbox and integration tools
             </h1>
-            <p className="mx-auto mb-8 max-w-2xl text-lg leading-relaxed text-slate-400 sm:text-xl">
-              Query 1,400+ live Chainlink Data Feeds and explore CCIP lane configuration across 13 mainnets — all in your browser, no wallet required.
+            <p className="mb-6 max-w-2xl text-base leading-relaxed text-slate-400">
+              Query 1,400+ live Data Feeds across 13 mainnets, explore CCIP router configuration for 9 chains, and copy production-ready integration snippets. No wallet or testnet tokens required.
             </p>
-            <div className="flex flex-wrap items-center justify-center gap-3">
+            <div className="flex flex-wrap items-center gap-3">
               <Link
                 to="/products/data-feeds"
-                className="inline-flex items-center gap-2 rounded-lg bg-accent-500 px-6 py-3 text-base font-bold text-white shadow-lg shadow-accent-500/30 transition-all hover:bg-accent-600 hover:shadow-accent-500/40"
+                className="inline-flex items-center gap-2 border border-accent-500 bg-accent-500 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-accent-600"
               >
-                Try Data Feeds Sandbox
-                <svg className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
-                </svg>
+                Data Feeds Sandbox
+                <ChevronRightIcon size={16} />
+              </Link>
+              <Link
+                to="/products/ccip"
+                className="inline-flex items-center gap-2 border border-ink-600 bg-ink-800 px-4 py-2 text-sm font-semibold text-slate-300 transition-colors hover:border-ink-500 hover:bg-ink-750"
+              >
+                CCIP Explorer
+                <ChevronRightIcon size={16} />
               </Link>
             </div>
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-6 text-sm text-slate-500">
-              <div className="flex items-center gap-2">
-                <svg className="h-4 w-4 text-emerald-400" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                </svg>
-                <span>Free forever</span>
+            <div className="mt-6 flex flex-wrap items-center gap-4 text-xs text-slate-500">
+              <div className="flex items-center gap-1.5">
+                <CheckIcon size={14} className="text-slate-400" />
+                <span>Free, no account</span>
               </div>
-              <div className="flex items-center gap-2">
-                <svg className="h-4 w-4 text-emerald-400" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                </svg>
-                <span>No wallet required</span>
+              <div className="flex items-center gap-1.5">
+                <CheckIcon size={14} className="text-slate-400" />
+                <span>Live mainnet data</span>
               </div>
-              <div className="flex items-center gap-2">
-                <svg className="h-4 w-4 text-emerald-400" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                </svg>
+              <div className="flex items-center gap-1.5">
+                <CheckIcon size={14} className="text-slate-400" />
                 <span>Open source</span>
               </div>
             </div>
@@ -120,58 +112,55 @@ export function HomePage() {
 
       {/* Product grid */}
       <section className="border-b border-ink-700 bg-ink-950">
-        <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6">
-          <div className="mb-10 text-center">
-            <h2 className="mb-3 text-3xl font-black text-white">Chainlink Developer Tools</h2>
-            <p className="mx-auto max-w-2xl text-slate-400">
-              Live Data Feeds sandbox with 1,400+ feeds. CCIP lane explorer with router addresses and code snippets. Additional Chainlink services coming soon.
+        <div className="mx-auto max-w-5xl px-4 py-12 sm:px-6">
+          <div className="mb-8">
+            <h2 className="mb-2 text-xl font-bold text-white">Available Tools</h2>
+            <p className="max-w-2xl text-sm text-slate-400">
+              Data Feeds sandbox with 1,400+ feeds across 13 mainnets. CCIP lane explorer with router addresses and Solidity snippets. Additional services in development.
             </p>
           </div>
           
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-4 sm:grid-cols-2">
             {PRODUCTS.map((product) => {
               const statusBadge = STATUS_BADGE[product.status]
+              const IconComponent = product.icon
               return (
                 <Link
                   key={product.id}
                   to={`/products/${product.id}`}
-                  className="group relative flex flex-col rounded-2xl border border-ink-700 bg-ink-900 p-6 transition-all hover:border-accent-500/50 hover:shadow-xl hover:shadow-accent-500/10"
+                  className="group relative flex flex-col border border-ink-700 bg-ink-900 p-5 transition-colors hover:border-ink-600 hover:bg-ink-850"
                 >
-                  <div className="mb-4 flex items-start justify-between">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-accent-500/20 to-accent-600/20 text-2xl shadow-lg shadow-accent-500/20">
-                      {product.icon}
+                  <div className="mb-3 flex items-start justify-between">
+                    <div className="flex h-9 w-9 items-center justify-center border border-ink-600 bg-ink-800 text-accent-400">
+                      <IconComponent size={18} />
                     </div>
-                    <span className={`rounded-full border px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider ${statusBadge.className}`}>
+                    <span className={`border px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider ${statusBadge.className}`}>
                       {statusBadge.label}
                     </span>
                   </div>
                   
-                  <h3 className="mb-2 text-xl font-bold text-white group-hover:text-accent-300">
+                  <h3 className="mb-1 text-base font-bold text-white">
                     {product.name}
                   </h3>
-                  <p className="mb-3 text-sm font-semibold text-accent-400">
+                  <p className="mb-2 text-xs font-medium text-slate-400">
                     {product.tagline}
                   </p>
-                  <p className="mb-4 text-sm leading-relaxed text-slate-400">
+                  <p className="mb-3 text-xs leading-relaxed text-slate-500">
                     {product.description}
                   </p>
                   
-                  <div className="mt-auto space-y-2">
-                    <div className="grid grid-cols-2 gap-2">
+                  <div className="mt-auto">
+                    <div className="mb-2 grid grid-cols-2 gap-x-3 gap-y-1">
                       {product.features.map((feature) => (
-                        <div key={feature} className="flex items-center gap-1.5 text-xs text-slate-500">
-                          <svg className="h-3.5 w-3.5 shrink-0 text-accent-500" viewBox="0 0 20 20" fill="currentColor">
-                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                          </svg>
+                        <div key={feature} className="flex items-center gap-1 text-[11px] text-slate-500">
+                          <div className="h-1 w-1 shrink-0 bg-slate-600" />
                           <span>{feature}</span>
                         </div>
                       ))}
                     </div>
-                    <div className="flex items-center gap-2 pt-2 text-sm font-semibold text-accent-300 transition-transform group-hover:translate-x-1">
-                      <span>{product.status === 'live' ? 'Try it now' : 'View examples'}</span>
-                      <svg className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                        <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
-                      </svg>
+                    <div className="flex items-center gap-1.5 pt-1 text-xs font-medium text-accent-400 transition-colors group-hover:text-accent-300">
+                      <span>{product.status === 'live' ? 'Open sandbox' : 'View documentation'}</span>
+                      <ChevronRightIcon size={12} />
                     </div>
                   </div>
                 </Link>
@@ -181,33 +170,21 @@ export function HomePage() {
         </div>
       </section>
 
-      {/* Positioning section */}
+      {/* Quick facts */}
       <section className="bg-ink-950">
-        <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
-          <div className="grid gap-8 md:grid-cols-2">
-            <div className="rounded-2xl border border-ink-700 bg-ink-900 p-8">
-              <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-accent-500/20 text-xl">
-                🚀
-              </div>
-              <h3 className="mb-3 text-xl font-bold text-white">For developers, by developers</h3>
-              <p className="mb-4 text-slate-400">
-                LinkNodes is the missing developer experience layer for Chainlink. While docs.chain.link teaches concepts, LinkNodes lets you experiment instantly — query real feeds, test message flows, and grab production snippets without leaving your browser.
-              </p>
-              <p className="text-sm text-slate-500">
-                Think Postman for Chainlink: iterate faster, debug smarter, ship with confidence.
+        <div className="mx-auto max-w-5xl px-4 py-12 sm:px-6">
+          <div className="grid gap-px bg-ink-700 sm:grid-cols-2">
+            <div className="bg-ink-900 p-5">
+              <h3 className="mb-2 text-sm font-bold text-white">Why LinkNodes</h3>
+              <p className="text-xs leading-relaxed text-slate-400">
+                Official Chainlink documentation teaches oracle concepts and contract interfaces. LinkNodes provides interactive sandboxes where you can query live feeds, inspect CCIP router configuration, and copy integration code without setting up wallets or testnets.
               </p>
             </div>
             
-            <div className="rounded-2xl border border-ink-700 bg-ink-900 p-8">
-              <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-accent-500/20 text-xl">
-                ⚡
-              </div>
-              <h3 className="mb-3 text-xl font-bold text-white">Instant feedback, zero friction</h3>
-              <p className="mb-4 text-slate-400">
-                No wallet setup, no test tokens, no spinning up local nodes. Every sandbox runs on live mainnets with real data, using free public RPCs. Go from landing page to working integration in under 60 seconds.
-              </p>
-              <p className="text-sm text-slate-500">
-                Free forever, open source, and built for the community.
+            <div className="bg-ink-900 p-5">
+              <h3 className="mb-2 text-sm font-bold text-white">How it works</h3>
+              <p className="text-xs leading-relaxed text-slate-400">
+                All queries run against live mainnet contracts using free public RPC endpoints. No authentication, no wallet signatures, no testnet faucets. Select a feed or CCIP lane, view current data and router addresses, then copy the Solidity or JavaScript snippet for your project.
               </p>
             </div>
           </div>
@@ -215,21 +192,23 @@ export function HomePage() {
       </section>
 
       {/* CTA section */}
-      <section className="border-t border-ink-700 bg-gradient-to-b from-ink-950 to-ink-900">
-        <div className="mx-auto max-w-4xl px-4 py-16 text-center sm:px-6">
-          <h2 className="mb-4 text-3xl font-black text-white">Ready to build?</h2>
-          <p className="mb-8 text-lg text-slate-400">
-            Start with Data Feeds — the most battle-tested oracle service in DeFi.
-          </p>
-          <Link
-            to="/products/data-feeds"
-            className="inline-flex items-center gap-2 rounded-lg bg-accent-500 px-8 py-4 text-lg font-bold text-white shadow-xl shadow-accent-500/30 transition-all hover:bg-accent-600 hover:shadow-accent-500/40"
-          >
-            Launch Data Feeds Sandbox
-            <svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-              <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
-            </svg>
-          </Link>
+      <section className="border-t border-ink-700 bg-ink-900">
+        <div className="mx-auto max-w-5xl px-4 py-10 sm:px-6">
+          <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <h2 className="mb-1 text-lg font-bold text-white">Start with Data Feeds</h2>
+              <p className="text-xs text-slate-400">
+                Query 1,400+ price feeds across Ethereum, Arbitrum, Optimism, Base, Polygon, BNB Chain, Avalanche, and 6 other mainnets.
+              </p>
+            </div>
+            <Link
+              to="/products/data-feeds"
+              className="inline-flex shrink-0 items-center gap-2 border border-accent-500 bg-accent-500 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-accent-600"
+            >
+              Open Sandbox
+              <ChevronRightIcon size={16} />
+            </Link>
+          </div>
         </div>
       </section>
     </main>

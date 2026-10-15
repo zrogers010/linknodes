@@ -4,14 +4,7 @@ import type { Registry, SandboxState } from '../types'
 
 const MAX_VISIBLE = 120
 
-const TYPE_EMOJI: Record<string, string> = {
-  Crypto: '🪙',
-  Forex: '💱',
-  Commodities: '🛢️',
-  Equities: '📈',
-  Fiat: '💵',
-  Macroeconomics: '🏛️',
-}
+// Feed type labels - no emoji icons needed
 
 const CATEGORY_STYLE: Record<string, string> = {
   low: 'text-emerald-400',
@@ -164,9 +157,6 @@ export function ControlPanel({ registry, state, onChange, onFeedPick }: Props) {
                   : 'border-transparent hover:border-ink-600 hover:bg-ink-800'
               }`}
             >
-              <span className="w-6 shrink-0 text-center text-base">
-                {TYPE_EMOJI[feed.feed_type] ?? '📊'}
-              </span>
               <span className="min-w-0 flex-1">
                 <span
                   className={`block truncate text-[13px] font-semibold ${
@@ -177,7 +167,7 @@ export function ControlPanel({ registry, state, onChange, onFeedPick }: Props) {
                 </span>
                 <span className="block truncate text-[10px] text-slate-500">
                   {feed.feed_type}
-                  {feed.heartbeat ? ` · ♥ ${feed.heartbeat}s` : ''}
+                  {feed.heartbeat ? ` · ${feed.heartbeat}s` : ''}
                   {feed.deviation_threshold_pct ? ` · ±${feed.deviation_threshold_pct}%` : ''}
                 </span>
               </span>

@@ -6,14 +6,7 @@ import type { Registry } from '../types'
 
 type SortKey = 'popularity' | 'coverage' | 'name' | 'heartbeat'
 
-const TYPE_EMOJI: Record<string, string> = {
-  Crypto: '🪙',
-  Forex: '💱',
-  Commodities: '🛢️',
-  Equities: '📈',
-  Fiat: '💵',
-  Macroeconomics: '🏛️',
-}
+// Feed type labels - no emoji icons needed
 
 const CATEGORY_STYLE: Record<string, string> = {
   low: 'border-emerald-500/40 text-emerald-400',
@@ -197,7 +190,6 @@ export function FeedsPage({ registry }: { registry: Registry }) {
               className="flex flex-col rounded-xl border border-ink-700 bg-ink-900 p-4 transition-colors hover:border-ink-600"
             >
               <div className="mb-2 flex items-start gap-2.5">
-                <span className="text-xl leading-none">{TYPE_EMOJI[f.feedType] ?? '📊'}</span>
                 <div className="min-w-0 flex-1">
                   <h3 className="flex items-center gap-1.5 truncate text-[14px] font-bold text-slate-100">
                     {f.name}
@@ -226,7 +218,7 @@ export function FeedsPage({ registry }: { registry: Registry }) {
                   <span className="font-bold text-accent-300">{f.chains.length}</span>
                 </span>
                 <span title="Fastest heartbeat across deployments">
-                  <span className="text-slate-600">♥</span> {formatHeartbeat(f.minHeartbeat)}
+                  {formatHeartbeat(f.minHeartbeat)}
                 </span>
                 {f.minDeviation != null && (
                   <span title="Tightest deviation threshold across deployments">

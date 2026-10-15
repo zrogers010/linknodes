@@ -39,7 +39,7 @@ export function ComparePanel({
           onClick={onClose}
           className="ml-auto rounded-md px-2 py-0.5 text-[11px] font-semibold text-slate-400 transition-colors hover:bg-ink-700 hover:text-slate-200"
         >
-          Close ✕
+          Close
         </button>
       </div>
 

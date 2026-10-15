@@ -1,6 +1,7 @@
 import { ProductLayout } from '../../components/ProductLayout'
 import { SandboxPage } from '../SandboxPage'
 import { SEO } from '../../components/SEO'
+import { ChartBarIcon } from '../../components/icons/Icon'
 import type { Registry } from '../../types'
 
 export function DataFeedsPage({ registry }: { registry: Registry }) {
@@ -12,13 +13,13 @@ export function DataFeedsPage({ registry }: { registry: Registry }) {
         path="/products/data-feeds"
       />
       <ProductLayout
-        icon="📊"
+        icon={ChartBarIcon}
         title="Data Feeds"
-        tagline="Real-time Price Oracles"
+        tagline="Price oracle sandbox"
         status="live"
         description={
           <>
-            Query 1,400+ live price feeds across 13 chains. Get crypto, forex, equities, commodities, and macro data on-chain with sub-minute updates and cryptographic guarantees.
+            Query 1,400+ live price feeds across 13 mainnets. Browse crypto, forex, equities, commodities, and economic data with historical rounds and aggregation details.
           </>
         }
       >

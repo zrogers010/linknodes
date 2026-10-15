@@ -5,6 +5,7 @@ import { apiUrl } from '../../config'
 import { CopyButton } from '../../components/CopyButton'
 import { SEO } from '../../components/SEO'
 import { useEnvironment } from '../../EnvironmentContext'
+import { NetworkIcon, SendIcon, DownloadIcon, ExternalLinkIcon } from '../../components/icons/Icon'
 
 interface CCIPNetwork {
   network: string
@@ -295,9 +296,9 @@ console.log("Message sent successfully!");`
           path="/products/ccip"
         />
         <ProductLayout
-          icon="🌉"
+          icon={NetworkIcon}
           title="CCIP"
-          tagline="Cross-Chain Interoperability Protocol"
+          tagline="Cross-chain messaging"
           status="live"
           description={<>Loading CCIP registry...</>}
         >
@@ -328,32 +329,31 @@ console.log("Message sent successfully!");`
         path={seoPath}
       />
       <ProductLayout
-      icon="🌉"
+      icon={NetworkIcon}
       title="CCIP"
-      tagline="Cross-Chain Interoperability Protocol"
+      tagline="Cross-chain messaging"
       status="live"
       description={
         <>
-          Explore CCIP lanes across {networks.length} mainnets. Get router addresses, chain selectors, RMN proxies, and
-          production-ready Solidity snippets for cross-chain messaging and token transfers.
+          Explore CCIP lanes across {networks.length} mainnets. View router addresses, chain selectors, RMN proxies, and copy Solidity integration snippets for message and token transfers.
         </>
       }
     >
       <div className="p-4 sm:p-6">
         <div className="mx-auto max-w-6xl">
           {/* Lane selector */}
-          <div className="mb-6 rounded-2xl border border-ink-700 bg-ink-900">
-            <div className="border-b border-ink-700 p-5">
-              <h2 className="text-lg font-bold text-white">CCIP Lane Explorer</h2>
-              <p className="mt-1 text-sm text-slate-400">
-                Select source and destination chains to see router addresses, chain selectors, and integration code.
+          <div className="mb-6 border border-ink-700 bg-ink-900">
+            <div className="border-b border-ink-700 p-4">
+              <h2 className="text-base font-bold text-white">CCIP Lane Explorer</h2>
+              <p className="mt-1 text-xs text-slate-400">
+                Select source and destination chains to view router addresses, chain selectors, and integration code.
               </p>
             </div>
 
-            <div className="grid gap-6 p-5 lg:grid-cols-2">
+            <div className="grid gap-4 p-4 lg:grid-cols-2">
               {/* Source chain */}
               <div>
-                <label className="mb-2 block text-xs font-semibold uppercase tracking-wider text-slate-500">
+                <label className="mb-1.5 block text-[10px] font-medium uppercase tracking-wider text-slate-500">
                   Source Chain
                 </label>
                 <select
@@ -365,7 +365,7 @@ console.log("Message sent successfully!");`
                       setDestChain(newSupports[0] || '')
                     }
                   }}
-                  className="w-full rounded-lg border border-ink-600 bg-ink-800 px-4 py-2.5 text-sm text-slate-200 outline-none focus:border-accent-500"
+                  className="w-full border border-ink-600 bg-ink-800 px-3 py-2 text-xs text-slate-200 outline-none focus:border-accent-500"
                 >
                   {networks.map(([id, n]) => (
                     <option key={id} value={id}>
@@ -377,13 +377,13 @@ console.log("Message sent successfully!");`
 
               {/* Destination chain */}
               <div>
-                <label className="mb-2 block text-xs font-semibold uppercase tracking-wider text-slate-500">
+                <label className="mb-1.5 block text-[10px] font-medium uppercase tracking-wider text-slate-500">
                   Destination Chain
                 </label>
                 <select
                   value={destChain}
                   onChange={(e) => setDestChain(e.target.value)}
-                  className="w-full rounded-lg border border-ink-600 bg-ink-800 px-4 py-2.5 text-sm text-slate-200 outline-none focus:border-accent-500"
+                  className="w-full border border-ink-600 bg-ink-800 px-3 py-2 text-xs text-slate-200 outline-none focus:border-accent-500"
                   disabled={availableDestinations.length === 0}
                 >
                   {availableDestinations.map((chainId) => {
@@ -404,15 +404,15 @@ console.log("Message sent successfully!");`
 
           {/* Error state */}
           {error && (
-            <div className="mb-6 rounded-xl border border-rose-500/30 bg-rose-500/5 p-4">
-              <p className="text-sm text-rose-400">{error}</p>
+            <div className="mb-6 border border-rose-500/30 bg-rose-500/5 p-3">
+              <p className="text-xs text-rose-400">{error}</p>
             </div>
           )}
 
           {/* Loading state */}
           {loading && (
-            <div className="mb-6 flex items-center justify-center rounded-xl border border-ink-700 bg-ink-900 p-8">
-              <div className="text-sm text-slate-400">Loading lane data...</div>
+            <div className="mb-6 flex items-center justify-center border border-ink-700 bg-ink-900 p-6">
+              <div className="text-xs text-slate-400">Loading lane data...</div>
             </div>
           )}
 
@@ -420,53 +420,53 @@ console.log("Message sent successfully!");`
           {laneData && !loading && (
             <>
               {/* Router addresses */}
-              <div className="mb-6 rounded-2xl border border-ink-700 bg-ink-900">
-                <div className="border-b border-ink-700 p-5">
-                  <h3 className="text-base font-bold text-white">
+              <div className="mb-6 border border-ink-700 bg-ink-900">
+                <div className="border-b border-ink-700 p-4">
+                  <h3 className="text-sm font-bold text-white">
                     Lane: {laneData.source.label} → {laneData.destination.label}
                   </h3>
                 </div>
 
-                <div className="grid gap-6 p-5 lg:grid-cols-2">
+                <div className="grid gap-4 p-4 lg:grid-cols-2">
                   {/* Source */}
-                  <div className="rounded-xl border border-ink-700 bg-ink-950 p-4">
-                    <h4 className="mb-3 flex items-center gap-2 text-sm font-bold text-accent-300">
-                      <span>📤</span>
+                  <div className="border border-ink-700 bg-ink-950 p-3">
+                    <h4 className="mb-2 flex items-center gap-1.5 text-xs font-bold text-accent-400">
+                      <SendIcon size={12} />
                       <span>Source: {laneData.source.label}</span>
                     </h4>
-                    <div className="space-y-2.5">
+                    <div className="space-y-2">
                       <div>
-                        <div className="mb-1 text-[10px] font-semibold uppercase tracking-wider text-slate-500">
+                        <div className="mb-0.5 text-[9px] font-medium uppercase tracking-wider text-slate-500">
                           Chain Selector
                         </div>
-                        <div className="group flex items-center gap-2">
-                          <code className="flex-1 rounded bg-ink-900 px-2 py-1.5 font-mono text-[11px] text-slate-300">
+                        <div className="group flex items-center gap-1.5">
+                          <code className="flex-1 bg-ink-900 px-2 py-1 font-mono text-[10px] text-slate-300">
                             {laneData.source.chain_selector}
                           </code>
-                          <CopyButton text={laneData.source.chain_selector} className="px-2 py-1" />
+                          <CopyButton text={laneData.source.chain_selector} className="px-1.5 py-0.5" />
                         </div>
                       </div>
                       <div>
-                        <div className="mb-1 text-[10px] font-semibold uppercase tracking-wider text-slate-500">
+                        <div className="mb-0.5 text-[9px] font-medium uppercase tracking-wider text-slate-500">
                           Router Address
                         </div>
-                        <div className="group flex items-center gap-2">
-                          <code className="flex-1 rounded bg-ink-900 px-2 py-1.5 font-mono text-[11px] text-slate-300">
+                        <div className="group flex items-center gap-1.5">
+                          <code className="flex-1 bg-ink-900 px-2 py-1 font-mono text-[10px] text-slate-300">
                             {laneData.source.router}
                           </code>
-                          <CopyButton text={laneData.source.router} className="px-2 py-1" />
+                          <CopyButton text={laneData.source.router} className="px-1.5 py-0.5" />
                         </div>
                       </div>
                       {laneData.source.rmn_proxy && (
                         <div>
-                          <div className="mb-1 text-[10px] font-semibold uppercase tracking-wider text-slate-500">
+                          <div className="mb-0.5 text-[9px] font-medium uppercase tracking-wider text-slate-500">
                             RMN Proxy
                           </div>
-                          <div className="group flex items-center gap-2">
-                            <code className="flex-1 rounded bg-ink-900 px-2 py-1.5 font-mono text-[11px] text-slate-300">
+                          <div className="group flex items-center gap-1.5">
+                            <code className="flex-1 bg-ink-900 px-2 py-1 font-mono text-[10px] text-slate-300">
                               {laneData.source.rmn_proxy}
                             </code>
-                            <CopyButton text={laneData.source.rmn_proxy} className="px-2 py-1" />
+                            <CopyButton text={laneData.source.rmn_proxy} className="px-1.5 py-0.5" />
                           </div>
                         </div>
                       )}
@@ -474,56 +474,53 @@ console.log("Message sent successfully!");`
                         href={`${laneData.source.explorer}/address/${laneData.source.router}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="mt-2 inline-flex items-center gap-1.5 text-xs text-accent-400 hover:text-accent-300"
+                        className="mt-1 inline-flex items-center gap-1 text-[10px] text-accent-400 hover:text-accent-300"
                       >
                         View on Explorer
-                        <svg className="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
-                          <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z" />
-                          <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z" />
-                        </svg>
+                        <ExternalLinkIcon size={10} />
                       </a>
                     </div>
                   </div>
 
                   {/* Destination */}
-                  <div className="rounded-xl border border-ink-700 bg-ink-950 p-4">
-                    <h4 className="mb-3 flex items-center gap-2 text-sm font-bold text-emerald-300">
-                      <span>📥</span>
+                  <div className="border border-ink-700 bg-ink-950 p-3">
+                    <h4 className="mb-2 flex items-center gap-1.5 text-xs font-bold text-emerald-400">
+                      <DownloadIcon size={12} />
                       <span>Destination: {laneData.destination.label}</span>
                     </h4>
-                    <div className="space-y-2.5">
+                    <div className="space-y-2">
                       <div>
-                        <div className="mb-1 text-[10px] font-semibold uppercase tracking-wider text-slate-500">
+                        <div className="mb-0.5 text-[9px] font-medium uppercase tracking-wider text-slate-500">
                           Chain Selector
                         </div>
-                        <div className="group flex items-center gap-2">
-                          <code className="flex-1 rounded bg-ink-900 px-2 py-1.5 font-mono text-[11px] text-slate-300">
+                        <div className="group flex items-center gap-1.5">
+                          <code className="flex-1 bg-ink-900 px-2 py-1 font-mono text-[10px] text-slate-300">
                             {laneData.destination.chain_selector}
                           </code>
-                          <CopyButton text={laneData.destination.chain_selector} className="px-2 py-1" />
+                          <CopyButton text={laneData.destination.chain_selector} className="px-1.5 py-0.5" />
                         </div>
                       </div>
                       <div>
-                        <div className="mb-1 text-[10px] font-semibold uppercase tracking-wider text-slate-500">
+                        <div className="mb-0.5 text-[9px] font-medium uppercase tracking-wider text-slate-500">
                           Router Address
                         </div>
-                        <div className="group flex items-center gap-2">
-                          <code className="flex-1 rounded bg-ink-900 px-2 py-1.5 font-mono text-[11px] text-slate-300">
+                        <div className="group flex items-center gap-1.5">
+                          <code className="flex-1 bg-ink-900 px-2 py-1 font-mono text-[10px] text-slate-300">
                             {laneData.destination.router}
                           </code>
-                          <CopyButton text={laneData.destination.router} className="px-2 py-1" />
+                          <CopyButton text={laneData.destination.router} className="px-1.5 py-0.5" />
                         </div>
                       </div>
                       {laneData.destination.rmn_proxy && (
                         <div>
-                          <div className="mb-1 text-[10px] font-semibold uppercase tracking-wider text-slate-500">
+                          <div className="mb-0.5 text-[9px] font-medium uppercase tracking-wider text-slate-500">
                             RMN Proxy
                           </div>
-                          <div className="group flex items-center gap-2">
-                            <code className="flex-1 rounded bg-ink-900 px-2 py-1.5 font-mono text-[11px] text-slate-300">
+                          <div className="group flex items-center gap-1.5">
+                            <code className="flex-1 bg-ink-900 px-2 py-1 font-mono text-[10px] text-slate-300">
                               {laneData.destination.rmn_proxy}
                             </code>
-                            <CopyButton text={laneData.destination.rmn_proxy} className="px-2 py-1" />
+                            <CopyButton text={laneData.destination.rmn_proxy} className="px-1.5 py-0.5" />
                           </div>
                         </div>
                       )}
@@ -531,13 +528,10 @@ console.log("Message sent successfully!");`
                         href={`${laneData.destination.explorer}/address/${laneData.destination.router}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="mt-2 inline-flex items-center gap-1.5 text-xs text-accent-400 hover:text-accent-300"
+                        className="mt-1 inline-flex items-center gap-1 text-[10px] text-accent-400 hover:text-accent-300"
                       >
                         View on Explorer
-                        <svg className="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
-                          <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z" />
-                          <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z" />
-                        </svg>
+                        <ExternalLinkIcon size={10} />
                       </a>
                     </div>
                   </div>
@@ -545,33 +539,33 @@ console.log("Message sent successfully!");`
               </div>
 
               {/* Code snippets */}
-              <div className="rounded-2xl border border-ink-700 bg-ink-900">
-                <div className="border-b border-ink-700 p-5">
-                  <h3 className="text-base font-bold text-white">Integration Snippets</h3>
-                  <p className="mt-1 text-sm text-slate-400">
+              <div className="border border-ink-700 bg-ink-900">
+                <div className="border-b border-ink-700 p-4">
+                  <h3 className="text-sm font-bold text-white">Integration Snippets</h3>
+                  <p className="mt-0.5 text-xs text-slate-400">
                     Production-ready code for sending messages and tokens via CCIP.
                   </p>
                 </div>
 
                 <div className="divide-y divide-ink-700">
                   {/* Solidity */}
-                  <div className="p-5">
-                    <div className="mb-3 flex items-center justify-between">
-                      <h4 className="text-sm font-bold text-slate-300">Solidity</h4>
+                  <div className="p-4">
+                    <div className="mb-2 flex items-center justify-between">
+                      <h4 className="text-xs font-bold text-slate-300">Solidity</h4>
                       <CopyButton text={soliditySnippet} />
                     </div>
-                    <pre className="overflow-x-auto rounded-lg bg-ink-950 p-4 font-mono text-[11px] leading-relaxed text-slate-300">
+                    <pre className="overflow-x-auto bg-ink-950 p-3 font-mono text-[10px] leading-relaxed text-slate-300">
                       {soliditySnippet}
                     </pre>
                   </div>
 
                   {/* JavaScript */}
-                  <div className="p-5">
-                    <div className="mb-3 flex items-center justify-between">
-                      <h4 className="text-sm font-bold text-slate-300">JavaScript (Ethers.js)</h4>
+                  <div className="p-4">
+                    <div className="mb-2 flex items-center justify-between">
+                      <h4 className="text-xs font-bold text-slate-300">JavaScript (Ethers.js)</h4>
                       <CopyButton text={javascriptSnippet} />
                     </div>
-                    <pre className="overflow-x-auto rounded-lg bg-ink-950 p-4 font-mono text-[11px] leading-relaxed text-slate-300">
+                    <pre className="overflow-x-auto bg-ink-950 p-3 font-mono text-[10px] leading-relaxed text-slate-300">
                       {javascriptSnippet}
                     </pre>
                   </div>
@@ -582,55 +576,46 @@ console.log("Message sent successfully!");`
 
           {/* Testnet Faucets */}
           {environment === 'testnet' && laneData && (
-            <div className="mt-6 rounded-xl border border-blue-500/30 bg-blue-500/5 p-5">
-              <h3 className="mb-3 text-sm font-bold text-white">Testnet Faucets</h3>
-              <p className="mb-3 text-sm text-slate-400">
+            <div className="mt-6 border border-blue-500/30 bg-blue-500/5 p-4">
+              <h3 className="mb-2 text-xs font-bold text-white">Testnet Faucets</h3>
+              <p className="mb-2 text-xs text-slate-400">
                 Get free testnet tokens to test CCIP transactions:
               </p>
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-wrap gap-2">
                 <a
                   href="https://faucets.chain.link"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-lg border border-ink-600 bg-ink-800 px-4 py-2 text-sm font-semibold text-slate-200 transition-colors hover:border-blue-500 hover:text-blue-300"
+                  className="inline-flex items-center gap-1.5 border border-ink-600 bg-ink-800 px-3 py-1.5 text-xs font-semibold text-slate-200 transition-colors hover:border-blue-500 hover:text-blue-300"
                 >
                   Chainlink Faucets
-                  <svg className="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor">
-                    <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z" />
-                    <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z" />
-                  </svg>
+                  <ExternalLinkIcon size={12} />
                 </a>
               </div>
             </div>
           )}
 
           {/* Resources */}
-          <div className="mt-6 rounded-xl border border-accent-500/30 bg-accent-500/5 p-5">
-            <h3 className="mb-3 text-sm font-bold text-white">Resources</h3>
-            <div className="flex flex-wrap gap-3">
+          <div className="mt-6 border border-ink-600 bg-ink-900 p-4">
+            <h3 className="mb-2 text-xs font-bold text-white">Resources</h3>
+            <div className="flex flex-wrap gap-2">
               <a
                 href="https://docs.chain.link/ccip"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-lg border border-ink-600 bg-ink-800 px-4 py-2 text-sm font-semibold text-slate-200 transition-colors hover:border-accent-500 hover:text-accent-300"
+                className="inline-flex items-center gap-1.5 border border-ink-600 bg-ink-800 px-3 py-1.5 text-xs font-semibold text-slate-200 transition-colors hover:border-accent-500 hover:text-accent-300"
               >
                 CCIP Documentation
-                <svg className="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor">
-                  <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z" />
-                  <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z" />
-                </svg>
+                <ExternalLinkIcon size={12} />
               </a>
               <a
                 href={`https://docs.chain.link/ccip/directory/${environment === 'testnet' ? 'testnet' : 'mainnet'}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-lg border border-ink-600 bg-ink-800 px-4 py-2 text-sm font-semibold text-slate-200 transition-colors hover:border-accent-500 hover:text-accent-300"
+                className="inline-flex items-center gap-1.5 border border-ink-600 bg-ink-800 px-3 py-1.5 text-xs font-semibold text-slate-200 transition-colors hover:border-accent-500 hover:text-accent-300"
               >
                 CCIP {environment === 'testnet' ? 'Testnet' : 'Mainnet'} Directory
-                <svg className="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor">
-                  <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z" />
-                  <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z" />
-                </svg>
+                <ExternalLinkIcon size={12} />
               </a>
             </div>
           </div>
