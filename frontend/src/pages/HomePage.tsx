@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom'
 import { SEO } from '../components/SEO'
-import { BarChart3Icon, NetworkIcon, CodeIcon, DicesIcon, ClockIcon, CheckIcon, ChevronRightIcon } from '../components/icons/Icon'
+import { ChartBarIcon, NetworkIcon, CodeIcon, DicesIcon, ClockIcon, CheckIcon, ChevronRightIcon } from '../components/icons/Icon'
 
 const PRODUCTS = [
   {
     id: 'data-feeds',
     name: 'Data Feeds',
-    icon: BarChart3Icon,
+    icon: ChartBarIcon,
     tagline: 'Price oracle sandbox',
     description: 'Query 1,400+ live price feeds across 13 mainnets. Browse crypto, forex, equities, commodities, and economic data with historical rounds and aggregation details.',
     status: 'live',

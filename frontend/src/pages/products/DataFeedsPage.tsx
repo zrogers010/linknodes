@@ -1,7 +1,7 @@
 import { ProductLayout } from '../../components/ProductLayout'
 import { SandboxPage } from '../SandboxPage'
 import { SEO } from '../../components/SEO'
-import { BarChart3Icon } from '../../components/icons/Icon'
+import { ChartBarIcon } from '../../components/icons/Icon'
 import type { Registry } from '../../types'
 
 export function DataFeedsPage({ registry }: { registry: Registry }) {
@@ -13,7 +13,7 @@ export function DataFeedsPage({ registry }: { registry: Registry }) {
         path="/products/data-feeds"
       />
       <ProductLayout
-        icon={BarChart3Icon}
+        icon={ChartBarIcon}
         title="Data Feeds"
         tagline="Price oracle sandbox"
         status="live"

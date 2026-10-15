@@ -12,11 +12,11 @@ import { DataFeedsPage } from './pages/products/DataFeedsPage'
 import { FunctionsPage } from './pages/products/FunctionsPage'
 import { VRFPage } from './pages/products/VRFPage'
 import { EnvironmentProvider, useEnvironment } from './EnvironmentContext'
-import { BarChart3Icon, NetworkIcon, CodeIcon, DicesIcon, ClockIcon, HexagonIcon } from './components/icons/Icon'
+import { ChartBarIcon, NetworkIcon, CodeIcon, DicesIcon, ClockIcon, HexagonIcon } from './components/icons/Icon'
 import type { Registry } from './types'
 
 const PRODUCT_NAV = [
-  { to: '/products/data-feeds', label: 'Data Feeds', icon: BarChart3Icon },
+  { to: '/products/data-feeds', label: 'Data Feeds', icon: ChartBarIcon },
   { to: '/products/ccip', label: 'CCIP', icon: NetworkIcon },
   { to: '/products/functions', label: 'Functions', icon: CodeIcon },
   { to: '/products/vrf', label: 'VRF', icon: DicesIcon },
