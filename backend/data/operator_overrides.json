@@ -1,0 +1,19 @@
+{
+  "hidden_patterns": [
+    "chainlink-internal-nav-",
+    "keystone-",
+    "temp-ccip-",
+    "clcp-",
+    "mercury-"
+  ],
+  "website_overrides": {
+    "shultzprime": "https://ztake.org",
+    "syncnode": "https://syncnode.ro",
+    "dextrac": "https://dextrac.com"
+  },
+  "name_overrides": {},
+  "alias_map": {
+    "newroad": "newroad-network",
+    "p2p": "p2p-org"
+  }
+}

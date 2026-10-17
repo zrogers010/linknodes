@@ -1,0 +1,79 @@
+name: Refresh Data
+
+on:
+  schedule:
+    - cron: '17 13 * * *'  # Daily at 06:17 PDT (13:17 UTC)
+  workflow_dispatch:
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      
+      - name: Install dependencies
+        run: |
+          cd backend
+          pip install -r requirements.txt
+      
+      - name: Run data builders
+        id: build
+        run: |
+          cd backend
+          python3 build_registry.py
+          python3 build_operators.py
+          python3 build_ccip_registry.py
+      
+      - name: Run shape validation tests
+        run: |
+          cd backend
+          python3 -m pytest test_shape_validation.py test_refresh_checks.py -v
+      
+      - name: Check for changes
+        id: check_changes
+        run: |
+          cd backend
+          if git diff --quiet registry.json registry_testnet.json data/operators.json data/feed_operators.json ccip_registry.json ccip_registry_testnet.json; then
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          else
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Generate diff summary
+        if: steps.check_changes.outputs.has_changes == 'true'
+        id: diff_summary
+        run: |
+          cd backend
+          python3 generate_refresh_diff.py > /tmp/diff_summary.md
+          echo "DIFF_SUMMARY<<EOF" >> $GITHUB_OUTPUT
+          cat /tmp/diff_summary.md >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+      
+      - name: Create or update refresh PR
+        if: steps.check_changes.outputs.has_changes == 'true'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: 'Data refresh $(date +%Y-%m-%d)'
+          branch: data/refresh-$(date +%Y-%m-%d)
+          delete-branch: true
+          title: 'Data refresh $(date +%Y-%m-%d)'
+          body: |
+            Automated data refresh from reference-data-directory and on-chain sources.
+            
+            ${{ steps.diff_summary.outputs.DIFF_SUMMARY }}
+            
+            **Review checklist:**
+            - [ ] Mapping rates look reasonable
+            - [ ] No unexpected operator changes
+            - [ ] Feed count changes are expected
+            
+            This PR was automatically created by the refresh-data workflow.
+          draft: false
+          labels: data-refresh
