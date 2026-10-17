@@ -133,5 +133,30 @@ def test_validate_nodes_all_have_addresses():
         pytest.fail("validate_source_data raised ValueError on valid nodes")
 
 
+def test_validate_nodes_missing_required_keys():
+    """Test that validation fails when nodes are missing required id or name fields."""
+    # Test missing id
+    nodes_missing_id = [
+        {"name": "Operator 1", "nodeAddress": "0x1234"},
+        {"name": "Operator 2", "nodeAddress": "0x5678"},
+    ]
+    
+    with pytest.raises(ValueError) as excinfo:
+        validate_source_data([], nodes_missing_id, "TestNetwork")
+    
+    assert "required key 'id'" in str(excinfo.value).lower()
+    
+    # Test missing name
+    nodes_missing_name = [
+        {"id": "op1", "nodeAddress": "0x1234"},
+        {"id": "op2", "nodeAddress": "0x5678"},
+    ]
+    
+    with pytest.raises(ValueError) as excinfo:
+        validate_source_data([], nodes_missing_name, "TestNetwork")
+    
+    assert "required key 'name'" in str(excinfo.value).lower()
+
+
 if __name__ == "__main__":
     pytest.main([__file__, "-v"])

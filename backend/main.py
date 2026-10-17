@@ -104,6 +104,26 @@ def filter_visible_feeds(feeds: dict) -> dict:
     """Filter feeds dict to only include visible feeds at request time."""
     return {slug: meta for slug, meta in feeds.items() if is_feed_visible(meta)}
 
+
+def recompute_feed_status(feed_meta: dict) -> str:
+    """Recompute feed status at request time using current UTC date."""
+    from build_registry import compute_feed_status
+    
+    shutdown_date_iso = feed_meta.get("shutdown_date")
+    category = feed_meta.get("category", "unranked")
+    utc_now = get_current_time().strftime("%Y-%m-%d")
+    
+    return compute_feed_status(category, shutdown_date_iso, utc_now)
+
+
+def recompute_feeds_status(feeds: dict) -> dict:
+    """Return feeds dict with status recomputed at request time."""
+    return {
+        slug: {**meta, "status": recompute_feed_status(meta)}
+        for slug, meta in feeds.items()
+    }
+
+
 RPC_TIMEOUT_S = 8.0
 LATEST_CACHE_TTL_S = 5.0       # Chainlink updates on heartbeat/deviation; 5s loses nothing
 HISTORICAL_CACHE_TTL_S = 3600  # past rounds never change
@@ -354,6 +374,7 @@ async def _read_feed(network: str, feed: str, round_id: int | None, environment:
                 "aggregator_version": agg_version,
                 "feed_type": feed_meta["feed_type"],
                 "risk_category": feed_meta["category"],
+                "status": recompute_feed_status(feed_meta),
                 "heartbeat_seconds": feed_meta["heartbeat"],
                 "deviation_threshold_pct": feed_meta["deviation_threshold_pct"],
                 "market_hours": feed_meta["market_hours"],
@@ -406,13 +427,13 @@ async def api_get_registry(
     
     registry = get_registry(env)
     
-    # Filter visible feeds for each network
+    # Filter visible feeds and recompute status for each network
     filtered_registry = {
         **registry,
         "networks": {
             net_slug: {
                 **net_data,
-                "feeds": filter_visible_feeds(net_data["feeds"]),
+                "feeds": recompute_feeds_status(filter_visible_feeds(net_data["feeds"])),
                 "feed_count": len(filter_visible_feeds(net_data["feeds"])),
             }
             for net_slug, net_data in registry["networks"].items()

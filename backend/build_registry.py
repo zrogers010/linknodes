@@ -11,6 +11,7 @@ Run whenever you want to refresh the catalog:
 """
 
 import json
+import shutil
 import time
 from pathlib import Path
 
@@ -353,6 +354,107 @@ def validate_source_data(feeds: list, nodes: list, network_label: str) -> None:
             )
 
 
+def write_nodes(staged_dir: Path, dest_dir: Path) -> None:
+    """Write staged nodes files to destination directory.
+    
+    Args:
+        staged_dir: Path to directory containing staged .json files
+        dest_dir: Path to destination nodes directory
+    """
+    dest_dir.mkdir(parents=True, exist_ok=True)
+    for staged_file in staged_dir.glob("*.json"):
+        dest = dest_dir / staged_file.name
+        shutil.copy2(staged_file, dest)
+
+
+def link_svr_variants(feeds: dict[str, dict]) -> None:
+    """Link SVR variant feeds to their base feeds by updating base_path in-place.
+    
+    Args:
+        feeds: Dictionary of feed slug -> feed data (modified in-place)
+    """
+    for slug, compacted in feeds.items():
+        if compacted.get("svr_label"):
+            clic_name = compacted.get("clic_product_name")
+            svr_name = compacted.get("name", "").lower()
+            svr_base = compacted.get("base")
+            svr_quote = compacted.get("quote")
+            
+            matching_candidates = []
+            
+            for candidate_slug, candidate in feeds.items():
+                if candidate_slug == slug:
+                    continue
+                if candidate.get("svr_label"):
+                    continue
+                
+                candidate_clic = candidate.get("clic_product_name")
+                candidate_name = candidate.get("name", "").lower()
+                
+                # Try clic-based matching first
+                if clic_name and candidate_clic and clic_name.lower() == candidate_clic.lower():
+                    # Additional criteria: compatible market hours, method, and product type
+                    svr_hours = compacted.get("market_hours")
+                    candidate_hours = candidate.get("market_hours")
+                    svr_product = compacted.get("product_type")
+                    candidate_product = candidate.get("product_type")
+                    
+                    # Check for methodology mismatch in feed names
+                    # (Calculated vs Ondo API are different methodologies)
+                    svr_has_calculated = "calculated" in svr_name
+                    svr_has_ondo_api = "ondo api" in svr_name
+                    cand_has_calculated = "calculated" in candidate_name
+                    cand_has_ondo_api = "ondo api" in candidate_name
+                    
+                    methodology_mismatch = (
+                        (svr_has_calculated and cand_has_ondo_api) or
+                        (svr_has_ondo_api and cand_has_calculated)
+                    )
+                    
+                    # Consider compatible if:
+                    # - Market hours match (or at least one is missing/empty)
+                    # - Product type matches (or at least one is missing)
+                    # - No methodology mismatch
+                    hours_compatible = (
+                        not svr_hours or not candidate_hours or 
+                        svr_hours == candidate_hours
+                    )
+                    product_compatible = (
+                        not svr_product or not candidate_product or
+                        svr_product == candidate_product
+                    )
+                    
+                    if hours_compatible and product_compatible and not methodology_mismatch:
+                        matching_candidates.append(candidate_slug)
+                
+                # Fallback: match on name + base/quote when clic differs
+                elif not clic_name or not candidate_clic or clic_name.lower() != candidate_clic.lower():
+                    # Extract base feed name by removing methodology/svr suffixes
+                    def normalize_feed_name(name):
+                        n = name.lower()
+                        # Remove common suffixes
+                        for suffix in [" (calculated)", " (ondo api)", " shared svr", " svr", " - svr"]:
+                            n = n.replace(suffix, "")
+                        return n.strip()
+                    
+                    svr_normalized = normalize_feed_name(svr_name)
+                    cand_normalized = normalize_feed_name(candidate_name)
+                    
+                    # Match on normalized name + base/quote
+                    if (svr_normalized == cand_normalized and
+                        svr_base and svr_quote and
+                        candidate.get("base") == svr_base and
+                        candidate.get("quote") == svr_quote):
+                        matching_candidates.append(candidate_slug)
+            
+            # Only link if exactly one candidate matches
+            if len(matching_candidates) == 1:
+                compacted["base_path"] = matching_candidates[0]
+            elif len(matching_candidates) > 1:
+                # Ambiguous match - leave unlinked
+                print(f"    ⚠ Ambiguous SVR match for {slug}: {len(matching_candidates)} candidates")
+
+
 def build_registry(chains: dict, environment: str) -> dict:
     """Build registry for a specific environment (mainnet or testnet)."""
     registry: dict = {
@@ -405,87 +507,8 @@ def build_registry(chains: dict, environment: str) -> dict:
                         compacted_feeds.append((slug, compacted, feed))
                         feeds[slug] = compacted
                     
-                    # SVR matching with multi-criteria matching
-                    for slug, compacted, feed_raw in compacted_feeds:
-                        if compacted.get("svr_label"):
-                            clic_name = compacted.get("clic_product_name")
-                            svr_name = compacted.get("name", "").lower()
-                            svr_base = compacted.get("base")
-                            svr_quote = compacted.get("quote")
-                            
-                            matching_candidates = []
-                            
-                            for candidate_slug, candidate in feeds.items():
-                                if candidate_slug == slug:
-                                    continue
-                                if candidate.get("svr_label"):
-                                    continue
-                                
-                                candidate_clic = candidate.get("clic_product_name")
-                                candidate_name = candidate.get("name", "").lower()
-                                
-                                # Try clic-based matching first
-                                if clic_name and candidate_clic and clic_name.lower() == candidate_clic.lower():
-                                    # Additional criteria: compatible market hours, method, and product type
-                                    svr_hours = compacted.get("market_hours")
-                                    candidate_hours = candidate.get("market_hours")
-                                    svr_product = compacted.get("product_type")
-                                    candidate_product = candidate.get("product_type")
-                                    
-                                    # Check for methodology mismatch in feed names
-                                    # (Calculated vs Ondo API are different methodologies)
-                                    svr_has_calculated = "calculated" in svr_name
-                                    svr_has_ondo_api = "ondo api" in svr_name
-                                    cand_has_calculated = "calculated" in candidate_name
-                                    cand_has_ondo_api = "ondo api" in candidate_name
-                                    
-                                    methodology_mismatch = (
-                                        (svr_has_calculated and cand_has_ondo_api) or
-                                        (svr_has_ondo_api and cand_has_calculated)
-                                    )
-                                    
-                                    # Consider compatible if:
-                                    # - Market hours match (or at least one is missing/empty)
-                                    # - Product type matches (or at least one is missing)
-                                    # - No methodology mismatch
-                                    hours_compatible = (
-                                        not svr_hours or not candidate_hours or 
-                                        svr_hours == candidate_hours
-                                    )
-                                    product_compatible = (
-                                        not svr_product or not candidate_product or
-                                        svr_product == candidate_product
-                                    )
-                                    
-                                    if hours_compatible and product_compatible and not methodology_mismatch:
-                                        matching_candidates.append(candidate_slug)
-                                
-                                # Fallback: match on name + base/quote when clic differs
-                                elif not clic_name or not candidate_clic or clic_name.lower() != candidate_clic.lower():
-                                    # Extract base feed name by removing methodology/svr suffixes
-                                    def normalize_feed_name(name):
-                                        n = name.lower()
-                                        # Remove common suffixes
-                                        for suffix in [" (calculated)", " (ondo api)", " shared svr", " svr", " - svr"]:
-                                            n = n.replace(suffix, "")
-                                        return n.strip()
-                                    
-                                    svr_normalized = normalize_feed_name(svr_name)
-                                    cand_normalized = normalize_feed_name(candidate_name)
-                                    
-                                    # Match on normalized name + base/quote
-                                    if (svr_normalized == cand_normalized and
-                                        svr_base and svr_quote and
-                                        candidate.get("base") == svr_base and
-                                        candidate.get("quote") == svr_quote):
-                                        matching_candidates.append(candidate_slug)
-                            
-                            # Only link if exactly one candidate matches
-                            if len(matching_candidates) == 1:
-                                compacted["base_path"] = matching_candidates[0]
-                            elif len(matching_candidates) > 1:
-                                # Ambiguous match - leave unlinked
-                                print(f"    ⚠ Ambiguous SVR match for {slug}: {len(matching_candidates)} candidates")
+                    # SVR matching - link variants to base feeds
+                    link_svr_variants(feeds)
 
                     registry["networks"][key] = {
                         "label": label,
@@ -501,18 +524,14 @@ def build_registry(chains: dict, environment: str) -> dict:
                     print(f"ERROR: {e}")
                     raise
         
-        # All validations passed - commit staged files atomically
-        nodes_dir = Path(__file__).parent / "data" / "nodes"
-        nodes_dir.mkdir(parents=True, exist_ok=True)
-        for staged_file in temp_dir.glob("*.json"):
-            dest = nodes_dir / staged_file.name
-            shutil.copy2(staged_file, dest)
+        # All validations passed - return registry and staged nodes directory
+        # (Nodes will be written atomically in main() after all builds succeed)
+        return registry, total, temp_dir
     
-    finally:
-        # Clean up temp directory
+    except Exception:
+        # Clean up temp directory on error
         shutil.rmtree(temp_dir, ignore_errors=True)
-
-    return registry, total
+        raise
 
 
 def main() -> None:
@@ -523,41 +542,52 @@ def main() -> None:
     # Build both registries first (validate everything before writing)
     print("\nMAINNET:")
     print("-" * 70)
-    mainnet_registry, mainnet_total = build_registry(MAINNET_CHAINS, "mainnet")
+    mainnet_registry, mainnet_total, mainnet_temp_dir = build_registry(MAINNET_CHAINS, "mainnet")
     print(f"✓ Built mainnet: {mainnet_total} feeds across {len(MAINNET_CHAINS)} chains")
     
     print("\nTESTNET:")
     print("-" * 70)
-    testnet_registry, testnet_total = build_registry(TESTNET_CHAINS, "testnet")
+    testnet_registry, testnet_total, testnet_temp_dir = build_registry(TESTNET_CHAINS, "testnet")
     print(f"✓ Built testnet: {testnet_total} feeds across {len(TESTNET_CHAINS)} chains")
     
     # All builds succeeded - write outputs atomically
     print("\nWriting outputs...")
     
-    import tempfile
-    import os
-    backend_dir = Path(__file__).parent
-    
-    # Write to temp files first
-    with tempfile.NamedTemporaryFile(mode='w', dir=backend_dir, delete=False, suffix='.tmp') as tmp:
-        tmp.write(json.dumps(mainnet_registry, indent=1))
-        tmp_mainnet = tmp.name
-    
-    with tempfile.NamedTemporaryFile(mode='w', dir=backend_dir, delete=False, suffix='.tmp') as tmp:
-        tmp.write(json.dumps(testnet_registry, indent=1))
-        tmp_testnet = tmp.name
-    
-    # Atomic replace
-    mainnet_path = backend_dir / "registry.json"
-    testnet_path = backend_dir / "registry_testnet.json"
-    
-    os.replace(tmp_mainnet, mainnet_path)
-    os.replace(tmp_testnet, testnet_path)
-    
-    print(f"✓ Wrote {mainnet_path.name}: {mainnet_total} feeds across {len(MAINNET_CHAINS)} chains "
-          f"({mainnet_path.stat().st_size / 1024:.0f} KB)")
-    print(f"✓ Wrote {testnet_path.name}: {testnet_total} feeds across {len(TESTNET_CHAINS)} chains "
-          f"({testnet_path.stat().st_size / 1024:.0f} KB)")
+    try:
+        import tempfile
+        import os
+        backend_dir = Path(__file__).parent
+        
+        # Write registries to temp files first
+        with tempfile.NamedTemporaryFile(mode='w', dir=backend_dir, delete=False, suffix='.tmp') as tmp:
+            tmp.write(json.dumps(mainnet_registry, indent=1))
+            tmp_mainnet = tmp.name
+        
+        with tempfile.NamedTemporaryFile(mode='w', dir=backend_dir, delete=False, suffix='.tmp') as tmp:
+            tmp.write(json.dumps(testnet_registry, indent=1))
+            tmp_testnet = tmp.name
+        
+        # Atomic replace for registries
+        mainnet_path = backend_dir / "registry.json"
+        testnet_path = backend_dir / "registry_testnet.json"
+        
+        os.replace(tmp_mainnet, mainnet_path)
+        os.replace(tmp_testnet, testnet_path)
+        
+        # Write nodes files atomically
+        nodes_dir = backend_dir / "data" / "nodes"
+        write_nodes(mainnet_temp_dir, nodes_dir)
+        write_nodes(testnet_temp_dir, nodes_dir)
+        
+        print(f"✓ Wrote {mainnet_path.name}: {mainnet_total} feeds across {len(MAINNET_CHAINS)} chains "
+              f"({mainnet_path.stat().st_size / 1024:.0f} KB)")
+        print(f"✓ Wrote {testnet_path.name}: {testnet_total} feeds across {len(TESTNET_CHAINS)} chains "
+              f"({testnet_path.stat().st_size / 1024:.0f} KB)")
+        
+    finally:
+        # Clean up temp directories
+        shutil.rmtree(mainnet_temp_dir, ignore_errors=True)
+        shutil.rmtree(testnet_temp_dir, ignore_errors=True)
     
     print("\n" + "=" * 70)
     print(f"Total: {mainnet_total + testnet_total} feeds across {len(MAINNET_CHAINS) + len(TESTNET_CHAINS)} chains")

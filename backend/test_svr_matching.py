@@ -1,7 +1,7 @@
 """
 Test SVR (Smart Value Recapture) base_path matching logic using fixtures.
 
-Tests the build functions (compact) on hand-written fixtures instead of
+Tests the build functions (compact, link_svr_variants) on hand-written fixtures instead of
 reading committed registry.json. This ensures mutations to build code cause test failures.
 
 Integration test verifies the actual SVR linking in the real registry.
@@ -12,7 +12,7 @@ from pathlib import Path
 
 # Import build functions
 sys.path.insert(0, str(Path(__file__).parent))
-from build_registry import compact, compute_feed_status
+from build_registry import compact, compute_feed_status, link_svr_variants
 
 
 def test_svr_expected_links():
@@ -81,6 +81,145 @@ def test_compact_extracts_metadata():
     print("✓ compact() extracts all metadata fields correctly\n")
 
 
+def test_svr_link_exact_clic_match():
+    """Test SVR linking with exact clic match and compatible criteria."""
+    feeds = {
+        "eth-usd": {
+            "name": "ETH / USD",
+            "clic_product_name": "ETH-USD",
+            "market_hours": "24/7",
+            "product_type": "Crypto",
+            "base": "ETH",
+            "quote": "USD",
+        },
+        "eth-usd-svr": {
+            "name": "ETH / USD SVR",
+            "svr_label": "Shared SVR",
+            "clic_product_name": "ETH-USD",
+            "market_hours": "24/7",
+            "product_type": "Crypto",
+            "base": "ETH",
+            "quote": "USD",
+        },
+    }
+    
+    link_svr_variants(feeds)
+    
+    assert feeds["eth-usd-svr"].get("base_path") == "eth-usd", \
+        "SVR should link to base feed with matching clic and compatible criteria"
+    print("✓ SVR linked with exact clic match")
+
+
+def test_svr_link_ambiguous_match():
+    """Test that ambiguous SVR matches (2 candidates) remain unlinked."""
+    feeds = {
+        "eth-usd-1": {
+            "name": "ETH / USD",
+            "clic_product_name": "ETH-USD",
+            "market_hours": "24/7",
+            "base": "ETH",
+            "quote": "USD",
+        },
+        "eth-usd-2": {
+            "name": "ETH / USD Alt",
+            "clic_product_name": "ETH-USD",
+            "market_hours": "24/7",
+            "base": "ETH",
+            "quote": "USD",
+        },
+        "eth-usd-svr": {
+            "name": "ETH / USD SVR",
+            "svr_label": "Shared SVR",
+            "clic_product_name": "ETH-USD",
+            "market_hours": "24/7",
+            "base": "ETH",
+            "quote": "USD",
+        },
+    }
+    
+    link_svr_variants(feeds)
+    
+    assert feeds["eth-usd-svr"].get("base_path") is None, \
+        "SVR with 2 matching candidates should remain unlinked"
+    print("✓ Ambiguous match left unlinked")
+
+
+def test_svr_link_market_hours_mismatch():
+    """Test that market hours mismatch prevents linking."""
+    feeds = {
+        "spy-usd": {
+            "name": "SPY / USD",
+            "clic_product_name": "SPY-USD",
+            "market_hours": "NYSE",
+            "base": "SPY",
+            "quote": "USD",
+        },
+        "spy-usd-svr": {
+            "name": "SPY / USD SVR",
+            "svr_label": "Shared SVR",
+            "clic_product_name": "SPY-USD",
+            "market_hours": "24/5",
+            "base": "SPY",
+            "quote": "USD",
+        },
+    }
+    
+    link_svr_variants(feeds)
+    
+    assert feeds["spy-usd-svr"].get("base_path") is None, \
+        "SVR with mismatched market hours should not link"
+    print("✓ Market hours mismatch prevents linking")
+
+
+def test_svr_link_methodology_mismatch():
+    """Test that methodology mismatch (Calculated vs Ondo API) prevents linking."""
+    feeds = {
+        "usdy-usd-ondo-api": {
+            "name": "USDY / USD (Ondo API)",
+            "clic_product_name": "USDY-USD",
+            "base": "USDY",
+            "quote": "USD",
+        },
+        "usdy-usd-calculated-svr": {
+            "name": "USDY / USD (Calculated) SVR",
+            "svr_label": "Shared SVR",
+            "clic_product_name": "USDY-USD",
+            "base": "USDY",
+            "quote": "USD",
+        },
+    }
+    
+    link_svr_variants(feeds)
+    
+    assert feeds["usdy-usd-calculated-svr"].get("base_path") is None, \
+        "SVR with methodology mismatch should not link"
+    print("✓ Methodology mismatch prevents linking")
+
+
+def test_svr_no_cross_pair_links():
+    """Test that SVR feeds never link across different trading pairs."""
+    feeds = {
+        "eth-usd": {
+            "name": "ETH / USD",
+            "clic_product_name": "ETH-USD",
+            "base": "ETH",
+            "quote": "USD",
+        },
+        "btc-usd-svr": {
+            "name": "BTC / USD SVR",
+            "svr_label": "Shared SVR",
+            "clic_product_name": "BTC-USD",
+            "base": "BTC",
+            "quote": "USD",
+        },
+    }
+    
+    link_svr_variants(feeds)
+    
+    assert feeds["btc-usd-svr"].get("base_path") is None, \
+        "SVR should never link to a feed with different base/quote pair"
+    print("✓ Cross-pair links prevented")
+
 
 def test_integration_real_registry():
     """Integration test: verify 5 expected links in the real built registry."""
@@ -116,6 +255,11 @@ def test_integration_real_registry():
 if __name__ == "__main__":
     test_svr_expected_links()
     test_compact_extracts_metadata()
+    test_svr_link_exact_clic_match()
+    test_svr_link_ambiguous_match()
+    test_svr_link_market_hours_mismatch()
+    test_svr_link_methodology_mismatch()
+    test_svr_no_cross_pair_links()
     test_integration_real_registry()
     print("=" * 100)
     print("✓ All SVR matching tests passed")

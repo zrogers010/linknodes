@@ -204,12 +204,44 @@ def test_shutdown_logic_in_registry():
     print(f"  ✓ All shut_down feeds have shutdown_date")
 
 
+def test_recompute_status_at_request_time():
+    """Test that status is recomputed at request time with current UTC date."""
+    from main import recompute_feed_status, set_test_clock
+    
+    # Test feed with future shutdown
+    feed_future = {
+        "shutdown_date": "2026-10-20",
+        "category": "verified",
+    }
+    
+    # Set clock to before shutdown
+    set_test_clock(datetime(2026, 10, 18, 12, 0, tzinfo=timezone.utc))
+    status = recompute_feed_status(feed_future)
+    assert status == "deprecating", "Future shutdown should show deprecating before the date"
+    
+    # Set clock to shutdown day
+    set_test_clock(datetime(2026, 10, 20, 12, 0, tzinfo=timezone.utc))
+    status = recompute_feed_status(feed_future)
+    assert status == "deprecating", "Shutdown date day should still show deprecating"
+    
+    # Set clock to after shutdown
+    set_test_clock(datetime(2026, 10, 21, 12, 0, tzinfo=timezone.utc))
+    status = recompute_feed_status(feed_future)
+    assert status == "shut_down", "Past shutdown should show shut_down"
+    
+    # Clear test clock
+    set_test_clock(None)
+    
+    print("✓ Status recomputed correctly at request time")
+
+
 if __name__ == "__main__":
     test_parse_shutdown_date()
     test_compute_feed_status()
     test_feed_visibility_with_clock()
     test_deprecated_feed_visibility()
     test_shutdown_logic_in_registry()
+    test_recompute_status_at_request_time()
     print("\n" + "=" * 100)
     print("✓ All shutdown logic tests passed")
     print("=" * 100)
