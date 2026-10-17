@@ -506,6 +506,8 @@ def link_svr_variants(feeds: dict[str, dict]) -> None:
 
 def build_registry(chains: dict, environment: str, http_client=None, output_dir=None) -> dict:
     """Build registry for a specific environment (mainnet or testnet)."""
+    from refresh_checks import check_rdd_response_codes, check_feed_count_change
+    
     # Determine output directory
     backend_dir = output_dir or Path(__file__).parent
     existing_path = backend_dir / ("registry.json" if environment == "mainnet" else "registry_testnet.json")
@@ -531,6 +533,9 @@ def build_registry(chains: dict, environment: str, http_client=None, output_dir=
         "networks": {},
     }
     total = 0
+    
+    # Track all HTTP responses for validation
+    http_responses = {}
     
     # Stage downloaded data in temp directory before committing
     import tempfile
@@ -558,11 +563,13 @@ def build_registry(chains: dict, environment: str, http_client=None, output_dir=
                 
                 try:
                     resp = client.get(f"{RDD_BASE}/{rdd_file}.json")
+                    http_responses[f"{RDD_BASE}/{rdd_file}.json"] = resp.status_code
                     resp.raise_for_status()
                     raw = resp.json()
                     
                     nodes_file = rdd_file.replace("feeds-", "nodes-")
                     nodes_resp = client.get(f"{RDD_BASE}/{nodes_file}.json")
+                    http_responses[f"{RDD_BASE}/{nodes_file}.json"] = nodes_resp.status_code
                     nodes_resp.raise_for_status()
                     nodes = nodes_resp.json()
                     
@@ -615,6 +622,14 @@ def build_registry(chains: dict, environment: str, http_client=None, output_dir=
         
         # All validations passed - return registry and staged nodes directory
         # (Nodes will be written atomically in main() after all builds succeed)
+        
+        # Run refresh checks
+        try:
+            check_rdd_response_codes(http_responses)
+        except ValueError as e:
+            print(f"\n{e}\n")
+            raise
+        
         return registry, total, temp_dir
     
     except Exception:
