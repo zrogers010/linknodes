@@ -165,22 +165,84 @@ TESTNET_CHAINS: dict[str, tuple[str, str, int, str, list[str]]] = {
     ),
 }
 
-SKIP_CATEGORIES = {"deprecating", "hidden"}
+SKIP_CATEGORIES = {"hidden"}
 
 
 def include(feed: dict) -> bool:
+    """Determine if a feed should be included in the registry.
+    
+    Keep all feeds with a proxyAddress except hidden ones.
+    Deprecating and dated feeds are kept; visibility is decided at request time.
+    """
     docs = feed.get("docs") or {}
     return bool(
         feed.get("proxyAddress")
         and feed.get("path")
         and not docs.get("hidden")
-        and not docs.get("shutdownDate")
         and (feed.get("feedCategory") or "") not in SKIP_CATEGORIES
     )
 
 
+def parse_shutdown_date(shutdown_text: str | None) -> str | None:
+    """Parse RDD shutdown date text to ISO YYYY-MM-DD format.
+    
+    Handles formats like:
+    - "October 18th, 2026" -> "2026-10-18"
+    - "February 2026" -> "2026-02-28" (last day of month)
+    - None or unparseable -> None
+    """
+    if not shutdown_text:
+        return None
+    
+    import re
+    from datetime import datetime
+    from calendar import monthrange
+    
+    # Try "Month DDth, YYYY" format
+    match = re.match(r'(\w+)\s+(\d+)(?:st|nd|rd|th)?,\s+(\d{4})', shutdown_text)
+    if match:
+        month_name, day, year = match.groups()
+        try:
+            dt = datetime.strptime(f"{month_name} {day} {year}", "%B %d %Y")
+            return dt.strftime("%Y-%m-%d")
+        except ValueError:
+            pass
+    
+    # Try "Month YYYY" format (use last day of month)
+    match = re.match(r'(\w+)\s+(\d{4})', shutdown_text)
+    if match:
+        month_name, year = match.groups()
+        try:
+            dt = datetime.strptime(f"{month_name} {year}", "%B %Y")
+            last_day = monthrange(dt.year, dt.month)[1]
+            return f"{year}-{dt.month:02d}-{last_day:02d}"
+        except ValueError:
+            pass
+    
+    return None
+
+
+def compute_feed_status(category: str | None, shutdown_date_iso: str | None) -> str:
+    """Compute feed status based on category and shutdown date.
+    
+    Returns:
+    - "shut_down" if shutdown_date is set (will be filtered at request time)
+    - "deprecating" if category is deprecating
+    - "active" otherwise
+    """
+    if shutdown_date_iso:
+        return "shut_down"
+    if category == "deprecating":
+        return "deprecating"
+    return "active"
+
+
 def compact(feed: dict) -> dict:
     docs = feed.get("docs") or {}
+    shutdown_date_raw = docs.get("shutdownDate")
+    shutdown_date_iso = parse_shutdown_date(shutdown_date_raw)
+    category = feed.get("feedCategory") or "unranked"
+    
     return {
         "name": feed["name"],
         "path": feed["path"],
@@ -192,7 +254,7 @@ def compact(feed: dict) -> dict:
         "decimals": feed.get("decimals"),
         "heartbeat": feed.get("heartbeat"),
         "deviation_threshold_pct": feed.get("threshold"),
-        "category": feed.get("feedCategory") or "unranked",
+        "category": category,
         "feed_type": (feed.get("feedType") or docs.get("assetClass") or "Other").capitalize(),
         "product_type": docs.get("productType"),
         "base": docs.get("baseAsset"),
@@ -203,7 +265,8 @@ def compact(feed: dict) -> dict:
         "por_auditor": docs.get("porAuditor"),
         "por_source": docs.get("porSource"),
         "clic_product_name": docs.get("clicProductName"),
-        "shutdown_date": docs.get("shutdownDate"),
+        "shutdown_date": shutdown_date_iso,
+        "status": compute_feed_status(category, shutdown_date_iso),
         "base_path": None,
     }
 
@@ -277,112 +340,161 @@ def validate_source_data(feeds: list, nodes: list, network_label: str) -> None:
 def build_registry(chains: dict, environment: str) -> dict:
     """Build registry for a specific environment (mainnet or testnet)."""
     registry: dict = {
-        "version": "2.0.0",
+        "version": "3.0.0",
         "environment": environment,
         "source": "chainlink-reference-data-directory",
         "generated_at": int(time.time()),
         "networks": {},
     }
     total = 0
+    
+    # Stage downloaded data in temp directory before committing
+    import tempfile
+    import shutil
+    temp_dir = Path(tempfile.mkdtemp(prefix="registry_build_"))
 
-    with httpx.Client(timeout=30) as client:
-        for key, (rdd_file, label, chain_id, explorer, rpcs) in chains.items():
-            print(f"{label:<25} ", end="", flush=True)
-            
-            if verify_rpc_chain_id(rpcs[0], chain_id):
-                print(f"✓ chain_id={chain_id:<8} ", end="", flush=True)
-            else:
-                print(f"⚠ chain_id unverified ", end="", flush=True)
-            
-            try:
-                resp = client.get(f"{RDD_BASE}/{rdd_file}.json")
-                resp.raise_for_status()
-                raw = resp.json()
+    try:
+        with httpx.Client(timeout=30) as client:
+            for key, (rdd_file, label, chain_id, explorer, rpcs) in chains.items():
+                print(f"{label:<25} ", end="", flush=True)
                 
-                nodes_file = rdd_file.replace("feeds-", "nodes-")
-                nodes_resp = client.get(f"{RDD_BASE}/{nodes_file}.json")
-                if nodes_resp.status_code == 200:
-                    nodes = nodes_resp.json()
-                    nodes_dir = Path(__file__).parent / "data" / "nodes"
-                    nodes_dir.mkdir(parents=True, exist_ok=True)
-                    nodes_path = nodes_dir / f"{nodes_file}.json"
-                    nodes_path.write_text(json.dumps(nodes, indent=1))
+                if verify_rpc_chain_id(rpcs[0], chain_id):
+                    print(f"✓ chain_id={chain_id:<8} ", end="", flush=True)
                 else:
-                    print(f"⚠ nodes file not found (HTTP {nodes_resp.status_code}) ", end="", flush=True)
-                    nodes = []
+                    print(f"⚠ chain_id unverified ", end="", flush=True)
                 
-                live_feeds = [feed for feed in raw if include(feed)]
-                validate_source_data(live_feeds, nodes, label)
+                try:
+                    resp = client.get(f"{RDD_BASE}/{rdd_file}.json")
+                    resp.raise_for_status()
+                    raw = resp.json()
+                    
+                    nodes_file = rdd_file.replace("feeds-", "nodes-")
+                    nodes_resp = client.get(f"{RDD_BASE}/{nodes_file}.json")
+                    nodes_resp.raise_for_status()
+                    nodes = nodes_resp.json()
+                    
+                    # Stage in temp directory
+                    temp_nodes_path = temp_dir / f"{nodes_file}.json"
+                    temp_nodes_path.write_text(json.dumps(nodes, indent=1))
+                    
+                    live_feeds = [feed for feed in raw if include(feed)]
+                    validate_source_data(live_feeds, nodes, label)
 
-                feeds: dict[str, dict] = {}
-                compacted_feeds = []
-                
-                for feed in live_feeds:
-                    slug = feed["path"]
-                    compacted = compact(feed)
-                    compacted_feeds.append((slug, compacted, feed))
-                    feeds[slug] = compacted
-                
-                for slug, compacted, feed_raw in compacted_feeds:
-                    if compacted.get("svr_label"):
-                        clic_name = compacted.get("clic_product_name")
-                        base_asset = compacted.get("base")
-                        quote_asset = compacted.get("quote")
-                        
-                        def extract_product_type(clic: str) -> str | None:
-                            """Extract product type from clic_product_name (RefPrice, ExRate, NAV, etc)."""
-                            if not clic:
-                                return None
-                            clic_upper = clic.upper()
-                            if "REFPRICE" in clic_upper:
-                                return "RefPrice"
-                            elif "EXRATE" in clic_upper:
-                                return "ExRate"
-                            elif "NAV" in clic_upper or "-NAV-" in clic_upper:
-                                return "NAV"
-                            elif "POR" in clic_upper or "RESERVES" in clic_upper:
-                                return "PoR"
-                            return None
-                        
-                        best_match = None
-                        
-                        for candidate_slug, candidate in feeds.items():
-                            if candidate_slug == slug:
-                                continue
-                            if candidate.get("svr_label"):
-                                continue
+                    feeds: dict[str, dict] = {}
+                    compacted_feeds = []
+                    
+                    for feed in live_feeds:
+                        slug = feed["path"]
+                        compacted = compact(feed)
+                        compacted_feeds.append((slug, compacted, feed))
+                        feeds[slug] = compacted
+                    
+                    # SVR matching with multi-criteria matching
+                    for slug, compacted, feed_raw in compacted_feeds:
+                        if compacted.get("svr_label"):
+                            clic_name = compacted.get("clic_product_name")
+                            svr_name = compacted.get("name", "").lower()
+                            svr_base = compacted.get("base")
+                            svr_quote = compacted.get("quote")
                             
-                            candidate_clic = candidate.get("clic_product_name")
+                            matching_candidates = []
                             
-                            if clic_name and candidate_clic:
-                                if clic_name.lower() == candidate_clic.lower():
-                                    best_match = candidate_slug
-                                    break
-                            elif not clic_name and base_asset and quote_asset:
-                                if (candidate.get("base") == base_asset and 
-                                    candidate.get("quote") == quote_asset):
-                                    svr_type = extract_product_type(clic_name)
-                                    candidate_type = extract_product_type(candidate_clic)
-                                    if svr_type == candidate_type or (not svr_type and not candidate_type):
-                                        best_match = candidate_slug
-                                        break
-                        
-                        if best_match:
-                            compacted["base_path"] = best_match
+                            for candidate_slug, candidate in feeds.items():
+                                if candidate_slug == slug:
+                                    continue
+                                if candidate.get("svr_label"):
+                                    continue
+                                
+                                candidate_clic = candidate.get("clic_product_name")
+                                candidate_name = candidate.get("name", "").lower()
+                                
+                                # Try clic-based matching first
+                                if clic_name and candidate_clic and clic_name.lower() == candidate_clic.lower():
+                                    # Additional criteria: compatible market hours, method, and product type
+                                    svr_hours = compacted.get("market_hours")
+                                    candidate_hours = candidate.get("market_hours")
+                                    svr_product = compacted.get("product_type")
+                                    candidate_product = candidate.get("product_type")
+                                    
+                                    # Check for methodology mismatch in feed names
+                                    # (Calculated vs Ondo API are different methodologies)
+                                    svr_has_calculated = "calculated" in svr_name
+                                    svr_has_ondo_api = "ondo api" in svr_name
+                                    cand_has_calculated = "calculated" in candidate_name
+                                    cand_has_ondo_api = "ondo api" in candidate_name
+                                    
+                                    methodology_mismatch = (
+                                        (svr_has_calculated and cand_has_ondo_api) or
+                                        (svr_has_ondo_api and cand_has_calculated)
+                                    )
+                                    
+                                    # Consider compatible if:
+                                    # - Market hours match (or at least one is missing/empty)
+                                    # - Product type matches (or at least one is missing)
+                                    # - No methodology mismatch
+                                    hours_compatible = (
+                                        not svr_hours or not candidate_hours or 
+                                        svr_hours == candidate_hours
+                                    )
+                                    product_compatible = (
+                                        not svr_product or not candidate_product or
+                                        svr_product == candidate_product
+                                    )
+                                    
+                                    if hours_compatible and product_compatible and not methodology_mismatch:
+                                        matching_candidates.append(candidate_slug)
+                                
+                                # Fallback: match on name + base/quote when clic differs
+                                elif not clic_name or not candidate_clic or clic_name.lower() != candidate_clic.lower():
+                                    # Extract base feed name by removing methodology/svr suffixes
+                                    def normalize_feed_name(name):
+                                        n = name.lower()
+                                        # Remove common suffixes
+                                        for suffix in [" (calculated)", " (ondo api)", " shared svr", " svr", " - svr"]:
+                                            n = n.replace(suffix, "")
+                                        return n.strip()
+                                    
+                                    svr_normalized = normalize_feed_name(svr_name)
+                                    cand_normalized = normalize_feed_name(candidate_name)
+                                    
+                                    # Match on normalized name + base/quote
+                                    if (svr_normalized == cand_normalized and
+                                        svr_base and svr_quote and
+                                        candidate.get("base") == svr_base and
+                                        candidate.get("quote") == svr_quote):
+                                        matching_candidates.append(candidate_slug)
+                            
+                            # Only link if exactly one candidate matches
+                            if len(matching_candidates) == 1:
+                                compacted["base_path"] = matching_candidates[0]
+                            elif len(matching_candidates) > 1:
+                                # Ambiguous match - leave unlinked
+                                print(f"    ⚠ Ambiguous SVR match for {slug}: {len(matching_candidates)} candidates")
 
-                registry["networks"][key] = {
-                    "label": label,
-                    "chain_id": chain_id,
-                    "explorer": explorer,
-                    "rpc_urls": rpcs,
-                    "feed_count": len(feeds),
-                    "feeds": dict(sorted(feeds.items())),
-                }
-                total += len(feeds)
-                print(f"{len(feeds):>4} feeds")
-            except Exception as e:
-                print(f"ERROR: {e}")
-                raise
+                    registry["networks"][key] = {
+                        "label": label,
+                        "chain_id": chain_id,
+                        "explorer": explorer,
+                        "rpc_urls": rpcs,
+                        "feed_count": len(feeds),
+                        "feeds": dict(sorted(feeds.items())),
+                    }
+                    total += len(feeds)
+                    print(f"{len(feeds):>4} feeds")
+                except Exception as e:
+                    print(f"ERROR: {e}")
+                    raise
+        
+        # All validations passed - commit staged files atomically
+        nodes_dir = Path(__file__).parent / "data" / "nodes"
+        nodes_dir.mkdir(parents=True, exist_ok=True)
+        for staged_file in temp_dir.glob("*.json"):
+            dest = nodes_dir / staged_file.name
+            shutil.copy2(staged_file, dest)
+    
+    finally:
+        # Clean up temp directory
+        shutil.rmtree(temp_dir, ignore_errors=True)
 
     return registry, total
 

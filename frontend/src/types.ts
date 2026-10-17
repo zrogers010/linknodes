@@ -21,6 +21,7 @@ export interface FeedMeta {
   por_source?: string | null
   clic_product_name?: string | null
   shutdown_date?: string | null
+  status?: string
   base_path?: string | null
 }
 

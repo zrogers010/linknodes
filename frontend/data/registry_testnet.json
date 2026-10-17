@@ -1,8 +1,8 @@
 {
- "version": "2.0.0",
+ "version": "3.0.0",
  "environment": "testnet",
  "source": "chainlink-reference-data-directory",
- "generated_at": 1792265166,
+ "generated_at": 1792266831,
  "networks": {
   "sepolia": {
    "label": "Ethereum Sepolia",
@@ -37,6 +37,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "anz-fil": {
@@ -62,6 +63,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "aud-usd": {
@@ -87,6 +89,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "btc-eth": {
@@ -112,6 +115,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "btc-usd": {
@@ -137,6 +141,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "btc-usd-realvol1day": {
@@ -162,6 +167,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "btc-usd-realvol30day": {
@@ -187,6 +193,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "btc-usd-realvol7day": {
@@ -212,6 +219,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "btcy-nav": {
@@ -237,6 +245,7 @@
      "por_source": "Third-Party",
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "c1usd-por": {
@@ -262,6 +271,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "cash-nav-testnet": {
@@ -287,6 +297,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "cspx-usd": {
@@ -312,6 +323,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "czk-usd": {
@@ -337,6 +349,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "dai-usd": {
@@ -362,6 +375,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "eth-apr-30": {
@@ -387,6 +401,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "eth-apr-90": {
@@ -412,6 +427,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "eth-usd": {
@@ -437,6 +453,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "eth-usd-realvol1day": {
@@ -462,6 +479,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "eth-usd-realvol30day": {
@@ -487,6 +505,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "eth-usd-realvol7day": {
@@ -512,6 +531,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "eur-usd": {
@@ -537,6 +557,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "eutbl-nav-testnet": {
@@ -562,6 +583,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "forth-usd-ocr2": {
@@ -587,6 +609,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "gbp-usd": {
@@ -612,6 +635,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "gho-usd": {
@@ -637,6 +661,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "ib01-usd": {
@@ -662,6 +687,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "ibta-usd-ocr2": {
@@ -687,6 +713,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "jpy-usd": {
@@ -712,6 +739,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "kau-por": {
@@ -737,6 +765,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "link-eth-ocr2": {
@@ -762,6 +791,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "link-usd": {
@@ -787,6 +817,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "link-usd-realvol1day": {
@@ -812,6 +843,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "link-usd-realvol30day": {
@@ -837,6 +869,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "link-usd-realvol7day": {
@@ -862,6 +895,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "oeth-eth": {
@@ -887,6 +921,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "pyusd-usd": {
@@ -912,6 +947,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "snx-usd": {
@@ -937,6 +973,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "steth-por": {
@@ -962,6 +999,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "susde-usd": {
@@ -987,6 +1025,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "tfbill-nav-testnet": {
@@ -1012,6 +1051,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "uscc-nav": {
@@ -1037,6 +1077,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "usdc-usd": {
@@ -1062,6 +1103,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "usde-usd": {
@@ -1087,6 +1129,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "usdg-usd": {
@@ -1112,6 +1155,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "usdw-reserves": {
@@ -1137,6 +1181,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "ushp-usd-exchange-rate": {
@@ -1162,6 +1207,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "ustb-aum": {
@@ -1187,6 +1233,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "ustb-nav": {
@@ -1212,6 +1259,7 @@
      "por_source": "Fund Manager API",
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "ustbl-nav-testnet": {
@@ -1237,6 +1285,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "wsteth-usd": {
@@ -1262,6 +1311,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "wtgxx-nav-testnet": {
@@ -1287,6 +1337,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "xau-usd": {
@@ -1312,6 +1363,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "zksync-hc": {
@@ -1337,6 +1389,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     }
    }
@@ -1349,7 +1402,7 @@
     "https://sepolia-rollup.arbitrum.io/rpc",
     "https://arbitrum-sepolia-rpc.publicnode.com"
    ],
-   "feed_count": 61,
+   "feed_count": 63,
    "feeds": {
     "0g-usd": {
      "name": "0G / USD",
@@ -1374,6 +1427,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "aave-usd": {
@@ -1399,6 +1453,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "ab-usd": {
@@ -1424,6 +1479,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "apt-usd": {
@@ -1449,6 +1505,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "arb-usd": {
@@ -1474,6 +1531,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "astr-usd": {
@@ -1499,6 +1557,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "atom-usd": {
@@ -1524,6 +1583,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "avax-usd": {
@@ -1549,6 +1609,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "bera-usd": {
@@ -1574,6 +1635,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "bnb-usd": {
@@ -1599,6 +1661,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "btc-eth": {
@@ -1624,6 +1687,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "btc-usd": {
@@ -1649,6 +1713,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "btc-usd-1d-realized-vol": {
@@ -1674,6 +1739,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "btc-usd-30d-realized-vol": {
@@ -1699,6 +1765,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "btc-usd-7d-realized-vol": {
@@ -1724,6 +1791,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "celo-usd": {
@@ -1749,6 +1817,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "ctc-usd": {
@@ -1774,6 +1843,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "dai-usd": {
@@ -1799,6 +1869,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "dbusd-reserves": {
@@ -1824,6 +1895,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "dlcbtc-por": {
@@ -1849,6 +1921,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "doge-usd": {
@@ -1874,6 +1947,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "email-nav": {
@@ -1899,6 +1973,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "eth-apr-30": {
@@ -1924,6 +1999,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "eth-apr-90": {
@@ -1949,6 +2025,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "eth-usd": {
@@ -1974,6 +2051,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "eth-usd-1d-realized-vol": {
@@ -1999,6 +2077,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "eth-usd-30d-realized-vol": {
@@ -2024,6 +2103,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "eth-usd-7d-realized-vol": {
@@ -2049,6 +2129,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "ftm-usd": {
@@ -2074,6 +2155,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "gas-usd": {
@@ -2099,6 +2181,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "grass-usd": {
@@ -2124,6 +2207,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "kaia-usd": {
@@ -2149,6 +2233,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "link-eth": {
@@ -2174,6 +2259,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "link-usd": {
@@ -2199,6 +2285,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "ltc-usd": {
@@ -2224,6 +2311,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "magic-usd": {
@@ -2249,6 +2337,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "matic-usd": {
@@ -2274,6 +2363,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "metis-usd": {
@@ -2299,6 +2389,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "mnt-usd": {
@@ -2324,6 +2415,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "mon-usd": {
@@ -2349,6 +2441,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "near-usd": {
@@ -2374,6 +2467,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "okb-usd": {
@@ -2399,6 +2493,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "op-usd": {
@@ -2424,6 +2519,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "pros-usd": {
@@ -2449,6 +2545,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "ron-usd": {
@@ -2474,6 +2571,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "s-usd": {
@@ -2499,6 +2597,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "sol-usd": {
@@ -2524,6 +2623,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "spy-usd": {
@@ -2549,6 +2649,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "sui-usd": {
@@ -2574,6 +2675,59 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
+     "base_path": null
+    },
+    "synthetix-aggregator-debt-ratio": {
+     "name": "Synthetix Aggregator Debt Ratio",
+     "path": "synthetix-aggregator-debt-ratio",
+     "address": "0x9aF86195B129FE4f48E49bb251cfa8E307107612",
+     "aggregator": "0x1BF62c475aB459e57739131f9DA1739bfE979F59",
+     "contract_version": 4,
+     "svr_proxy": null,
+     "svr_label": null,
+     "decimals": 27,
+     "heartbeat": 86400,
+     "deviation_threshold_pct": 0.2,
+     "category": "deprecating",
+     "feed_type": "Other",
+     "product_type": null,
+     "base": null,
+     "quote": null,
+     "asset_name": "",
+     "market_hours": null,
+     "issuer": null,
+     "por_auditor": null,
+     "por_source": null,
+     "clic_product_name": null,
+     "shutdown_date": "2026-07-22",
+     "status": "shut_down",
+     "base_path": null
+    },
+    "synthetix-aggregator-issued-synths": {
+     "name": "Synthetix Aggregator Issued Synths",
+     "path": "synthetix-aggregator-issued-synths",
+     "address": "0xbA8e1dC5288Af24767B03ecC278a174ED8c8d25B",
+     "aggregator": "0x98f23dCc476Bf29DD6d37a344035E02CaED4C032",
+     "contract_version": 4,
+     "svr_proxy": null,
+     "svr_label": null,
+     "decimals": 18,
+     "heartbeat": 86400,
+     "deviation_threshold_pct": 0.2,
+     "category": "deprecating",
+     "feed_type": "Other",
+     "product_type": null,
+     "base": null,
+     "quote": null,
+     "asset_name": "",
+     "market_hours": null,
+     "issuer": null,
+     "por_auditor": null,
+     "por_source": null,
+     "clic_product_name": null,
+     "shutdown_date": "2026-07-22",
+     "status": "shut_down",
      "base_path": null
     },
     "syzusd-yzusd-exchange-rate": {
@@ -2599,6 +2753,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "tac-usd": {
@@ -2624,6 +2779,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "tao-usd": {
@@ -2649,6 +2805,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "ton-usd": {
@@ -2674,6 +2831,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "uni-usd": {
@@ -2699,6 +2857,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "usdc-usd": {
@@ -2724,6 +2883,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "usdt-usd": {
@@ -2749,6 +2909,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "wemix-usd": {
@@ -2774,6 +2935,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "xdc-usd": {
@@ -2799,6 +2961,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "xpl-usd": {
@@ -2824,6 +2987,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "xrp-usd": {
@@ -2849,6 +3013,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "xtz-usd": {
@@ -2874,6 +3039,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     }
    }
@@ -2911,6 +3077,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "cbeth-eth": {
@@ -2936,6 +3103,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "cbeth-usd": {
@@ -2961,6 +3129,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "dai-usd": {
@@ -2986,6 +3155,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "eth-usd": {
@@ -3011,6 +3181,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "link-eth": {
@@ -3036,6 +3207,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "link-usd": {
@@ -3061,6 +3233,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "usdc-usd": {
@@ -3086,6 +3259,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "usdt-usd": {
@@ -3111,6 +3285,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     }
    }
@@ -3148,6 +3323,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "XMR-usd": {
@@ -3173,6 +3349,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "aave-usd": {
@@ -3198,6 +3375,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "ada-usd": {
@@ -3223,6 +3401,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "algo-usd": {
@@ -3248,6 +3427,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "ape-usd": {
@@ -3273,6 +3453,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "apt-usd": {
@@ -3298,6 +3479,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "arb-usd": {
@@ -3323,6 +3505,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "atom-usd": {
@@ -3348,6 +3531,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "aud-usd": {
@@ -3373,6 +3557,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "avax-usd": {
@@ -3398,6 +3583,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "axs-usd": {
@@ -3423,6 +3609,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "bch-usd": {
@@ -3448,6 +3635,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "blur-usd": {
@@ -3473,6 +3661,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "bnb-usd": {
@@ -3498,6 +3687,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "bonk-usd": {
@@ -3523,6 +3713,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "btc-usd": {
@@ -3548,6 +3739,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "celo-usd": {
@@ -3573,6 +3765,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "comp-usd": {
@@ -3598,6 +3791,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "crv-usd": {
@@ -3623,6 +3817,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "cvx-usd": {
@@ -3648,6 +3843,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "dai-usd": {
@@ -3673,6 +3869,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "doge-usd": {
@@ -3698,6 +3895,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "dot-usd": {
@@ -3723,6 +3921,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "dydx-usd": {
@@ -3748,6 +3947,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "enj-usd": {
@@ -3773,6 +3973,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "etc-usd": {
@@ -3798,6 +3999,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "eth-btc": {
@@ -3823,6 +4025,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "eth-usd": {
@@ -3848,6 +4051,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "eur-usd": {
@@ -3873,6 +4077,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "fet-usd": {
@@ -3898,6 +4103,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "fil-usd": {
@@ -3923,6 +4129,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "floki-usd": {
@@ -3948,6 +4155,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "flow-usd": {
@@ -3973,6 +4181,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "gbp-usd": {
@@ -3998,6 +4207,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "gmx-usd": {
@@ -4023,6 +4233,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "grt-usd": {
@@ -4048,6 +4259,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "icp-usd": {
@@ -4073,6 +4285,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "imx-usd": {
@@ -4098,6 +4311,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "inj-usd": {
@@ -4123,6 +4337,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "jto-usd": {
@@ -4148,6 +4363,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "jup-usd": {
@@ -4173,6 +4389,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "knc-usd": {
@@ -4198,6 +4415,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "ldo-usd": {
@@ -4223,6 +4441,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "link-eth": {
@@ -4248,6 +4467,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "link-usd": {
@@ -4273,6 +4493,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "ltc-usd": {
@@ -4298,6 +4519,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "mav-usd": {
@@ -4323,6 +4545,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "meme-usd": {
@@ -4348,6 +4571,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "near-usd": {
@@ -4373,6 +4597,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "one-usd": {
@@ -4398,6 +4623,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "op-usd": {
@@ -4423,6 +4649,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "ordi-usd": {
@@ -4448,6 +4675,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "pendle-usd": {
@@ -4473,6 +4701,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "pepe-usd": {
@@ -4498,6 +4727,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "perp-usd": {
@@ -4523,6 +4753,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "pyth-usd": {
@@ -4548,6 +4779,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "rpl-usd": {
@@ -4573,6 +4805,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "rune-usd": {
@@ -4598,6 +4831,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "sei-usd": {
@@ -4623,6 +4857,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "shib-usd": {
@@ -4648,6 +4883,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "snx-usd": {
@@ -4673,6 +4909,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "sol-usd": {
@@ -4698,6 +4935,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "steth-eth": {
@@ -4723,6 +4961,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "steth-usd": {
@@ -4748,6 +4987,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "strk-usd": {
@@ -4773,6 +5013,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "stx-usd": {
@@ -4798,6 +5039,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "sui-usd": {
@@ -4823,6 +5065,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "sushi-usd": {
@@ -4848,6 +5091,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "tia-usd": {
@@ -4873,6 +5117,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "trb-usd": {
@@ -4898,6 +5143,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "trx-usd": {
@@ -4923,6 +5169,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "tsla-usd": {
@@ -4948,6 +5195,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "uma-usd": {
@@ -4973,6 +5221,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "uni-usd": {
@@ -4998,6 +5247,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "usdc-usd": {
@@ -5023,6 +5273,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "usdt-usd": {
@@ -5048,6 +5299,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "wld-usd": {
@@ -5073,6 +5325,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "wsteth-usd": {
@@ -5098,6 +5351,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "wti-usd": {
@@ -5123,6 +5377,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "xag-usd": {
@@ -5148,6 +5403,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "xau-usd": {
@@ -5173,6 +5429,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "xlm-usd": {
@@ -5198,6 +5455,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "xrp-usd": {
@@ -5223,6 +5481,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "xtz-usd": {
@@ -5248,6 +5507,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "yfi-usd": {
@@ -5273,6 +5533,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "zec-usd": {
@@ -5298,6 +5559,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "zil-usd": {
@@ -5323,6 +5585,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "zrx-usd": {
@@ -5348,6 +5611,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     }
    }
@@ -5385,6 +5649,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "btc-usd-1d-realized-vol": {
@@ -5410,6 +5675,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "btc-usd-7d-realized-vol": {
@@ -5435,6 +5701,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "copw-por": {
@@ -5460,6 +5727,7 @@
      "por_source": "Third-party",
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "dai-usd": {
@@ -5485,6 +5753,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "eth-usd": {
@@ -5510,6 +5779,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "eth-usd-1d-realized-vol": {
@@ -5535,6 +5805,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "eth-usd-7d-realized-vol": {
@@ -5560,6 +5831,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "eur-usd": {
@@ -5585,6 +5857,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "fast-nav-testnet": {
@@ -5610,6 +5883,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "link-matic": {
@@ -5635,6 +5909,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "link-usd": {
@@ -5660,6 +5935,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "sand-usd": {
@@ -5685,6 +5961,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "sol-usd": {
@@ -5710,6 +5987,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "usdc-usd": {
@@ -5735,6 +6013,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "usdfb-reserves": {
@@ -5760,6 +6039,7 @@
      "por_source": "Custodian API",
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "usdt-usd": {
@@ -5785,6 +6065,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     }
    }
@@ -5822,6 +6103,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "ape-usd": {
@@ -5847,6 +6129,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "arb-usd": {
@@ -5872,6 +6155,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "avax-usd": {
@@ -5897,6 +6181,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "axs-usd": {
@@ -5922,6 +6207,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "bat-usd": {
@@ -5947,6 +6233,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "bnb-usd": {
@@ -5972,6 +6259,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "btc-eth": {
@@ -5997,6 +6285,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "btc-usd": {
@@ -6022,6 +6311,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "btc-usd-30d-realized-vol": {
@@ -6047,6 +6337,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "chz-usd": {
@@ -6072,6 +6363,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "comp-usd": {
@@ -6097,6 +6389,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "dot-usd": {
@@ -6122,6 +6415,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "eth-usd": {
@@ -6147,6 +6441,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "eth-usd-30d-realized-vol": {
@@ -6172,6 +6467,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "eur-usd": {
@@ -6197,6 +6493,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "link-avax": {
@@ -6222,6 +6519,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "link-eth": {
@@ -6247,6 +6545,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "link-usd": {
@@ -6272,6 +6571,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "near-usd": {
@@ -6297,6 +6597,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "snx-usd": {
@@ -6322,6 +6623,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "uni-usd": {
@@ -6347,6 +6649,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "usdc-usd": {
@@ -6372,6 +6675,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "zrx-usd": {
@@ -6397,6 +6701,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     }
    }
@@ -6434,6 +6739,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "ada-usd": {
@@ -6459,6 +6765,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "bch-usd": {
@@ -6484,6 +6791,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "bnb-usd": {
@@ -6509,6 +6817,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "btc-eth": {
@@ -6534,6 +6843,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "btc-usd": {
@@ -6559,6 +6869,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "busd-eth": {
@@ -6584,6 +6895,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "busd-usd": {
@@ -6609,6 +6921,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "cake-usd": {
@@ -6634,6 +6947,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "dai-bnb": {
@@ -6659,6 +6973,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "dai-usd": {
@@ -6684,6 +6999,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "dodo-usd": {
@@ -6709,6 +7025,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "doge-usd": {
@@ -6734,6 +7051,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "dot-usd": {
@@ -6759,6 +7077,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "eth-usd": {
@@ -6784,6 +7103,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "fil-usd": {
@@ -6809,6 +7129,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "gmt-usd": {
@@ -6834,6 +7155,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "inj-usd": {
@@ -6859,6 +7181,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "link-bnb": {
@@ -6884,6 +7207,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "link-usd": {
@@ -6909,6 +7233,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "ltc-usd": {
@@ -6934,6 +7259,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "mbox-usd": {
@@ -6959,6 +7285,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "sxp-usd": {
@@ -6984,6 +7311,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "trx-usd": {
@@ -7009,6 +7337,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "usdc-usd": {
@@ -7034,6 +7363,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "usdt-usd": {
@@ -7059,6 +7389,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "xau-usd": {
@@ -7084,6 +7415,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "xrp-usd": {
@@ -7109,6 +7441,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     },
     "xvs-usd": {
@@ -7134,6 +7467,7 @@
      "por_source": null,
      "clic_product_name": null,
      "shutdown_date": null,
+     "status": "active",
      "base_path": null
     }
    }
