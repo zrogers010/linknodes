@@ -2,7 +2,7 @@
  "version": "3.0.0",
  "environment": "mainnet",
  "source": "chainlink-reference-data-directory",
- "generated_at": 1792266829,
+ "generated_at": 1792271025,
  "networks": {
   "ethereum": {
    "label": "Ethereum",
@@ -1468,7 +1468,7 @@
      "por_source": null,
      "clic_product_name": "EIGEN/USD-RefPrice-DF-Ethereum-001",
      "shutdown_date": "2026-10-28",
-     "status": "shut_down",
+     "status": "deprecating",
      "base_path": null
     },
     "enj-eth": {
@@ -4718,7 +4718,7 @@
      "por_source": null,
      "clic_product_name": "stBRL/tBRL-ExRate-DF-Ethereum-001",
      "shutdown_date": "2026-10-18",
-     "status": "shut_down",
+     "status": "deprecating",
      "base_path": null
     },
     "steth-eth": {
@@ -4848,7 +4848,7 @@
      "por_source": null,
      "clic_product_name": "stGLD/tGLD-ExRate-DF-Ethereum-001",
      "shutdown_date": "2026-10-18",
-     "status": "shut_down",
+     "status": "deprecating",
      "base_path": null
     },
     "stmxn-tmxn-exchange-rate": {
@@ -4874,7 +4874,7 @@
      "por_source": null,
      "clic_product_name": "stMXN/tMXN-ExRate-DF-Ethereum-001",
      "shutdown_date": "2026-10-18",
-     "status": "shut_down",
+     "status": "deprecating",
      "base_path": null
     },
     "strc-usd": {
@@ -5056,7 +5056,7 @@
      "por_source": "Third-party",
      "clic_product_name": null,
      "shutdown_date": "2026-10-18",
-     "status": "shut_down",
+     "status": "deprecating",
      "base_path": null
     },
     "susdd-usdd-exchange-rate": {
@@ -7278,7 +7278,7 @@
      "por_source": "Fund Administrator",
      "clic_product_name": null,
      "shutdown_date": "2026-10-18",
-     "status": "shut_down",
+     "status": "deprecating",
      "base_path": null
     },
     "aoabt-por": {
@@ -7304,7 +7304,7 @@
      "por_source": "Fund Administrator",
      "clic_product_name": null,
      "shutdown_date": "2026-10-18",
-     "status": "shut_down",
+     "status": "deprecating",
      "base_path": null
     },
     "aoabtb-nav": {
@@ -7330,7 +7330,7 @@
      "por_source": "Fund Administrator",
      "clic_product_name": null,
      "shutdown_date": "2026-10-18",
-     "status": "shut_down",
+     "status": "deprecating",
      "base_path": null
     },
     "ape-usd": {
@@ -14986,7 +14986,7 @@
      "por_source": null,
      "clic_product_name": "EZETH/ETH-ExRate-DF-Base-001",
      "shutdown_date": "2026-10-18",
-     "status": "shut_down",
+     "status": "deprecating",
      "base_path": null
     },
     "ezeth-eth-exchange-rate-svr": {
@@ -17456,7 +17456,7 @@
      "por_source": null,
      "clic_product_name": "USR/USD-RefPrice-DF-Base-001",
      "shutdown_date": "2026-10-18",
-     "status": "shut_down",
+     "status": "deprecating",
      "base_path": null
     },
     "virtual-usd": {
@@ -31700,7 +31700,7 @@
      "por_source": null,
      "clic_product_name": "USR/USD-RefPrice-DF-Binance-001",
      "shutdown_date": "2026-10-18",
-     "status": "shut_down",
+     "status": "deprecating",
      "base_path": null
     },
     "vai-usd": {
@@ -36596,7 +36596,7 @@
      "por_source": null,
      "clic_product_name": "USSD/USD-RefPrice-DF-Sonic-001",
      "shutdown_date": "2026-10-18",
-     "status": "shut_down",
+     "status": "deprecating",
      "base_path": null
     },
     "vyusd-usd-exchange-rate": {
