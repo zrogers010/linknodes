@@ -68,8 +68,6 @@ def set_test_clock(dt: datetime | None) -> None:
     """Set a test clock override. Pass None to reset to real time."""
     global _CLOCK_OVERRIDE
     _CLOCK_OVERRIDE = dt
-    # Clear cache when clock changes to prevent serving stale status
-    _response_cache.clear()
 
 def get_current_time() -> datetime:
     """Get current time, respecting test clock override."""
@@ -305,14 +303,30 @@ def _resolve(network: str, feed: str, environment: str = "mainnet") -> tuple[dic
 
 async def _read_feed(network: str, feed: str, round_id: int | None, environment: str = "mainnet") -> dict:
     """Core read path: micro-cache, then concurrent eth_calls with RPC failover."""
-    cache_key = (environment, network, feed, round_id)
+    # Resolve feed first to get shutdown_date for cache key
+    net, feed_meta, resolved_name = _resolve(network, feed, environment)
+    
+    # Include shutdown boundary in cache key to prevent serving stale status across boundary
+    shutdown_date = feed_meta.get("shutdown_date")
+    cache_date_key = None
+    if shutdown_date:
+        from datetime import datetime, timezone, timedelta
+        try:
+            shutdown_dt = datetime.strptime(shutdown_date, "%Y-%m-%d").replace(tzinfo=timezone.utc)
+            boundary_dt = shutdown_dt + timedelta(days=1)
+            # Key on which side of the boundary we are
+            utc_now = get_current_time()
+            cache_date_key = "pre" if utc_now < boundary_dt else "post"
+        except Exception:
+            pass
+    
+    cache_key = (environment, network, feed, round_id, cache_date_key)
     cache_entry = _response_cache.get(cache_key)
     if cache_entry and cache_entry[0] > time.monotonic():
         cached = dict(cache_entry[1])
         cached["meta"] = {**cached["meta"], "cache": "hit"}
         return cached
 
-    net, feed_meta, resolved_name = _resolve(network, feed, environment)
     address = feed_meta["address"]
 
     last_error: Exception | None = None
@@ -410,14 +424,16 @@ async def _read_feed(network: str, feed: str, round_id: int | None, environment:
         ttl = HISTORICAL_CACHE_TTL_S if round_id is not None else LATEST_CACHE_TTL_S
         shutdown_date = feed_meta.get("shutdown_date")
         if shutdown_date:
-            from datetime import datetime, timezone
+            from datetime import datetime, timezone, timedelta
             utc_now = get_current_time()
             try:
                 shutdown_dt = datetime.strptime(shutdown_date, "%Y-%m-%d").replace(tzinfo=timezone.utc)
-                seconds_until_shutdown = (shutdown_dt - utc_now).total_seconds()
-                if seconds_until_shutdown > 0:
-                    # Cap TTL at shutdown boundary (with 1-second buffer)
-                    ttl = min(ttl, seconds_until_shutdown + 1)
+                # Boundary is the day after shutdown_date at 00:00 UTC
+                boundary_dt = shutdown_dt + timedelta(days=1)
+                seconds_until_boundary = (boundary_dt - utc_now).total_seconds()
+                if seconds_until_boundary > 0:
+                    # Cap TTL at shutdown boundary
+                    ttl = min(ttl, seconds_until_boundary)
             except Exception:
                 pass  # Invalid date, use normal TTL
         
