@@ -190,7 +190,8 @@ def parse_shutdown_date(shutdown_text: str | None) -> str | None:
     Handles formats like:
     - "October 18th, 2026" -> "2026-10-18"
     - "February 2026" -> "2026-02-28" (last day of month)
-    - None or unparseable -> None
+    - None -> None
+    - Unparseable -> raises ValueError (fail closed, not fail open)
     """
     if not shutdown_text:
         return None
@@ -220,7 +221,9 @@ def parse_shutdown_date(shutdown_text: str | None) -> str | None:
         except ValueError:
             pass
     
-    return None
+    # Unparseable date - fail the build (fail closed)
+    raise ValueError(f"Unable to parse shutdown date: '{shutdown_text}'")
+
 
 
 def compute_feed_status(category: str | None, shutdown_date_iso: str | None, utc_now: str | None = None) -> str:
@@ -355,16 +358,44 @@ def validate_source_data(feeds: list, nodes: list, network_label: str) -> None:
 
 
 def write_nodes(staged_dir: Path, dest_dir: Path) -> None:
-    """Write staged nodes files to destination directory.
+    """Write staged nodes files to destination directory atomically.
+    
+    Stages all files in a temp directory first, then swaps the entire directory.
+    The old set stays intact if any copy fails.
     
     Args:
         staged_dir: Path to directory containing staged .json files
         dest_dir: Path to destination nodes directory
     """
+    import tempfile
+    
     dest_dir.mkdir(parents=True, exist_ok=True)
-    for staged_file in staged_dir.glob("*.json"):
-        dest = dest_dir / staged_file.name
-        shutil.copy2(staged_file, dest)
+    
+    # Create temporary directory for atomic swap
+    with tempfile.TemporaryDirectory(dir=dest_dir.parent) as tmpdir:
+        temp_dest = Path(tmpdir) / "nodes_staging"
+        temp_dest.mkdir()
+        
+        # Copy all files to temp directory first
+        for staged_file in staged_dir.glob("*.json"):
+            dest = temp_dest / staged_file.name
+            shutil.copy2(staged_file, dest)
+        
+        # Atomically swap: rename old dir out of the way, rename new dir in place, remove old
+        old_dir = dest_dir.parent / f"{dest_dir.name}.old"
+        
+        # Remove any leftover .old directory from previous runs
+        if old_dir.exists():
+            shutil.rmtree(old_dir)
+        
+        # Atomic swap
+        if dest_dir.exists():
+            dest_dir.rename(old_dir)
+        temp_dest.rename(dest_dir)
+        
+        # Clean up old directory
+        if old_dir.exists():
+            shutil.rmtree(old_dir)
 
 
 def link_svr_variants(feeds: dict[str, dict]) -> None:

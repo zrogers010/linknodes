@@ -65,9 +65,21 @@ def _utc_now() -> datetime:
 _CLOCK_OVERRIDE: datetime | None = None
 
 def set_test_clock(dt: datetime | None) -> None:
-    """Set a test clock override. Pass None to reset to real time."""
+    """Set a test clock override. Pass None to reset to real time.
+    
+    Normalizes to UTC:
+    - Naive datetime -> treated as UTC (adds UTC timezone)
+    - Aware datetime -> converted to UTC
+    """
     global _CLOCK_OVERRIDE
-    _CLOCK_OVERRIDE = dt
+    if dt is None:
+        _CLOCK_OVERRIDE = None
+    elif dt.tzinfo is None:
+        # Naive datetime - treat as UTC
+        _CLOCK_OVERRIDE = dt.replace(tzinfo=timezone.utc)
+    else:
+        # Aware datetime - convert to UTC
+        _CLOCK_OVERRIDE = dt.astimezone(timezone.utc)
 
 def get_current_time() -> datetime:
     """Get current time, respecting test clock override."""
@@ -260,11 +272,18 @@ def _resolve(network: str, feed: str, environment: str = "mainnet") -> tuple[dic
     if not net:
         raise HTTPException(status_code=400, detail=f"Unknown network '{network}'.")
     
-    # Filter visible feeds at request time
-    visible_feeds = filter_visible_feeds(net["feeds"])
-    
-    # Try exact match first
+    # Try exact match first (check if feed exists, even if shut down)
     feed_lower = feed.lower()
+    all_feeds = net["feeds"]
+    
+    # If the requested feed exists but is shut down, return 404 immediately
+    # Do NOT fall back to SVR variants or base feeds
+    if feed_lower in all_feeds and not is_feed_visible(all_feeds[feed_lower]):
+        raise HTTPException(status_code=404, detail=f"Feed '{feed}' not found on {net['label']}.")
+    
+    # Filter visible feeds at request time
+    visible_feeds = filter_visible_feeds(all_feeds)
+    
     feed_meta = visible_feeds.get(feed_lower)
     resolved_name = None
     

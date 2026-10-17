@@ -21,7 +21,7 @@ from main import is_feed_visible, set_test_clock, get_current_time
 
 def test_parse_shutdown_date():
     """Test shutdown date parsing for various RDD formats."""
-    test_cases = [
+    valid_test_cases = [
         # (input, expected_output)
         ("October 18th, 2026", "2026-10-18"),
         ("October 18, 2026", "2026-10-18"),  # without 'th'
@@ -30,15 +30,14 @@ def test_parse_shutdown_date():
         ("June 3rd, 2026", "2026-06-03"),
         (None, None),
         ("", None),
-        ("invalid date", None),
     ]
     
-    print("\nShutdown Date Parsing:")
+    print("\nShutdown Date Parsing (Valid Cases):")
     print("=" * 80)
     print(f"{'Input':<30} {'Expected':<20} {'Actual':<20} {'Status':<10}")
     print("-" * 80)
     
-    for input_text, expected in test_cases:
+    for input_text, expected in valid_test_cases:
         actual = parse_shutdown_date(input_text)
         status = "PASS" if actual == expected else "FAIL"
         input_display = input_text if input_text else "(None)"
@@ -48,7 +47,19 @@ def test_parse_shutdown_date():
         assert actual == expected, f"Failed: {input_text} -> expected {expected}, got {actual}"
     
     print("=" * 80)
-    print(f"✓ All {len(test_cases)} date parsing tests passed\n")
+    print(f"✓ All {len(valid_test_cases)} valid date parsing tests passed\n")
+    
+    # Test invalid dates raise ValueError (fail closed)
+    print("Testing invalid dates (should raise ValueError):")
+    invalid_cases = ["invalid date", "13th Month 2026", "not a date"]
+    for invalid_input in invalid_cases:
+        try:
+            result = parse_shutdown_date(invalid_input)
+            raise AssertionError(f"Expected ValueError for '{invalid_input}', got {result}")
+        except ValueError as e:
+            print(f"  ✓ '{invalid_input}' correctly raised ValueError: {e}")
+    
+    print(f"✓ All {len(invalid_cases)} invalid date tests passed (fail closed)\n")
 
 
 def test_compute_feed_status():
