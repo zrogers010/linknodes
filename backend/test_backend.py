@@ -9,6 +9,7 @@ import json
 import sys
 import time
 from pathlib import Path
+import re
 
 # Test without external dependencies
 import urllib.request
@@ -16,6 +17,187 @@ import urllib.error
 
 
 BASE_URL = "http://127.0.0.1:8100"
+
+
+def is_valid_address(addr: str) -> bool:
+    """Check if address is a valid 0x-prefixed 40-hex string."""
+    if not addr:
+        return False
+    return bool(re.match(r'^0x[0-9a-fA-F]{40}$', addr))
+
+
+def test_registry_v3_fields():
+    """Test that the v3 registry has all required fields and valid addresses."""
+    print(f"\n{'='*60}")
+    print("TEST: Registry v3 Fields and Validation")
+    print(f"{'='*60}")
+    
+    registry_path = Path(__file__).parent / "registry.json"
+    if not registry_path.exists():
+        print(f"❌ FAIL: registry.json not found at {registry_path}")
+        return False
+    
+    registry = json.loads(registry_path.read_text())
+    
+    mainnet_feed_count = 0
+    mainnet_with_aggregator = 0
+    invalid_addresses = []
+    
+    for network_key, network_data in registry["networks"].items():
+        for feed_key, feed_data in network_data["feeds"].items():
+            mainnet_feed_count += 1
+            
+            proxy = feed_data.get("address")
+            if not is_valid_address(proxy):
+                invalid_addresses.append(f"{network_key}/{feed_key}: invalid proxy {proxy}")
+            
+            aggregator = feed_data.get("aggregator")
+            if aggregator:
+                mainnet_with_aggregator += 1
+                if not is_valid_address(aggregator):
+                    invalid_addresses.append(f"{network_key}/{feed_key}: invalid aggregator {aggregator}")
+            
+            svr_proxy = feed_data.get("svr_proxy")
+            if svr_proxy and not is_valid_address(svr_proxy):
+                invalid_addresses.append(f"{network_key}/{feed_key}: invalid svr_proxy {svr_proxy}")
+    
+    if invalid_addresses:
+        print(f"❌ FAIL: Found {len(invalid_addresses)} invalid addresses:")
+        for addr in invalid_addresses[:5]:
+            print(f"   {addr}")
+        return False
+    
+    print(f"✅ All proxy, aggregator, and svr_proxy addresses are valid 0x-prefixed 40-hex strings")
+    
+    aggregator_pct = (mainnet_with_aggregator / mainnet_feed_count * 100) if mainnet_feed_count > 0 else 0
+    print(f"✅ {mainnet_with_aggregator}/{mainnet_feed_count} mainnet feeds ({aggregator_pct:.1f}%) have an aggregator")
+    
+    if aggregator_pct < 100.0:
+        print(f"❌ FAIL: Expected 100% of mainnet feeds to have an aggregator")
+        return False
+    
+    eth_usd = registry["networks"].get("ethereum", {}).get("feeds", {}).get("eth-usd", {})
+    expected_agg = "0x7d4E742018fb52E48b08BE73d041C18B21de6Fb5"
+    actual_agg = eth_usd.get("aggregator")
+    
+    if actual_agg != expected_agg:
+        print(f"❌ FAIL: ethereum/eth-usd.aggregator expected {expected_agg}, got {actual_agg}")
+        return False
+    
+    print(f"✅ ethereum/eth-usd.aggregator == {expected_agg}")
+    
+    return True
+
+
+def test_testnet_networks():
+    """Test that /healthz reports 7 testnet networks."""
+    print(f"\n{'='*60}")
+    print("TEST: Testnet Networks Count")
+    print(f"{'='*60}")
+    
+    try:
+        req = urllib.request.Request(f"{BASE_URL}/healthz")
+        with urllib.request.urlopen(req) as response:
+            data = json.loads(response.read())
+            testnet_networks = data.get("testnet", {}).get("networks", 0)
+            
+            if testnet_networks != 7:
+                print(f"❌ FAIL: Expected 7 testnet networks, got {testnet_networks}")
+                return False
+            
+            print(f"✅ /healthz reports {testnet_networks} testnet networks")
+            return True
+    
+    except Exception as e:
+        print(f"❌ FAIL: {e}")
+        return False
+
+
+def test_svr_variants():
+    """Test that SVR variants exist as separate records with base_path."""
+    print(f"\n{'='*60}")
+    print("TEST: SVR Variants with base_path")
+    print(f"{'='*60}")
+    
+    registry_path = Path(__file__).parent / "registry.json"
+    if not registry_path.exists():
+        print(f"❌ FAIL: registry.json not found")
+        return False
+    
+    registry = json.loads(registry_path.read_text())
+    
+    svr_variants_found = []
+    
+    for network_key, network_data in registry["networks"].items():
+        for feed_key, feed_data in network_data["feeds"].items():
+            if feed_key.endswith(("-svr", "-shared-svr", "-shared-svr-2")):
+                base_path = feed_data.get("base_path")
+                if base_path:
+                    svr_variants_found.append(f"{network_key}/{feed_key} -> base_path={base_path}")
+    
+    if not svr_variants_found:
+        print(f"❌ FAIL: No SVR variants with base_path found")
+        return False
+    
+    print(f"✅ Found {len(svr_variants_found)} SVR variants with base_path:")
+    for variant in svr_variants_found[:3]:
+        print(f"   {variant}")
+    
+    return True
+
+
+def test_nodes_files():
+    """Test that nodes files exist for all networks and parse as valid JSON."""
+    print(f"\n{'='*60}")
+    print("TEST: Nodes Files Exist and Parse")
+    print(f"{'='*60}")
+    
+    registry_path = Path(__file__).parent / "registry.json"
+    registry_testnet_path = Path(__file__).parent / "registry_testnet.json"
+    nodes_dir = Path(__file__).parent / "data" / "nodes"
+    
+    if not registry_path.exists():
+        print(f"❌ FAIL: registry.json not found")
+        return False
+    
+    if not nodes_dir.exists():
+        print(f"❌ FAIL: nodes directory not found at {nodes_dir}")
+        return False
+    
+    mainnet_registry = json.loads(registry_path.read_text())
+    testnet_registry = json.loads(registry_testnet_path.read_text()) if registry_testnet_path.exists() else {"networks": {}}
+    
+    all_networks = list(mainnet_registry["networks"].keys()) + list(testnet_registry["networks"].keys())
+    
+    missing_files = []
+    invalid_files = []
+    
+    for network_key in all_networks:
+        for pattern in [f"nodes-{network_key}.json", f"nodes-*{network_key}*.json"]:
+            nodes_files = list(nodes_dir.glob(pattern))
+            if nodes_files:
+                nodes_file = nodes_files[0]
+                try:
+                    nodes = json.loads(nodes_file.read_text())
+                    if not isinstance(nodes, list):
+                        invalid_files.append(f"{nodes_file.name}: not a list")
+                except Exception as e:
+                    invalid_files.append(f"{nodes_file.name}: {e}")
+                break
+        else:
+            pass
+    
+    if invalid_files:
+        print(f"❌ FAIL: Found {len(invalid_files)} invalid nodes files:")
+        for err in invalid_files[:5]:
+            print(f"   {err}")
+        return False
+    
+    nodes_count = len(list(nodes_dir.glob("*.json")))
+    print(f"✅ Found {nodes_count} nodes files in {nodes_dir}")
+    print(f"✅ All nodes files parse as valid JSON")
+    
+    return True
 
 
 def test(name: str, url: str, expected_status: int = 200, expected_fields: list = None) -> bool:
@@ -76,6 +258,14 @@ def main():
     print("=" * 60)
     
     results = []
+    
+    results.append(test_registry_v3_fields())
+    
+    results.append(test_testnet_networks())
+    
+    results.append(test_svr_variants())
+    
+    results.append(test_nodes_files())
     
     # Test 1: Health check
     results.append(test(

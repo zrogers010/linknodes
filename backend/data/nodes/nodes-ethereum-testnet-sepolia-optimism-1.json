@@ -1,0 +1,904 @@
+[
+ {
+  "id": "cl-auto-opti-sepolia-0",
+  "website": "",
+  "name": "Optimism Sepolia Automation Node 0",
+  "status": "active",
+  "nodeAddress": [
+   "0x179334Ea447B18851179DE06e655fCcACC4B5915"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Optimism Sepolia Automation Node 0",
+    "nodeAddress": "0x179334Ea447B18851179DE06e655fCcACC4B5915",
+    "publicKey": "aaf167587cfc03713b5b87a86d7edc1d438c29848cf25b1b0bdf7929d3d2d394"
+   }
+  ],
+  "payeeAddress": "0x8fA510072009E71CfD447169AB5A84cAc394f58A",
+  "peerId": [
+   "12D3KooWDBoFuQognDizV1rt3jZCyUT7oL19kNqbUjpi7BkfTooU"
+  ],
+  "ocr2Id": [
+   "4d3da6a9503e055e45d1d2064d23edaa3d74369d64a8b0c9978bd1db71a97fec"
+  ],
+  "ocr2ConfigPublicKey": [
+   "ocr2cfg_evm_7a4fc71f2ec95fbed734e87c42c189cf58ee464404aea6cbd28e994c41e61e1e"
+  ],
+  "ocr2OffchainPublicKey": [
+   "ocr2off_evm_19ed7358f6dac9bedac330a9f6c599fba367d8cb4fc0d287a44f75e1174affa6"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_a756544f53a9b817f556ff5091a175e304622747"
+  ]
+ },
+ {
+  "id": "cl-auto-opti-sepolia-1",
+  "website": "",
+  "name": "Optimism Sepolia Automation Node 1",
+  "status": "active",
+  "nodeAddress": [
+   "0xf0C71ED98f875e8ACfBBF241459C045206355f6B"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Optimism Sepolia Automation Node 1",
+    "nodeAddress": "0xf0C71ED98f875e8ACfBBF241459C045206355f6B",
+    "publicKey": "d17609676f769c756bcc35d9bd197e73c47732bfc0b065dd26f6c2d4f1be6cc9"
+   }
+  ],
+  "payeeAddress": "0x8fA510072009E71CfD447169AB5A84cAc394f58A",
+  "peerId": [
+   "12D3KooWQKbW9iyGwXfP81VUcsJiAhGCTGuY8uxGUDoG2J1j4oR5"
+  ],
+  "ocr2Id": [
+   "758941db7e26161a31f1b97827878214630f49b8baaede670d3e11e169d6e262"
+  ],
+  "ocr2ConfigPublicKey": [
+   "ocr2cfg_evm_8c52fd2b4e8f305eed7b316a31777aba5f94016319277ba92c60157743d6716d"
+  ],
+  "ocr2OffchainPublicKey": [
+   "ocr2off_evm_d8675b30a6ae7f8ace6a33e61e7a4b16bbcd53088e3271bca686fe59a2a7bef9"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_2f18d3a932bad9de6387f2c31fd1e07c58686697"
+  ]
+ },
+ {
+  "id": "cl-auto-opti-sepolia-2",
+  "website": "",
+  "name": "Optimism Sepolia Automation Node 2",
+  "status": "active",
+  "nodeAddress": [
+   "0xf8C111F577705C8f7dD98CD9495993a6D517CeF8"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Optimism Sepolia Automation Node 2",
+    "nodeAddress": "0xf8C111F577705C8f7dD98CD9495993a6D517CeF8",
+    "publicKey": "94c16dabe1c3d59933977eae8b6c1cd398b098f24414ddaa9b77dc64a0c2491f"
+   }
+  ],
+  "payeeAddress": "0x8fA510072009E71CfD447169AB5A84cAc394f58A",
+  "peerId": [
+   "12D3KooWFZvvipoSykxJuCVcB8VW8ztwva2BQdpKcXZnnZpqsia3"
+  ],
+  "ocr2Id": [
+   "6c3807e32e549407984f1eff0e5dea4b8faaa572dd372708abebfa577cd0bcc7"
+  ],
+  "ocr2ConfigPublicKey": [
+   "ocr2cfg_evm_9c44a27e2c87f3702dc2943df492fbb8136b2d0b406a80095e0d66d2d5fa4227"
+  ],
+  "ocr2OffchainPublicKey": [
+   "ocr2off_evm_dc62de6006c2385139221ddda2dfed89bc4aaedcf68521954fabebff67414820"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_e47256ec1ba517c9903f1ebfb2d09da7ca00d8ac"
+  ]
+ },
+ {
+  "id": "cl-auto-opti-sepolia-3",
+  "website": "",
+  "name": "Optimism Sepolia Automation Node 3",
+  "status": "active",
+  "nodeAddress": [
+   "0x4C112237bb768E6d3433B11070c2506661c06E58"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Optimism Sepolia Automation Node 3",
+    "nodeAddress": "0x4C112237bb768E6d3433B11070c2506661c06E58",
+    "publicKey": "cc65f3f8dd488906541ddf27508fe0bb96c09f1889e90f1b465732361e2d93a4"
+   }
+  ],
+  "payeeAddress": "0x8fA510072009E71CfD447169AB5A84cAc394f58A",
+  "peerId": [
+   "12D3KooWEbmZVgM6LqxkZNqTCwpKwtqHRifi99WjAVGqF2PfwKsa"
+  ],
+  "ocr2Id": [
+   "5bacb06cf081bc3f827c74d7b9d8b7ec090b61e0e04395fb5cf40efa400c9661"
+  ],
+  "ocr2ConfigPublicKey": [
+   "ocr2cfg_evm_2f33aba16241c3c67485062003545bcadee540fc567473fcf0bc186f9703cb66"
+  ],
+  "ocr2OffchainPublicKey": [
+   "ocr2off_evm_4a1549ac8cbea678f1fd316b3ad3832e50051696e3dc5c2bf1f2217a5830f404"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_010f0f85b29532c867b9af2c139910bf13bc5156"
+  ]
+ },
+ {
+  "id": "ocr-opti-sepolia-0",
+  "website": "",
+  "name": "ocr-opti-sepolia-0",
+  "status": "active",
+  "nodeAddress": [
+   "0xEA1C859797599B47b7c6CfF59E1a3CbE9fd0C2BD"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Chainlink Testnet (0) ocr-opti-sepolia-0 OCR",
+    "nodeAddress": "0xEA1C859797599B47b7c6CfF59E1a3CbE9fd0C2BD",
+    "publicKey": "df81188cf274cc1fd0d8de663b385b17d2934a8b5247d30f97464dc59735d3cb"
+   }
+  ],
+  "peerId": [
+   "12D3KooWETbqsBHDk7jiqsmgkwQBk5edatvoSX8u3zaL9JZGPmZU"
+  ]
+ },
+ {
+  "id": "ocr-opti-sepolia-1",
+  "website": "",
+  "name": "ocr-opti-sepolia-1",
+  "status": "active",
+  "nodeAddress": [
+   "0x152f913d67F0eD183C9537ad0c105aa1c1058cE4"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Chainlink Testnet (1) ocr-opti-sepolia-1 OCR",
+    "nodeAddress": "0x152f913d67F0eD183C9537ad0c105aa1c1058cE4",
+    "publicKey": "5ed5034b579371c697bd94b5e5447d258a6ac5d196e1a3a2967ab66af04b3d88"
+   }
+  ],
+  "peerId": [
+   "12D3KooWKVN2mMTj3NcEwZ5zmW2Tac4QsrZyJ4rm1rD4TAQzidaL"
+  ]
+ },
+ {
+  "id": "ocr-opti-sepolia-2",
+  "website": "",
+  "name": "ocr-opti-sepolia-2",
+  "status": "active",
+  "nodeAddress": [
+   "0xdc2A97472F097bDA1F807C4A4D379652571cfE65"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Chainlink Testnet (2) ocr-opti-sepolia-2 OCR",
+    "nodeAddress": "0xdc2A97472F097bDA1F807C4A4D379652571cfE65",
+    "publicKey": "d7a908e6380065a1d0388c1a610552a0ad1d1a618d2bc7ead3f16a6822d2c6ad"
+   }
+  ],
+  "peerId": [
+   "12D3KooWPwiWWDXvasXJ2dgd4PbUveVExK2fvvfg9HKewAeXu5vW"
+  ]
+ },
+ {
+  "id": "ocr-opti-sepolia-3",
+  "website": "",
+  "name": "ocr-opti-sepolia-3",
+  "status": "active",
+  "nodeAddress": [
+   "0xf829875b9095F96b571A642a97Ae23De7DfbdaF9"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Chainlink Testnet (3) ocr-opti-sepolia-3 OCR",
+    "nodeAddress": "0xf829875b9095F96b571A642a97Ae23De7DfbdaF9",
+    "publicKey": "9181b0e9904f69f86a46dda8837a723e061e530cd1a985165f4a04b97cb35cc2"
+   }
+  ],
+  "peerId": [
+   "12D3KooWCq4kyDN4jq3KXoeHewCAfAYveTFYthm8FN8iMht146dQ"
+  ]
+ },
+ {
+  "id": "temp-ccip-infra-testnet-0",
+  "website": "",
+  "name": "infra-testnet-0",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIP Infra Testnet 0",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "5ff6fdab98a77bc190e3f297d3fe0bb2a4f0257fcaccbd2d1a251e04a361e43c"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-infra-testnet-1",
+  "website": "",
+  "name": "infra-testnet-1",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIP Infra Testnet 1",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "3b84081c73591a871c223b7763203d40026bad5ee1f139ad641c5d662821cdcc"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-infra-testnet-10",
+  "website": "",
+  "name": "infra-testnet-10",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIP Infra Testnet 10",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "115cfa1585db147c50f71cd258da1aa2cea1f078d5a968365c932e618fc4db84"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-infra-testnet-11",
+  "website": "",
+  "name": "infra-testnet-11",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIP Infra Testnet 11",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "c506ca61018b31a1e5e4ccdf3604fa7eba3a59c074ce4b8fcc9596f49f79f33d"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-infra-testnet-12",
+  "website": "",
+  "name": "infra-testnet-12",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIP Infra Testnet 12",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "1e6607eec2270143f6c8e2b15ed958c9aeb80369577428ee9a9cfb72df98c731"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-infra-testnet-13",
+  "website": "",
+  "name": "infra-testnet-13",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIP Infra Testnet 13",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "18c0b7cfbbde5e19b2bd40ba7318d291d3bda46e764415325ab6b9f9a8e03999"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-infra-testnet-14",
+  "website": "",
+  "name": "infra-testnet-14",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIP Infra Testnet 14",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "b4510ff1f37073a071d178dd95a98dccca7c297e04bda5a28c19f7b17bbdbaa8"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-infra-testnet-15",
+  "website": "",
+  "name": "infra-testnet-15",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIP Infra Testnet 15",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "9f15e4a74f96f2131cdfc787435db317f8388a403ac50612ed1632bf36580ad9"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-infra-testnet-2",
+  "website": "",
+  "name": "infra-testnet-2",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIP Infra Testnet 2",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "504313038207ea9b44c3a77819bdcd013f78c3141e588c297c2fca6d64074def"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-infra-testnet-3",
+  "website": "",
+  "name": "infra-testnet-3",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIP Infra Testnet 3",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "c11886df8c0f03c80c2c1f7c4d322fe3e85d592848712c0f57754a89c3de38e7"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-infra-testnet-4",
+  "website": "",
+  "name": "infra-testnet-4",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIP Infra Testnet 4",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "08af2fa51631c018d7eec03f260ea653784388b83c972a83e68886e0c1c309df"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-infra-testnet-5",
+  "website": "",
+  "name": "infra-testnet-5",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIP Infra Testnet 5",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "171cd4dc1b2964ff957e551609c544d344b46021dea147fc106b93425f77635c"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-infra-testnet-6",
+  "website": "",
+  "name": "infra-testnet-6",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIP Infra Testnet 6",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "338ca504771657d75be2197c48191f7ee3ca2304e41085f0f36ebc9a079fd56f"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-infra-testnet-7",
+  "website": "",
+  "name": "infra-testnet-7",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIP Infra Testnet 7",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "8a29dfe5806d4a3db2bd097ed5746ff84469cd089eac325f74f577e67d8a5331"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-infra-testnet-8",
+  "website": "",
+  "name": "infra-testnet-8",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIP Infra Testnet 8",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "65b06afaa24d976fe39109aa1de734e1b63178f9041edd217736731adb552f3d"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-infra-testnet-9",
+  "website": "",
+  "name": "infra-testnet-9",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIP Infra Testnet 9",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "9f07a995125edf7a0bf33276fe44f5daa22f7000fc3f79c92c987873af020ca9"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-v2-prod-0",
+  "website": "",
+  "name": "ccip-prod-0",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIPv2 Prod 0",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "3c635d2449feaced27af2b637e48b4a03ad12ed1892d66accfd349e96b77ee1c"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-v2-prod-0-bt",
+  "website": "",
+  "name": "ccip-prod-0-bt",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIPv2 Prod 0 bt",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "cc928641850dabdd405d0643b45eb44be804521f6479e5f1d9e19ed45cdaffee"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-v2-prod-1",
+  "website": "",
+  "name": "ccip-prod-1",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIPv2 Prod 1",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "e23821cb7d804c419f627e4bd636a5a9a88fbd03a4ad343aa313bbf388da7166"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-v2-prod-10",
+  "website": "",
+  "name": "ccip-prod-10",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIPv2 Prod 10",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "7e0cd6bab6719382cacc41b1991b856cd8c452e57b03497734b8ac8f97693905"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-v2-prod-11",
+  "website": "",
+  "name": "prod-0",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIPv2 Prod 11",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "542603648594d782c30ef7fa6dc2435bd8227a268c146e6c891fa3817ce07797"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-v2-prod-12",
+  "website": "",
+  "name": "ccip-prod-12",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIPv2 Prod 12",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "01a0bc4ddcaa765bf7318783d343a7717c36a8412e7dbb98640a84a1c01a44af"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-v2-prod-13",
+  "website": "",
+  "name": "ccip-prod-13",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIPv2 Prod 13",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "e141bd418b89b217a0d9853b710ce3301561d979cb943d8dbd1baded9713c716"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-v2-prod-14",
+  "website": "",
+  "name": "ccip-prod-14",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIPv2 Prod 14",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "28294202a2ad1fdec000d23742058435694f460d7742c91152e1dd577c765a5e"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-v2-prod-15",
+  "website": "",
+  "name": "ccip-prod-15",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIPv2 Prod 15",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "7ca6be8ee535577327ce70505029102f6b90d42dcbd5cabdfbd0e0dd00afa76f"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-v2-prod-2",
+  "website": "",
+  "name": "ccip-prod-2",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIPv2 Prod 2",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "e61fcf0657bc9aa131347c9b5249909f500dce4062960bdebf97609240f402e1"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-v2-prod-3",
+  "website": "",
+  "name": "ccip-prod-3",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIPv2 Prod 3",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "a45fdf144e5e49337488dd4c34d27a28469c2e9bc213987a59a887d39f649cf5"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-v2-prod-4",
+  "website": "",
+  "name": "ccip-prod-4",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIPv2 Prod 4",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "6b56626643096ad67162c14b1c7961ccf1ac225872ffb68085be971838a6ac44"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-v2-prod-5",
+  "website": "",
+  "name": "ccip-prod-5",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIPv2 Prod 5",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "bc482f395ec12869d6f78b56d1034fd725dddba2afeffdb9fc2e5e0adb777772"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-v2-prod-6",
+  "website": "",
+  "name": "ccip-prod-6",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIPv2 Prod 6",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "e92ac792b8c93f0a7e2124c39dad9ec7ea009e99d310ee309974416d905869fe"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-v2-prod-7",
+  "website": "",
+  "name": "ccip-prod-7",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIPv2 Prod 7",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "98f3f457dbdc96afa76e24c0093618259cae0eb98d6026734528c6363e768c94"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-v2-prod-8",
+  "website": "",
+  "name": "ccip-prod-8",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIPv2 Prod 8",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "ff633342723e4653483e38ce7d7140575ee426394b290111381dcc3592daf0d1"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-v2-prod-9",
+  "website": "",
+  "name": "ccip-prod-9",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIPv2 Prod 9",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "207df9e6aca56f10121b7aeb466436414a0e967c9645a5f94888ad920db0f315"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-v2-solana-staging-0",
+  "website": "",
+  "name": "solana-staging-0",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIPv2 Solana Staging 0",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "c3f15e4ca9ed3192e24945cf960033ad600fce96165d1c2b4189c9e01e6271f5"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-v2-solana-staging-0-bt",
+  "website": "",
+  "name": "solana-staging-0-bt",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIPv2 Solana Staging 0 bt",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "cc411a122aee55b4d75671ce689b2afeee26e07fa33b4854c5549da8f7a4c2b1"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-v2-solana-staging-1",
+  "website": "",
+  "name": "solana-staging-1",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIPv2 Solana Staging 1",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "1a69c37485da9fa4bda7249f5b850aa4cfe8f8e9e54d435e717b63259d1da6fb"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-v2-solana-staging-2",
+  "website": "",
+  "name": "solana-staging-2",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIPv2 Solana Staging 2",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "ed1b39f743c9f580de3d95d8c0fa24d95ef1abeb2996609d51ff0d0e6f8c1809"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-v2-solana-staging-3",
+  "website": "",
+  "name": "solana-staging-3",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIPv2 Solana Staging 3",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "84287de3bfb5ca6b935604a55700327b848a95ee0fafdac91e52c7a55fb82a32"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-v2-staging-0",
+  "website": "",
+  "name": "staging-0",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIPv2 Staging 0",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "7c4e7b4bec66fe60685c990bbd52ee3b173a14a390b5f27d1145b4dd1ac7dc67"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-v2-staging-0-bt",
+  "website": "",
+  "name": "staging-0-bt",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIPv2 Staging 0 bt",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "806f0a615d28c28b5dc2518fc6ac1fa7dec95215f891cf4deac9b3f1e5466eb3"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-v2-staging-1",
+  "website": "",
+  "name": "staging-1",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIPv2 Staging 1",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "bfce20b5e791c1e2421322e121ce2da141d201183c9c848063d6d00256498846"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-v2-staging-2",
+  "website": "",
+  "name": "staging-2",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIPv2 Staging 2",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "ee8d888411e534cea8d2e94967bb801f5611b14dba2b935d009f490ebf240f5f"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-v2-staging-3",
+  "website": "",
+  "name": "staging-3",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIPv2 Staging 3",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "18720fb4a51bc6f745707f738c54ca4084c379efff5defc4cbaec833f29f31aa"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-v2-staging-4",
+  "website": "",
+  "name": "staging-4",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIPv2 Staging 4",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "b4d2ffd90e10cc73e95cf5daf5c1631fddbd750b1d074475279591348fab410c"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-v2-staging-5",
+  "website": "",
+  "name": "staging-5",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIPv2 Staging 5",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "7c58904a621634cb8ad20feca309d84390a24d72e3befea010d7e8961006ec9a"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-v2-staging-6",
+  "website": "",
+  "name": "staging-6",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIPv2 Staging 6",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "a7b3a23794db70a06171d145f67c2284d23a52d9205835f788cd1c8a76baf3ec"
+   }
+  ]
+ }
+]

@@ -1,0 +1,1438 @@
+[
+ {
+  "id": "01node",
+  "website": "",
+  "name": "01Node",
+  "status": "active",
+  "nodeAddress": [
+   "0xC2a5c4518849E85C424993f16AbA347165b734B7"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "01Node Polygon Mainnet OCR",
+    "nodeAddress": "0xC2a5c4518849E85C424993f16AbA347165b734B7",
+    "publicKey": "07ca09482ea232500c3d4db122f2df375317062df9dfaca30cebeff839123840"
+   }
+  ],
+  "peerId": [
+   "12D3KooWJsKEtTH26bRJrevTcZg1YzUwEXNya1b7KsY6NQqVKVWy"
+  ],
+  "ocr2ConfigPublicKey": [
+   "ocr2cfg_evm_33c7945047463cb04552f122ade26c87447644f00b492e4cdaf604a9102c7966"
+  ],
+  "ocr2OffchainPublicKey": [
+   "ocr2off_evm_335653b1b7f05d8b8e4e9f57c9c4cc1fa9fa7b814ee95161d4ddccbc51fdfd83"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_5d2005914d6dcb9467d3ad43b7683f20df2fe15f"
+  ],
+  "forwardingEnabled": true,
+  "forwarderAddress": "0xc3a80Ca6D79137f79393f4478c40A09270Ae4B61"
+ },
+ {
+  "id": "bHarvest",
+  "website": "https://bharvest.io",
+  "name": "B Harvest",
+  "status": "active",
+  "nodeAddress": [
+   "0x51FAfb35f31C434066267fc86EA24D8424115d2a"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "bHarvest Polygon Mainnet OCR",
+    "nodeAddress": "0x51FAfb35f31C434066267fc86EA24D8424115d2a",
+    "publicKey": "b75821df62abafe7ccfb572d2db8580a319b8b0dc70f396ad5ce29d28f4d7656"
+   }
+  ],
+  "peerId": [
+   "12D3KooWLsfLTivseyJftNyURVoT9X7grNZB3hJ2q3Yp3AQxYtiT"
+  ],
+  "ocr2ConfigPublicKey": [
+   "ocr2cfg_evm_1b9e1c1338a17b29a75bf059c853dd34b6c19752ce840f1a98074f91b0cbaa3e"
+  ],
+  "ocr2OffchainPublicKey": [
+   "ocr2off_evm_bcdd4e0f4a1a424f9339dd989fd20f5dc53bbb347afa4e80b71b2ce766863875"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_b13dd3b4ce524f0fc42e56455ee4840479aacfe9"
+  ],
+  "forwardingEnabled": true,
+  "forwarderAddress": "0x2dDBFC05D324d4F424E451aA66069b995836333d"
+ },
+ {
+  "id": "blocksizeCapital",
+  "website": "",
+  "name": "Blocksize",
+  "status": "active",
+  "nodeAddress": [
+   "0x4Da725FE670aD0610e06378b9B91F4f0a2a74128"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "BlocksizeCapital Polygon Mainnet OCR",
+    "nodeAddress": "0x4Da725FE670aD0610e06378b9B91F4f0a2a74128",
+    "publicKey": "ac0c50209c710432ce0398f7c5b4e86a280ce5c95d0f7516854d8f067c888653"
+   }
+  ],
+  "peerId": [
+   "12D3KooWA3YtP3DMmaSKRQJp9tMCXWiee1e25CeChEnwFEtS9LGY"
+  ],
+  "ocr2ConfigPublicKey": [
+   "ocr2cfg_evm_2d37bb0d2c829c59c2f35efb332b0847ae768292c2847bd5d7d514f4461bd570"
+  ],
+  "ocr2OffchainPublicKey": [
+   "ocr2off_evm_a828180bb3f0e9adb8964856a9966ac0233fb8470a52d15ea720ba0bd3a98fb4"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_c7abd11e587f0002e140d83adeded0a4ed690984"
+  ],
+  "forwardingEnabled": true,
+  "forwarderAddress": "0x4E267769bf42465d79F5c6AeeFcDE4FE672664e7"
+ },
+ {
+  "id": "chainlayer",
+  "website": "",
+  "name": "Chainlayer",
+  "status": "active",
+  "nodeAddress": [
+   "0x7537cB7b7E8083ff8E68cb5c0cA18553Ab54946f"
+  ],
+  "oracleAddress": "0x029f42dD5df2eD7B8EA84c271B205d99183227a6",
+  "csaKeys": [
+   {
+    "nodeName": "Chainlayer Polygon Mainnet OCR",
+    "nodeAddress": "0x7537cB7b7E8083ff8E68cb5c0cA18553Ab54946f",
+    "publicKey": "de53bfc9d2dfaf1dce984c9869d36f14f1c1ffed1b8103acc5fde05417cb704c"
+   }
+  ],
+  "peerId": [
+   "12D3KooWDsazW5iyVGDMKN4SDpNSt3yMCSsGApEVrdBW2zgxBuRt"
+  ],
+  "ocr2ConfigPublicKey": [
+   "ocr2cfg_evm_3e4d44ae654bf4f75392a6d5d9416f597a57e8533afb99ed1e53d5d2461a3300"
+  ],
+  "ocr2OffchainPublicKey": [
+   "ocr2off_evm_11502a13cf42cde1e5f0fa0c15243e8aa64d4479f7ff26f9e9af55b2fd39c1f1"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_9a92ba5e16fad45703978440c66b0b3c0818131a"
+  ],
+  "forwardingEnabled": true,
+  "forwarderAddress": "0xDCdF1E4726731e75aA0AE7C47fd01209760c7A62"
+ },
+ {
+  "id": "clcp-ocr-auto-matic-mainnet-nodes-0",
+  "website": "",
+  "name": "Matic Mainnet Public OCR2 Node 0",
+  "status": "active",
+  "nodeAddress": [
+   "0x51e3c4a61FB85f89F60636928dC5f43A8DB93191"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Matic Mainnet Public OCR2 Node 0",
+    "nodeAddress": "0x51e3c4a61FB85f89F60636928dC5f43A8DB93191",
+    "publicKey": "af37928b94bca5ee4981d1a23ac4e1d9a9689687c007c1d5747acdc645907475"
+   }
+  ],
+  "payeeAddress": "0xcD4A1A3a68cB76A366De48336820e209F9ab3140",
+  "peerId": [
+   "12D3KooWHY4XjT6XybWQtGADws5LKqFmFBZ23cf35NJKyqc4PrtA"
+  ],
+  "ocr2Id": [
+   "2b10b3730b47980c4200a328f1640ffb3b10a6b7d7737f0900d4e1c84cf6c117"
+  ],
+  "ocr2ConfigPublicKey": [
+   "ocr2cfg_evm_3c8ec0e4c8b302aa261f0103680b50f04a262ea1c7224da961007a2e2dee4856"
+  ],
+  "ocr2OffchainPublicKey": [
+   "ocr2off_evm_67f445fbf38be1e5e5bc6036958360d53c578c4af6d8a6e6751dbf8d49ef77e2"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_98210d3439016fceb0d6e140686b25a8c95c6487"
+  ]
+ },
+ {
+  "id": "clcp-ocr-auto-matic-mainnet-nodes-1",
+  "website": "",
+  "name": "Matic Mainnet Public OCR2 Node 1",
+  "status": "active",
+  "nodeAddress": [
+   "0xD68e46D0D105FF501670AA63D9234676caf5833B"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Matic Mainnet Public OCR2 Node 1",
+    "nodeAddress": "0xD68e46D0D105FF501670AA63D9234676caf5833B",
+    "publicKey": "5f9b4388f47111ba2a26fc184855e2272cfe2cd9025549b853da74f12810c460"
+   }
+  ],
+  "payeeAddress": "0xcD4A1A3a68cB76A366De48336820e209F9ab3140",
+  "peerId": [
+   "12D3KooWFkU2veyauc49XqRKpzv5S1PcrYLsejoYmujb757EcfeT"
+  ],
+  "ocr2Id": [
+   "337f7b82eb52a3731fa4e8a81c1d64e030fd2a262e71e8db7e0436fa7b1bf084"
+  ],
+  "ocr2ConfigPublicKey": [
+   "ocr2cfg_evm_50d0680c9fc4ce58697a168128f9bb9ccfbebb3af6dc31b91a56b897567dbf38"
+  ],
+  "ocr2OffchainPublicKey": [
+   "ocr2off_evm_4576c12d103fc81cb391177475478f6cf90eac27bf5fae66da85b390aa56a3f9"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_29770630e71b8b7996c63a01ab14835713b31b5f"
+  ]
+ },
+ {
+  "id": "dexTrac",
+  "website": "",
+  "name": "DexTrac",
+  "status": "active",
+  "nodeAddress": [
+   "0x7BF377f69Da0E46Da1502D5F2bcf9fB00c3B610b"
+  ],
+  "oracleAddress": "0x2f060C4352AcF5bE60B899A35EcEa698c57b8910",
+  "csaKeys": [
+   {
+    "nodeName": "DexTrac Polygon Mainnet OCR",
+    "nodeAddress": "0x7BF377f69Da0E46Da1502D5F2bcf9fB00c3B610b",
+    "publicKey": "83c0de9d79ca4fe88396fdde603de01cd366a049e7d8b27a26d20148dda90c3e"
+   }
+  ],
+  "peerId": [
+   "12D3KooWBhWv3JK8mX6SBX1QD6kZGZTBNT7WESoBYkcrsh2Kc7Pb"
+  ],
+  "ocr2ConfigPublicKey": [
+   "ocr2cfg_evm_ace0740e733289b3cfeebbb92cf982dd7a46edeedbe73425c602530b9a4e5205"
+  ],
+  "ocr2OffchainPublicKey": [
+   "ocr2off_evm_515829609852b5f209c73e76b7f881205e97dc8bc1b9d87a1a11aea81a0f601c"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_1d39d486bb4a08f48c53dd410cb592696d683d97"
+  ],
+  "forwardingEnabled": true,
+  "forwarderAddress": "0xda77ba7e291084D2222F33d6a8DD8167d21dC2CC"
+ },
+ {
+  "id": "fiews",
+  "website": "",
+  "name": "Fiews",
+  "status": "active",
+  "nodeAddress": [
+   "0x550365027554bD20D750f9361e460C7428ffBd75"
+  ],
+  "oracleAddress": "0xc26Cc2C9fB5f136bC54fe015Cea489Fed676feA6",
+  "csaKeys": [
+   {
+    "nodeName": "Fiews Polygon Mainnet OCR",
+    "nodeAddress": "0x550365027554bD20D750f9361e460C7428ffBd75",
+    "publicKey": "54f0aa64d58fbb5bfec4afe96a6d1829c083157af12c250bc79303d1b15bb465"
+   }
+  ],
+  "peerId": [
+   "12D3KooWEG2yY9UFyhTZM9Hsfi9tLAn6ucHwME3w7cXyHLkmq6jV"
+  ],
+  "ocr2ConfigPublicKey": [
+   "ocr2cfg_evm_d8c33136f7bc2979ea6c2bbbf060986395262d1124a29f35e00d43a6bd5cfd22"
+  ],
+  "ocr2OffchainPublicKey": [
+   "ocr2off_evm_91e1784c852bb7be978709d252edb81a38374292bb0557d90e17d3d4f8e6ffcd"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_30b52849cd27e7494f20bd11bab9ad2595e88b0b"
+  ],
+  "forwardingEnabled": true,
+  "forwarderAddress": "0xf5Bf6c43c3d90139860867A0e1bBbEB528E72120"
+ },
+ {
+  "id": "galaxy",
+  "website": "",
+  "name": "Galaxy",
+  "status": "active",
+  "nodeAddress": [
+   "0xE6c27255Fbb9d3a9718Fb5E2DC313Cd6EbA10b78"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Galaxy Polygon Mainnet OCR",
+    "nodeAddress": "0xE6c27255Fbb9d3a9718Fb5E2DC313Cd6EbA10b78",
+    "publicKey": "00935bd0af50879bcc2ebb0d73c0ccb36b24b8c387c0a10f0e7585b75af26645"
+   }
+  ],
+  "payeeAddress": "0x9Ad6699beD1725b49676AEeFeFD2B50800206bE1",
+  "peerId": [
+   "12D3KooWGHo71hVrWV29cT23tfuqMjz4pSDPzsKekZDEQGK7Y3F4"
+  ],
+  "ocr2ConfigPublicKey": [
+   "ocr2cfg_evm_bfce5234c4d3938ad424ee0ffe292b72a71e79e4e2946197a244a10739993f30"
+  ],
+  "ocr2OffchainPublicKey": [
+   "ocr2off_evm_d48d42f97a8bd52b64289203359aa1cb0f10c894ea29347200ef8816eda99a01"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_82494fb945cbd656e526a29adf9461dcbd532bee"
+  ],
+  "forwardingEnabled": true,
+  "forwarderAddress": "0x0A2D3933315c79C29Cee4E102c72ee67B140Fd3F"
+ },
+ {
+  "id": "inotel",
+  "website": "",
+  "name": "Inotel",
+  "status": "active",
+  "nodeAddress": [
+   "0x52Add4435c81a4e0fB2eC494966863e48BF9302E"
+  ],
+  "oracleAddress": "0xE614C50da365F245C9Bf563cc92A628975448aB4",
+  "csaKeys": [
+   {
+    "nodeName": "Inotel Polygon Mainnet OCR",
+    "nodeAddress": "0x52Add4435c81a4e0fB2eC494966863e48BF9302E",
+    "publicKey": "f92b82c08bc3caa90fc0b48da48a17171a71d0e79bc9aa66cdcd5ba8d3b061cb"
+   }
+  ],
+  "payeeAddress": "0xdD831352762e9de7ad5a264990e1bB9F87A6Fc21",
+  "peerId": [
+   "12D3KooWEPQ298y2eDbJZd4yEGaNwNhAXbPDBi9AKe8Pg9TH1bWs"
+  ],
+  "ocr2ConfigPublicKey": [
+   "ocr2cfg_evm_f525513f2df2fd6a2cd580b228bf42a1d748af8c64e236af468085bc1bccca2a"
+  ],
+  "ocr2OffchainPublicKey": [
+   "ocr2off_evm_34faa0683dc5a7cff2cd651db228906f64906882192d8733124e9a48180872da"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_34247112f72a910ca10ee576d4ebeb88caa623ce"
+  ],
+  "forwardingEnabled": true,
+  "forwarderAddress": "0x66896306B18117f4E04573D2210a49EDD80513B1"
+ },
+ {
+  "id": "linkForest",
+  "website": "",
+  "name": "LinkForest",
+  "status": "active",
+  "nodeAddress": [
+   "0x250ABd1D4EBC8e70a4981677D5525f827660bDE4"
+  ],
+  "oracleAddress": "0x591b78E79dF82B971D8387d9b0c3bB74185abA68",
+  "csaKeys": [
+   {
+    "nodeName": "LinkForest Polygon Mainnet OCR",
+    "nodeAddress": "0x250ABd1D4EBC8e70a4981677D5525f827660bDE4",
+    "publicKey": "c6a3a51d4d6e8a34f778ea42b5124902ff3c798fde9b128df88e60f33468cd32"
+   }
+  ],
+  "peerId": [
+   "12D3KooWQGWeh12hgCPj1S5FFzBrePyCgcY1DhfvusHGdmEQHsE6"
+  ],
+  "ocr2ConfigPublicKey": [
+   "ocr2cfg_evm_2da8e7066615ce4f2bf8cc74f896403cafd80971c5df1eb86d2de3dcf9867627"
+  ],
+  "ocr2OffchainPublicKey": [
+   "ocr2off_evm_39ac15355dced94f19b03e10d7478b473af1a07e728ef8fa8c6332a1ab5db6b8"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_414bb1d36bb48efce453c9ee9f51450555d26cf0"
+  ],
+  "forwardingEnabled": true,
+  "forwarderAddress": "0x43B5Ed824B75C03A3B975e489a1Bd3177cD10074"
+ },
+ {
+  "id": "linkPool",
+  "website": "",
+  "name": "LinkPool",
+  "status": "active",
+  "nodeAddress": [
+   "0xa1ab1c841898Fe94900d00d9312ba954e4F81501"
+  ],
+  "oracleAddress": "0x63B72AF260E8b40A7b89E238FeB53448A97b03D2",
+  "csaKeys": [
+   {
+    "nodeName": "LinkPool Polygon Mainnet OCR",
+    "nodeAddress": "0xa1ab1c841898Fe94900d00d9312ba954e4F81501",
+    "publicKey": "79e100298b3312d252333d0dc5e06569e35284396dc244e5a7886cdeb57d5dd1"
+   }
+  ],
+  "payeeAddress": "0xDF812B91D8bf6DF698BFD1D8047839479Ba63420",
+  "peerId": [
+   "12D3KooWPtpye4GejRFP5MrATLfaqn266r3vQwbLPc1QVkJ2JWQA"
+  ],
+  "ocr2ConfigPublicKey": [
+   "ocr2cfg_evm_b1d1e4126f550447fda68cd88835549c6c89e9b24be872bd76bc69f52310301a"
+  ],
+  "ocr2OffchainPublicKey": [
+   "ocr2off_evm_0770568733400904cee1ff47cae79898616a268afb295e7016a979a16835516a"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_f8f33d98b013f04df060f3b6b70da16078af47d0"
+  ],
+  "forwardingEnabled": true,
+  "forwarderAddress": "0x78C7933ee38FE8B204199CF0df0e8A1cc0a7ED30"
+ },
+ {
+  "id": "linkRiver",
+  "website": "https://linkriver.io/",
+  "name": "LinkRiver",
+  "status": "active",
+  "nodeAddress": [
+   "0x8eD47843e5030b6F06e6F204Fcf2725378BB837a"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "LinkRiver Polygon Mainnet OCR",
+    "nodeAddress": "0x8eD47843e5030b6F06e6F204Fcf2725378BB837a",
+    "publicKey": "0ddc18a6dd57ca46066dc9b3ebdbe48e8f58316e14e0da00c3683b54f463812e"
+   }
+  ],
+  "peerId": [
+   "12D3KooWQmfJMjVyW1j3DbqqGbdVsVzDwcTSjifVLVgGnjHPb4L8"
+  ],
+  "ocr2ConfigPublicKey": [
+   "ocr2cfg_evm_09ed3e0e0d8bf8c953a5f4295df802f101f0fcdfe79cc29e759fa8aca2ba7737"
+  ],
+  "ocr2OffchainPublicKey": [
+   "ocr2off_evm_f291408cf43aa2988390784fdd1ae5c908540ca08f0e947180f74469fd911030"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_aa0169191a0dd08bb221a41cc5d41cc16d52887d"
+  ],
+  "forwardingEnabled": true,
+  "forwarderAddress": "0x9a2F128Eb33F90514bfB5094604FaA43d251C06E"
+ },
+ {
+  "id": "matrixedLink",
+  "website": "https://matrixedlink.io/",
+  "name": "Matrixed.Link",
+  "status": "active",
+  "nodeAddress": [
+   "0x5543FF441d3B0fCce59Aa08eb52f15d27294AF21"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "MatrixedLink Polygon Mainnet OCR",
+    "nodeAddress": "0x5543FF441d3B0fCce59Aa08eb52f15d27294AF21",
+    "publicKey": "d6c560298503736d13e2751b56bdbd67fab13b07e93f41f13414e0b8ae176743"
+   }
+  ],
+  "peerId": [
+   "12D3KooWR5gReH2QNhgDgVxGPcZX2fFVD1YDGnPguY73KpEZ8mAZ"
+  ],
+  "ocr2ConfigPublicKey": [
+   "ocr2cfg_evm_9790c810f07e9b9724b77cf2c25842974777e7f35bc8d4028f68acb2df62784b"
+  ],
+  "ocr2OffchainPublicKey": [
+   "ocr2off_evm_9846371e0578823aaf52ac0a7593c14766292f80b6d517ab787f7fffa009a472"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_d92ab5725f78fd80d20a2e4d9ac817f93c62c445"
+  ],
+  "forwardingEnabled": true,
+  "forwarderAddress": "0xBF0A635231Ff145B1dA57961e48F7490fe6B2dF5"
+ },
+ {
+  "id": "newRoad",
+  "website": "https://newroad.network",
+  "name": "Newroad Network",
+  "status": "active",
+  "nodeAddress": [
+   "0x983D0e1d23D3109D15e833fB800A51ba154DEfD3"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "NewRoad Polygon Mainnet OCR",
+    "nodeAddress": "0x983D0e1d23D3109D15e833fB800A51ba154DEfD3",
+    "publicKey": "5f6e95d8ae116309ba587ae7c5aed21e9e4c53e4c09c7b2c3964b52327c24fce"
+   }
+  ],
+  "peerId": [
+   "12D3KooWLCsMUXa1Qhx8dAoXheeTsXA7kQFfZZtJkiNnZnE5XHDb"
+  ],
+  "ocr2ConfigPublicKey": [
+   "ocr2cfg_evm_eb2cc1bbbf9c6a9c6097cc02926e8b9ec9b3d1a10b5a87bcf6a4e67a4ccd5525"
+  ],
+  "ocr2OffchainPublicKey": [
+   "ocr2off_evm_2e78b836ee76fc4dca291059524ca2c0c69b55d88a25e61b9cf2831aa1da5a6a"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_33e00bd9d1ab33a327fe2c3c245abaec1ede2154"
+  ],
+  "forwardingEnabled": true,
+  "forwarderAddress": "0xB37E254A5c0AE7EB0a479B15ad86dF566802D20c"
+ },
+ {
+  "id": "pierTwo",
+  "website": "",
+  "name": "Pier Two",
+  "status": "active",
+  "nodeAddress": [
+   "0x9d4a1db33ADC21E1Ddfb092ffBF676d1b43BD72a"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Pier Two Polygon Mainnet OCR",
+    "nodeAddress": "0x9d4a1db33ADC21E1Ddfb092ffBF676d1b43BD72a",
+    "publicKey": "72558df5d87a207ef97198c7d668834c11c19b0d03dac3409f2879711806b1a0"
+   }
+  ],
+  "peerId": [
+   "12D3KooWCrBL5DrLkpi3iEr8sbqFASzSDXSKsNXFoASMGh1kwYoS"
+  ],
+  "ocr2ConfigPublicKey": [
+   "ocr2cfg_evm_5b82da5655e161f02778c47fba86dfa4d68ffdf7ad9af9ead6cf45cb09791223"
+  ],
+  "ocr2OffchainPublicKey": [
+   "ocr2off_evm_1955391cc8b74122a04f9352f58a70bf5f03508f3cd0e3b979c6fa47365c9110"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_7f7346cac03f45c477b4a1b6c783bcad8bc29d80"
+  ],
+  "forwardingEnabled": true,
+  "forwarderAddress": "0xb8c371FE8c366eD9f627932c7B9f369957B45051"
+ },
+ {
+  "id": "simplyVC",
+  "website": "",
+  "name": "Simply VC",
+  "status": "active",
+  "nodeAddress": [
+   "0x777Ad55EFc465052d6A4AB7bc75B6A15175bB399"
+  ],
+  "oracleAddress": "0xcaAaB5d8ba733066B4fC0cc0A4002aFEd19051DA",
+  "csaKeys": [
+   {
+    "nodeName": "SimplyVC Polygon Mainnet OCR",
+    "nodeAddress": "0x777Ad55EFc465052d6A4AB7bc75B6A15175bB399",
+    "publicKey": "7268afbb114ab692e711d3fd57567cd54be4d0c50e9d65ab5486ab3352f531be"
+   }
+  ],
+  "payeeAddress": "0xF4aa5cbd16071916b2955c9aa9296F5216866Dc8",
+  "peerId": [
+   "12D3KooWSXv275PmZMthWJXLZAjqpk7yDP9dtNEcP9R3mcGEFGnq"
+  ],
+  "ocr2ConfigPublicKey": [
+   "ocr2cfg_evm_7f6e2756550d567d2cb51e87be9e683c09d68debd91274021e52f66d2791c905"
+  ],
+  "ocr2OffchainPublicKey": [
+   "ocr2off_evm_9c3552de0b69e371c60c10de3dc9aac1dfbef5d913ee0f98f22b41ae0a7f5d58"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_7aa5f302945587567f37a8ac3660ec29460a53d3"
+  ],
+  "forwardingEnabled": true,
+  "forwarderAddress": "0xc08c942015d149dA17C1ef15128f3Ca49eebe809"
+ },
+ {
+  "id": "snzPool",
+  "website": "",
+  "name": "SNZPool",
+  "status": "active",
+  "nodeAddress": [
+   "0x84A611B71254F5fCCb1E5a619aD723CAD8a03638"
+  ],
+  "oracleAddress": "0x2A1e8f32cBeF0d987060DF7582A16447f947AaA9",
+  "csaKeys": [
+   {
+    "nodeName": "SnzPool Polygon Mainnet OCR",
+    "nodeAddress": "0x84A611B71254F5fCCb1E5a619aD723CAD8a03638",
+    "publicKey": "86a8cec36d24831e270bc05c5ca5752855c5201f1b7530a58b9526ee5c38008c"
+   }
+  ],
+  "peerId": [
+   "12D3KooWBbEbYQMtCkRx2n3puomEQVMV5iQkjq6kbuxiUoWbXbzH"
+  ],
+  "ocr2ConfigPublicKey": [
+   "ocr2cfg_evm_42aaabbde17bd957bb232957e463676aea6cea8f635e601fe4d52a4c8175667a"
+  ],
+  "ocr2OffchainPublicKey": [
+   "ocr2off_evm_897e3bb131d427a33286d07d08cd473f1f6996a52af3ca6fe21564bfa5859763"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_a2ab4db83f0388ea34a364dba33edb7366f61639"
+  ],
+  "forwardingEnabled": true,
+  "forwarderAddress": "0x97730d7BdB2260223A4bAC7d72EE67fFe8840433"
+ },
+ {
+  "id": "stakingFacilities",
+  "website": "",
+  "name": "Staking Facilities",
+  "status": "active",
+  "nodeAddress": [
+   "0x7ba865F70E32C9f46f67E33FE06139c8C31a2fAd"
+  ],
+  "oracleAddress": "0x58f675fec082499a52ea1a48e66d058096a3EBd5",
+  "csaKeys": [
+   {
+    "nodeName": "StakingFacilities Polygon Mainnet OCR",
+    "nodeAddress": "0x7ba865F70E32C9f46f67E33FE06139c8C31a2fAd",
+    "publicKey": "e28b8390244f77532237a58c28f7b1dbd263f72fd52ca16d152d69a4627a956f"
+   }
+  ],
+  "peerId": [
+   "12D3KooWPrjFaN45Ls7BLT7P8KbGNhsUY37gofAuYW3oJwyWehA2"
+  ],
+  "ocr2ConfigPublicKey": [
+   "ocr2cfg_evm_2acee9ea71fb77961bc451fc91000b5243e962291cdf4d975b4d78e66634ce29"
+  ],
+  "ocr2OffchainPublicKey": [
+   "ocr2off_evm_4ad779a4ab07f226e0321dadf45996a6223b9fd7d2014a05c9f907208b4b1ddb"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_7ceb3304682086b72f010c712775d5d07c767b10"
+  ],
+  "forwardingEnabled": true,
+  "forwarderAddress": "0x488851E2975AC274F3fF85f51E64a6bF9ec52478"
+ },
+ {
+  "id": "temp-ccip-clf",
+  "website": "",
+  "name": "clf",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": null
+ },
+ {
+  "id": "temp-ccip-dexTrac",
+  "website": "",
+  "name": "DexTrac",
+  "status": "active",
+  "nodeAddress": [
+   "0x577071e8cb406BB1643adde495AD04E926BbD35f"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "DexTrac",
+    "nodeAddress": "0x577071e8cb406BB1643adde495AD04E926BbD35f",
+    "publicKey": "c2617b2a413ecdb8142bacfef52845261a402b5d8460dd4a13d1d30d2c2e5bf2"
+   }
+  ],
+  "payeeAddress": "0x9efa0A617C0552F1558c95993aA8b8A68b3e709C",
+  "peerId": [
+   "12D3KooWEdpCtL2eNrNhJNuGNMVxhzcxrVoVMUXtGox65kWakbcF"
+  ],
+  "ocr2Id": [
+   "f293ecf54212f0a6b5a7f5db6d091a8cb8b1528a7a8d98e1eab184e82a5e9d69"
+  ],
+  "ocr2ConfigPublicKey": [
+   "58e518f810b6fbca5f6391cd3643c2cfe94a47c3594e6357a8192ba1563d7e49"
+  ],
+  "ocr2OffchainPublicKey": [
+   "6905bfb23083506ce40b28a5683f09a14eabfef74f65237da798f08f2af4ae4f"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_c4fd363861673327bacfa1aee04b9a991459a1d2"
+  ]
+ },
+ {
+  "id": "temp-ccip-fiews",
+  "website": "",
+  "name": "Fiews",
+  "status": "active",
+  "nodeAddress": [
+   "0x68Df61A58BEb7f38979DDef92577B641Fc1cF93c"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Fiews",
+    "nodeAddress": "0x68Df61A58BEb7f38979DDef92577B641Fc1cF93c",
+    "publicKey": "cde24d49c3960b3edbb2942335011fff4757c9198cbf75eb158c5b7299c54092"
+   }
+  ],
+  "payeeAddress": "0x15918ff7f6C44592C81d999B442956B07D26CC44",
+  "peerId": [
+   "12D3KooWLYR7HHNrQVqeQKEzN3P3tn8HKxQGnMY2CkEYpNQpWURy"
+  ],
+  "ocr2Id": [
+   "d4cd7eac37cf12655db802b2c03e66115fc63e7c251af7143bf4eca3099b21b3"
+  ],
+  "ocr2ConfigPublicKey": [
+   "5ad468a6659d43c887c1729474898fae73a1ed950bf15cc74e13a4327d63dd23"
+  ],
+  "ocr2OffchainPublicKey": [
+   "26e1e628541a1ed60ac2e39c252708ead987ee74ec1665d776c2c8c09cdc23a5"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_9ca9809476be48b7a700d50b3d10a98d993dd8a5"
+  ]
+ },
+ {
+  "id": "temp-ccip-galaxy",
+  "website": "",
+  "name": "Galaxy",
+  "status": "active",
+  "nodeAddress": [
+   "0x2a8213afA1C17b56FFD4E74bc9B8a6a501c2Ca59"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Galaxy",
+    "nodeAddress": "0x2a8213afA1C17b56FFD4E74bc9B8a6a501c2Ca59",
+    "publicKey": "f76c8197b5ad265bf449ba5dc0f0260deb3a35be062b472081845eb3e15f2b2f"
+   }
+  ],
+  "payeeAddress": "0x59eCf48345A221E0731E785ED79eD40d0A94E2A5",
+  "peerId": [
+   "12D3KooWKpZk4VmiUhWfxkeMyfSWska8uD63DiLqCJHPC4e7d9fg"
+  ],
+  "ocr2Id": [
+   "e0fa50c944e8a9ba0e663540f46a730c68438b96a65bdd4f37f7ce13c1a02bf7"
+  ],
+  "ocr2ConfigPublicKey": [
+   "d3a01961961508292643dd91e281b81f1e51a640bf71db47ff250f57fc7aa522"
+  ],
+  "ocr2OffchainPublicKey": [
+   "6c0815af773006869e922b6bba15f9c1d5e3af05b9bddafbd57b131abd517f20"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_08eaee68e44caae09aa94367181470d92946310e"
+  ]
+ },
+ {
+  "id": "temp-ccip-kytzu",
+  "website": "",
+  "name": "Kytzu",
+  "status": "active",
+  "nodeAddress": [
+   "0x9E604B15222f16B3A009a6cc9101630D09307aE8"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Kytzu",
+    "nodeAddress": "0x9E604B15222f16B3A009a6cc9101630D09307aE8",
+    "publicKey": "601955eaddbc56f15370418f935803b779cb790ed9e4d136a0057262f21e9925"
+   }
+  ],
+  "payeeAddress": "0x001E0d294383d5b4136476648aCc8D04a6461Ae3",
+  "peerId": [
+   "12D3KooWEsYrq5Kkntknp1ktfFdpLwvQStvrZCEoQZ96nrn1rNRx"
+  ],
+  "ocr2Id": [
+   "c9ddb24d762fe2cc11097e25580f382a663b4eee2c3a705b25892b769ece6089"
+  ],
+  "ocr2ConfigPublicKey": [
+   "9f3ff8c4c6882713cf14673b36cdbcb0cfc16e4b027a3691362473ac4f232a59"
+  ],
+  "ocr2OffchainPublicKey": [
+   "0aabd47efdba67f9a862654ceddcd68d7bfb3857fe546a269658a0da2ea42e58"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_7a3c53356ae7797284b3c8dac27115015a8744bc"
+  ]
+ },
+ {
+  "id": "temp-ccip-linkForest",
+  "website": "",
+  "name": "LinkForest",
+  "status": "active",
+  "nodeAddress": [
+   "0xEc1E746DD5F4FadDE8234C4BD6163802f504e000"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "LinkForest",
+    "nodeAddress": "0xEc1E746DD5F4FadDE8234C4BD6163802f504e000",
+    "publicKey": "84a432173982dc7eb07034354b491d23c3a16d09d1253f27a37df31778b6b985"
+   }
+  ],
+  "payeeAddress": "0x4564A9c6061f6f1F2Eadb954B1b3C241D2DC984e",
+  "peerId": [
+   "12D3KooWFTDW37Bo25J2ZHyUiTyiruWqzW5ALRQ4BeNc1GFtzhgb"
+  ],
+  "ocr2Id": [
+   "0d2a659fbdaff2a6d9ca36a6fdb9244046e0a87edb20b00544090aa4ede587b1"
+  ],
+  "ocr2ConfigPublicKey": [
+   "ce2078b1348c7676f731a90b69cd18c232737a1d1fb3943a1eff147ac3962813"
+  ],
+  "ocr2OffchainPublicKey": [
+   "861ee0fea458561fc3ec7c13c2695416ba39483b49f438677332d41d73f68efe"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_e24ed7652ba5bfa1b3e8caed4bf6065b93b734a6"
+  ]
+ },
+ {
+  "id": "temp-ccip-linkPool",
+  "website": "",
+  "name": "LinkPool",
+  "status": "active",
+  "nodeAddress": [
+   "0x0B996B8C217F8fd087B8C1e6231ac99f43Cd2115"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "LinkPool",
+    "nodeAddress": "0x0B996B8C217F8fd087B8C1e6231ac99f43Cd2115",
+    "publicKey": "9ebd6523eb5668e01efc577d777314f29bef329105909d583b9f76c2247276fc"
+   }
+  ],
+  "payeeAddress": "0xDF812B91D8bf6DF698BFD1D8047839479Ba63420",
+  "peerId": [
+   "12D3KooWHveZoFUrHuJHQPyziCiqJLDvnXFd9C5C5pZ3kPt6Y2M4"
+  ],
+  "ocr2Id": [
+   "3bd0217ac5723e2df463aae8eafe1d1ef2374588a62e53a30a31aa33284925e1"
+  ],
+  "ocr2ConfigPublicKey": [
+   "e86900dda57b0b3f2c17140b9e0180336d9f961c34a5da4be697fc4d5674d434"
+  ],
+  "ocr2OffchainPublicKey": [
+   "2efb51a69e2ebbfa14744d3607023d10bc48f84d562dde96a5f290b2058d3768"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_41fa7e165f7ad96fec5eeb2a715d18dd9a4681d3"
+  ]
+ },
+ {
+  "id": "temp-ccip-linkRiver",
+  "website": "",
+  "name": "LinkRiver",
+  "status": "active",
+  "nodeAddress": [
+   "0x814cdA4aA8A5E2c83dF5eB66970695a9CAA373C9"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "LinkRiver",
+    "nodeAddress": "0x814cdA4aA8A5E2c83dF5eB66970695a9CAA373C9",
+    "publicKey": "c92445b2ad505280d1b91b20b08ffe50fb35e658ff78935cc2789cfaee14133a"
+   }
+  ],
+  "payeeAddress": "0x14f94049397C3F1807c45B6f854Cb5F36bC4393B",
+  "peerId": [
+   "12D3KooWC4tMNyFtUvBYB7N7WSQSCSPDWMJcErrBf4FHdpNpXKzW"
+  ],
+  "ocr2Id": [
+   "c7d0d5aba9d1a25c17c267a7003ec543558f45b9110ff8802a59af8f09298d59"
+  ],
+  "ocr2ConfigPublicKey": [
+   "48b69035116da58fb743649298acbddd6c27ef1b5d194d978873a83955e9362c"
+  ],
+  "ocr2OffchainPublicKey": [
+   "900bea3e9727b3921a715f8deb2ba32bf5bb89eb8314537658584cd2dc77373c"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_d29971a9eac66b42ba5b1472204c0bcca8e15c6e"
+  ]
+ },
+ {
+  "id": "temp-ccip-newRoad",
+  "website": "",
+  "name": "NewRoad",
+  "status": "active",
+  "nodeAddress": [
+   "0xf01C2Bc5bf3C9178aB5C1603D1041fb4389B0C7F"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "NewRoad",
+    "nodeAddress": "0xf01C2Bc5bf3C9178aB5C1603D1041fb4389B0C7F",
+    "publicKey": "6b563afe4df0e7dc31db55e91a2a45cf93ead0fc9c7ee31b0820728c389a6781"
+   }
+  ],
+  "payeeAddress": "0x670dBCf722ee66079DAB6456071e8d536eEC1463",
+  "peerId": [
+   "12D3KooWGomJ3qS3VHybc6smSmUCfms6M4tTvht1zjAyvx6aRurf"
+  ],
+  "ocr2Id": [
+   "26da5077f23ad045902e50347ce292e4bb87383cfe90e4590bf097b07f20e537"
+  ],
+  "ocr2ConfigPublicKey": [
+   "229d6093222e2d1422f603294c4a47178c1bb2e58009022917397a0b34fc8071"
+  ],
+  "ocr2OffchainPublicKey": [
+   "47009b01402ed998edaeded5d81d164687ef7d152aef04dcf84e19c3cede7ac6"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_a2b7c82d2b90a4e94f0c3027c0999e4f44f4cc9f"
+  ]
+ },
+ {
+  "id": "temp-ccip-northWestNodes",
+  "website": "",
+  "name": "NorthWestNodes",
+  "status": "active",
+  "nodeAddress": [
+   "0x9f94408A1d6ad2993671753ad42BaE8b1Add24D5"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "NorthWestNodes",
+    "nodeAddress": "0x9f94408A1d6ad2993671753ad42BaE8b1Add24D5",
+    "publicKey": "b4204cba6bbf0a234967507e47c42d5df7b2b1148ba89c2953165cbe726b678e"
+   }
+  ],
+  "payeeAddress": "0x0921E157b690c4F89F7C2a210cFd8bF3964F6776",
+  "peerId": [
+   "12D3KooWMLefyx8GmMDXqmLMAdpT6makHGvmzZwepHPWmVgUQQjW"
+  ],
+  "ocr2Id": [
+   "6bfe58b9d9a58cdeeb37d9617093df2c3a663fb54040ce78d2cc83a1552b62ae"
+  ],
+  "ocr2ConfigPublicKey": [
+   "041b28e824e40ccf76b8cd6bf0606d5d7c1758279b0c26fd80c8c0e0c919b366"
+  ],
+  "ocr2OffchainPublicKey": [
+   "bf9fedef15d525a8e43b1bb2a83a0ce5053148390395a0deece0ffa1b7b38036"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_fc0a7b612ce625c10debc660cd67452ebdbec207"
+  ]
+ },
+ {
+  "id": "temp-ccip-omniscience",
+  "website": "",
+  "name": "Omniscience",
+  "status": "active",
+  "nodeAddress": [
+   "0x25AdB1dd419b83235478594903b557cCa528A549"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Omniscience",
+    "nodeAddress": "0x25AdB1dd419b83235478594903b557cCa528A549",
+    "publicKey": "e423aa5bc0f1c011c9307c14fd51400e78d81ed3456124856f5a7d52d4a0a2a2"
+   }
+  ],
+  "payeeAddress": "0x6D837Ef25d10d26BDc8629E3390F2e7ff6261D99",
+  "peerId": [
+   "12D3KooWBxDjHksFmbJF97beBfDiYG8ZNygeY3DbmEgWuKLQrN71"
+  ],
+  "ocr2Id": [
+   "dfe234df79739c1b1485c23feb813c9cd6b04d0dc31bdeb5000b17ff8d91493a"
+  ],
+  "ocr2ConfigPublicKey": [
+   "5f7f3d6bcc7585008c4eb008ac97e0c819caf98b4a2c8433c90670667a4fb86b"
+  ],
+  "ocr2OffchainPublicKey": [
+   "7d765c3d5b1daa1250dda7cfe2d6596c9cc73ab7b8eadc09cf7f2649926f932f"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_b4a378c2a17f4b8d4767616b4469807223f27a26"
+  ]
+ },
+ {
+  "id": "temp-ccip-p2pOrg",
+  "website": "",
+  "name": "P2pOrg",
+  "status": "active",
+  "nodeAddress": [
+   "0x1E5bb4FfB55252A54294D2093d30f3671fFEE6B3"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "P2pOrg",
+    "nodeAddress": "0x1E5bb4FfB55252A54294D2093d30f3671fFEE6B3",
+    "publicKey": "589c889e0e340e1caf32ae799e6d9448dd02d85aefbab81af1887d36bdae53ca"
+   }
+  ],
+  "payeeAddress": "0xa06B89B08F038Aff4F81ce0A45c5aCb040477c3b",
+  "peerId": [
+   "12D3KooWCnvShYbszDzJpRwjgcdT7jfvjVLobmQ6H3KePtSTK4tp"
+  ],
+  "ocr2Id": [
+   "38239a3038a7a2008e5bbab16e7e4f155ab490f5686304519220e83a0ee1afa9"
+  ],
+  "ocr2ConfigPublicKey": [
+   "5914855190193386ddbf51fcc4ccdf533c5efc2da9d6338f037ec87557adeb1f"
+  ],
+  "ocr2OffchainPublicKey": [
+   "4e91877b9aab81c16785b0d5ad21d79c8e624b6aa43237bcdeef916df4d96c8d"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_cbf79800f67af0f5391d49b98c63ee4e3c976e2d"
+  ]
+ },
+ {
+  "id": "temp-ccip-pierTwo",
+  "website": "",
+  "name": "Pier Two",
+  "status": "active",
+  "nodeAddress": [
+   "0x5f99e976Da7CE1213E29e38726627F46b270A640"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Pier Two",
+    "nodeAddress": "0x5f99e976Da7CE1213E29e38726627F46b270A640",
+    "publicKey": "cd9262bf9643c5e6243e53c9fb4efa88fbca669b9e9c74e1d93d01bbb51a5175"
+   }
+  ],
+  "payeeAddress": "0x3FB4600736d306Ee2A89EdF0356D4272fb095768",
+  "peerId": [
+   "12D3KooWEsNv9tPSUmxSxbNDhs2rJGwdcQDTfEa6YrkUBy8upW5Y"
+  ],
+  "ocr2Id": [
+   "0875817b91813bf1d921bee64301d863763fbd4891964d034100cb677447ae47"
+  ],
+  "ocr2ConfigPublicKey": [
+   "aec5cd3d90e6fc458dba6990b2b8f5996253173ede55a8f1ba4ec8cc2ffe4d02"
+  ],
+  "ocr2OffchainPublicKey": [
+   "620d6d2446242de2ef971b7cdb54c6b9c7751e99a2d6ba7be4e6f9083186d640"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_f2c04359575b08f71629ca89e9085b2d2076e286"
+  ]
+ },
+ {
+  "id": "temp-ccip-prophet",
+  "website": "",
+  "name": "Prophet",
+  "status": "active",
+  "nodeAddress": [
+   "0x28D0D41d7c260b5110f9Ad4D4c67712EA0B0EDB3"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Prophet",
+    "nodeAddress": "0x28D0D41d7c260b5110f9Ad4D4c67712EA0B0EDB3",
+    "publicKey": "4c0ac92ec1af1a4007876dd6d7179bfda9c1b96c44d87641983b333dd45d4943"
+   }
+  ],
+  "payeeAddress": "0xCB3396Ee80F304f979d7305731ff9264d60298b3",
+  "peerId": [
+   "12D3KooWR8zefNNCSUYjT35SYRfY95ENjq5XKXN5uLNAZkUc5F7A"
+  ],
+  "ocr2Id": [
+   "18064bc4e1c619c4724d7e632c5a57be31ccbd915ae40c65c672034e9643a370"
+  ],
+  "ocr2ConfigPublicKey": [
+   "1a8e5ecddaa1faf1b8c380fc1db5638fd62568b6edc36bf6da5f5621f14cc33c"
+  ],
+  "ocr2OffchainPublicKey": [
+   "f1f66c1a7af0e6da0e7d437e5b21cf158e8df8a6c3362e95755185908bc6c6ea"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_a69d606205419f67a46d772c66cf685971d5ceed"
+  ]
+ },
+ {
+  "id": "temp-ccip-syncnode",
+  "website": "",
+  "name": "Syncnode",
+  "status": "active",
+  "nodeAddress": [
+   "0x5bf83a4944b59B8A163D546B3A57f5AaE7938ff1"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Syncnode",
+    "nodeAddress": "0x5bf83a4944b59B8A163D546B3A57f5AaE7938ff1",
+    "publicKey": "536d79bb9eb86d26ec9cb1fb4a01947656a2418d50c055b375239a889476caaa"
+   }
+  ],
+  "payeeAddress": "0xC51D3470693BC049809A1c515606124c7C75908d",
+  "peerId": [
+   "12D3KooWPszHGLaFwydr8dGZrjpJpV5nev1R2EWbhfkqPPuAndoH"
+  ],
+  "ocr2Id": [
+   "2e7a09121d421e525579496016938c929ee645153a645f53db4ba066f199cbbb"
+  ],
+  "ocr2ConfigPublicKey": [
+   "584a22c9de2e866adfb07ddf339f22012139d977eb289e286c950d8385c0d64f"
+  ],
+  "ocr2OffchainPublicKey": [
+   "6b7c2b27bd43c3b09fdd2656ab3d6ab3b91421a3d222b1bea8b590f7673ea5f7"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_58f94e05e34f9319627fafdb64bb01e8d590878c"
+  ]
+ },
+ {
+  "id": "temp-ccip-v2-dextrac",
+  "website": "",
+  "name": "dextrac",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Dextrac",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "504cb09337780e86ac6aa3e965768cf23ae3a29052b26e2a732a9148ed7dc232"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-v2-fiews",
+  "website": "",
+  "name": "fiews",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Fiews",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "4f4e9300febb94633f9c214ce6d47b900114dd6b3dd7d61b827dd1e36631812e"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-v2-galaxy",
+  "website": "",
+  "name": "galaxy",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Galaxy",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "f69a39b7ff26cd4b81bdfc8dc82e185c096d19e054b8a5faacde8803938b3ed6"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-v2-kytzu",
+  "website": "",
+  "name": "kytzu",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Kytzu",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "59204bf59bac8c55e072163ec780292a4c01b0b2c01d25c1a7d381e0341628a8"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-v2-linkforest",
+  "website": "",
+  "name": "linkforest",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Linkforest",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "f9a3ca256897f9caa4a5265785945e3e9aef968e90ab9371e54b2f31d7f707f8"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-v2-linkpool",
+  "website": "",
+  "name": "linkpool",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Linkpool",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "afb1e90ef6adbe32514b0a9a4af7c0e9ea87d15da055d730aa8f86ff735064a1"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-v2-linkriver",
+  "website": "",
+  "name": "linkriver",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Linkriver",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "8e9089bc948da82043229def0c6ca02f6bf730f0b4b7931a27ae8773498ff3df"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-v2-newroad",
+  "website": "",
+  "name": "newroad",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Newroad",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "6220f492738d3811ebfe14de7bdef2aa5b2d960b5a73f30017838d2288267940"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-v2-northwestnodes",
+  "website": "",
+  "name": "northwestnodes",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "NorthwestNodes",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "ba5488b0c6b7739c99d1708677966049b8e9a518e0d3e33017317d655df7efda"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-v2-omniscience",
+  "website": "",
+  "name": "omniscience",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Omniscience",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "ff9ec0181be5d97db74fef38e9dd1e7dc1b0f11aa14280b859748729f6eee59b"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-v2-p2p",
+  "website": "",
+  "name": "p2p",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "P2P",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "b1bc68eca962ef2812f49855146a6fd082454ae5877cbae34b62a4100b7da2fd"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-v2-piertwo",
+  "website": "",
+  "name": "piertwo",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Piertwo",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "206b247009517dc78bc0aa3c5c7eeac0c49b0bedd7cd3f6b601141a449824524"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-v2-prophet",
+  "website": "",
+  "name": "prophet",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Prophet",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "2194bd7cdf4316ed1511a1f73e5a0be4028756b530d4c526def23570b635325e"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-v2-syncnode",
+  "website": "",
+  "name": "syncnode",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Syncnode",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "6a43f75738b76cedbc370683f975a4f3831c2e6f6cfa688a0f24e8e81eaa503d"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-v2-validationcloud",
+  "website": "",
+  "name": "validationcloud",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "ValidationCloud",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "d1f3cf789b3a60ba8707433ae0ec28a31c6f8007abf9ed56277a289ba52f249d"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-v2-wetez",
+  "website": "",
+  "name": "wetez",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Wetez",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "b0267b8a2c2106fa96be52bd3b9bdda9f701ad62e250a3506bb3a3a394e1a096"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-validationCloud",
+  "website": "",
+  "name": "ValidationCloud",
+  "status": "active",
+  "nodeAddress": [
+   "0xB8395157BB560386148274540Df48D12cc5F9B78"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "ValidationCloud",
+    "nodeAddress": "0xB8395157BB560386148274540Df48D12cc5F9B78",
+    "publicKey": "759bbee3dc531a0f40610cc085da1bcbbf44ffa235bc9b3f82158f380fb6f418"
+   }
+  ],
+  "payeeAddress": "0x183A96629fF566e7AA8AfA38980Cd037EB40A59A",
+  "peerId": [
+   "12D3KooWMAXQM1Cz6ywYky1oTDfSLkuZL7Rh44ftmBMZEw3PZk7v"
+  ],
+  "ocr2Id": [
+   "0d77ce66cc4a409cc30e782b4915455cafc592c5c6ddfd5891601eaed219fa9f"
+  ],
+  "ocr2ConfigPublicKey": [
+   "df7931f9d55263314086093e349f0c8f073177a0ead0fa809f9dd764d7e20a5c"
+  ],
+  "ocr2OffchainPublicKey": [
+   "eef0fe68aee419076794c309073793a6f35ef3a1e497b79489688ad32f96764e"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_925f08725819ed7fa98269a92a7c14093c4395c5"
+  ]
+ },
+ {
+  "id": "temp-ccip-wetez",
+  "website": "",
+  "name": "Wetez",
+  "status": "active",
+  "nodeAddress": [
+   "0xB4c03485172079e82A6ed7DE3535d7d12E5e8D8F"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Wetez",
+    "nodeAddress": "0xB4c03485172079e82A6ed7DE3535d7d12E5e8D8F",
+    "publicKey": "f29b759185a814ed9ef4932771148cfbe1f53a017cfee8916e1c8ac79ca5c394"
+   }
+  ],
+  "payeeAddress": "0x9dc4573f23b87ad2ea1BB1Efc35c03eaE17194ba",
+  "peerId": [
+   "12D3KooWDv6TLb1KRcRAC8Hc3sP6WU7dvRhZyfFJ8kzMpjWq4JU7"
+  ],
+  "ocr2Id": [
+   "933fb01ac8f165217e0918218383986ed2e0e0bc6a370433c08e318d60203a02"
+  ],
+  "ocr2ConfigPublicKey": [
+   "f8926de50b758f788150e4142fdeba0ddad724743802537daa18540381715f6a"
+  ],
+  "ocr2OffchainPublicKey": [
+   "767aa537b34a3dedc81879af86bd53fa5988f011e61adbc6bc68992504a3244b"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_e79782642b9d6a9cc8a6619d30e27be1d761ba44"
+  ]
+ },
+ {
+  "id": "tiingo",
+  "website": "",
+  "name": "Tiingo",
+  "status": "active",
+  "nodeAddress": [
+   "0x564b7325ddFa733ebd08CeEE42B04f8c0D53A6EE"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Tiingo Polygon Mainnet OCR",
+    "nodeAddress": "0x564b7325ddFa733ebd08CeEE42B04f8c0D53A6EE",
+    "publicKey": "2e4d96fe29ec267ca7346960235b9366bf7043af4e4b146c0aa09f1e421214dc"
+   }
+  ],
+  "peerId": [
+   "12D3KooWMXXG6XKT8kQtYVJG9HK7zjHcqk7hEi93wkdH2U3H5gxE"
+  ],
+  "ocr2ConfigPublicKey": [
+   "ocr2cfg_evm_b4c23658d2f484f5056644421ebe95d37cc154e5c7cd69d7f0f0093ed3a7f34e"
+  ],
+  "ocr2OffchainPublicKey": [
+   "ocr2off_evm_f5b373ee731b4fe7fd7925cfae44e4c553f4b944630216f63a93f31e9c5fdb66"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_a41bfaac8e70cc7221524425fd38ed1a9f54b7d6"
+  ],
+  "forwardingEnabled": true,
+  "forwarderAddress": "0x0498e2c8F5e2f25006c143eB466038FbBEFE2e42"
+ },
+ {
+  "id": "vulcan",
+  "website": "https://vulcan.link",
+  "name": "Vulcan Link",
+  "status": "active",
+  "nodeAddress": [
+   "0x3Dd12EB5aE0F1A106fB358C8B99830ab5690a7a2"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Vulcan Polygon Mainnet OCR",
+    "nodeAddress": "0x3Dd12EB5aE0F1A106fB358C8B99830ab5690a7a2",
+    "publicKey": "2deda3857ab127829647fefde992c6f234a08eab01e5f2b416cf18afc01a7ca0"
+   }
+  ],
+  "peerId": [
+   "12D3KooWKEpjrKE8EhrX1zPxS4hHao3PNgx6ycnyPLpghxXhUP5G"
+  ],
+  "ocr2ConfigPublicKey": [
+   "ocr2cfg_evm_feba6fa14a2833964c5ce2eed610209dddba68bc0e6ad68492a9df98606c971f"
+  ],
+  "ocr2OffchainPublicKey": [
+   "ocr2off_evm_3bf141ee21732a79404ad0d86d6f2703bcd8b136b1b87dbbe06c5234bf808f17"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_50f86e51f412d405afea34f17e72a7b19f212c4f"
+  ],
+  "forwardingEnabled": true,
+  "forwarderAddress": "0x3F7ecb458433E07d3E40d35eC08024606A9db792"
+ }
+]
