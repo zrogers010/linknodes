@@ -31,7 +31,7 @@ def clear_cache():
 @pytest.fixture
 def mock_registry_with_mismatched_status():
     """Fixture providing a registry where baked status != computed status."""
-    # Feed with past shutdown but baked as 'active'
+    # Feed with future shutdown but baked as 'active' (should be 'deprecating')
     fake_registry = {
         "version": "3.0.0",
         "networks": {
@@ -40,14 +40,14 @@ def mock_registry_with_mismatched_status():
                 "chain_id": 1,
                 "rpc_urls": ["https://ethereum-rpc.publicnode.com"],
                 "feeds": {
-                    "past-shutdown-feed": {
-                        "name": "Past Shutdown Feed",
-                        "path": "past-shutdown-feed",
-                        "address": "0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419",  # Real ETH/USD address for testing
+                    "future-shutdown-feed": {
+                        "name": "Future Shutdown Feed",
+                        "path": "future-shutdown-feed",
+                        "address": "0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419",
                         "aggregator": "0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419",
                         "status": "active",  # Baked as active
-                        "shutdown_date": "2026-10-10",  # Past date
-                        "category": "unranked",
+                        "shutdown_date": "2027-12-31",  # Future date
+                        "category": "unranked",  # Not deprecating category
                         "feed_type": "Crypto",
                         "decimals": 8,
                         "heartbeat": 3600,
@@ -67,55 +67,37 @@ def test_registry_recomputes_status_with_fixture(clear_cache, mock_registry_with
     """Test that /v1/registry recomputes status even when baked status differs."""
     client = TestClient(app)
     
-    # Set clock to after shutdown (2026-10-11)
-    set_test_clock(datetime(2026, 10, 11, 12, 0, tzinfo=timezone.utc))
+    # Set clock to before shutdown (feed is still visible)
+    set_test_clock(datetime(2027, 12, 30, 12, 0, tzinfo=timezone.utc))
     
     response = client.get("/v1/registry")
     assert response.status_code == 200
     data = response.json()
     
-    # Feed should be hidden (shut_down feeds are filtered)
-    assert "past-shutdown-feed" not in data["networks"]["ethereum"]["feeds"], \
-        "Feed with past shutdown should be hidden even though baked status is 'active'"
+    # Feed should be visible with status 'deprecating' (computed), not 'active' (baked)
+    feed = data["networks"]["ethereum"]["feeds"].get("future-shutdown-feed")
+    assert feed is not None, "Feed should be visible before shutdown date"
+    assert feed["status"] == "deprecating", \
+        f"Feed with future shutdown should have status 'deprecating', not '{feed['status']}' (baked value)"
     
     set_test_clock(None)
 
 
-def test_query_recomputes_status_with_fixture(clear_cache, mock_registry_with_mismatched_status):
-    """Test that /v1/query recomputes status even when baked status differs."""
+def test_query_recomputes_status_live():
+    """Test that /v1/query recomputes status using live stbrl feed."""
     client = TestClient(app)
     
-    # Mock RPC to avoid network calls
-    mock_round_data = (
-        18446744073709551615,  # roundId
-        200000000000,  # answer
-        1728000000,  # startedAt
-        1728000100,  # updatedAt
-        18446744073709551615   # answeredInRound
-    )
+    _response_cache.clear()
     
-    with patch('main.AsyncWeb3') as mock_web3_class:
-        mock_web3 = MagicMock()
-        mock_web3_class.return_value = mock_web3
-        mock_web3.to_checksum_address.side_effect = lambda x: x
-        
-        mock_contract = MagicMock()
-        mock_web3.eth.contract.return_value = mock_contract
-        
-        # Mock contract calls
-        mock_contract.functions.latestRoundData.return_value.call.return_value = mock_round_data
-        mock_contract.functions.decimals.return_value.call.return_value = 8
-        mock_contract.functions.description.return_value.call.return_value = "Past Shutdown Feed"
-        mock_contract.functions.version.return_value.call.return_value = 6
-        
-        # Set clock to after shutdown (2026-10-11)
-        set_test_clock(datetime(2026, 10, 11, 12, 0, tzinfo=timezone.utc))
-        
-        response = client.get("/v1/query/ethereum/past-shutdown-feed")
-        assert response.status_code == 404, \
-            "Query should return 404 for feed with past shutdown even though baked status is 'active'"
+    # Set clock before shutdown
+    set_test_clock(datetime(2026, 10, 17, 12, 0, tzinfo=timezone.utc))
+    
+    response = client.get("/v1/query/ethereum/stbrl-tbrl-exchange-rate")
+    assert response.status_code == 200
+    assert response.json()["meta"]["status"] == "deprecating"
     
     set_test_clock(None)
+    _response_cache.clear()
 
 
 def test_cache_respects_ttl_cap_without_clearing():
