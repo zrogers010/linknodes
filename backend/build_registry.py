@@ -227,22 +227,23 @@ def verify_rpc_chain_id(rpc_url: str, expected_chain_id: int) -> bool:
 
 def validate_source_data(feeds: list, nodes: list, network_label: str) -> None:
     """Validate source data shape and fail loudly if required keys are missing in ≥1% of entries."""
-    if not feeds:
+    if not feeds and not nodes:
         return
     
-    required_feed_keys = ["proxyAddress", "contractAddress", "heartbeat", "decimals", "path"]
-    total_feeds = len(feeds)
-    
-    for key in required_feed_keys:
-        missing_count = sum(1 for feed in feeds if key not in feed or feed.get(key) is None)
-        missing_pct = (missing_count / total_feeds) * 100 if total_feeds > 0 else 0
+    if feeds:
+        required_feed_keys = ["proxyAddress", "contractAddress", "heartbeat", "decimals", "path"]
+        total_feeds = len(feeds)
         
-        if missing_pct >= 1.0:
-            raise ValueError(
-                f"❌ VALIDATION FAILED for {network_label}: "
-                f"Required key '{key}' is missing in {missing_count}/{total_feeds} live feeds ({missing_pct:.1f}%). "
-                f"This indicates a source shape change that requires code updates."
-            )
+        for key in required_feed_keys:
+            missing_count = sum(1 for feed in feeds if key not in feed or feed.get(key) is None)
+            missing_pct = (missing_count / total_feeds) * 100 if total_feeds > 0 else 0
+            
+            if missing_pct >= 1.0:
+                raise ValueError(
+                    f"❌ VALIDATION FAILED for {network_label}: "
+                    f"Required key '{key}' is missing in {missing_count}/{total_feeds} live feeds ({missing_pct:.1f}%). "
+                    f"This indicates a source shape change that requires code updates."
+                )
     
     if nodes:
         required_node_keys = ["id", "name"]
@@ -314,22 +315,40 @@ def build_registry(chains: dict, environment: str) -> dict:
                 validate_source_data(live_feeds, nodes, label)
 
                 feeds: dict[str, dict] = {}
-                feed_slugs = {feed["path"] for feed in live_feeds}
+                compacted_feeds = []
                 
                 for feed in live_feeds:
                     slug = feed["path"]
                     compacted = compact(feed)
-                    
-                    is_svr = slug.endswith(("-svr", "-shared-svr", "-shared-svr-2"))
-                    if is_svr:
-                        for suffix in ["-svr", "-shared-svr", "-shared-svr-2"]:
-                            if slug.endswith(suffix):
-                                base = slug[:-len(suffix)]
-                                if base in feed_slugs:
-                                    compacted["base_path"] = base
-                                break
-                    
+                    compacted_feeds.append((slug, compacted, feed))
                     feeds[slug] = compacted
+                
+                for slug, compacted, feed_raw in compacted_feeds:
+                    if compacted.get("svr_label"):
+                        clic_name = compacted.get("clic_product_name")
+                        base_asset = compacted.get("base")
+                        quote_asset = compacted.get("quote")
+                        
+                        best_match = None
+                        
+                        for candidate_slug, candidate in feeds.items():
+                            if candidate_slug == slug:
+                                continue
+                            if candidate.get("svr_label"):
+                                continue
+                            
+                            if clic_name and candidate.get("clic_product_name") == clic_name:
+                                best_match = candidate_slug
+                                break
+                            
+                            if (base_asset and quote_asset and 
+                                candidate.get("base") == base_asset and 
+                                candidate.get("quote") == quote_asset):
+                                best_match = candidate_slug
+                                break
+                        
+                        if best_match:
+                            compacted["base_path"] = best_match
 
                 registry["networks"][key] = {
                     "label": label,

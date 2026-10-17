@@ -2,7 +2,7 @@
  "version": "2.0.0",
  "environment": "mainnet",
  "source": "chainlink-reference-data-directory",
- "generated_at": 1792264335,
+ "generated_at": 1792264829,
  "networks": {
   "ethereum": {
    "label": "Ethereum",
@@ -513,7 +513,7 @@
      "por_source": null,
      "clic_product_name": "BILon/USD-RefPrice-DF-Ethereum-001",
      "shutdown_date": null,
-     "base_path": null
+     "base_path": "bilon-usd-ondo-api"
     },
     "bilon-usd-ondo-api": {
      "name": "BILon-USD (Ondo API)",
@@ -663,7 +663,7 @@
      "por_source": null,
      "clic_product_name": "BTC/USD-RefPrice-DF-Ethereum-001",
      "shutdown_date": null,
-     "base_path": null
+     "base_path": "btc-usd"
     },
     "btc-usd-svr": {
      "name": "BTC / USD",
@@ -888,7 +888,7 @@
      "por_source": null,
      "clic_product_name": "CBBTC/USD-RefPrice-DF-Ethereum-001",
      "shutdown_date": null,
-     "base_path": null
+     "base_path": "cbbtc-usd"
     },
     "cbeth-eth": {
      "name": "CBETH / ETH",
@@ -1038,7 +1038,7 @@
      "por_source": null,
      "clic_product_name": "COMP/USD-RefPrice-DF-Ethereum-001",
      "shutdown_date": null,
-     "base_path": null
+     "base_path": "comp-usd"
     },
     "consumer-price-index": {
      "name": "Consumer Price Index",
@@ -1438,7 +1438,7 @@
      "por_source": null,
      "clic_product_name": "ETH/USD-RefPrice-DF-Ethereum-001",
      "shutdown_date": null,
-     "base_path": null
+     "base_path": "eth-usd"
     },
     "eth-usd-svr": {
      "name": "ETH / USD",
@@ -1538,7 +1538,7 @@
      "por_source": null,
      "clic_product_name": "EUR/USD-RefPrice-DF-Ethereum-001",
      "shutdown_date": null,
-     "base_path": null
+     "base_path": "eur-usd"
     },
     "eurc-usd": {
      "name": "EURC / USD",
@@ -1788,7 +1788,7 @@
      "por_source": null,
      "clic_product_name": "FLHYon/USD-RefPrice-DF-Ethereum-001",
      "shutdown_date": null,
-     "base_path": null
+     "base_path": "flhyon-usd-ondo"
     },
     "flhyon-usd-ondo": {
      "name": "FLHYon-USD (Ondo API)",
@@ -2538,7 +2538,7 @@
      "por_source": null,
      "clic_product_name": "LINK/USD-RefPrice-DF-Ethereum-001",
      "shutdown_date": null,
-     "base_path": null
+     "base_path": "link-usd"
     },
     "link-usd-svr": {
      "name": "LINK / USD",
@@ -4238,7 +4238,7 @@
      "por_source": null,
      "clic_product_name": "SPCX/USD-RefPrice-DF-Ethereum-001",
      "shutdown_date": null,
-     "base_path": null
+     "base_path": "spcx-usd"
     },
     "spell-usd": {
      "name": "SPELL / USD",
@@ -5413,7 +5413,7 @@
      "por_source": null,
      "clic_product_name": "USDC/USD-RefPrice-DF-Ethereum-001",
      "shutdown_date": null,
-     "base_path": null
+     "base_path": "usdc-usd"
     },
     "usdc-usd-svr": {
      "name": "USDC / USD",
@@ -5713,7 +5713,7 @@
      "por_source": null,
      "clic_product_name": "USDT/USD-RefPrice-DF-Ethereum-001",
      "shutdown_date": null,
-     "base_path": null
+     "base_path": "usdt-usd"
     },
     "usdt-usd-svr": {
      "name": "USDT / USD",
@@ -5838,7 +5838,7 @@
      "por_source": null,
      "clic_product_name": "USFRon/USD-RefPrice-DF-Ethereum-001",
      "shutdown_date": null,
-     "base_path": null
+     "base_path": "usfron-usd-calculated"
     },
     "ushp-index-implied-price-shared-svr": {
      "name": "USHP Index Implied Price",
@@ -6850,7 +6850,7 @@
      "por_source": null,
      "clic_product_name": "ARB/USD-RefPrice-DF-Arbitrum-001",
      "shutdown_date": null,
-     "base_path": null
+     "base_path": "arb-usd"
     },
     "arb-usd-svr": {
      "name": "ARB / USD",
@@ -7225,7 +7225,7 @@
      "por_source": null,
      "clic_product_name": "BTC/USD-RefPrice-DF-Arbitrum-001",
      "shutdown_date": null,
-     "base_path": null
+     "base_path": "btc-usd"
     },
     "btc-usd-svr": {
      "name": "BTC / USD",
@@ -7825,7 +7825,7 @@
      "por_source": null,
      "clic_product_name": "ETH/USD-RefPrice-DF-Arbitrum-001",
      "shutdown_date": null,
-     "base_path": null
+     "base_path": "eth-usd"
     },
     "eth-usd-svr": {
      "name": "ETH / USD",
@@ -7925,7 +7925,7 @@
      "por_source": null,
      "clic_product_name": "EURC/USD-RefPrice-DF-Arbitrum-001",
      "shutdown_date": null,
-     "base_path": null
+     "base_path": "eurc-usd"
     },
     "eurc-usd-svr": {
      "name": "EURC / USD",
@@ -8975,7 +8975,7 @@
      "por_source": null,
      "clic_product_name": "LINK/USD-RefPrice-DF-Arbitrum-001",
      "shutdown_date": null,
-     "base_path": null
+     "base_path": "link-usd"
     },
     "link-usd-svr": {
      "name": "LINK / USD",
@@ -9100,7 +9100,7 @@
      "por_source": null,
      "clic_product_name": "LUSD/USD-RefPrice-DF-Arbitrum-001",
      "shutdown_date": null,
-     "base_path": null
+     "base_path": "lusd-usd"
     },
     "lusd-usd-svr": {
      "name": "LUSD / USD",
@@ -11500,7 +11500,7 @@
      "por_source": null,
      "clic_product_name": "USDC/USD-RefPrice-DF-Arbitrum-001",
      "shutdown_date": null,
-     "base_path": null
+     "base_path": "usdc-usd"
     },
     "usdc-usd-svr": {
      "name": "USDC / USD",
@@ -11650,7 +11650,7 @@
      "por_source": null,
      "clic_product_name": "USDT/USD-RefPrice-DF-Arbitrum-001",
      "shutdown_date": null,
-     "base_path": null
+     "base_path": "usdt-usd"
     },
     "usdt-usd-svr": {
      "name": "USDT / USD",
@@ -13187,7 +13187,7 @@
      "por_source": null,
      "clic_product_name": "CBBTC/USD-RefPrice-DF-Base-001",
      "shutdown_date": null,
-     "base_path": null
+     "base_path": "cbbtc-usd"
     },
     "cbcoin-usd": {
      "name": "Coinbase COIN",
@@ -13912,7 +13912,7 @@
      "por_source": null,
      "clic_product_name": "EURC/USD-RefPrice-DF-Base-001",
      "shutdown_date": null,
-     "base_path": null
+     "base_path": "eurc-usd"
     },
     "eurc-usd-svr": {
      "name": "EURC / USD",
@@ -13987,7 +13987,7 @@
      "por_source": null,
      "clic_product_name": "EZETH/ETH-ExRate-DF-Base-001",
      "shutdown_date": null,
-     "base_path": null
+     "base_path": "ezeth-eth"
     },
     "frnt-por": {
      "name": "FRNT Proof of Reserves",
@@ -14687,7 +14687,7 @@
      "por_source": null,
      "clic_product_name": "MXN/USD-RefPrice-DF-Base-001",
      "shutdown_date": null,
-     "base_path": null
+     "base_path": "mxn-usd"
     },
     "ngn-usd": {
      "name": "NGN / USD",
@@ -16062,7 +16062,7 @@
      "por_source": null,
      "clic_product_name": "USDC/USD-RefPrice-DF-Base-001",
      "shutdown_date": null,
-     "base_path": null
+     "base_path": "usdc-usd"
     },
     "usdc-usd-svr": {
      "name": "USDC / USD",
@@ -16212,7 +16212,7 @@
      "por_source": null,
      "clic_product_name": "USDT/USD-RefPrice-DF-Base-001",
      "shutdown_date": null,
-     "base_path": null
+     "base_path": "usdt-usd"
     },
     "usdt-usd-svr": {
      "name": "USDT / USD",
@@ -16587,7 +16587,7 @@
      "por_source": null,
      "clic_product_name": "wstETH/stETH-ExRate-DF-Base-001",
      "shutdown_date": null,
-     "base_path": null
+     "base_path": "wsteth-steth exchangerate"
     },
     "wstusr-stusr-exchange-rate": {
      "name": "wstUSR / stUSR Exchange Rate",
@@ -26435,7 +26435,7 @@
      "por_source": null,
      "clic_product_name": "AAVE/USD-RefPrice-DF-Binance-001",
      "shutdown_date": null,
-     "base_path": null
+     "base_path": "aave-usd"
     },
     "ada-bnb": {
      "name": "ADA / BNB",
@@ -26510,7 +26510,7 @@
      "por_source": null,
      "clic_product_name": "ADA/USD-RefPrice-DF-Binance-001",
      "shutdown_date": null,
-     "base_path": null
+     "base_path": "ada-usd"
     },
     "amzn-usd": {
      "name": "AMZN / USD",
@@ -26760,7 +26760,7 @@
      "por_source": null,
      "clic_product_name": "BCH/USD-RefPrice-DF-Binance-001",
      "shutdown_date": null,
-     "base_path": null
+     "base_path": "bch-usd"
     },
     "beth-usd": {
      "name": "BETH / USD",
@@ -26835,7 +26835,7 @@
      "por_source": null,
      "clic_product_name": "BNB/USD-RefPrice-DF-Binance-001",
      "shutdown_date": null,
-     "base_path": null
+     "base_path": "bnb-usd"
     },
     "brl-usd": {
      "name": "BRL / USD",
@@ -26960,7 +26960,7 @@
      "por_source": null,
      "clic_product_name": "BTC/USD-RefPrice-DF-Binance-001",
      "shutdown_date": null,
-     "base_path": null
+     "base_path": "btc-usd"
     },
     "busd-bnb": {
      "name": "BUSD / BNB",
@@ -27110,7 +27110,7 @@
      "por_source": null,
      "clic_product_name": "CAKE/USD-RefPrice-DF-Binance-001",
      "shutdown_date": null,
-     "base_path": null
+     "base_path": "cake-usd"
     },
     "calculated-savax-usd": {
      "name": "Calculated SAVAX / USD",
@@ -27335,7 +27335,7 @@
      "por_source": null,
      "clic_product_name": "DAI/USD-RefPrice-DF-Binance-001",
      "shutdown_date": null,
-     "base_path": null
+     "base_path": "dai-usd"
     },
     "doge-usd": {
      "name": "DOGE / USD",
@@ -27385,7 +27385,7 @@
      "por_source": null,
      "clic_product_name": "DOGE/USD-RefPrice-DF-Binance-001",
      "shutdown_date": null,
-     "base_path": null
+     "base_path": "doge-usd"
     },
     "dot-bnb": {
      "name": "DOT / BNB",
@@ -27535,7 +27535,7 @@
      "por_source": null,
      "clic_product_name": "ETH/USD-RefPrice-DF-Binance-001",
      "shutdown_date": null,
-     "base_path": null
+     "base_path": "eth-usd"
     },
     "eur-usd": {
      "name": "EUR / USD",
@@ -27635,7 +27635,7 @@
      "por_source": null,
      "clic_product_name": "FDUSD/USD-RefPrice-DF-Binance-001",
      "shutdown_date": null,
-     "base_path": null
+     "base_path": "fdusd-usd"
     },
     "fet-usd": {
      "name": "FET / USD",
@@ -27710,7 +27710,7 @@
      "por_source": null,
      "clic_product_name": "FIL/USD-RefPrice-DF-Binance-001",
      "shutdown_date": null,
-     "base_path": null
+     "base_path": "fil-usd"
     },
     "gbp-usd": {
      "name": "GBP / USD",
@@ -28060,7 +28060,7 @@
      "por_source": null,
      "clic_product_name": "LINK/USD-RefPrice-DF-Binance-001",
      "shutdown_date": null,
-     "base_path": null
+     "base_path": "link-usd"
     },
     "lista-usd": {
      "name": "LISTA / USD",
@@ -29135,7 +29135,7 @@
      "por_source": null,
      "clic_product_name": "SUSDE/USDE-ExRate-DF-Binance-001",
      "shutdown_date": null,
-     "base_path": null
+     "base_path": "susde-usde-exchange-rate"
     },
     "susdf-usdf-exchange-rate": {
      "name": "sUSDf / USDf Exchange Rate",
@@ -29535,7 +29535,7 @@
      "por_source": null,
      "clic_product_name": "UNI/USD-RefPrice-DF-Binance-001",
      "shutdown_date": null,
-     "base_path": null
+     "base_path": "uni-usd"
     },
     "unibtc-btc-exchange-rate": {
      "name": "uniBTC / BTC Exchange Rate",
@@ -29610,7 +29610,7 @@
      "por_source": null,
      "clic_product_name": "USD1/USD-RefPrice-DF-Binance-001",
      "shutdown_date": null,
-     "base_path": null
+     "base_path": "usd1-usd"
     },
     "usdc-bnb": {
      "name": "USDC / BNB",
@@ -29685,7 +29685,7 @@
      "por_source": null,
      "clic_product_name": "USDC/USD-RefPrice-DF-Binance-001",
      "shutdown_date": null,
-     "base_path": null
+     "base_path": "usdc-usd"
     },
     "usdd-usdc-exchange-rate": {
      "name": "USDD / USDC Exchange Rate",
@@ -29785,7 +29785,7 @@
      "por_source": null,
      "clic_product_name": "USDE/USD-RefPrice-DF-Binance-001",
      "shutdown_date": null,
-     "base_path": null
+     "base_path": "usde-usd"
     },
     "usdf-usd": {
      "name": "USDf / USD",
@@ -29885,7 +29885,7 @@
      "por_source": null,
      "clic_product_name": "USDT/USD-RefPrice-DF-Binance-001",
      "shutdown_date": null,
-     "base_path": null
+     "base_path": "usdt-usd"
     },
     "usdu-por": {
      "name": "USDu Reserves",
@@ -30310,7 +30310,7 @@
      "por_source": null,
      "clic_product_name": "XRP/USD-RefPrice-DF-Binance-001",
      "shutdown_date": null,
-     "base_path": null
+     "base_path": "xrp-usd"
     },
     "xsolvbtc-solvbtc-exchange-rate-shared-svr": {
      "name": "xSolvBTC / SolvBTC Exchange Rate",
@@ -30460,7 +30460,7 @@
      "por_source": null,
      "clic_product_name": "XVS/USD-RefPrice-DF-Binance-001",
      "shutdown_date": null,
-     "base_path": null
+     "base_path": "xvs-usd"
     },
     "ybtc-btc-exchange-rate": {
      "name": "YBTC-BTC Exchange Rate",
