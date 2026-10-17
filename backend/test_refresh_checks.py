@@ -3,70 +3,20 @@
 Refresh data shape check tests
 ===============================
 Tests for the 6 alerting conditions that should fail the refresh workflow.
+
+These tests verify that the production check functions in refresh_checks.py
+properly validate data and fail the build on bad input.
 """
 
 import pytest
-
-
-def check_rdd_response_codes(responses: dict) -> None:
-    """Check that all RDD and CCIP URLs returned 200."""
-    failed = [url for url, code in responses.items() if code != 200]
-    if failed:
-        raise ValueError(
-            f"❌ REFRESH CHECK FAILED: {len(failed)} URL(s) returned non-200:\n" +
-            "\n".join(f"  {url}: HTTP {responses[url]}" for url in failed[:5])
-        )
-
-
-def check_transmitter_mapping_rate(network: str, mapped: int, total: int, threshold: float = 98.0) -> None:
-    """Check that transmitter→operator mapping rate is above threshold."""
-    if total == 0:
-        return
-    
-    rate = (mapped / total) * 100
-    if rate < threshold:
-        raise ValueError(
-            f"❌ REFRESH CHECK FAILED for {network}: "
-            f"Transmitter mapping rate {rate:.1f}% is below threshold {threshold}% "
-            f"({mapped}/{total} transmitters mapped)"
-        )
-
-
-def check_feed_count_change(network: str, old_count: int, new_count: int, max_change_pct: float = 20.0) -> None:
-    """Check that feed count hasn't changed by more than threshold."""
-    if old_count == 0:
-        return
-    
-    change_pct = abs((new_count - old_count) / old_count) * 100
-    if change_pct > max_change_pct:
-        raise ValueError(
-            f"❌ REFRESH CHECK FAILED for {network}: "
-            f"Feed count changed by {change_pct:.1f}% (from {old_count} to {new_count}), "
-            f"exceeding {max_change_pct}% threshold"
-        )
-
-
-def check_nops_count(count: int, min_count: int = 15) -> None:
-    """Check that NOPs parser found at least min_count operators."""
-    if count < min_count:
-        raise ValueError(
-            f"❌ REFRESH CHECK FAILED: "
-            f"NOPs parser found only {count} operators, below minimum {min_count}"
-        )
-
-
-def check_rpc_failure_rate(failed: int, total: int, max_failure_pct: float = 30.0) -> None:
-    """Check that RPC call failure rate is below threshold."""
-    if total == 0:
-        return
-    
-    failure_pct = (failed / total) * 100
-    if failure_pct > max_failure_pct:
-        raise ValueError(
-            f"❌ REFRESH CHECK FAILED: "
-            f"RPC failure rate {failure_pct:.1f}% exceeds {max_failure_pct}% "
-            f"({failed}/{total} calls failed)"
-        )
+from refresh_checks import (
+    check_rdd_response_codes,
+    check_transmitter_mapping_rate,
+    check_feed_count_change,
+    check_nops_count,
+    check_rpc_failure_rate,
+    check_hidden_operators,
+)
 
 
 # ============================================================================
@@ -149,6 +99,43 @@ def test_check_rpc_failure_rate_fails_above_30_percent():
     
     assert "35.0%" in str(excinfo.value)
     assert "exceeds 30" in str(excinfo.value)
+
+
+def test_check_hidden_operators_passes_with_clean_operators():
+    """Test passes when no operators match hidden patterns."""
+    operators = [
+        {"id": "linkpool", "name": "LinkPool"},
+        {"id": "chainlayer", "name": "ChainLayer"}
+    ]
+    hidden_patterns = ["cl-ocr-nav-", "chainlink-internal-nav-", "chainlink internal"]
+    check_hidden_operators(operators, hidden_patterns)
+
+
+def test_check_hidden_operators_fails_on_id_match():
+    """Test fails when operator id matches hidden pattern."""
+    operators = [
+        {"id": "linkpool", "name": "LinkPool"},
+        {"id": "cl-ocr-nav-eth-mainnet-0", "name": "Some Name"}
+    ]
+    hidden_patterns = ["cl-ocr-nav-"]
+    with pytest.raises(ValueError) as excinfo:
+        check_hidden_operators(operators, hidden_patterns)
+    
+    assert "cl-ocr-nav-eth-mainnet-0" in str(excinfo.value)
+    assert "hidden pattern" in str(excinfo.value)
+
+
+def test_check_hidden_operators_fails_on_name_match():
+    """Test fails when operator name matches hidden pattern."""
+    operators = [
+        {"id": "some-id", "name": "Chainlink Internal NAV Node"}
+    ]
+    hidden_patterns = ["chainlink internal"]
+    with pytest.raises(ValueError) as excinfo:
+        check_hidden_operators(operators, hidden_patterns)
+    
+    assert "some-id" in str(excinfo.value)
+    assert "Chainlink Internal" in str(excinfo.value)
 
 
 if __name__ == "__main__":

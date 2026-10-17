@@ -1,6 +1,7 @@
 {
   "hidden_patterns": [
     "chainlink-internal-nav-",
+    "cl-ocr-nav-",
     "keystone-",
     "temp-ccip-",
     "clcp-",

@@ -1,19 +1,42 @@
 {
- "generated_at": "2026-10-17T20:05:47.211204+00:00",
+ "generated_at": "2026-10-17T20:18:31.895748+00:00",
  "source": "chainlink-rdd-nodes + on-chain transmitters",
  "operators": [
   {
    "slug": "fiews",
-   "name": "fiews",
+   "name": "Fiews",
    "website": "https://fiews.io",
-   "aliases": [
-    "fiews",
-    "Fiews"
-   ],
+   "sources": {
+    "rdd": true,
+    "transmitters": true
+   },
+   "rdd_ids": {
+    "ethereum": [],
+    "arbitrum": [],
+    "base": [],
+    "optimism": [],
+    "polygon": [],
+    "avalanche": [],
+    "bnb": [],
+    "gnosis": [],
+    "scroll": [],
+    "linea": [],
+    "celo": [],
+    "sonic": [],
+    "zksync": []
+   },
+   "products": {
+    "data_feeds": true,
+    "automation": false,
+    "vrf": false,
+    "functions": false
+   },
    "counts": {
     "feeds": 1229,
-    "networks": 13
+    "networks": 13,
+    "streams": null
    },
+   "staking": null,
    "networks": [
     {
      "network": "arbitrum",
@@ -70,119 +93,191 @@
    ],
    "addresses": [
     {
-     "network": "ethereum-mainnet-base-1",
+     "network": "base",
      "kind": "node",
      "address": "0x371DFBC7575012BB28D3709A8918A47464b1b7DC"
     },
     {
-     "network": "ethereum-mainnet-base-1",
+     "network": "base",
      "kind": "node",
      "address": "0xD8637F7b633A6EDb7BdF5a95DfFF7F2B99cC0541"
     },
     {
-     "network": "ethereum-mainnet-base-1",
+     "network": "base",
      "kind": "forwarder",
      "address": "0x5E4666A8b9e9493DF49a875762c5A92A063A790D"
     },
     {
-     "network": "ethereum-mainnet-base-1",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "matic-mainnet",
+     "network": "polygon",
      "kind": "node",
      "address": "0x550365027554bD20D750f9361e460C7428ffBd75"
     },
     {
-     "network": "matic-mainnet",
+     "network": "polygon",
      "kind": "forwarder",
      "address": "0xf5Bf6c43c3d90139860867A0e1bBbEB528E72120"
     },
     {
-     "network": "matic-mainnet",
+     "network": "polygon",
      "kind": "oracle",
      "address": "0xc26Cc2C9fB5f136bC54fe015Cea489Fed676feA6"
     },
     {
-     "network": "ethereum-mainnet-linea-1",
+     "network": "linea",
      "kind": "node",
      "address": "0xaBCa7F32B8cc088bD2e5821404ace30Dd59Bc476"
     },
     {
-     "network": "ethereum-mainnet-linea-1",
+     "network": "linea",
      "kind": "payee",
      "address": "0x15918ff7f6C44592C81d999B442956B07D26CC44"
     },
     {
-     "network": "ethereum-mainnet-linea-1",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "node",
      "address": "0xE6E6D6b5Fb5688e41aaB43686c87ea24Ef4b76A8"
     },
     {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "node",
      "address": "0x695Fe5ccb3382783E6c9E9f5bAF0774D25a164Cb"
     },
     {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "forwarder",
      "address": "0xF72bb66E324B5188c6178c6401Ee982FA30bE096"
     },
     {
-     "network": "bsc-mainnet",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "sonic-mainnet",
+     "network": "sonic",
      "kind": "node",
      "address": "0x2162cE4dBC5D92915A156c880A25b2b7cbe6771d"
     },
     {
-     "network": "sonic-mainnet",
+     "network": "sonic",
      "kind": "forwarder",
      "address": "0xF2Ab88678d19E8c7D3d621177a901F7d476ad92b"
     },
     {
-     "network": "sonic-mainnet",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "ethereum-mainnet-optimism-1",
+     "network": "optimism",
      "kind": "node",
      "address": "0x85C8aAA2232D12158C4cA731543470bc9e9bb29D"
     },
     {
-     "network": "ethereum-mainnet-optimism-1",
+     "network": "optimism",
      "kind": "forwarder",
      "address": "0x595BF4D10C5213202cc1E68E0d3676Ab1B1E8573"
     },
     {
-     "network": "ethereum-mainnet-optimism-1",
+     "network": "gnosis",
+     "kind": "node",
+     "address": "0x16F5c3Dc347A5814B81553c7725D4ed9214C8A3c"
+    },
+    {
+     "network": "gnosis",
+     "kind": "forwarder",
+     "address": "0x487C33a706D2ac2F6cF3E5b0Dde01b6609D1bBD7"
+    },
+    {
+     "network": "avalanche",
+     "kind": "node",
+     "address": "0x0499BEA33347cb62D79A9C0b1EDA01d8d329894c"
+    },
+    {
+     "network": "avalanche",
+     "kind": "forwarder",
+     "address": "0x5BCAC0092c6FCd2A31BEEc2329d4B46d5Cfd3D90"
+    },
+    {
+     "network": "zksync",
+     "kind": "node",
+     "address": "0xcF8B2640b2715966b2332Ca601De3129375Ebd3A"
+    },
+    {
+     "network": "ethereum",
+     "kind": "node",
+     "address": "0x218B5a7861dBf368D09A84E0dBfF6C6DDbf99DB8"
+    },
+    {
+     "network": "ethereum",
+     "kind": "node",
+     "address": "0xA949696594a015766150f4d135b2A8F2120E6be1"
+    },
+    {
+     "network": "ethereum",
+     "kind": "forwarder",
+     "address": "0x7A13cD97D442856FF5387d55a7b3F09bf680102B"
+    },
+    {
+     "network": "ethereum",
      "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
+     "address": "0x049Bd8C3adC3fE7d3Fc2a44541d955A537c2A484"
+    },
+    {
+     "network": "arbitrum",
+     "kind": "node",
+     "address": "0xA82d4EdB72dD3D167D00058F2404658F4E9A010A"
+    },
+    {
+     "network": "arbitrum",
+     "kind": "node",
+     "address": "0x3cb4C30E0974FA9bB98153E31F4C11ACb95c5eB5"
+    },
+    {
+     "network": "arbitrum",
+     "kind": "forwarder",
+     "address": "0x4640d0f080A7bd1721120c478B8817a0e0Dd0Bb5"
+    },
+    {
+     "network": "celo",
+     "kind": "node",
+     "address": "0x1E6347DbffB8D2258cC6cf2E9f635a065899cAc8"
+    },
+    {
+     "network": "scroll",
+     "kind": "node",
+     "address": "0xd537393366849EcbB2D321dfe3Fd7484EDAe40E7"
+    },
+    {
+     "network": "scroll",
+     "kind": "forwarder",
+     "address": "0x705AADAECF92f688CD315de053B2f57f41BdAFf4"
     }
    ]
   },
   {
-   "slug": "dexTrac",
+   "slug": "dextrac",
    "name": "DexTrac",
    "website": "https://dex.trace.link",
-   "aliases": [
-    "DexTrac",
-    "dexTrac"
-   ],
+   "sources": {
+    "rdd": true,
+    "transmitters": true
+   },
+   "rdd_ids": {
+    "ethereum": [],
+    "arbitrum": [],
+    "base": [],
+    "optimism": [],
+    "polygon": [],
+    "avalanche": [],
+    "bnb": [],
+    "gnosis": [],
+    "scroll": [],
+    "linea": [],
+    "celo": [],
+    "sonic": []
+   },
+   "products": {
+    "data_feeds": true,
+    "automation": false,
+    "vrf": false,
+    "functions": false
+   },
    "counts": {
     "feeds": 1213,
-    "networks": 12
+    "networks": 12,
+    "streams": null
    },
+   "staking": null,
    "networks": [
     {
      "network": "arbitrum",
@@ -235,104 +330,144 @@
    ],
    "addresses": [
     {
-     "network": "ethereum-mainnet-base-1",
+     "network": "base",
      "kind": "node",
      "address": "0x87b49edBBc2cCe9237276C0D9F03d59d278dd1eB"
     },
     {
-     "network": "ethereum-mainnet-base-1",
+     "network": "base",
      "kind": "node",
      "address": "0x6159e0ab35170e5dF0B02d81aF2d6F985f2B4746"
     },
     {
-     "network": "ethereum-mainnet-base-1",
+     "network": "base",
      "kind": "forwarder",
      "address": "0x1961B25137863c5a84F1Cc68cba3E6ff43e8d77A"
     },
     {
-     "network": "ethereum-mainnet-base-1",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "matic-mainnet",
+     "network": "polygon",
      "kind": "node",
      "address": "0x7BF377f69Da0E46Da1502D5F2bcf9fB00c3B610b"
     },
     {
-     "network": "matic-mainnet",
+     "network": "polygon",
      "kind": "forwarder",
      "address": "0xda77ba7e291084D2222F33d6a8DD8167d21dC2CC"
     },
     {
-     "network": "matic-mainnet",
+     "network": "polygon",
      "kind": "oracle",
      "address": "0x2f060C4352AcF5bE60B899A35EcEa698c57b8910"
     },
     {
-     "network": "ethereum-mainnet-linea-1",
+     "network": "linea",
      "kind": "node",
      "address": "0xE110Ae23bc33b85Ac4D82B8f218F6e6C83E513f5"
     },
     {
-     "network": "ethereum-mainnet-linea-1",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "node",
      "address": "0xa53bdb1522a58dEe57B89e0579C13B15825B8D77"
     },
     {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "node",
      "address": "0x1a6f54a4A71F30c11AD8A140b0Ffa1DDDf54cb69"
     },
     {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "forwarder",
      "address": "0xc7F79eA9c7FF17968eEC60b4CC9880905cFdb2f4"
     },
     {
-     "network": "bsc-mainnet",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "sonic-mainnet",
+     "network": "sonic",
      "kind": "node",
      "address": "0x14DC359a60ee3C5624DB1A17410bc005Cb4e7687"
     },
     {
-     "network": "sonic-mainnet",
+     "network": "sonic",
      "kind": "forwarder",
      "address": "0xDdF12D19396a6638007B5f235F045C43de35144E"
     },
     {
-     "network": "sonic-mainnet",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "ethereum-mainnet-optimism-1",
+     "network": "optimism",
      "kind": "node",
      "address": "0x6CA4166EeFd64B5f607f12Fb0C3fbAe233897757"
     },
     {
-     "network": "ethereum-mainnet-optimism-1",
+     "network": "optimism",
      "kind": "forwarder",
      "address": "0xD8Ae94337833F1026899DD6c31CD3A00d03d4D68"
     },
     {
-     "network": "ethereum-mainnet-optimism-1",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
+     "network": "gnosis",
+     "kind": "node",
+     "address": "0x4407E5caC83a1397741fEB1ACcAF6C23968180f4"
     },
     {
-     "network": "ethereum-testnet-sepolia",
+     "network": "gnosis",
+     "kind": "forwarder",
+     "address": "0x8611d5d975EaF99ED8459a361dDbb50F794d7f77"
+    },
+    {
+     "network": "avalanche",
      "kind": "node",
-     "address": "0x1cE0099CFcDD1f5313EF65926Bf52D5B20992393"
+     "address": "0x8772Ecc810a04627d58eBC1Db2bBc27bF90F6bb2"
+    },
+    {
+     "network": "avalanche",
+     "kind": "forwarder",
+     "address": "0xDc0063a40cEC653A0495e32D51023b90FfF7F5ec"
+    },
+    {
+     "network": "ethereum",
+     "kind": "node",
+     "address": "0xb976d01275B809333E3EfD76D1d31fE9264466D0"
+    },
+    {
+     "network": "ethereum",
+     "kind": "node",
+     "address": "0x15e97177a17F7Ec6B6d432500DA7428B89AeA2D1"
+    },
+    {
+     "network": "ethereum",
+     "kind": "forwarder",
+     "address": "0x7B740d24396B09F992B655A590139D7Fbb5C73c8"
+    },
+    {
+     "network": "ethereum",
+     "kind": "oracle",
+     "address": "0x95b00984a9c38417cDBa9653CE4F4A0A3e54451c"
+    },
+    {
+     "network": "arbitrum",
+     "kind": "node",
+     "address": "0x5616CAABa92cdf656E7d1bA36Fe1bd878E51c174"
+    },
+    {
+     "network": "arbitrum",
+     "kind": "node",
+     "address": "0xFA714841E9154eE665423a2cF10a66765fe88436"
+    },
+    {
+     "network": "arbitrum",
+     "kind": "forwarder",
+     "address": "0x9AA888f5ACdC6ac3dFb84103b798722396f7CeEe"
+    },
+    {
+     "network": "celo",
+     "kind": "node",
+     "address": "0x449a38045cFc42E691998Ff3Fc37893Ec92e395e"
+    },
+    {
+     "network": "scroll",
+     "kind": "node",
+     "address": "0x8a40C6682Ac6B9357c37E6532cA4e7d096cFefA6"
+    },
+    {
+     "network": "scroll",
+     "kind": "forwarder",
+     "address": "0x0a553cf890419192c2cf9B1Ed0A5AF5c0CbaB8C7"
     }
    ]
   },
@@ -340,14 +475,36 @@
    "slug": "chainlayer",
    "name": "Chainlayer",
    "website": "https://www.chainlayer.io",
-   "aliases": [
-    "Chainlayer",
-    "chainlayer"
-   ],
+   "sources": {
+    "rdd": true,
+    "transmitters": true
+   },
+   "rdd_ids": {
+    "ethereum": [],
+    "arbitrum": [],
+    "base": [],
+    "optimism": [],
+    "polygon": [],
+    "avalanche": [],
+    "bnb": [],
+    "gnosis": [],
+    "scroll": [],
+    "linea": [],
+    "celo": [],
+    "sonic": []
+   },
+   "products": {
+    "data_feeds": true,
+    "automation": false,
+    "vrf": false,
+    "functions": false
+   },
    "counts": {
     "feeds": 1206,
-    "networks": 12
+    "networks": 12,
+    "streams": null
    },
+   "staking": null,
    "networks": [
     {
      "network": "arbitrum",
@@ -400,119 +557,180 @@
    ],
    "addresses": [
     {
-     "network": "ethereum-mainnet-base-1",
+     "network": "base",
      "kind": "node",
      "address": "0xc04a3C4aBF8995Da051140f552Cb4eB086185836"
     },
     {
-     "network": "ethereum-mainnet-base-1",
+     "network": "base",
      "kind": "node",
      "address": "0xE34fa7C2C84c31E847BC4256c73C4105305150c1"
     },
     {
-     "network": "ethereum-mainnet-base-1",
+     "network": "base",
      "kind": "forwarder",
      "address": "0x53e4CC064aeB70c62a5f9259c5AB9717CCAD4FD5"
     },
     {
-     "network": "ethereum-mainnet-base-1",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "matic-mainnet",
+     "network": "polygon",
      "kind": "node",
      "address": "0x7537cB7b7E8083ff8E68cb5c0cA18553Ab54946f"
     },
     {
-     "network": "matic-mainnet",
+     "network": "polygon",
      "kind": "forwarder",
      "address": "0xDCdF1E4726731e75aA0AE7C47fd01209760c7A62"
     },
     {
-     "network": "matic-mainnet",
+     "network": "polygon",
      "kind": "oracle",
      "address": "0x029f42dD5df2eD7B8EA84c271B205d99183227a6"
     },
     {
-     "network": "ethereum-mainnet-linea-1",
+     "network": "linea",
      "kind": "node",
      "address": "0x86c2cEAf3D1B242947C261e9Aa7F3275e8360f5a"
     },
     {
-     "network": "ethereum-mainnet-linea-1",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "node",
      "address": "0xAd28531021eB793874E8Dfb84b9e7b862C9e0e53"
     },
     {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "node",
      "address": "0x6538E6F9f03b8315a69bE08eFb49Bb06B1DF6932"
     },
     {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "forwarder",
      "address": "0xa13814fE399ea85e0541B4FdD2b38efa149c8Ee5"
     },
     {
-     "network": "bsc-mainnet",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "sonic-mainnet",
+     "network": "sonic",
      "kind": "node",
      "address": "0x9424bE92916512482F0546e5b8Ee024B18f0C5d8"
     },
     {
-     "network": "sonic-mainnet",
+     "network": "sonic",
      "kind": "forwarder",
      "address": "0x5e9f336F12edacb7B8120AbD3BD7F6d7f2409d64"
     },
     {
-     "network": "sonic-mainnet",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "ethereum-mainnet-optimism-1",
+     "network": "optimism",
      "kind": "node",
      "address": "0x2878c587eba4C4251f97784cE124f7387305Ab32"
     },
     {
-     "network": "ethereum-mainnet-optimism-1",
+     "network": "optimism",
      "kind": "forwarder",
      "address": "0xc9Abfc8a68D547F8fd94f2FBD7A836d6B704de8d"
     },
     {
-     "network": "ethereum-mainnet-optimism-1",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
+     "network": "gnosis",
+     "kind": "node",
+     "address": "0xE769724C9295458b026875ff964aCCb964B13D50"
     },
     {
-     "network": "ethereum-testnet-sepolia",
+     "network": "gnosis",
+     "kind": "forwarder",
+     "address": "0x713b35d9468aC728b94Ad86e1b27C9a8D4d2820C"
+    },
+    {
+     "network": "avalanche",
      "kind": "node",
-     "address": "0x60F23CA1e62192daEf151D7F081EB5f1a36F0fdC"
+     "address": "0xd877d01d972D28dBd28ed138c63173D07A024E5C"
+    },
+    {
+     "network": "avalanche",
+     "kind": "forwarder",
+     "address": "0x5d8C90C9ddFBAAFF9a474e0523806E493c563bfa"
+    },
+    {
+     "network": "ethereum",
+     "kind": "node",
+     "address": "0xc74cE67BfC623c803D48AFc74a09A6FF6b599003"
+    },
+    {
+     "network": "ethereum",
+     "kind": "node",
+     "address": "0xb43EA2ADcd5cdEE36D59907829b778Fb089812a6"
+    },
+    {
+     "network": "ethereum",
+     "kind": "forwarder",
+     "address": "0x0C46Dc0BA85eAb5A515f819F1a705eD324dA687B"
+    },
+    {
+     "network": "ethereum",
+     "kind": "oracle",
+     "address": "0xF5a3d443FccD7eE567000E43B23b0e98d96445CE"
+    },
+    {
+     "network": "arbitrum",
+     "kind": "node",
+     "address": "0x1a6d5C4396EaF8ED93Ec77bf1aF9B43ffeD7814d"
+    },
+    {
+     "network": "arbitrum",
+     "kind": "node",
+     "address": "0x9d8a4c00835bFb7bD967C91959A9D21603375140"
+    },
+    {
+     "network": "arbitrum",
+     "kind": "forwarder",
+     "address": "0x9cd5B3E0777b3c85803e6C54c48F905315b9BBe6"
+    },
+    {
+     "network": "celo",
+     "kind": "node",
+     "address": "0xbBc53D96b40613d09837f5008C4A903731465209"
+    },
+    {
+     "network": "scroll",
+     "kind": "node",
+     "address": "0x12ED5d8468972e6803c7D42F1719055f687f0Fc2"
+    },
+    {
+     "network": "scroll",
+     "kind": "forwarder",
+     "address": "0xb4ac906108a52A194b295f0aF7590b63D67BA175"
     }
    ]
   },
   {
-   "slug": "linkPool",
+   "slug": "linkpool",
    "name": "LinkPool",
    "website": "https://linkpool.io",
-   "aliases": [
-    "LinkPool",
-    "linkPool"
-   ],
+   "sources": {
+    "rdd": true,
+    "transmitters": true
+   },
+   "rdd_ids": {
+    "ethereum": [],
+    "arbitrum": [],
+    "base": [],
+    "optimism": [],
+    "polygon": [],
+    "avalanche": [],
+    "bnb": [],
+    "gnosis": [],
+    "scroll": [],
+    "sonic": [],
+    "zksync": []
+   },
+   "products": {
+    "data_feeds": true,
+    "automation": false,
+    "vrf": false,
+    "functions": false
+   },
    "counts": {
     "feeds": 1139,
-    "networks": 11
+    "networks": 11,
+    "streams": null
    },
+   "staking": null,
    "networks": [
     {
      "network": "arbitrum",
@@ -561,118 +779,228 @@
    ],
    "addresses": [
     {
-     "network": "ethereum-mainnet-base-1",
+     "network": "base",
      "kind": "node",
      "address": "0xD6F8632e7Cdca416CD64f3ac4F286887165E1D74"
     },
     {
-     "network": "ethereum-mainnet-base-1",
+     "network": "base",
      "kind": "node",
      "address": "0x92e83DA3BDA8bf72Aa855fB587F626d1b2770190"
     },
     {
-     "network": "ethereum-mainnet-base-1",
+     "network": "base",
      "kind": "forwarder",
      "address": "0x5D0C60E67d60A12A614376a747542c0a4C805Fa1"
     },
     {
-     "network": "ethereum-mainnet-base-1",
+     "network": "base",
      "kind": "payee",
      "address": "0xDF812B91D8bf6DF698BFD1D8047839479Ba63420"
     },
     {
-     "network": "ethereum-mainnet-base-1",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "matic-mainnet",
+     "network": "polygon",
      "kind": "node",
      "address": "0xa1ab1c841898Fe94900d00d9312ba954e4F81501"
     },
     {
-     "network": "matic-mainnet",
+     "network": "polygon",
      "kind": "forwarder",
      "address": "0x78C7933ee38FE8B204199CF0df0e8A1cc0a7ED30"
     },
     {
-     "network": "matic-mainnet",
+     "network": "polygon",
      "kind": "payee",
      "address": "0xDF812B91D8bf6DF698BFD1D8047839479Ba63420"
     },
     {
-     "network": "matic-mainnet",
+     "network": "polygon",
      "kind": "oracle",
      "address": "0x63B72AF260E8b40A7b89E238FeB53448A97b03D2"
     },
     {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "node",
      "address": "0x37Fc26312b831f7efb494cDB192c9aE91Fd27597"
     },
     {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "node",
      "address": "0xc8F3F83bfB4b0e4d06b933EE9A4A77bc305d7aD9"
     },
     {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "forwarder",
      "address": "0xdB1A1C98F4A23c8C78B7B2c44Cd9678Ff286A0A1"
     },
     {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "payee",
      "address": "0xDF812B91D8bf6DF698BFD1D8047839479Ba63420"
     },
     {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "oracle",
      "address": "0x63B72AF260E8b40A7b89E238FeB53448A97b03D2"
     },
     {
-     "network": "sonic-mainnet",
+     "network": "sonic",
      "kind": "node",
      "address": "0x8589AbacE8d0664aAEcD9500Cd170605Db9611D5"
     },
     {
-     "network": "sonic-mainnet",
+     "network": "sonic",
      "kind": "forwarder",
      "address": "0x080f762DC5E50dcf7Fe08E2fBD4FC2Be36Be253f"
     },
     {
-     "network": "sonic-mainnet",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "ethereum-mainnet-optimism-1",
+     "network": "optimism",
      "kind": "node",
      "address": "0xa04163e4033a941A3446c33e432A1da7ecc8898A"
     },
     {
-     "network": "ethereum-mainnet-optimism-1",
+     "network": "optimism",
      "kind": "forwarder",
      "address": "0xE13815BC6da86cB26713e6c4Dc4bd2EC7e6e054D"
     },
     {
-     "network": "ethereum-mainnet-optimism-1",
+     "network": "optimism",
+     "kind": "payee",
+     "address": "0xDF812B91D8bf6DF698BFD1D8047839479Ba63420"
+    },
+    {
+     "network": "gnosis",
+     "kind": "node",
+     "address": "0x11eB6a69A56DF3a89b99c4b1484691Af4AB0c508"
+    },
+    {
+     "network": "gnosis",
+     "kind": "forwarder",
+     "address": "0x55549a24F7b17d58f434B1eb4ad9b9c0530e001C"
+    },
+    {
+     "network": "gnosis",
+     "kind": "payee",
+     "address": "0xDF812B91D8bf6DF698BFD1D8047839479Ba63420"
+    },
+    {
+     "network": "avalanche",
+     "kind": "node",
+     "address": "0x69Dd5981be8F53828b9A305666F91133dfc0FdD2"
+    },
+    {
+     "network": "avalanche",
+     "kind": "forwarder",
+     "address": "0x634b436e6C7660Bf7aC54b08e7A6783ef0140250"
+    },
+    {
+     "network": "avalanche",
+     "kind": "payee",
+     "address": "0xDF812B91D8bf6DF698BFD1D8047839479Ba63420"
+    },
+    {
+     "network": "zksync",
+     "kind": "node",
+     "address": "0x4C21D4c317999444452C6c19E34f67B4de00CF06"
+    },
+    {
+     "network": "zksync",
+     "kind": "payee",
+     "address": "0xDF812B91D8bf6DF698BFD1D8047839479Ba63420"
+    },
+    {
+     "network": "ethereum",
+     "kind": "node",
+     "address": "0xcC29be4Ca92D4Ecc43C8451fBA94C200B83991f6"
+    },
+    {
+     "network": "ethereum",
+     "kind": "node",
+     "address": "0xf5EBbee10F55561B671577DCFcCdC6C24d0498e3"
+    },
+    {
+     "network": "ethereum",
+     "kind": "forwarder",
+     "address": "0x1d5804aE896c64ECc88E15379061CE6230F11895"
+    },
+    {
+     "network": "ethereum",
+     "kind": "payee",
+     "address": "0xDF812B91D8bf6DF698BFD1D8047839479Ba63420"
+    },
+    {
+     "network": "ethereum",
+     "kind": "oracle",
+     "address": "0x240BaE5A27233Fd3aC5440B5a598467725F7D1cd"
+    },
+    {
+     "network": "arbitrum",
+     "kind": "node",
+     "address": "0x27C56A6d40F20A33349F0822201fbc10d455Be66"
+    },
+    {
+     "network": "arbitrum",
+     "kind": "node",
+     "address": "0x12cDc19f5B8B570747115F2fccAe1Cd14318D44A"
+    },
+    {
+     "network": "arbitrum",
+     "kind": "forwarder",
+     "address": "0x402a0a65ff8cB155288D96E5B791885043695317"
+    },
+    {
+     "network": "arbitrum",
+     "kind": "payee",
+     "address": "0xDF812B91D8bf6DF698BFD1D8047839479Ba63420"
+    },
+    {
+     "network": "scroll",
+     "kind": "node",
+     "address": "0x4A0e94aec48B7AB1D282E7e842c8FC3C67Af5CBd"
+    },
+    {
+     "network": "scroll",
+     "kind": "forwarder",
+     "address": "0xa14819cE5960770a9103B0C853b37BE09C4Be9ee"
+    },
+    {
+     "network": "scroll",
      "kind": "payee",
      "address": "0xDF812B91D8bf6DF698BFD1D8047839479Ba63420"
     }
    ]
   },
   {
-   "slug": "pierTwo",
+   "slug": "piertwo",
    "name": "Pier Two",
    "website": null,
-   "aliases": [
-    "Pier Two"
-   ],
+   "sources": {
+    "rdd": true,
+    "transmitters": true
+   },
+   "rdd_ids": {
+    "ethereum": [],
+    "arbitrum": [],
+    "base": [],
+    "optimism": [],
+    "polygon": [],
+    "bnb": [],
+    "gnosis": [],
+    "celo": [],
+    "sonic": []
+   },
+   "products": {
+    "data_feeds": true,
+    "automation": false,
+    "vrf": false,
+    "functions": false
+   },
    "counts": {
     "feeds": 962,
-    "networks": 9
+    "networks": 9,
+    "streams": null
    },
+   "staking": null,
    "networks": [
     {
      "network": "arbitrum",
@@ -713,104 +1041,119 @@
    ],
    "addresses": [
     {
-     "network": "ethereum-mainnet-base-1",
+     "network": "base",
      "kind": "node",
      "address": "0xD91D63BF68554eB34eE9dF51b24c622e81E57E77"
     },
     {
-     "network": "ethereum-mainnet-base-1",
+     "network": "base",
      "kind": "node",
      "address": "0x3C29A270dc6C52673E9f59d47636a7069575cBA9"
     },
     {
-     "network": "ethereum-mainnet-base-1",
+     "network": "base",
      "kind": "forwarder",
      "address": "0x1bA0c1192d11a192C092fe23B874623278B8Fb5F"
     },
     {
-     "network": "ethereum-mainnet-base-1",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "matic-mainnet",
+     "network": "polygon",
      "kind": "node",
      "address": "0x9d4a1db33ADC21E1Ddfb092ffBF676d1b43BD72a"
     },
     {
-     "network": "matic-mainnet",
+     "network": "polygon",
      "kind": "forwarder",
      "address": "0xb8c371FE8c366eD9f627932c7B9f369957B45051"
     },
     {
-     "network": "matic-mainnet",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "node",
      "address": "0xC0fBE521016A1a4Eb481cE23BbFDAD3cc45575c2"
     },
     {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "node",
      "address": "0xEA46B3E1499906bE5A95bCa28991B873d5a06750"
     },
     {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "forwarder",
      "address": "0xE0a047E8705ca7C08076975F8568f123e5D34C11"
     },
     {
-     "network": "bsc-mainnet",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "sonic-mainnet",
+     "network": "sonic",
      "kind": "node",
      "address": "0x14e5372e5378EE893D0dec6e6f2A0F0788E5f0b9"
     },
     {
-     "network": "sonic-mainnet",
+     "network": "sonic",
      "kind": "forwarder",
      "address": "0x01d4a766dA7Dc74D39BE989baFB44cBC3667B368"
     },
     {
-     "network": "sonic-mainnet",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "ethereum-mainnet-optimism-1",
+     "network": "optimism",
      "kind": "node",
      "address": "0xb6d947fa6194e223144a5ac9E0F831196184F68F"
     },
     {
-     "network": "ethereum-mainnet-optimism-1",
+     "network": "optimism",
      "kind": "forwarder",
      "address": "0x5622746433DE972bc4c69B490753a45fBf806b18"
     },
     {
-     "network": "ethereum-mainnet-optimism-1",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "xdai-mainnet",
+     "network": "gnosis",
      "kind": "node",
      "address": "0xB349800EBeBD5422Fc95A07a13F3de65068b56aa"
     },
     {
-     "network": "xdai-mainnet",
+     "network": "gnosis",
      "kind": "forwarder",
      "address": "0x151A5C2D5cCF49392D54D57bec9b0e7656CB0088"
     },
     {
-     "network": "xdai-mainnet",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
+     "network": "ethereum",
+     "kind": "node",
+     "address": "0xaACF7f512A31f4Bb4a55B1CE64f7422F3d8922E1"
+    },
+    {
+     "network": "ethereum",
+     "kind": "node",
+     "address": "0x8D9d96a3303e56cB43863f24A434d064b1C7E874"
+    },
+    {
+     "network": "ethereum",
+     "kind": "forwarder",
+     "address": "0xDb0f470c2e87A645b1d7f8900b9a8F5aDe9aF259"
+    },
+    {
+     "network": "arbitrum",
+     "kind": "node",
+     "address": "0x156775DD452e83225FcC15C2655c3d050356584b"
+    },
+    {
+     "network": "arbitrum",
+     "kind": "node",
+     "address": "0x78161f9305c0B187eb245fCbC90b791FdabffcB6"
+    },
+    {
+     "network": "arbitrum",
+     "kind": "forwarder",
+     "address": "0x940DDd8918d28a9678471a9C3813975AD70314d8"
+    },
+    {
+     "network": "celo",
+     "kind": "node",
+     "address": "0xFFdf2739af859c2049B45b34f192FAdD911670Ec"
+    },
+    {
+     "network": "scroll",
+     "kind": "node",
+     "address": "0xb98D5532300C313A112A5651860083169091e733"
+    },
+    {
+     "network": "scroll",
+     "kind": "forwarder",
+     "address": "0x3A275FC11B2c15fBc184fB36911841A58716E58c"
     }
    ]
   },
@@ -818,13 +1161,31 @@
    "slug": "inotel",
    "name": "Inotel",
    "website": "https://inotel.ro/",
-   "aliases": [
-    "Inotel"
-   ],
+   "sources": {
+    "rdd": true,
+    "transmitters": true
+   },
+   "rdd_ids": {
+    "ethereum": [],
+    "arbitrum": [],
+    "optimism": [],
+    "polygon": [],
+    "avalanche": [],
+    "bnb": [],
+    "gnosis": []
+   },
+   "products": {
+    "data_feeds": true,
+    "automation": false,
+    "vrf": false,
+    "functions": false
+   },
    "counts": {
     "feeds": 913,
-    "networks": 7
+    "networks": 7,
+    "streams": null
    },
+   "staking": null,
    "networks": [
     {
      "network": "arbitrum",
@@ -857,102 +1218,132 @@
    ],
    "addresses": [
     {
-     "network": "matic-mainnet",
+     "network": "polygon",
      "kind": "node",
      "address": "0x52Add4435c81a4e0fB2eC494966863e48BF9302E"
     },
     {
-     "network": "matic-mainnet",
+     "network": "polygon",
      "kind": "forwarder",
      "address": "0x66896306B18117f4E04573D2210a49EDD80513B1"
     },
     {
-     "network": "matic-mainnet",
+     "network": "polygon",
      "kind": "payee",
      "address": "0xdD831352762e9de7ad5a264990e1bB9F87A6Fc21"
     },
     {
-     "network": "matic-mainnet",
+     "network": "polygon",
      "kind": "oracle",
      "address": "0xE614C50da365F245C9Bf563cc92A628975448aB4"
     },
     {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "node",
      "address": "0x5901B2B3B48e5310605fc1bb4a51B1001680a05B"
     },
     {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "node",
      "address": "0x4587Cf7D37aF6Da0bEfE9fd64f17464298f073C3"
     },
     {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "forwarder",
      "address": "0xc3bC83292fcc9c646E61f37126839449736d64FD"
     },
     {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "payee",
      "address": "0xdD831352762e9de7ad5a264990e1bB9F87A6Fc21"
     },
     {
-     "network": "bsc-mainnet",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "ethereum-mainnet-optimism-1",
+     "network": "optimism",
      "kind": "node",
      "address": "0x8CFc4459394801D2EA78F9cEeB31a7f58B8CdDDe"
     },
     {
-     "network": "ethereum-mainnet-optimism-1",
+     "network": "optimism",
      "kind": "forwarder",
      "address": "0x5d667786fd900A901a0cb96f489Bb80Ab712604C"
     },
     {
-     "network": "ethereum-mainnet-optimism-1",
+     "network": "optimism",
      "kind": "payee",
      "address": "0xdD831352762e9de7ad5a264990e1bB9F87A6Fc21"
     },
     {
-     "network": "ethereum-mainnet-optimism-1",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "xdai-mainnet",
+     "network": "gnosis",
      "kind": "node",
      "address": "0x45a3983bD8b0D7a77Bb00F1C86AD794515D96f34"
     },
     {
-     "network": "xdai-mainnet",
+     "network": "gnosis",
      "kind": "forwarder",
      "address": "0x0B98e89949915Be74fB3Ee32a555D3f95C47E81E"
     },
     {
-     "network": "xdai-mainnet",
+     "network": "gnosis",
      "kind": "payee",
      "address": "0xdD831352762e9de7ad5a264990e1bB9F87A6Fc21"
     },
     {
-     "network": "xdai-mainnet",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "avalanche-mainnet",
+     "network": "avalanche",
      "kind": "node",
      "address": "0x8EF62f0B88286AAF46142cacBB0058bf1F74607d"
     },
     {
-     "network": "avalanche-mainnet",
+     "network": "avalanche",
      "kind": "forwarder",
      "address": "0x3Af1411201C78A7348eECfc1E3868a3e280B5693"
     },
     {
-     "network": "avalanche-mainnet",
+     "network": "avalanche",
+     "kind": "payee",
+     "address": "0xdD831352762e9de7ad5a264990e1bB9F87A6Fc21"
+    },
+    {
+     "network": "ethereum",
+     "kind": "node",
+     "address": "0xDbfea8D5822141c13f92CaA06EB94d0F3d67C243"
+    },
+    {
+     "network": "ethereum",
+     "kind": "node",
+     "address": "0x0f0F6eb7Ef922EC2f3bd929Ba05B9E8DBa024b42"
+    },
+    {
+     "network": "ethereum",
+     "kind": "forwarder",
+     "address": "0xF38326579519377178725A741C35999E8051e907"
+    },
+    {
+     "network": "ethereum",
+     "kind": "payee",
+     "address": "0xdD831352762e9de7ad5a264990e1bB9F87A6Fc21"
+    },
+    {
+     "network": "ethereum",
+     "kind": "oracle",
+     "address": "0x053c779ACf94aE25D059A4680806dfC718b1295a"
+    },
+    {
+     "network": "arbitrum",
+     "kind": "node",
+     "address": "0xC76b9d4B13717f959ea45Ec6e3Db9C3F9304d7d5"
+    },
+    {
+     "network": "arbitrum",
+     "kind": "node",
+     "address": "0x88D8064B044caBFf59AC8886726dc152BDE44eB0"
+    },
+    {
+     "network": "arbitrum",
+     "kind": "forwarder",
+     "address": "0xcb9Fe9E2cad1cb7CE6aE8E64d4115953B67e87d8"
+    },
+    {
+     "network": "arbitrum",
      "kind": "payee",
      "address": "0xdD831352762e9de7ad5a264990e1bB9F87A6Fc21"
     }
@@ -960,16 +1351,33 @@
   },
   {
    "slug": "01node",
-   "name": "01node",
+   "name": "01Node",
    "website": "https://01node.com",
-   "aliases": [
-    "01node",
-    "01Node"
-   ],
+   "sources": {
+    "rdd": true,
+    "transmitters": true
+   },
+   "rdd_ids": {
+    "ethereum": [],
+    "base": [],
+    "optimism": [],
+    "polygon": [],
+    "avalanche": [],
+    "bnb": [],
+    "gnosis": []
+   },
+   "products": {
+    "data_feeds": true,
+    "automation": false,
+    "vrf": false,
+    "functions": false
+   },
    "counts": {
     "feeds": 884,
-    "networks": 7
+    "networks": 7,
+    "streams": null
    },
+   "staking": null,
    "networks": [
     {
      "network": "avalanche",
@@ -1002,119 +1410,134 @@
    ],
    "addresses": [
     {
-     "network": "ethereum-mainnet-base-1",
+     "network": "base",
      "kind": "node",
      "address": "0x34816bc1f605E0d58d46C43f1584C3A84F811e85"
     },
     {
-     "network": "ethereum-mainnet-base-1",
+     "network": "base",
      "kind": "node",
      "address": "0x01f973383aF228622836A466227Adc931CA463f6"
     },
     {
-     "network": "ethereum-mainnet-base-1",
+     "network": "base",
      "kind": "forwarder",
      "address": "0x92467bA6573B264C61Eb9294AdfE3969c46b135a"
     },
     {
-     "network": "ethereum-mainnet-base-1",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "matic-mainnet",
+     "network": "polygon",
      "kind": "node",
      "address": "0xC2a5c4518849E85C424993f16AbA347165b734B7"
     },
     {
-     "network": "matic-mainnet",
+     "network": "polygon",
      "kind": "forwarder",
      "address": "0xc3a80Ca6D79137f79393f4478c40A09270Ae4B61"
     },
     {
-     "network": "matic-mainnet",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "node",
      "address": "0x54f177F25600144561610AE7214A6Bf9199217f7"
     },
     {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "node",
      "address": "0xBc5622E7e5e9d11E7eebB56e0F9D9018e3d09E2d"
     },
     {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "forwarder",
      "address": "0x7511839dFfaf432A5DbA567bc1Aa77115EfEf882"
     },
     {
-     "network": "bsc-mainnet",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "ethereum-mainnet-optimism-1",
+     "network": "optimism",
      "kind": "node",
      "address": "0xdD0955D12962044D427753F6C9b6C241d2A7D965"
     },
     {
-     "network": "ethereum-mainnet-optimism-1",
+     "network": "optimism",
      "kind": "forwarder",
      "address": "0x52CC676D1Ab249E63F9540B6F7EB0F26F2d42aC6"
     },
     {
-     "network": "ethereum-mainnet-optimism-1",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "xdai-mainnet",
+     "network": "gnosis",
      "kind": "node",
      "address": "0x274C2FB716155e2E2a537a08205D4938199Fb32e"
     },
     {
-     "network": "xdai-mainnet",
+     "network": "gnosis",
      "kind": "forwarder",
      "address": "0x1F8E527eEd9D7902fF4F660E1c35e91D22CD8230"
     },
     {
-     "network": "xdai-mainnet",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "avalanche-mainnet",
+     "network": "avalanche",
      "kind": "node",
      "address": "0xafbB53C92ED3f8B875C37ca838d39dd7D962eDa0"
     },
     {
-     "network": "avalanche-mainnet",
+     "network": "avalanche",
      "kind": "forwarder",
      "address": "0xADC5571E3B5Fcc62c122f6b2255Db155f9bCe936"
     },
     {
-     "network": "avalanche-mainnet",
+     "network": "ethereum",
+     "kind": "node",
+     "address": "0x413e725094c7810669F91856cc58e73eA3fbc400"
+    },
+    {
+     "network": "ethereum",
+     "kind": "node",
+     "address": "0xF065f5f043e6c6D0995f40Ad670e03aA42e3E083"
+    },
+    {
+     "network": "ethereum",
+     "kind": "forwarder",
+     "address": "0x585B3e95EEdd03AF221F724557D03384864Da3ca"
+    },
+    {
+     "network": "ethereum",
+     "kind": "payee",
+     "address": "0x7A30E4B6307c0Db7AeF247A656b44d888B23a2DC"
+    },
+    {
+     "network": "ethereum",
      "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
+     "address": "0x64Fd0aBd4d8F5A0A7502C0078d959E57ca1207aB"
     }
    ]
   },
   {
-   "slug": "linkRiver",
-   "name": "linkRiver",
+   "slug": "linkriver",
+   "name": "LinkRiver",
    "website": "https://linkriver.io/",
-   "aliases": [
-    "linkRiver",
-    "LinkRiver"
-   ],
+   "sources": {
+    "rdd": true,
+    "transmitters": true
+   },
+   "rdd_ids": {
+    "ethereum": [],
+    "arbitrum": [],
+    "optimism": [],
+    "polygon": [],
+    "avalanche": [],
+    "bnb": [],
+    "scroll": [],
+    "linea": [],
+    "celo": [],
+    "zksync": []
+   },
+   "products": {
+    "data_feeds": true,
+    "automation": false,
+    "vrf": false,
+    "functions": false
+   },
    "counts": {
     "feeds": 837,
-    "networks": 10
+    "networks": 10,
+    "streams": null
    },
+   "staking": null,
    "networks": [
     {
      "network": "arbitrum",
@@ -1159,120 +1582,149 @@
    ],
    "addresses": [
     {
-     "network": "matic-mainnet",
+     "network": "polygon",
      "kind": "node",
      "address": "0x8eD47843e5030b6F06e6F204Fcf2725378BB837a"
     },
     {
-     "network": "matic-mainnet",
+     "network": "polygon",
      "kind": "forwarder",
      "address": "0x9a2F128Eb33F90514bfB5094604FaA43d251C06E"
     },
     {
-     "network": "matic-mainnet",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "ethereum-mainnet-linea-1",
+     "network": "linea",
      "kind": "node",
      "address": "0xfDFfB8A9bD4a9559bCdE06763fb3fA2dD483AC99"
     },
     {
-     "network": "ethereum-mainnet-linea-1",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "node",
      "address": "0xEBbc95fB63ad3e0D66169297c029BCd8e86fdc71"
     },
     {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "node",
      "address": "0x0560E593e3E3a7a3e25142c569727dBf2d4E4289"
     },
     {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "forwarder",
      "address": "0xD979873cFAf9a655F44006Fe01B148f1ABbc47Cc"
     },
     {
-     "network": "bsc-mainnet",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "ethereum-mainnet-optimism-1",
+     "network": "optimism",
      "kind": "node",
      "address": "0xD46acbA18e4f3C8b8b6c501DF1a6B05609a642Bd"
     },
     {
-     "network": "ethereum-mainnet-optimism-1",
+     "network": "optimism",
      "kind": "forwarder",
      "address": "0x84d80dF801BaDB2d0762E546EA4815b8D1Bc7E69"
     },
     {
-     "network": "ethereum-mainnet-optimism-1",
+     "network": "optimism",
      "kind": "payee",
      "address": "0x14f94049397C3F1807c45B6f854Cb5F36bC4393B"
     },
     {
-     "network": "ethereum-mainnet-optimism-1",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "avalanche-mainnet",
+     "network": "avalanche",
      "kind": "node",
      "address": "0x00B1943fFB046aC69E9618361f1eAd3ccE112fEa"
     },
     {
-     "network": "avalanche-mainnet",
+     "network": "avalanche",
      "kind": "forwarder",
      "address": "0x9784fC61C8bB79e0B3136441578B6FAE2aaC7f33"
     },
     {
-     "network": "avalanche-mainnet",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "ethereum-mainnet-zksync-1",
+     "network": "zksync",
      "kind": "node",
      "address": "0xd603cB64f9355432D443982F767EE95D37834c91"
     },
     {
-     "network": "ethereum-mainnet-zksync-1",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "node",
      "address": "0x686beC83b59F8b23A6129f03550A3Aad245a543C"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "node",
      "address": "0x399734a7EE32e16B7bc29DA6d6E2c738b3CAed02"
+    },
+    {
+     "network": "ethereum",
+     "kind": "forwarder",
+     "address": "0xC917E3BF6c211b326ffD4ed13E7D9a67682095CA"
+    },
+    {
+     "network": "ethereum",
+     "kind": "payee",
+     "address": "0x3dF4808483c93458E94c5545FD4Fd3Fa0d9f1171"
+    },
+    {
+     "network": "arbitrum",
+     "kind": "node",
+     "address": "0xb6d51122E3473a2A463f2F8752660570237C30a4"
+    },
+    {
+     "network": "arbitrum",
+     "kind": "node",
+     "address": "0xc7f17B3D22B1cbfA9Ae50FC7E3E3177540fb3f03"
+    },
+    {
+     "network": "arbitrum",
+     "kind": "forwarder",
+     "address": "0x0d330878352Fc96b6c4aee365e83aB2F1e7486c5"
+    },
+    {
+     "network": "celo",
+     "kind": "node",
+     "address": "0xFAE8B307efD995e6E0B2A14d6E0Bcbe8E2d066d1"
+    },
+    {
+     "network": "scroll",
+     "kind": "node",
+     "address": "0x99E8485B1e29adefA2f666d0186C84E43a5773c1"
+    },
+    {
+     "network": "scroll",
+     "kind": "forwarder",
+     "address": "0xE52dA2558237F45BB90377e5C2b30892E3ea4EF7"
     }
    ]
   },
   {
-   "slug": "simplyVC",
+   "slug": "simplyvc",
    "name": "Simply VC",
    "website": "https://simply-vc.com.mt",
-   "aliases": [
-    "Simply VC",
-    "simplyVC",
-    "simplyvc"
-   ],
+   "sources": {
+    "rdd": true,
+    "transmitters": true
+   },
+   "rdd_ids": {
+    "ethereum": [],
+    "arbitrum": [],
+    "optimism": [],
+    "polygon": [],
+    "avalanche": [],
+    "bnb": [],
+    "gnosis": [],
+    "scroll": [],
+    "linea": [],
+    "zksync": []
+   },
+   "products": {
+    "data_feeds": true,
+    "automation": false,
+    "vrf": false,
+    "functions": false
+   },
    "counts": {
     "feeds": 811,
-    "networks": 10
+    "networks": 10,
+    "streams": null
    },
+   "staking": null,
    "networks": [
     {
      "network": "arbitrum",
@@ -1317,119 +1769,178 @@
    ],
    "addresses": [
     {
-     "network": "matic-mainnet",
+     "network": "polygon",
      "kind": "node",
      "address": "0x777Ad55EFc465052d6A4AB7bc75B6A15175bB399"
     },
     {
-     "network": "matic-mainnet",
+     "network": "polygon",
      "kind": "forwarder",
      "address": "0xc08c942015d149dA17C1ef15128f3Ca49eebe809"
     },
     {
-     "network": "matic-mainnet",
+     "network": "polygon",
      "kind": "payee",
      "address": "0xF4aa5cbd16071916b2955c9aa9296F5216866Dc8"
     },
     {
-     "network": "matic-mainnet",
+     "network": "polygon",
      "kind": "oracle",
      "address": "0xcaAaB5d8ba733066B4fC0cc0A4002aFEd19051DA"
     },
     {
-     "network": "ethereum-mainnet-linea-1",
+     "network": "linea",
      "kind": "node",
      "address": "0xE34EB08cDAFa2Cf50f3fa8130d8Eff2fD4f1D5F9"
     },
     {
-     "network": "ethereum-mainnet-linea-1",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "node",
      "address": "0xBF44AcA665062a696b2d4c72663CFefD87769A10"
     },
     {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "node",
      "address": "0xCF3fb8AE427387D0f8eDA37168b5E0523c1Ea3b1"
     },
     {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "forwarder",
      "address": "0x328e4BDcf3096C36D9CB2d989Da6995b461140ac"
     },
     {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "oracle",
      "address": "0xaDb83Abbf7A8987AfB76DB33Ed2855A07f5497C7"
     },
     {
-     "network": "ethereum-mainnet-optimism-1",
+     "network": "optimism",
      "kind": "node",
      "address": "0x91722db88a8810e2e4AE2E4549aeE9eb2B9A4e8A"
     },
     {
-     "network": "ethereum-mainnet-optimism-1",
+     "network": "optimism",
      "kind": "forwarder",
      "address": "0x20f64c97bc0c9aF147710C205078Dbe8850b5823"
     },
     {
-     "network": "ethereum-mainnet-optimism-1",
+     "network": "optimism",
      "kind": "payee",
      "address": "0xac9D76EeFEE1cE89BC9fbf5d8bf58C4560cBB4f3"
     },
     {
-     "network": "ethereum-mainnet-optimism-1",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "xdai-mainnet",
+     "network": "gnosis",
      "kind": "node",
      "address": "0xC8a9A5b3517071f582b50b18633E522F6F4f38f5"
     },
     {
-     "network": "xdai-mainnet",
+     "network": "gnosis",
      "kind": "forwarder",
      "address": "0x9f7b6D03B48A662F80bA05c95467f95149808E2B"
     },
     {
-     "network": "xdai-mainnet",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "avalanche-mainnet",
+     "network": "avalanche",
      "kind": "node",
      "address": "0xFb821dfde8F43ed6fbf970153585038b0b3B49CC"
     },
     {
-     "network": "avalanche-mainnet",
+     "network": "avalanche",
      "kind": "forwarder",
      "address": "0xe2DC74af81f6D8886607A99bCBb463a842519702"
     },
     {
-     "network": "avalanche-mainnet",
+     "network": "zksync",
+     "kind": "node",
+     "address": "0x340d9001FF32C3FBE1c21aCEC60ffDc8A80589DF"
+    },
+    {
+     "network": "ethereum",
+     "kind": "node",
+     "address": "0x61317C73d0225b2E37140fb9664d607B450613C6"
+    },
+    {
+     "network": "ethereum",
+     "kind": "node",
+     "address": "0x5Aa561df41D1AAFdA692BAffA45D98e2d901aA96"
+    },
+    {
+     "network": "ethereum",
+     "kind": "forwarder",
+     "address": "0xd8D2297bDf4a84569bCec83C92A81549bE9c51E6"
+    },
+    {
+     "network": "ethereum",
+     "kind": "payee",
+     "address": "0x3F44C324BD76E031171d6f2B87c4FeF00D4294C2"
+    },
+    {
+     "network": "ethereum",
      "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
+     "address": "0x8cfb1D4269f0daa003CDEa567aC8f76c0647764a"
+    },
+    {
+     "network": "arbitrum",
+     "kind": "node",
+     "address": "0xD596389948247b582317a1EfA76cD7741A134191"
+    },
+    {
+     "network": "arbitrum",
+     "kind": "node",
+     "address": "0x403184aDC21F0e4F8f60F87bcd83AAa69CA24EE3"
+    },
+    {
+     "network": "arbitrum",
+     "kind": "forwarder",
+     "address": "0x650e42Fd0f2724a697CFd6903C0D6e3dd822edE0"
+    },
+    {
+     "network": "arbitrum",
+     "kind": "payee",
+     "address": "0xF4aa5cbd16071916b2955c9aa9296F5216866Dc8"
+    },
+    {
+     "network": "scroll",
+     "kind": "node",
+     "address": "0xC05493d7479a39Df4d74DBba12d4d83840685AC8"
+    },
+    {
+     "network": "scroll",
+     "kind": "forwarder",
+     "address": "0xdEABbd75606670fEe8acB2014cEB78150CF2aA63"
     }
    ]
   },
   {
    "slug": "galaxy",
-   "name": "galaxy",
+   "name": "Galaxy",
    "website": null,
-   "aliases": [
-    "galaxy",
-    "Galaxy"
-   ],
+   "sources": {
+    "rdd": true,
+    "transmitters": true
+   },
+   "rdd_ids": {
+    "ethereum": [],
+    "arbitrum": [],
+    "base": [],
+    "optimism": [],
+    "polygon": [],
+    "bnb": [],
+    "scroll": [],
+    "celo": [],
+    "zksync": []
+   },
+   "products": {
+    "data_feeds": true,
+    "automation": false,
+    "vrf": false,
+    "functions": false
+   },
    "counts": {
     "feeds": 774,
-    "networks": 9
+    "networks": 9,
+    "streams": null
    },
+   "staking": null,
    "networks": [
     {
      "network": "arbitrum",
@@ -1470,119 +1981,156 @@
    ],
    "addresses": [
     {
-     "network": "ethereum-mainnet-base-1",
+     "network": "base",
      "kind": "node",
      "address": "0x58F7B80BE97D031bd1067A2acdcF3Ce100790019"
     },
     {
-     "network": "ethereum-mainnet-base-1",
+     "network": "base",
      "kind": "node",
      "address": "0xacB1AA42C2B87398005F130f110fB4A7d47294e0"
     },
     {
-     "network": "ethereum-mainnet-base-1",
+     "network": "base",
      "kind": "forwarder",
      "address": "0xA916996A8fF9cA7bbddB597C5E7ea0E9d473C16f"
     },
     {
-     "network": "ethereum-mainnet-base-1",
+     "network": "base",
      "kind": "payee",
      "address": "0x9Ad6699beD1725b49676AEeFeFD2B50800206bE1"
     },
     {
-     "network": "ethereum-mainnet-base-1",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "matic-mainnet",
+     "network": "polygon",
      "kind": "node",
      "address": "0xE6c27255Fbb9d3a9718Fb5E2DC313Cd6EbA10b78"
     },
     {
-     "network": "matic-mainnet",
+     "network": "polygon",
      "kind": "forwarder",
      "address": "0x0A2D3933315c79C29Cee4E102c72ee67B140Fd3F"
     },
     {
-     "network": "matic-mainnet",
+     "network": "polygon",
      "kind": "payee",
      "address": "0x9Ad6699beD1725b49676AEeFeFD2B50800206bE1"
     },
     {
-     "network": "matic-mainnet",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "node",
      "address": "0x366e1467Ad847522F297DCF4E38D467eD417E052"
     },
     {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "node",
      "address": "0x8b6a25E8412a5a81EEefd5184d155C9b0553Cf52"
     },
     {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "forwarder",
      "address": "0xaaC815bcd3d1eCEACfC51608c4EaF194eEfd14f1"
     },
     {
-     "network": "bsc-mainnet",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "ethereum-mainnet-optimism-1",
+     "network": "optimism",
      "kind": "node",
      "address": "0x2bdF9249c350C68a43a9714c1b9153af54751b1C"
     },
     {
-     "network": "ethereum-mainnet-optimism-1",
+     "network": "optimism",
      "kind": "forwarder",
      "address": "0x42423D91b02ccC53fF98dCd68b30E4AB21104d90"
     },
     {
-     "network": "ethereum-mainnet-optimism-1",
+     "network": "optimism",
      "kind": "payee",
      "address": "0x9Ad6699beD1725b49676AEeFeFD2B50800206bE1"
     },
     {
-     "network": "ethereum-mainnet-optimism-1",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "ethereum-mainnet-zksync-1",
+     "network": "zksync",
      "kind": "node",
      "address": "0x6b8E0f3FdF3D5bFA942e1eE567c89347b1641EF8"
     },
     {
-     "network": "ethereum-mainnet-zksync-1",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "node",
      "address": "0x9741569DEDB1E0cB204f2dF7f43f7a52bB49ba3A"
+    },
+    {
+     "network": "ethereum",
+     "kind": "node",
+     "address": "0x867eab1158639D3e6a3fd3F36b5eE8AF714C496b"
+    },
+    {
+     "network": "ethereum",
+     "kind": "forwarder",
+     "address": "0x30d872350Fe74f47C85847D6784B42f9b0816f04"
+    },
+    {
+     "network": "ethereum",
+     "kind": "payee",
+     "address": "0x9Ad6699beD1725b49676AEeFeFD2B50800206bE1"
+    },
+    {
+     "network": "arbitrum",
+     "kind": "node",
+     "address": "0xf52b5CA4e73a3B2681c9604f5A11Fa403011a5F8"
+    },
+    {
+     "network": "arbitrum",
+     "kind": "node",
+     "address": "0xBDaF054A42A32e7FBC4Ef094f6121B8A84410d92"
+    },
+    {
+     "network": "arbitrum",
+     "kind": "forwarder",
+     "address": "0xAd326E98F2C923A178298131cA65D3f701AeD268"
+    },
+    {
+     "network": "celo",
+     "kind": "node",
+     "address": "0x53b9145C81f467A5551e0463e9634502A96488F6"
+    },
+    {
+     "network": "scroll",
+     "kind": "node",
+     "address": "0x6C1594475f5c4389A5Dd450B704d5b873E4B1797"
+    },
+    {
+     "network": "scroll",
+     "kind": "forwarder",
+     "address": "0xB85abaFbB48Ec3298615c6c68223ea418d6D1190"
     }
    ]
   },
   {
-   "slug": "linkForest",
+   "slug": "linkforest",
    "name": "LinkForest",
    "website": "https://www.linkforest.io",
-   "aliases": [
-    "LinkForest",
-    "linkForest"
-   ],
+   "sources": {
+    "rdd": true,
+    "transmitters": true
+   },
+   "rdd_ids": {
+    "ethereum": [],
+    "arbitrum": [],
+    "polygon": [],
+    "avalanche": [],
+    "bnb": [],
+    "scroll": [],
+    "celo": []
+   },
+   "products": {
+    "data_feeds": true,
+    "automation": false,
+    "vrf": false,
+    "functions": false
+   },
    "counts": {
     "feeds": 772,
-    "networks": 7
+    "networks": 7,
+    "streams": null
    },
+   "staking": null,
    "networks": [
     {
      "network": "arbitrum",
@@ -1615,119 +2163,132 @@
    ],
    "addresses": [
     {
-     "network": "matic-mainnet",
+     "network": "polygon",
      "kind": "node",
      "address": "0x250ABd1D4EBC8e70a4981677D5525f827660bDE4"
     },
     {
-     "network": "matic-mainnet",
+     "network": "polygon",
      "kind": "forwarder",
      "address": "0x43B5Ed824B75C03A3B975e489a1Bd3177cD10074"
     },
     {
-     "network": "matic-mainnet",
+     "network": "polygon",
      "kind": "oracle",
      "address": "0x591b78E79dF82B971D8387d9b0c3bB74185abA68"
     },
     {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "node",
      "address": "0xa6b40a7Bcc64E813C22561c921B81bc7A6b43eF9"
     },
     {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "node",
      "address": "0xE824e2015d39ffA9b42bf76fb692D1Bd93218eAa"
     },
     {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "forwarder",
      "address": "0x342682197497FC9b860e914636847F1a9AD8b037"
     },
     {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "oracle",
      "address": "0xf182052A7514dDf9067d81dc6f7267AA329859F2"
     },
     {
-     "network": "avalanche-mainnet",
+     "network": "avalanche",
      "kind": "node",
      "address": "0x574A2f48049D962cF2e66d4381823Af93817Cd81"
     },
     {
-     "network": "avalanche-mainnet",
+     "network": "avalanche",
      "kind": "forwarder",
      "address": "0x33d7F4AdBB4Dca1bF1f96469C4246411293387f3"
     },
     {
-     "network": "avalanche-mainnet",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "node",
      "address": "0x3C4ad65F5b4884397e1F09596c7ac7F8F95b3fF3"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "node",
      "address": "0xca38FE96DF5446fdC971CA25A3612f2EC39bE5D6"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "forwarder",
      "address": "0xE9DcbaCc91dB0e37562a8455c80d0734D7CF3bd1"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "oracle",
      "address": "0x7A9d706B2A3b54f7Cf3b5F2FcF94c5e2B3d7b24B"
     },
     {
-     "network": "ethereum-mainnet-arbitrum-1",
+     "network": "arbitrum",
      "kind": "node",
      "address": "0x51c5C8e2267582562f6cF08cF641A1A174946A50"
     },
     {
-     "network": "ethereum-mainnet-arbitrum-1",
+     "network": "arbitrum",
      "kind": "node",
      "address": "0x8ADa73a56E1aDF6CF23aABE8D72858Bd6DAa0A3e"
     },
     {
-     "network": "ethereum-mainnet-arbitrum-1",
+     "network": "arbitrum",
      "kind": "forwarder",
      "address": "0xcD96e5a8ab6536394f87b746030bC82C529Cbb66"
     },
     {
-     "network": "ethereum-mainnet-arbitrum-1",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "celo-mainnet",
+     "network": "celo",
      "kind": "node",
      "address": "0x39CEc0a0663565493774506789892A653e0E2440"
     },
     {
-     "network": "celo-mainnet",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
+     "network": "scroll",
+     "kind": "node",
+     "address": "0xB637991E9456d53cFDfCd8B8C898F1f3Dda9945B"
+    },
+    {
+     "network": "scroll",
+     "kind": "forwarder",
+     "address": "0x77C275ef21c972b010143800e0A3bB9815312488"
     }
    ]
   },
   {
-   "slug": "snzPool",
+   "slug": "snzpool",
    "name": "SNZPool",
    "website": "https://snzholding.com",
-   "aliases": [
-    "SNZPool",
-    "snzPool"
-   ],
+   "sources": {
+    "rdd": true,
+    "transmitters": true
+   },
+   "rdd_ids": {
+    "ethereum": [],
+    "arbitrum": [],
+    "base": [],
+    "polygon": [],
+    "bnb": [],
+    "gnosis": [],
+    "scroll": [],
+    "celo": []
+   },
+   "products": {
+    "data_feeds": true,
+    "automation": false,
+    "vrf": false,
+    "functions": false
+   },
    "counts": {
     "feeds": 762,
-    "networks": 8
+    "networks": 8,
+    "streams": null
    },
+   "staking": null,
    "networks": [
     {
      "network": "arbitrum",
@@ -1764,104 +2325,124 @@
    ],
    "addresses": [
     {
-     "network": "ethereum-mainnet-base-1",
+     "network": "base",
      "kind": "node",
      "address": "0xAbFa05C981f49f8d42D9a3361D53924Df2c64966"
     },
     {
-     "network": "ethereum-mainnet-base-1",
+     "network": "base",
      "kind": "node",
      "address": "0x255435d3f49B9c7094A60646A7F8f1B8Bd483Bd9"
     },
     {
-     "network": "ethereum-mainnet-base-1",
+     "network": "base",
      "kind": "forwarder",
      "address": "0xe0B627e26B86B664Ee4E3ADcd6CEb8B8f59a84f8"
     },
     {
-     "network": "ethereum-mainnet-base-1",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "matic-mainnet",
+     "network": "polygon",
      "kind": "node",
      "address": "0x84A611B71254F5fCCb1E5a619aD723CAD8a03638"
     },
     {
-     "network": "matic-mainnet",
+     "network": "polygon",
      "kind": "forwarder",
      "address": "0x97730d7BdB2260223A4bAC7d72EE67fFe8840433"
     },
     {
-     "network": "matic-mainnet",
+     "network": "polygon",
      "kind": "oracle",
      "address": "0x2A1e8f32cBeF0d987060DF7582A16447f947AaA9"
     },
     {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "node",
      "address": "0x573352F3FD171FB103Fd9107D04D5025660f1B8a"
     },
     {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "node",
      "address": "0xDa6d948aEE1f2ED9d066e43dAA0054FD749175b0"
     },
     {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "forwarder",
      "address": "0x5d6173E05c3Af359DBb13ee12Af726E34AAeDAD2"
     },
     {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "oracle",
      "address": "0x56CD9228cD980e8aE3afdF8dfFA7a2E87e8360d9"
     },
     {
-     "network": "xdai-mainnet",
+     "network": "gnosis",
      "kind": "node",
      "address": "0x9d3A9b7cadc14dA9cB57E9e9E83eD13ea1D36d40"
     },
     {
-     "network": "xdai-mainnet",
+     "network": "gnosis",
      "kind": "forwarder",
      "address": "0xb5e589e03268eAC52F2035b6C5d8A6ae86B3b835"
     },
     {
-     "network": "xdai-mainnet",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "node",
      "address": "0x7BFb89db2d7217c57C3Ad3d4B55826eFD17dC2e9"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "node",
      "address": "0x89cCce50c9631A4ED7831f07b21982Ef97c91e56"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "forwarder",
      "address": "0x35a06994a99B335b700bB3c875408489a9F8BbeF"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "payee",
      "address": "0x9cCbFD17FA284f36c2ff503546160B256d1CD3D1"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "oracle",
      "address": "0x7e94A8A23687D8C7058Ba5625dB2Ce358bCbd244"
     },
     {
-     "network": "ethereum-mainnet-arbitrum-1",
+     "network": "arbitrum",
      "kind": "node",
      "address": "0x01f4e56D5ee46e84Edf8595ca7A7B62a3306De76"
+    },
+    {
+     "network": "arbitrum",
+     "kind": "node",
+     "address": "0x49bF87c49286B3c911313D63008cA6F3975b6354"
+    },
+    {
+     "network": "arbitrum",
+     "kind": "forwarder",
+     "address": "0xE6004A0cf3897d4659A1C01162C5eb0B41e6051D"
+    },
+    {
+     "network": "arbitrum",
+     "kind": "payee",
+     "address": "0x9cCbFD17FA284f36c2ff503546160B256d1CD3D1"
+    },
+    {
+     "network": "celo",
+     "kind": "node",
+     "address": "0xE8bd69A4b3A03dBC5c426300346936F625aDF882"
+    },
+    {
+     "network": "scroll",
+     "kind": "node",
+     "address": "0x0993a2aF7EcA79D73797F7D1C7167d4FFea15f21"
+    },
+    {
+     "network": "scroll",
+     "kind": "forwarder",
+     "address": "0xe942159f96C99A97b479d9fF2Fdf3311F913C151"
     }
    ]
   },
@@ -1869,15 +2450,31 @@
    "slug": "syncnode",
    "name": "SyncNode",
    "website": "https://wallet.syncnode.ro",
-   "aliases": [
-    "SyncNode",
-    "Syncnode",
-    "syncnode"
-   ],
+   "sources": {
+    "rdd": true,
+    "transmitters": true
+   },
+   "rdd_ids": {
+    "ethereum": [],
+    "arbitrum": [],
+    "base": [],
+    "avalanche": [],
+    "bnb": [],
+    "celo": [],
+    "sonic": []
+   },
+   "products": {
+    "data_feeds": true,
+    "automation": false,
+    "vrf": false,
+    "functions": false
+   },
    "counts": {
     "feeds": 618,
-    "networks": 7
+    "networks": 7,
+    "streams": null
    },
+   "staking": null,
    "networks": [
     {
      "network": "arbitrum",
@@ -1910,104 +2507,104 @@
    ],
    "addresses": [
     {
-     "network": "ethereum-mainnet-base-1",
+     "network": "base",
      "kind": "node",
      "address": "0xB9e44696B045ab005eA956253d8676F656eEBC60"
     },
     {
-     "network": "ethereum-mainnet-base-1",
+     "network": "base",
      "kind": "node",
      "address": "0xEeaCF719DBbbE9a2a06C076ab6Bd5BEb08e8C41d"
     },
     {
-     "network": "ethereum-mainnet-base-1",
+     "network": "base",
      "kind": "forwarder",
      "address": "0xB2777b58F50388a9acF264023722C83bE025dC1d"
     },
     {
-     "network": "ethereum-mainnet-base-1",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "node",
      "address": "0x5ce038429e4d6025F94Ae271759d63bcfdCCb6cC"
     },
     {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "node",
      "address": "0xAD904E4804fA66dDD279bf2bDE14df0e0b5F6f3F"
     },
     {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "forwarder",
      "address": "0x1877d26Dabef3b5869aAA788EbFB39F1d6C477A0"
     },
     {
-     "network": "bsc-mainnet",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "sonic-mainnet",
+     "network": "sonic",
      "kind": "node",
      "address": "0xe46c82f4d95eD83ae914dF238cE8dB37613caebd"
     },
     {
-     "network": "sonic-mainnet",
+     "network": "sonic",
      "kind": "forwarder",
      "address": "0x238c875B655DdF40b7017956fb2d2E35D1fa6266"
     },
     {
-     "network": "sonic-mainnet",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "avalanche-mainnet",
+     "network": "avalanche",
      "kind": "node",
      "address": "0xAF4BfC46cd543bCBeCD895f74ea54C0ccEe6AAc6"
     },
     {
-     "network": "avalanche-mainnet",
+     "network": "avalanche",
      "kind": "forwarder",
      "address": "0xd1dA91dcc4ae9d304DD0F3904AFa73d60321f691"
     },
     {
-     "network": "avalanche-mainnet",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "node",
      "address": "0x0312EA121df0a323fF535B753172736cc9d53d13"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "node",
      "address": "0x9e6266625742fEe6fB7546BCC4066f774642c453"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "forwarder",
      "address": "0x0613A20e394593c2aEB627760e6d6Fb816D77fbB"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "oracle",
      "address": "0x180486507E7e20490FC0228efd182989E0BD61Cc"
     },
     {
-     "network": "ethereum-mainnet-arbitrum-1",
+     "network": "arbitrum",
      "kind": "node",
      "address": "0xe8Ce3C31312F9651200fd65B1C3335C3bAb599e0"
     },
     {
-     "network": "ethereum-mainnet-arbitrum-1",
+     "network": "arbitrum",
      "kind": "node",
      "address": "0xF019ee710E0Fd561257008fFEfCDBf962D5d10FD"
+    },
+    {
+     "network": "arbitrum",
+     "kind": "forwarder",
+     "address": "0x2820019299E49CfcAbCf4d40A35de3d1346CF582"
+    },
+    {
+     "network": "celo",
+     "kind": "node",
+     "address": "0x73528c774b46472eF6fd5D7e46692aafaB106413"
+    },
+    {
+     "network": "scroll",
+     "kind": "node",
+     "address": "0xf67cbDeb0BCA89d7d86B4Cb944B656e1e639B344"
+    },
+    {
+     "network": "scroll",
+     "kind": "forwarder",
+     "address": "0x117E201AB958246E5E6e0aAe660362FAcc2E0455"
     }
    ]
   },
@@ -2015,13 +2612,29 @@
    "slug": "blockdaemon",
    "name": "Blockdaemon",
    "website": "https://blockdaemon.com/",
-   "aliases": [
-    "Blockdaemon"
-   ],
+   "sources": {
+    "rdd": true,
+    "transmitters": true
+   },
+   "rdd_ids": {
+    "ethereum": [],
+    "optimism": [],
+    "avalanche": [],
+    "bnb": [],
+    "gnosis": []
+   },
+   "products": {
+    "data_feeds": true,
+    "automation": false,
+    "vrf": false,
+    "functions": false
+   },
    "counts": {
     "feeds": 552,
-    "networks": 5
+    "networks": 5,
+    "streams": null
    },
+   "staking": null,
    "networks": [
     {
      "network": "avalanche",
@@ -2046,104 +2659,100 @@
    ],
    "addresses": [
     {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "node",
      "address": "0xed3A0ac63d7e48399D05d9a25925e8FCb0Cd98D0"
     },
     {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "node",
      "address": "0x4129AceAE0D32fa1A67A8eDB1CAA93Bd21a9aDf6"
     },
     {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "forwarder",
      "address": "0x080f02795ba9003404Aceaf102f14443647DBe08"
     },
     {
-     "network": "bsc-mainnet",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "ethereum-mainnet-optimism-1",
+     "network": "optimism",
      "kind": "node",
      "address": "0xB834eD914228B68b0E1f3E4F1e168Ed2b580a35c"
     },
     {
-     "network": "ethereum-mainnet-optimism-1",
+     "network": "optimism",
      "kind": "forwarder",
      "address": "0x5A076eC8E037De44d7FfddceC2507e79727BEB9A"
     },
     {
-     "network": "ethereum-mainnet-optimism-1",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "xdai-mainnet",
+     "network": "gnosis",
      "kind": "node",
      "address": "0x3036c926cCc3096beCF584E7523A1a57fdebba77"
     },
     {
-     "network": "xdai-mainnet",
+     "network": "gnosis",
      "kind": "forwarder",
      "address": "0x253BB8d5Aa59C2A5FD8eEB1953F58482cc14E2eA"
     },
     {
-     "network": "xdai-mainnet",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "avalanche-mainnet",
+     "network": "avalanche",
      "kind": "node",
      "address": "0x5b17Db9668BB9CbFe87F416b4da1132b5193959D"
     },
     {
-     "network": "avalanche-mainnet",
+     "network": "avalanche",
      "kind": "forwarder",
      "address": "0xF4d909e4b917F48241058440E01710082c3ABe54"
     },
     {
-     "network": "avalanche-mainnet",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "node",
      "address": "0x57CD4848b12469618b689163f507817940AccA02"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "node",
      "address": "0xA669046795968E3784a58445d873a11db5621ada"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "forwarder",
      "address": "0xFe31f3EcfDE29Fc4915d80Eb8A9d67bFF14180B3"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "oracle",
      "address": "0x9308B0Bd23794063423f484Cd21c59eD38898108"
     }
    ]
   },
   {
-   "slug": "matrixedLink",
+   "slug": "matrixedlink",
    "name": "Matrixed.Link",
    "website": "https://matrixedlink.io/",
-   "aliases": [
-    "Matrixed.Link",
-    "matrixedLink"
-   ],
+   "sources": {
+    "rdd": true,
+    "transmitters": true
+   },
+   "rdd_ids": {
+    "ethereum": [],
+    "arbitrum": [],
+    "base": [],
+    "polygon": [],
+    "scroll": [],
+    "zksync": []
+   },
+   "products": {
+    "data_feeds": true,
+    "automation": false,
+    "vrf": false,
+    "functions": false
+   },
    "counts": {
     "feeds": 531,
-    "networks": 6
+    "networks": 6,
+    "streams": null
    },
+   "staking": null,
    "networks": [
     {
      "network": "arbitrum",
@@ -2172,119 +2781,104 @@
    ],
    "addresses": [
     {
-     "network": "ethereum-mainnet-base-1",
+     "network": "base",
      "kind": "node",
      "address": "0x02E9137940be6803D333EB1451C3834C96cA9C2d"
     },
     {
-     "network": "ethereum-mainnet-base-1",
+     "network": "base",
      "kind": "node",
      "address": "0xdCD7D20b14c9d6214418A93deAd5f55C270bD6f1"
     },
     {
-     "network": "ethereum-mainnet-base-1",
+     "network": "base",
      "kind": "forwarder",
      "address": "0x79fC1d9e8A7425aDC44183bf8e1efbCBf752dE48"
     },
     {
-     "network": "ethereum-mainnet-base-1",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "matic-mainnet",
+     "network": "polygon",
      "kind": "node",
      "address": "0x5543FF441d3B0fCce59Aa08eb52f15d27294AF21"
     },
     {
-     "network": "matic-mainnet",
+     "network": "polygon",
      "kind": "forwarder",
      "address": "0xBF0A635231Ff145B1dA57961e48F7490fe6B2dF5"
     },
     {
-     "network": "matic-mainnet",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "ethereum-mainnet-zksync-1",
+     "network": "zksync",
      "kind": "node",
      "address": "0xe83A339BF4D658020A08cF2ab24d2e6Cb7479129"
     },
     {
-     "network": "ethereum-mainnet-zksync-1",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "node",
      "address": "0x1feEc90f63B1927d1078D123A57f940E680a3AbF"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "node",
      "address": "0xcc85535a5E7dB45E9ed90483e8f84eC69FF64d55"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "forwarder",
      "address": "0xe9E4D87B0e7f97dd622439c26605b3b038c276C4"
     },
     {
-     "network": "mainnet",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "ethereum-mainnet-arbitrum-1",
+     "network": "arbitrum",
      "kind": "node",
      "address": "0x64AE501217d502Be8a1d9D4a4f669fbAC6a0c062"
     },
     {
-     "network": "ethereum-mainnet-arbitrum-1",
+     "network": "arbitrum",
      "kind": "node",
      "address": "0x3F3317968EB600c8c9d841A33F699894Cee9c1e4"
     },
     {
-     "network": "ethereum-mainnet-arbitrum-1",
+     "network": "arbitrum",
      "kind": "forwarder",
      "address": "0x1b8e3F415DD41ef5958243dc9F88d40A56F5db98"
     },
     {
-     "network": "ethereum-mainnet-arbitrum-1",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "ethereum-mainnet-scroll-1",
+     "network": "scroll",
      "kind": "node",
      "address": "0xDC7eF1E6Caf0A4b3717133bA165D20fEeD0c646d"
     },
     {
-     "network": "ethereum-mainnet-scroll-1",
+     "network": "scroll",
      "kind": "forwarder",
      "address": "0xf87b8a169a6AfEBc4B92527352CAdE11d04DAAc3"
-    },
-    {
-     "network": "ethereum-mainnet-scroll-1",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
     }
    ]
   },
   {
-   "slug": "validationCloud",
-   "name": "validationCloud",
+   "slug": "validationcloud",
+   "name": "Validation Cloud",
    "website": "https://www.validationcloud.io",
-   "aliases": [
-    "validationCloud",
-    "Validation Cloud"
-   ],
+   "sources": {
+    "rdd": true,
+    "transmitters": true
+   },
+   "rdd_ids": {
+    "ethereum": [],
+    "arbitrum": [],
+    "avalanche": [],
+    "bnb": [],
+    "zksync": []
+   },
+   "products": {
+    "data_feeds": true,
+    "automation": false,
+    "vrf": false,
+    "functions": false
+   },
    "counts": {
     "feeds": 479,
-    "networks": 5
+    "networks": 5,
+    "streams": null
    },
+   "staking": null,
    "networks": [
     {
      "network": "arbitrum",
@@ -2309,118 +2903,107 @@
    ],
    "addresses": [
     {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "node",
      "address": "0x3032cE567c21329fC95B150022d50753ecCB4F1d"
     },
     {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "node",
      "address": "0xaA6760D1280d01aA2C4f6a5c3c5f30e5D613740b"
     },
     {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "forwarder",
      "address": "0x8bDB5E089E9285037E6874D8F3160b5548611380"
     },
     {
-     "network": "bsc-mainnet",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "avalanche-mainnet",
+     "network": "avalanche",
      "kind": "node",
      "address": "0xA317eBD3dA5C29b6EA01742bbEa6BaCCEB10A297"
     },
     {
-     "network": "avalanche-mainnet",
+     "network": "avalanche",
      "kind": "forwarder",
      "address": "0x9BA41E98d698Cde12E22D342381a2e7Fb1eDF752"
     },
     {
-     "network": "avalanche-mainnet",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "ethereum-mainnet-zksync-1",
+     "network": "zksync",
      "kind": "node",
      "address": "0x31b3024D120F5DEd87c39883f8Be5D19c6F18A4c"
     },
     {
-     "network": "ethereum-mainnet-zksync-1",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "node",
      "address": "0xC4b732Fd121F2f3783A9Ac2a6C62fD535FD13FdA"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "node",
      "address": "0x74D68CcD5085eC6aA2E20d133d806Fe6F7d3eaF4"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "forwarder",
      "address": "0x65a43936d7e1295CcA6f30F6a0B25fe49cAb32c8"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "oracle",
      "address": "0x79C6e11bE1C1ed4D91FbE05D458195A2677F14A5"
     },
     {
-     "network": "ethereum-mainnet-arbitrum-1",
+     "network": "arbitrum",
      "kind": "node",
      "address": "0xB0576808343819a21B9171B018b87da204967B6F"
     },
     {
-     "network": "ethereum-mainnet-arbitrum-1",
+     "network": "arbitrum",
      "kind": "node",
      "address": "0xDAb08E1e4B7D556C88b396Ce770c0f8FbbE5Db0C"
     },
     {
-     "network": "ethereum-mainnet-arbitrum-1",
+     "network": "arbitrum",
      "kind": "forwarder",
      "address": "0x9adC6Ebd85A1e239998119cb2885E272e48E1474"
     },
     {
-     "network": "ethereum-mainnet-arbitrum-1",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "ethereum-mainnet-scroll-1",
+     "network": "scroll",
      "kind": "node",
      "address": "0xDe6B7fD7D00161FE433fD4199d00f05564ca2085"
     },
     {
-     "network": "ethereum-mainnet-scroll-1",
+     "network": "scroll",
      "kind": "forwarder",
      "address": "0x3A29e30E3681dd62A8547bf07A044a41D488D51A"
-    },
-    {
-     "network": "ethereum-mainnet-scroll-1",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
     }
    ]
   },
   {
-   "slug": "frameworkVentures",
+   "slug": "frameworkventures",
    "name": "Framework Ventures",
    "website": "https://framework.ventures/",
-   "aliases": [
-    "Framework Ventures"
-   ],
+   "sources": {
+    "rdd": true,
+    "transmitters": true
+   },
+   "rdd_ids": {
+    "ethereum": [],
+    "arbitrum": [],
+    "bnb": []
+   },
+   "products": {
+    "data_feeds": true,
+    "automation": false,
+    "vrf": false,
+    "functions": false
+   },
    "counts": {
     "feeds": 435,
-    "networks": 3
+    "networks": 3,
+    "streams": null
    },
+   "staking": null,
    "networks": [
     {
      "network": "arbitrum",
@@ -2437,84 +3020,95 @@
    ],
    "addresses": [
     {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "node",
      "address": "0xC5aaf1525Dd8E1A5a01273C3d59C47426F426756"
     },
     {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "node",
      "address": "0xf6D83D55a4E4002A855853f15503dd44FDA0c0f6"
     },
     {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "forwarder",
      "address": "0xF87C2E9f08c04f805d15C5E90273227639151860"
     },
     {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "payee",
      "address": "0x6eF38c3d1D85B710A9e160aD41B912Cb8CAc2589"
     },
     {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "oracle",
      "address": "0x709ACFe2a31f4eCf02600f91881d06cf13022ab4"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "node",
      "address": "0x2a4a7afA40a9D03B425752fb4cFd5f0FF5b3964C"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "node",
      "address": "0xD7518fD011334dc0346C0fC48Bad01b85bB75656"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "forwarder",
      "address": "0x8AaDF849561DcCeC75DA44d1147E736E0cc0134E"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "oracle",
      "address": "0xfdB313AAF5Ee0EAc9B85d27D3b9BDc22ae3B3cfe"
     },
     {
-     "network": "ethereum-mainnet-arbitrum-1",
+     "network": "arbitrum",
      "kind": "node",
      "address": "0xe870848FEb433FBE423b08791c44D8bf31B2D4Dc"
     },
     {
-     "network": "ethereum-mainnet-arbitrum-1",
+     "network": "arbitrum",
      "kind": "node",
      "address": "0x8640d1BCB165164F69d345FFe4d52624FcF9F4A4"
     },
     {
-     "network": "ethereum-mainnet-arbitrum-1",
+     "network": "arbitrum",
      "kind": "forwarder",
      "address": "0x0E3786ed9f1Ff2C4c79489cC4BCe900D8A5CEAf0"
-    },
-    {
-     "network": "ethereum-mainnet-arbitrum-1",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
     }
    ]
   },
   {
-   "slug": "newRoad",
-   "name": "newRoad",
+   "slug": "newroad",
+   "name": "Newroad Network",
    "website": "https://newroad.network",
-   "aliases": [
-    "newRoad",
-    "Newroad Network"
-   ],
+   "sources": {
+    "rdd": true,
+    "transmitters": true
+   },
+   "rdd_ids": {
+    "ethereum": [],
+    "arbitrum": [],
+    "polygon": [],
+    "bnb": [],
+    "linea": [],
+    "sonic": []
+   },
+   "products": {
+    "data_feeds": true,
+    "automation": false,
+    "vrf": false,
+    "functions": false
+   },
    "counts": {
     "feeds": 390,
-    "networks": 6
+    "networks": 6,
+    "streams": null
    },
+   "staking": null,
    "networks": [
     {
      "network": "arbitrum",
@@ -2543,104 +3137,89 @@
    ],
    "addresses": [
     {
-     "network": "matic-mainnet",
+     "network": "polygon",
      "kind": "node",
      "address": "0x983D0e1d23D3109D15e833fB800A51ba154DEfD3"
     },
     {
-     "network": "matic-mainnet",
+     "network": "polygon",
      "kind": "forwarder",
      "address": "0xB37E254A5c0AE7EB0a479B15ad86dF566802D20c"
     },
     {
-     "network": "matic-mainnet",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "ethereum-mainnet-linea-1",
+     "network": "linea",
      "kind": "node",
      "address": "0xF6Cc2717EE11640c992505424B4FaDBfc6872dFE"
     },
     {
-     "network": "ethereum-mainnet-linea-1",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "node",
      "address": "0xA787D76966254faAe59174e0be8bE95a3D5E7261"
     },
     {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "node",
      "address": "0xDe4bbDe7F5205d6625bb90732c8e7d586f445033"
     },
     {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "forwarder",
      "address": "0x9dFCA5435036ad0069ECa7C8e15b0c5c44548952"
     },
     {
-     "network": "bsc-mainnet",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "sonic-mainnet",
+     "network": "sonic",
      "kind": "node",
      "address": "0xB04c519e864f73Ffa193D013004B820C35cE2E90"
     },
     {
-     "network": "sonic-mainnet",
+     "network": "sonic",
      "kind": "forwarder",
      "address": "0x23055F7099c8DAa1a66574087D1EF9FB07F89b1B"
     },
     {
-     "network": "sonic-mainnet",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "node",
      "address": "0x9cFAb1513FFA293E7023159B3C7A4C984B6a3480"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "node",
      "address": "0x58029Cc80BA5E1A4F749d1F09854E89f26283d5F"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "forwarder",
      "address": "0x5eA7eAe0EBC1f4256806C8bf234F672d410Fc988"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "oracle",
      "address": "0xF3b450002C7Bc300eA03c9463d8E8BA7f821b7c6"
     },
     {
-     "network": "ethereum-mainnet-arbitrum-1",
+     "network": "arbitrum",
      "kind": "node",
      "address": "0x0DF8816aCa7A98Ce960D89FaAd4D8cc81f3CD88d"
     },
     {
-     "network": "ethereum-mainnet-arbitrum-1",
+     "network": "arbitrum",
      "kind": "node",
      "address": "0xF1C1696e4b0372109f25393a2876011448D13761"
     },
     {
-     "network": "ethereum-mainnet-arbitrum-1",
+     "network": "arbitrum",
      "kind": "forwarder",
      "address": "0x7e846d4E90822F1757309BA3BF75D0eE61A30f3c"
     },
     {
-     "network": "ethereum-mainnet-arbitrum-1",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
+     "network": "scroll",
+     "kind": "node",
+     "address": "0x21f668Dd297C161cA2705EB1Ad269EaC6ae4dC26"
+    },
+    {
+     "network": "scroll",
+     "kind": "forwarder",
+     "address": "0xf624c0274E60bae3A109Faa8C949e40533143C12"
     }
    ]
   },
@@ -2648,13 +3227,27 @@
    "slug": "vulcan",
    "name": "Vulcan Link",
    "website": "https://vulcan.link",
-   "aliases": [
-    "Vulcan Link"
-   ],
+   "sources": {
+    "rdd": true,
+    "transmitters": true
+   },
+   "rdd_ids": {
+    "ethereum": [],
+    "arbitrum": [],
+    "polygon": []
+   },
+   "products": {
+    "data_feeds": true,
+    "automation": false,
+    "vrf": false,
+    "functions": false
+   },
    "counts": {
     "feeds": 357,
-    "networks": 3
+    "networks": 3,
+    "streams": null
    },
+   "staking": null,
    "networks": [
     {
      "network": "arbitrum",
@@ -2671,84 +3264,88 @@
    ],
    "addresses": [
     {
-     "network": "matic-mainnet",
+     "network": "polygon",
      "kind": "node",
      "address": "0x3Dd12EB5aE0F1A106fB358C8B99830ab5690a7a2"
     },
     {
-     "network": "matic-mainnet",
+     "network": "polygon",
      "kind": "forwarder",
      "address": "0x3F7ecb458433E07d3E40d35eC08024606A9db792"
     },
     {
-     "network": "matic-mainnet",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "node",
      "address": "0xD22c87Dc7a3F12dcBB75CEbDA2e96f6766AE114F"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "node",
      "address": "0xe7f7019203Ac569557b602389B4Fa69eF7DD722F"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "forwarder",
      "address": "0xE62Efa5462961055757C63931a15601545E4d273"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "payee",
      "address": "0x7D0f8dd25135047967bA6C50309b567957dd52c3"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "oracle",
      "address": "0x58EB922F60Ae3D7A8b9F6cCbe7ae4F05431f998c"
     },
     {
-     "network": "ethereum-mainnet-arbitrum-1",
+     "network": "arbitrum",
      "kind": "node",
      "address": "0x3cae103213dB7673072E138A622bD17b20bc7ad4"
     },
     {
-     "network": "ethereum-mainnet-arbitrum-1",
+     "network": "arbitrum",
      "kind": "node",
      "address": "0x7D9A5dB64DBc4319C72fbF55C967575551d5E794"
     },
     {
-     "network": "ethereum-mainnet-arbitrum-1",
+     "network": "arbitrum",
      "kind": "forwarder",
      "address": "0x84b4D5471C8E6C1bD0a48d9b06ba8Fc05D29f1E2"
     },
     {
-     "network": "ethereum-mainnet-arbitrum-1",
+     "network": "arbitrum",
      "kind": "payee",
      "address": "0x7D0f8dd25135047967bA6C50309b567957dd52c3"
-    },
-    {
-     "network": "ethereum-mainnet-arbitrum-1",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
     }
    ]
   },
   {
-   "slug": "easy2Stake",
+   "slug": "easy2stake",
    "name": "Easy 2 stake",
    "website": "https://www.easy2stake.com",
-   "aliases": [
-    "Easy 2 stake",
-    "easy2Stake"
-   ],
+   "sources": {
+    "rdd": true,
+    "transmitters": true
+   },
+   "rdd_ids": {
+    "ethereum": [],
+    "bnb": [],
+    "linea": [],
+    "celo": []
+   },
+   "products": {
+    "data_feeds": true,
+    "automation": false,
+    "vrf": false,
+    "functions": false
+   },
    "counts": {
     "feeds": 344,
-    "networks": 4
+    "networks": 4,
+    "streams": null
    },
+   "staking": null,
    "networks": [
     {
      "network": "bnb",
@@ -2769,80 +3366,80 @@
    ],
    "addresses": [
     {
-     "network": "ethereum-mainnet-linea-1",
+     "network": "linea",
      "kind": "node",
      "address": "0x9c9b25Cc289A6bedDa304102E5c35d3Eb87C7224"
     },
     {
-     "network": "ethereum-mainnet-linea-1",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "node",
      "address": "0xA1e96Ecaab9d97Bd17583966963C486cf856B639"
     },
     {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "node",
      "address": "0x1B08D5A5d25403a7E930a72a100D793699Bb27b7"
     },
     {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "forwarder",
      "address": "0x5b4813eE2D4366D73C89D7870aFa82BF2FBB3E71"
     },
     {
-     "network": "bsc-mainnet",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "node",
      "address": "0x5565b5362FF9f468bA2f144f38b87187C9a010A8"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "node",
      "address": "0x72953C118F4869dC3D97d81BcA2BfE1E6a4f7C8f"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "forwarder",
      "address": "0x42Afc2F6aE88678296EcB2eBA34cCfbd1Adc5F93"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "oracle",
      "address": "0x45408418eA69238376fCDa67245d12751Eff5Deb"
     },
     {
-     "network": "celo-mainnet",
+     "network": "celo",
      "kind": "node",
      "address": "0xe8655E71f5B4ce938f85a888e13Aa9C624E26eCb"
-    },
-    {
-     "network": "celo-mainnet",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
     }
    ]
   },
   {
-   "slug": "northWestNodes",
-   "name": "northWestNodes",
+   "slug": "northwestnodes",
+   "name": "NorthWest Nodes",
    "website": "https://www.northwestnodes.com",
-   "aliases": [
-    "northWestNodes",
-    "NorthWest Nodes",
-    "NorthWestNodes"
-   ],
+   "sources": {
+    "rdd": true,
+    "transmitters": true
+   },
+   "rdd_ids": {
+    "ethereum": [],
+    "arbitrum": [],
+    "avalanche": [],
+    "scroll": [],
+    "linea": [],
+    "zksync": []
+   },
+   "products": {
+    "data_feeds": true,
+    "automation": false,
+    "vrf": false,
+    "functions": false
+   },
    "counts": {
     "feeds": 330,
-    "networks": 6
+    "networks": 6,
+    "streams": null
    },
+   "staking": null,
    "networks": [
     {
      "network": "arbitrum",
@@ -2871,113 +3468,98 @@
    ],
    "addresses": [
     {
-     "network": "ethereum-mainnet-linea-1",
+     "network": "linea",
      "kind": "node",
      "address": "0x32c1E0876c6b2A907d06965d5625128Daa4D893b"
     },
     {
-     "network": "ethereum-mainnet-linea-1",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "avalanche-mainnet",
+     "network": "avalanche",
      "kind": "node",
      "address": "0xa6cd0E363740069e4570a0dA03e7258108B399Ab"
     },
     {
-     "network": "avalanche-mainnet",
+     "network": "avalanche",
      "kind": "forwarder",
      "address": "0x14b70f0cd48BA1bF730AcA8Df8d80BA11d4f08a9"
     },
     {
-     "network": "avalanche-mainnet",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "ethereum-mainnet-zksync-1",
+     "network": "zksync",
      "kind": "node",
      "address": "0x1aF2EE2B183880F5C49693245bbBB38f36755086"
     },
     {
-     "network": "ethereum-mainnet-zksync-1",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "node",
      "address": "0x632f869a26Ab4DA58e2Da476EE74800f2BAE060A"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "node",
      "address": "0x1BcE6ecC48fEEe443Db0e2135505DCFC1a079FAc"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "forwarder",
      "address": "0xC0C7eB4A39BAa77fD52715BD1dcE2246Df85E489"
     },
     {
-     "network": "mainnet",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "ethereum-mainnet-arbitrum-1",
+     "network": "arbitrum",
      "kind": "node",
      "address": "0xEB1a8834cF6CA6d721E5CB1A8Ad472BBF62eEf8E"
     },
     {
-     "network": "ethereum-mainnet-arbitrum-1",
+     "network": "arbitrum",
      "kind": "node",
      "address": "0xa308824bEe95A94c26155CB8d7D820C8f7d24cAe"
     },
     {
-     "network": "ethereum-mainnet-arbitrum-1",
+     "network": "arbitrum",
      "kind": "forwarder",
      "address": "0x149371C224DC4c5D96d592093d8670114a737c80"
     },
     {
-     "network": "ethereum-mainnet-arbitrum-1",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "ethereum-mainnet-scroll-1",
+     "network": "scroll",
      "kind": "node",
      "address": "0x0F433c815E72AAAE9390FebE2968c1F8A8225737"
     },
     {
-     "network": "ethereum-mainnet-scroll-1",
+     "network": "scroll",
      "kind": "forwarder",
      "address": "0x63F363D6f685f71E6b4c8002BbD4cBcAb5EAA39B"
     },
     {
-     "network": "ethereum-mainnet-scroll-1",
+     "network": "scroll",
      "kind": "payee",
      "address": "0x0921E157b690c4F89F7C2a210cFd8bF3964F6776"
-    },
-    {
-     "network": "ethereum-mainnet-scroll-1",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
     }
    ]
   },
   {
-   "slug": "blocksizeCapital",
+   "slug": "blocksizecapital",
    "name": "Blocksize",
    "website": "https://www.blocksize.info/",
-   "aliases": [
-    "Blocksize"
-   ],
+   "sources": {
+    "rdd": true,
+    "transmitters": true
+   },
+   "rdd_ids": {
+    "ethereum": [],
+    "polygon": [],
+    "avalanche": [],
+    "zksync": []
+   },
+   "products": {
+    "data_feeds": true,
+    "automation": false,
+    "vrf": false,
+    "functions": false
+   },
    "counts": {
     "feeds": 259,
-    "networks": 4
+    "networks": 4,
+    "streams": null
    },
+   "staking": null,
    "networks": [
     {
      "network": "avalanche",
@@ -2998,84 +3580,83 @@
    ],
    "addresses": [
     {
-     "network": "matic-mainnet",
+     "network": "polygon",
      "kind": "node",
      "address": "0x4Da725FE670aD0610e06378b9B91F4f0a2a74128"
     },
     {
-     "network": "matic-mainnet",
+     "network": "polygon",
      "kind": "forwarder",
      "address": "0x4E267769bf42465d79F5c6AeeFcDE4FE672664e7"
     },
     {
-     "network": "matic-mainnet",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "avalanche-mainnet",
+     "network": "avalanche",
      "kind": "node",
      "address": "0xe5b37dc608C73852F9c0f56E30f8d74D89b51C55"
     },
     {
-     "network": "avalanche-mainnet",
+     "network": "avalanche",
      "kind": "forwarder",
      "address": "0xFbcF68E3ACf6562Bd8E8a72A8D32803C3c471532"
     },
     {
-     "network": "avalanche-mainnet",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "ethereum-mainnet-zksync-1",
+     "network": "zksync",
      "kind": "node",
      "address": "0xD5fe9C6937d8415e4c5d4A600F837c2207C87BDd"
     },
     {
-     "network": "ethereum-mainnet-zksync-1",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "node",
      "address": "0x7663C5790E1eBf04197245d541279D13f3c2f362"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "node",
      "address": "0x4B2f95d9952AEd5D7Db733EF58eEdE069979f64c"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "forwarder",
      "address": "0x6D53d5E35F5226a1613877e071b81217387aC6B5"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "payee",
      "address": "0x7CC60c9C24E9A290Db55b1017AF477E5c87a7550"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "oracle",
      "address": "0xd9A815095266584cBcC8357a1aC1D7007ff2E847"
     }
    ]
   },
   {
-   "slug": "p2pOrg",
-   "name": "p2pOrg",
+   "slug": "p2porg",
+   "name": "P2P.org",
    "website": "https://p2p.org",
-   "aliases": [
-    "p2pOrg",
-    "P2P.org"
-   ],
+   "sources": {
+    "rdd": true,
+    "transmitters": true
+   },
+   "rdd_ids": {
+    "ethereum": [],
+    "avalanche": [],
+    "sonic": [],
+    "zksync": []
+   },
+   "products": {
+    "data_feeds": true,
+    "automation": false,
+    "vrf": false,
+    "functions": false
+   },
    "counts": {
     "feeds": 228,
-    "networks": 4
+    "networks": 4,
+    "streams": null
    },
+   "staking": null,
    "networks": [
     {
      "network": "avalanche",
@@ -3096,72 +3677,57 @@
    ],
    "addresses": [
     {
-     "network": "sonic-mainnet",
+     "network": "sonic",
      "kind": "node",
      "address": "0x39a702d50Db43Be63C878EFF844D26a8f1fE9C55"
     },
     {
-     "network": "sonic-mainnet",
+     "network": "sonic",
      "kind": "forwarder",
      "address": "0x88d05fa6A7de0386293D57f1617864Afc54Cf968"
     },
     {
-     "network": "sonic-mainnet",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "avalanche-mainnet",
+     "network": "avalanche",
      "kind": "node",
      "address": "0xfDA44C0BaE0ACFa9eEAaB91d6C103eDaE6001876"
     },
     {
-     "network": "avalanche-mainnet",
+     "network": "avalanche",
      "kind": "forwarder",
      "address": "0x4D33B831a584cB260002f43bAF16d130181Fb14f"
     },
     {
-     "network": "avalanche-mainnet",
+     "network": "avalanche",
      "kind": "payee",
      "address": "0xa06B89B08F038Aff4F81ce0A45c5aCb040477c3b"
     },
     {
-     "network": "avalanche-mainnet",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "ethereum-mainnet-zksync-1",
+     "network": "zksync",
      "kind": "node",
      "address": "0x4539ECEc795c96c1e4b99FCa258Fd017Ab4427E8"
     },
     {
-     "network": "ethereum-mainnet-zksync-1",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "node",
      "address": "0x8F3Ab0e87B70a57bD4980111a99a1b2c4b8334F4"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "node",
      "address": "0xb621250c65d1b5ebC98b7e3215f41125D27865a3"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "forwarder",
      "address": "0x9A5B545aA8B6289288E529c4099B0CcA62bcB708"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "payee",
      "address": "0x8694Db3C9C22Ff48B399aA9a95dF8C9C67279F0f"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "oracle",
      "address": "0x29e3b3c76e7ae0d681bf1a6BceE1c0E7d17DBAA9"
     }
@@ -3171,13 +3737,27 @@
    "slug": "tiingo",
    "name": "Tiingo",
    "website": "https://www.tiingo.com/",
-   "aliases": [
-    "Tiingo"
-   ],
+   "sources": {
+    "rdd": true,
+    "transmitters": true
+   },
+   "rdd_ids": {
+    "ethereum": [],
+    "polygon": [],
+    "bnb": []
+   },
+   "products": {
+    "data_feeds": true,
+    "automation": false,
+    "vrf": false,
+    "functions": false
+   },
    "counts": {
     "feeds": 209,
-    "networks": 3
+    "networks": 3,
+    "streams": null
    },
+   "staking": null,
    "networks": [
     {
      "network": "bnb",
@@ -3194,83 +3774,91 @@
    ],
    "addresses": [
     {
-     "network": "matic-mainnet",
+     "network": "polygon",
      "kind": "node",
      "address": "0x564b7325ddFa733ebd08CeEE42B04f8c0D53A6EE"
     },
     {
-     "network": "matic-mainnet",
+     "network": "polygon",
      "kind": "forwarder",
      "address": "0x0498e2c8F5e2f25006c143eB466038FbBEFE2e42"
     },
     {
-     "network": "matic-mainnet",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "node",
      "address": "0xfD9fd7dcA91fB4C17f2c389C318911162cf623A6"
     },
     {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "node",
      "address": "0xC51ACB853C7208C4B35349fDab0E133729B8C62c"
     },
     {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "forwarder",
      "address": "0x3A642243e38beA40322aa9A7e59c26Aa27Cc6F8D"
     },
     {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "payee",
      "address": "0xfAE26207ab74ee528214ee92f94427f8Cdbb6A32"
     },
     {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "oracle",
      "address": "0x3ee8DFE6094f642f1D19B7ADF6B1a71c57453A8d"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "node",
      "address": "0x265b3Aaeb858F32Fe18CFc28EEA21977Fc379F3C"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "node",
      "address": "0xD14f7a309DB9fEAC5C0942C7484b24b6D8666549"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "forwarder",
      "address": "0xAE80A59ba821544cB508808942C20C11442d8A9b"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "payee",
      "address": "0xfAE26207ab74ee528214ee92f94427f8Cdbb6A32"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "oracle",
      "address": "0x4a1803F29fE5350e9A164D9865576Af798e8EeF8"
     }
    ]
   },
   {
-   "slug": "onchainTech",
+   "slug": "onchaintech",
    "name": "On-chain Tech",
    "website": "https://www.onchain.com.au",
-   "aliases": [
-    "On-chain Tech"
-   ],
+   "sources": {
+    "rdd": true,
+    "transmitters": true
+   },
+   "rdd_ids": {
+    "ethereum": [],
+    "bnb": []
+   },
+   "products": {
+    "data_feeds": true,
+    "automation": false,
+    "vrf": false,
+    "functions": false
+   },
    "counts": {
     "feeds": 209,
-    "networks": 2
+    "networks": 2,
+    "streams": null
    },
+   "staking": null,
    "networks": [
     {
      "network": "bnb",
@@ -3283,68 +3871,76 @@
    ],
    "addresses": [
     {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "node",
      "address": "0xD46a5604CA9fEe830e291248701F616f53Bf174B"
     },
     {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "node",
      "address": "0x1c7a919f551bFbD8C7433a8e513818591454fe86"
     },
     {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "forwarder",
      "address": "0x42b950F1Cf4855a54f6d0bd6981687Eb4d5d6a18"
     },
     {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "payee",
      "address": "0x9E788De47d7Bcfa3e6F4EF1cecA3161A5339594C"
     },
     {
-     "network": "bsc-mainnet",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "node",
      "address": "0xB5b90F596341127dE460465dEA9b28b8a6Bd1984"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "node",
      "address": "0xba7ECe0a6Cf48A4A2Ece0a7DEDC90327417f8C6a"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "forwarder",
      "address": "0x990cfBBDc5aeB794B657b4309017F84479e8Eb7D"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "payee",
      "address": "0x9E788De47d7Bcfa3e6F4EF1cecA3161A5339594C"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "oracle",
      "address": "0x19B7D9eC084a53c4a43043fd839d9eC7f818AbaB"
     }
    ]
   },
   {
-   "slug": "shultzPro",
+   "slug": "shultzpro",
    "name": "ShultzPrime",
    "website": "https://ztake.org",
-   "aliases": [
-    "ShultzPrime"
-   ],
+   "sources": {
+    "rdd": true,
+    "transmitters": true
+   },
+   "rdd_ids": {
+    "ethereum": [],
+    "bnb": []
+   },
+   "products": {
+    "data_feeds": true,
+    "automation": false,
+    "vrf": false,
+    "functions": false
+   },
    "counts": {
     "feeds": 193,
-    "networks": 2
+    "networks": 2,
+    "streams": null
    },
+   "staking": null,
    "networks": [
     {
      "network": "bnb",
@@ -3357,68 +3953,81 @@
    ],
    "addresses": [
     {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "node",
      "address": "0xC7B702ee7C5b63BD5fF534FaAA82320CaB2B2c0F"
     },
     {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "node",
      "address": "0x6c984419bc7d8c6DFf55ef50F682E26173b3534c"
     },
     {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "forwarder",
      "address": "0x2c14565cDDC53F3a60D27E8C345809a31D934642"
     },
     {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "payee",
      "address": "0xBa5ed4Cd392ABC8Df7009B4A385eB3e05c7375F1"
     },
     {
-     "network": "bsc-mainnet",
+     "network": "bnb",
      "kind": "oracle",
      "address": "0x56f76065b3dC3632BD6f4212Bf668ff9D925A706"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "node",
      "address": "0xDdE59ceeC7A2cC8B2bD78199877BA22018966813"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "node",
      "address": "0x240B3317c6F2AbE0cA649c745e556BF578a7af6B"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "forwarder",
      "address": "0x5Dc428646BF9a29A4d623E0CDB57384E811f6F77"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "payee",
      "address": "0x41EdD305eABFd3497C98341F8D0849F3C520b896"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "oracle",
      "address": "0x64FE692be4b42F4Ac9d4617aB824E088350C11C2"
     }
    ]
   },
   {
-   "slug": "stakingFacilities",
+   "slug": "stakingfacilities",
    "name": "Staking Facilities",
    "website": "https://stakingfacilities.com",
-   "aliases": [
-    "Staking Facilities"
-   ],
+   "sources": {
+    "rdd": true,
+    "transmitters": true
+   },
+   "rdd_ids": {
+    "ethereum": [],
+    "polygon": []
+   },
+   "products": {
+    "data_feeds": true,
+    "automation": false,
+    "vrf": false,
+    "functions": false
+   },
    "counts": {
     "feeds": 169,
-    "networks": 2
+    "networks": 2,
+    "streams": null
    },
+   "staking": null,
    "networks": [
     {
      "network": "ethereum",
@@ -3431,42 +4040,42 @@
    ],
    "addresses": [
     {
-     "network": "matic-mainnet",
+     "network": "polygon",
      "kind": "node",
      "address": "0x7ba865F70E32C9f46f67E33FE06139c8C31a2fAd"
     },
     {
-     "network": "matic-mainnet",
+     "network": "polygon",
      "kind": "forwarder",
      "address": "0x488851E2975AC274F3fF85f51E64a6bF9ec52478"
     },
     {
-     "network": "matic-mainnet",
+     "network": "polygon",
      "kind": "oracle",
      "address": "0x58f675fec082499a52ea1a48e66d058096a3EBd5"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "node",
      "address": "0x43793ee58E0a3D920e3e4a115A9FA07dc4B09715"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "node",
      "address": "0x9cc4973D95b1ECD42f153e1Cb7fe5d818aaA5d21"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "forwarder",
      "address": "0x1B586bcad859a265592e7A10856AEd85B344eEb2"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "payee",
      "address": "0xdD4Bc51496dc93A0c47008E820e0d80745476f22"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "oracle",
      "address": "0x20A859058D4ae68301003B981D5D675795c64a70"
     }
@@ -3474,16 +4083,29 @@
   },
   {
    "slug": "artifact",
-   "name": "artifact",
+   "name": "Artifact",
    "website": "http://artifact-staking.io/",
-   "aliases": [
-    "artifact",
-    "Artifact"
-   ],
+   "sources": {
+    "rdd": true,
+    "transmitters": true
+   },
+   "rdd_ids": {
+    "ethereum": [],
+    "scroll": [],
+    "linea": []
+   },
+   "products": {
+    "data_feeds": true,
+    "automation": false,
+    "vrf": false,
+    "functions": false
+   },
    "counts": {
     "feeds": 163,
-    "networks": 3
+    "networks": 3,
+    "streams": null
    },
+   "staking": null,
    "networks": [
     {
      "network": "ethereum",
@@ -3500,49 +4122,34 @@
    ],
    "addresses": [
     {
-     "network": "ethereum-mainnet-linea-1",
+     "network": "linea",
      "kind": "node",
      "address": "0xEeA2dDd803DBf58248ce7cdB7A77d7AA63fA1b09"
     },
     {
-     "network": "ethereum-mainnet-linea-1",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "node",
      "address": "0xF585A4aE338bC165D96E8126e8BBcAcAE725d79E"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "node",
      "address": "0xb0582f24a4281995C8d1b6d20d37497c70dd5a2b"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "forwarder",
      "address": "0x97360A89B5adb7D82Dbde6C66A49de8a48D550E6"
     },
     {
-     "network": "mainnet",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "ethereum-mainnet-scroll-1",
+     "network": "scroll",
      "kind": "node",
      "address": "0xB064312c40B865b4f4E6f6284A1273c6013A053F"
     },
     {
-     "network": "ethereum-mainnet-scroll-1",
+     "network": "scroll",
      "kind": "forwarder",
      "address": "0x886a27a8fA5f3C100cB05c52Bb699F90d5DB6fC3"
-    },
-    {
-     "network": "ethereum-mainnet-scroll-1",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
     }
    ]
   },
@@ -3550,13 +4157,26 @@
    "slug": "deepbase",
    "name": "Deepbase",
    "website": "https://deepbase.org",
-   "aliases": [
-    "Deepbase"
-   ],
+   "sources": {
+    "rdd": true,
+    "transmitters": true
+   },
+   "rdd_ids": {
+    "ethereum": [],
+    "sonic": []
+   },
+   "products": {
+    "data_feeds": true,
+    "automation": false,
+    "vrf": false,
+    "functions": false
+   },
    "counts": {
     "feeds": 160,
-    "networks": 2
+    "networks": 2,
+    "streams": null
    },
+   "staking": null,
    "networks": [
     {
      "network": "ethereum",
@@ -3569,42 +4189,37 @@
    ],
    "addresses": [
     {
-     "network": "sonic-mainnet",
+     "network": "sonic",
      "kind": "node",
      "address": "0x9444b6439735970D2e4427493b5d4dA886Bf7cDE"
     },
     {
-     "network": "sonic-mainnet",
+     "network": "sonic",
      "kind": "forwarder",
      "address": "0xD9EC021fCcA2aA271D8cD106640DF0286a5D56db"
     },
     {
-     "network": "sonic-mainnet",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "node",
      "address": "0x8b1d49a93A84B5dA0917a1ed42D8a3E191C28524"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "node",
      "address": "0x21DFAF9b8Cc05dd9D869ED40cB79bf40500f93c5"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "forwarder",
      "address": "0x4CB67cfee180B6B73B70c7B3fC162E5FCF6532f1"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "payee",
      "address": "0xCB3396Ee80F304f979d7305731ff9264d60298b3"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "oracle",
      "address": "0x38b6ab6B9294CCe1Ccb59c3e7D390690B4c18B1A"
     }
@@ -3614,13 +4229,26 @@
    "slug": "vodafone",
    "name": "Vodafone",
    "website": null,
-   "aliases": [
-    "Vodafone"
-   ],
+   "sources": {
+    "rdd": true,
+    "transmitters": true
+   },
+   "rdd_ids": {
+    "avalanche": [],
+    "linea": []
+   },
+   "products": {
+    "data_feeds": true,
+    "automation": false,
+    "vrf": false,
+    "functions": false
+   },
    "counts": {
     "feeds": 123,
-    "networks": 2
+    "networks": 2,
+    "streams": null
    },
+   "staking": null,
    "networks": [
     {
      "network": "avalanche",
@@ -3633,44 +4261,46 @@
    ],
    "addresses": [
     {
-     "network": "ethereum-mainnet-linea-1",
+     "network": "linea",
      "kind": "node",
      "address": "0x88BDeCD7748a17331094648026B14D9a02B8829e"
     },
     {
-     "network": "ethereum-mainnet-linea-1",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "avalanche-mainnet",
+     "network": "avalanche",
      "kind": "node",
      "address": "0x2B0a62d7aFed4eF6AfAdA2491Ae2c7539D9e35E7"
     },
     {
-     "network": "avalanche-mainnet",
+     "network": "avalanche",
      "kind": "forwarder",
      "address": "0xb8CE5E56972B53Ed20887a43D49E01B4842848B9"
-    },
-    {
-     "network": "avalanche-mainnet",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
     }
    ]
   },
   {
    "slug": "kytzu",
-   "name": "kytzu",
+   "name": "Kytzu",
    "website": "https://kytzu.com/",
-   "aliases": [
-    "kytzu",
-    "Kytzu"
-   ],
+   "sources": {
+    "rdd": true,
+    "transmitters": true
+   },
+   "rdd_ids": {
+    "ethereum": [],
+    "sonic": []
+   },
+   "products": {
+    "data_feeds": true,
+    "automation": false,
+    "vrf": false,
+    "functions": false
+   },
    "counts": {
     "feeds": 122,
-    "networks": 2
+    "networks": 2,
+    "streams": null
    },
+   "staking": null,
    "networks": [
     {
      "network": "ethereum",
@@ -3683,58 +4313,66 @@
    ],
    "addresses": [
     {
-     "network": "sonic-mainnet",
+     "network": "sonic",
      "kind": "node",
      "address": "0x585BfA86A4f35e6c4Bd5408665a64871602a582c"
     },
     {
-     "network": "sonic-mainnet",
+     "network": "sonic",
      "kind": "forwarder",
      "address": "0xEA4edc7dB905BD59d58D9DF13c75bcb29553c38C"
     },
     {
-     "network": "sonic-mainnet",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "node",
      "address": "0xf16e77a989529AA4C58318acEe8A1548Df3fcCc1"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "node",
      "address": "0xd6621563F35c2F01e1E2a2feAe62B8aAc4ED3b13"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "forwarder",
      "address": "0x30B18F1c425123314C82b0236D7a349433755386"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "payee",
      "address": "0x001E0d294383d5b4136476648aCc8D04a6461Ae3"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "oracle",
      "address": "0xDdaffcBeB95d095227043fEE74062ac56Df5cbB2"
     }
    ]
   },
   {
-   "slug": "bHarvest",
+   "slug": "bharvest",
    "name": "B Harvest",
    "website": "https://bharvest.io",
-   "aliases": [
-    "B Harvest"
-   ],
+   "sources": {
+    "rdd": true,
+    "transmitters": true
+   },
+   "rdd_ids": {
+    "ethereum": [],
+    "polygon": []
+   },
+   "products": {
+    "data_feeds": true,
+    "automation": false,
+    "vrf": false,
+    "functions": false
+   },
    "counts": {
     "feeds": 98,
-    "networks": 2
+    "networks": 2,
+    "streams": null
    },
+   "staking": null,
    "networks": [
     {
      "network": "ethereum",
@@ -3747,42 +4385,37 @@
    ],
    "addresses": [
     {
-     "network": "matic-mainnet",
+     "network": "polygon",
      "kind": "node",
      "address": "0x51FAfb35f31C434066267fc86EA24D8424115d2a"
     },
     {
-     "network": "matic-mainnet",
+     "network": "polygon",
      "kind": "forwarder",
      "address": "0x2dDBFC05D324d4F424E451aA66069b995836333d"
     },
     {
-     "network": "matic-mainnet",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    },
-    {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "node",
      "address": "0xc61a7e5a04A5d32ffe8e01f77Cb39253bf21D2aC"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "node",
      "address": "0x7c8d4c939243D01eBc3325020445dDAA93721D2d"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "forwarder",
      "address": "0x2DBbD12Bf0f6A23Cf4455cC6BE874b7a246288Ce"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "payee",
      "address": "0x6cDC3Efa3bAa392fAF3E5c1Ca802E15B6185E0e8"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "oracle",
      "address": "0x737424BfEf17e9883b57Ee17dE230523E871C5F5"
     }
@@ -3792,13 +4425,25 @@
    "slug": "omniscience",
    "name": "Omniscience",
    "website": "https://omniscience.uk",
-   "aliases": [
-    "Omniscience"
-   ],
+   "sources": {
+    "rdd": true,
+    "transmitters": true
+   },
+   "rdd_ids": {
+    "ethereum": []
+   },
+   "products": {
+    "data_feeds": true,
+    "automation": false,
+    "vrf": false,
+    "functions": false
+   },
    "counts": {
     "feeds": 97,
-    "networks": 1
+    "networks": 1,
+    "streams": null
    },
+   "staking": null,
    "networks": [
     {
      "network": "ethereum",
@@ -3807,27 +4452,27 @@
    ],
    "addresses": [
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "node",
      "address": "0xF07131F578a5F708AE2CCB9faF98458099E0FFB4"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "node",
      "address": "0x5A299CF4af6EdA74fB1e575B7dAbA1aCc08B95ee"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "forwarder",
      "address": "0x5fdf4ABaF24d8229deFBD28890cb01E0d8108e96"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "payee",
      "address": "0x47044eE2F23001F8a03FB2f7d2ce6645aDA4D12A"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "oracle",
      "address": "0x83dA1beEb89Ffaf56d0B7C50aFB0A66Fb4DF8cB1"
     }
@@ -3837,14 +4482,26 @@
    "slug": "everstake",
    "name": "Everstake",
    "website": "https://everstake.one",
-   "aliases": [
-    "Everstake",
-    "everstake"
-   ],
+   "sources": {
+    "rdd": true,
+    "transmitters": true
+   },
+   "rdd_ids": {
+    "ethereum": [],
+    "scroll": []
+   },
+   "products": {
+    "data_feeds": true,
+    "automation": false,
+    "vrf": false,
+    "functions": false
+   },
    "counts": {
     "feeds": 96,
-    "networks": 2
+    "networks": 2,
+    "streams": null
    },
+   "staking": null,
    "networks": [
     {
      "network": "ethereum",
@@ -3857,58 +4514,65 @@
    ],
    "addresses": [
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "node",
      "address": "0xa938d77590aF1d98BaB7dc4a0bde594fC3F9c403"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "node",
      "address": "0x72B11A384a0f1E2C1DA33c4b0B259cAA80192aA8"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "forwarder",
      "address": "0x3Dc0D7C8f6925422AF7CFEafaF1588c185C05624"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "payee",
      "address": "0x039fDFDb14911608a34eBCDa6009a80EF5D16e50"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "oracle",
      "address": "0x85aEace84a130bC1AcCcE2a9F4F933F6765b0B9B"
     },
     {
-     "network": "ethereum-mainnet-scroll-1",
+     "network": "scroll",
      "kind": "node",
      "address": "0x8052E9eDD8521CC2633bD1aCeB32D8B0d87B2b29"
     },
     {
-     "network": "ethereum-mainnet-scroll-1",
+     "network": "scroll",
      "kind": "forwarder",
      "address": "0xeAd7af6DB13186E3154FE9BC87a94F81f5CD8F95"
-    },
-    {
-     "network": "ethereum-mainnet-scroll-1",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
     }
    ]
   },
   {
-   "slug": "stakeFish",
+   "slug": "stakefish",
    "name": "stake.fish",
    "website": "https://stake.fish/en/",
-   "aliases": [
-    "stake.fish"
-   ],
+   "sources": {
+    "rdd": true,
+    "transmitters": true
+   },
+   "rdd_ids": {
+    "ethereum": []
+   },
+   "products": {
+    "data_feeds": true,
+    "automation": false,
+    "vrf": false,
+    "functions": false
+   },
    "counts": {
     "feeds": 71,
-    "networks": 1
+    "networks": 1,
+    "streams": null
    },
+   "staking": null,
    "networks": [
     {
      "network": "ethereum",
@@ -3917,27 +4581,27 @@
    ],
    "addresses": [
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "node",
      "address": "0xFa0E4F48a369BB3eCBCEe0B5119379EA8D1bcF29"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "node",
      "address": "0x5ba3e046a54DAF92e13b80a5c9E1722E24e6Da65"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "forwarder",
      "address": "0x5C026B7107f1F92a9768CF64f8B2a22252B0788d"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "payee",
      "address": "0x21F1dB6E4B5e1dF5c68bC1dfB58c28942Ed4737D"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "oracle",
      "address": "0xB92ec7D213a28e21b426D79EDe3c9BBcf6917c09"
     }
@@ -3947,13 +4611,25 @@
    "slug": "luganodes",
    "name": "luganodes",
    "website": null,
-   "aliases": [
-    "luganodes"
-   ],
+   "sources": {
+    "rdd": true,
+    "transmitters": true
+   },
+   "rdd_ids": {
+    "ethereum": []
+   },
+   "products": {
+    "data_feeds": true,
+    "automation": false,
+    "vrf": false,
+    "functions": false
+   },
    "counts": {
     "feeds": 69,
-    "networks": 1
+    "networks": 1,
+    "streams": null
    },
+   "staking": null,
    "networks": [
     {
      "network": "ethereum",
@@ -3962,19 +4638,14 @@
    ],
    "addresses": [
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "node",
      "address": "0x98f32f58526ED37c92b1B065d6BF8Cb867d424A6"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "forwarder",
      "address": "0xe7b837A55df42eCc95bf893C3c31750264932596"
-    },
-    {
-     "network": "mainnet",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
     }
    ]
   },
@@ -3982,13 +4653,25 @@
    "slug": "stakin",
    "name": "Stakin",
    "website": "https://stakin.com",
-   "aliases": [
-    "Stakin"
-   ],
+   "sources": {
+    "rdd": true,
+    "transmitters": true
+   },
+   "rdd_ids": {
+    "ethereum": []
+   },
+   "products": {
+    "data_feeds": true,
+    "automation": false,
+    "vrf": false,
+    "functions": false
+   },
    "counts": {
     "feeds": 67,
-    "networks": 1
+    "networks": 1,
+    "streams": null
    },
+   "staking": null,
    "networks": [
     {
      "network": "ethereum",
@@ -3997,24 +4680,19 @@
    ],
    "addresses": [
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "node",
      "address": "0x3aE9D0B74E3968CFCf89A4dE4f0D8B2A326a1Dfd"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "node",
      "address": "0x74DC998C9f5f74F19cE9b38e23b86D3Acc94cC25"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "forwarder",
      "address": "0x87B331d3bb9Cf70Dd85c3dc606B684a0bd61c772"
-    },
-    {
-     "network": "mainnet",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
     }
    ]
   },
@@ -4022,13 +4700,25 @@
    "slug": "wetez",
    "name": "Wetez",
    "website": "https://www.wetez.io/pc/wetez",
-   "aliases": [
-    "Wetez"
-   ],
+   "sources": {
+    "rdd": true,
+    "transmitters": true
+   },
+   "rdd_ids": {
+    "ethereum": []
+   },
+   "products": {
+    "data_feeds": true,
+    "automation": false,
+    "vrf": false,
+    "functions": false
+   },
    "counts": {
     "feeds": 67,
-    "networks": 1
+    "networks": 1,
+    "streams": null
    },
+   "staking": null,
    "networks": [
     {
      "network": "ethereum",
@@ -4037,38 +4727,50 @@
    ],
    "addresses": [
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "node",
      "address": "0x2fc781e170F2E26e7FEb1453Ddf9ddF5A11ad8Fd"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "node",
      "address": "0xa99c4Fe795795C8fE0e3a30d850993b9c89B19Bf"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "forwarder",
      "address": "0x243205E5c413534d0702ea981A35256E6853857F"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "oracle",
      "address": "0x58c69aFF4Df980357034eA98AaD35bbF78cBD849"
     }
    ]
   },
   {
-   "slug": "stakeSystems",
+   "slug": "stakesystems",
    "name": "Stake Systems",
    "website": "https://stake.systems",
-   "aliases": [
-    "Stake Systems"
-   ],
+   "sources": {
+    "rdd": true,
+    "transmitters": true
+   },
+   "rdd_ids": {
+    "ethereum": []
+   },
+   "products": {
+    "data_feeds": true,
+    "automation": false,
+    "vrf": false,
+    "functions": false
+   },
    "counts": {
     "feeds": 63,
-    "networks": 1
+    "networks": 1,
+    "streams": null
    },
+   "staking": null,
    "networks": [
     {
      "network": "ethereum",
@@ -4077,24 +4779,19 @@
    ],
    "addresses": [
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "node",
      "address": "0x9e1735D07F77ABA85415fbE19fdb371a56Cabf07"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "node",
      "address": "0xFb5eBe23144B47789C0cB52Ff60f677207A52354"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "forwarder",
      "address": "0xBa4555a80E47477BBf23B721563D38B10eb65dFa"
-    },
-    {
-     "network": "mainnet",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
     }
    ]
   },
@@ -4102,13 +4799,25 @@
    "slug": "rhino",
    "name": "RHINO",
    "website": "https://rhinostake.com/",
-   "aliases": [
-    "RHINO"
-   ],
+   "sources": {
+    "rdd": true,
+    "transmitters": true
+   },
+   "rdd_ids": {
+    "ethereum": []
+   },
+   "products": {
+    "data_feeds": true,
+    "automation": false,
+    "vrf": false,
+    "functions": false
+   },
    "counts": {
     "feeds": 63,
-    "networks": 1
+    "networks": 1,
+    "streams": null
    },
+   "staking": null,
    "networks": [
     {
      "network": "ethereum",
@@ -4117,38 +4826,45 @@
    ],
    "addresses": [
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "node",
      "address": "0x634438d879a90a25437B87168252c2b983734391"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "node",
      "address": "0x1cE84210A7Bb2879B61d27d575064384699eD6ff"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "forwarder",
      "address": "0x522bB49bE4fB6E3ceC18df911C2A66457E6Fc3e2"
-    },
-    {
-     "network": "mainnet",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
     }
    ]
   },
   {
-   "slug": "orionMoney",
+   "slug": "orionmoney",
    "name": "Orion.Money",
    "website": "https://orion.money",
-   "aliases": [
-    "Orion.Money"
-   ],
+   "sources": {
+    "rdd": true,
+    "transmitters": true
+   },
+   "rdd_ids": {
+    "ethereum": []
+   },
+   "products": {
+    "data_feeds": true,
+    "automation": false,
+    "vrf": false,
+    "functions": false
+   },
    "counts": {
     "feeds": 59,
-    "networks": 1
+    "networks": 1,
+    "streams": null
    },
+   "staking": null,
    "networks": [
     {
      "network": "ethereum",
@@ -4157,43 +4873,50 @@
    ],
    "addresses": [
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "node",
      "address": "0x0D785c33bCe2D09e521BFc433efe42Da53d3A898"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "node",
      "address": "0xAAA205b6b14AAcBcA8A129AF9a577410Dff39105"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "forwarder",
      "address": "0x1d36A4c2ab15CcD29B312991176D85622299cc11"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "payee",
      "address": "0xa0181758B14EfB2DAdfec66d58251Ae631e2B942"
-    },
-    {
-     "network": "mainnet",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
     }
    ]
   },
   {
-   "slug": "chorusOne",
+   "slug": "chorusone",
    "name": "Chorus One",
    "website": "https://chorus.one",
-   "aliases": [
-    "Chorus One"
-   ],
+   "sources": {
+    "rdd": true,
+    "transmitters": true
+   },
+   "rdd_ids": {
+    "ethereum": []
+   },
+   "products": {
+    "data_feeds": true,
+    "automation": false,
+    "vrf": false,
+    "functions": false
+   },
    "counts": {
     "feeds": 36,
-    "networks": 1
+    "networks": 1,
+    "streams": null
    },
+   "staking": null,
    "networks": [
     {
      "network": "ethereum",
@@ -4202,374 +4925,24 @@
    ],
    "addresses": [
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "node",
      "address": "0x64c735D72EAB90C04da523B6b9895773ACb60F5D"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "node",
      "address": "0x6b591DcB3cBb761c3F1a50C458a29815F32b7e6F"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "forwarder",
      "address": "0x4b4df3c44FA13f9D12277458e2069EcBbeE1b085"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "oracle",
      "address": "0xE4129CEeC7E622287810815D16939303089DDFF3"
-    }
-   ]
-  },
-  {
-   "slug": "cl-ocr-nav-eth-mainnet-0",
-   "name": "Chainlink Internal NAV Node Operator 0",
-   "website": null,
-   "aliases": [
-    "Chainlink Internal NAV Node Operator 0"
-   ],
-   "counts": {
-    "feeds": 2,
-    "networks": 1
-   },
-   "networks": [
-    {
-     "network": "ethereum",
-     "feeds": 2
-    }
-   ],
-   "addresses": [
-    {
-     "network": "mainnet",
-     "kind": "node",
-     "address": "0x3C9864FEEB4165039049688CB867cF69E8F6016C"
-    },
-    {
-     "network": "mainnet",
-     "kind": "payee",
-     "address": "0x12F6806070071af5112F93A7De780821053769a1"
-    },
-    {
-     "network": "mainnet",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    }
-   ]
-  },
-  {
-   "slug": "cl-ocr-nav-eth-mainnet-1",
-   "name": "Chainlink Internal NAV Node Operator 1",
-   "website": null,
-   "aliases": [
-    "Chainlink Internal NAV Node Operator 1"
-   ],
-   "counts": {
-    "feeds": 2,
-    "networks": 1
-   },
-   "networks": [
-    {
-     "network": "ethereum",
-     "feeds": 2
-    }
-   ],
-   "addresses": [
-    {
-     "network": "mainnet",
-     "kind": "node",
-     "address": "0xEeaE57f4eE70b40eD8d53AC49d7eA22017ECe2eF"
-    },
-    {
-     "network": "mainnet",
-     "kind": "payee",
-     "address": "0x12F6806070071af5112F93A7De780821053769a1"
-    },
-    {
-     "network": "mainnet",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    }
-   ]
-  },
-  {
-   "slug": "cl-ocr-nav-eth-mainnet-2",
-   "name": "Chainlink Internal NAV Node Operator 2",
-   "website": null,
-   "aliases": [
-    "Chainlink Internal NAV Node Operator 2"
-   ],
-   "counts": {
-    "feeds": 2,
-    "networks": 1
-   },
-   "networks": [
-    {
-     "network": "ethereum",
-     "feeds": 2
-    }
-   ],
-   "addresses": [
-    {
-     "network": "mainnet",
-     "kind": "node",
-     "address": "0x6075A4E2fB70B21D2eA70c91e7616A454939cc93"
-    },
-    {
-     "network": "mainnet",
-     "kind": "payee",
-     "address": "0x12F6806070071af5112F93A7De780821053769a1"
-    },
-    {
-     "network": "mainnet",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    }
-   ]
-  },
-  {
-   "slug": "cl-ocr-nav-eth-mainnet-3",
-   "name": "Chainlink Internal NAV Node Operator 3",
-   "website": null,
-   "aliases": [
-    "Chainlink Internal NAV Node Operator 3"
-   ],
-   "counts": {
-    "feeds": 2,
-    "networks": 1
-   },
-   "networks": [
-    {
-     "network": "ethereum",
-     "feeds": 2
-    }
-   ],
-   "addresses": [
-    {
-     "network": "mainnet",
-     "kind": "node",
-     "address": "0x696df550b6AB3974B9d2f42a256c30f1B6A337bd"
-    },
-    {
-     "network": "mainnet",
-     "kind": "payee",
-     "address": "0x12F6806070071af5112F93A7De780821053769a1"
-    },
-    {
-     "network": "mainnet",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    }
-   ]
-  },
-  {
-   "slug": "cl-ocr-nav-eth-mainnet-4",
-   "name": "Chainlink Internal NAV Node Operator 4",
-   "website": null,
-   "aliases": [
-    "Chainlink Internal NAV Node Operator 4"
-   ],
-   "counts": {
-    "feeds": 2,
-    "networks": 1
-   },
-   "networks": [
-    {
-     "network": "ethereum",
-     "feeds": 2
-    }
-   ],
-   "addresses": [
-    {
-     "network": "mainnet",
-     "kind": "node",
-     "address": "0xd8FbF65FA847476973F866E3456830CBAD5d1348"
-    },
-    {
-     "network": "mainnet",
-     "kind": "payee",
-     "address": "0x12F6806070071af5112F93A7De780821053769a1"
-    },
-    {
-     "network": "mainnet",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    }
-   ]
-  },
-  {
-   "slug": "cl-ocr-nav-eth-mainnet-5",
-   "name": "Chainlink Internal NAV Node Operator 5",
-   "website": null,
-   "aliases": [
-    "Chainlink Internal NAV Node Operator 5"
-   ],
-   "counts": {
-    "feeds": 2,
-    "networks": 1
-   },
-   "networks": [
-    {
-     "network": "ethereum",
-     "feeds": 2
-    }
-   ],
-   "addresses": [
-    {
-     "network": "mainnet",
-     "kind": "node",
-     "address": "0x69fB30b94E686E88E2Ffe52BD507133b390A60B8"
-    },
-    {
-     "network": "mainnet",
-     "kind": "payee",
-     "address": "0x12F6806070071af5112F93A7De780821053769a1"
-    },
-    {
-     "network": "mainnet",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    }
-   ]
-  },
-  {
-   "slug": "cl-ocr-nav-eth-mainnet-6",
-   "name": "Chainlink Internal NAV Node Operator 6",
-   "website": null,
-   "aliases": [
-    "Chainlink Internal NAV Node Operator 6"
-   ],
-   "counts": {
-    "feeds": 2,
-    "networks": 1
-   },
-   "networks": [
-    {
-     "network": "ethereum",
-     "feeds": 2
-    }
-   ],
-   "addresses": [
-    {
-     "network": "mainnet",
-     "kind": "node",
-     "address": "0xCDc63290D95E5eE87782d70EC65eB1f0df85307D"
-    },
-    {
-     "network": "mainnet",
-     "kind": "payee",
-     "address": "0x12F6806070071af5112F93A7De780821053769a1"
-    },
-    {
-     "network": "mainnet",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    }
-   ]
-  },
-  {
-   "slug": "cl-ocr-nav-eth-mainnet-7",
-   "name": "Chainlink Internal NAV Node Operator 7",
-   "website": null,
-   "aliases": [
-    "Chainlink Internal NAV Node Operator 7"
-   ],
-   "counts": {
-    "feeds": 2,
-    "networks": 1
-   },
-   "networks": [
-    {
-     "network": "ethereum",
-     "feeds": 2
-    }
-   ],
-   "addresses": [
-    {
-     "network": "mainnet",
-     "kind": "node",
-     "address": "0xaFC2108A6BF96387e9f8328B9B288EC25f887567"
-    },
-    {
-     "network": "mainnet",
-     "kind": "payee",
-     "address": "0x12F6806070071af5112F93A7De780821053769a1"
-    },
-    {
-     "network": "mainnet",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    }
-   ]
-  },
-  {
-   "slug": "cl-ocr-nav-eth-mainnet-8",
-   "name": "Chainlink Internal NAV Node Operator 8",
-   "website": null,
-   "aliases": [
-    "Chainlink Internal NAV Node Operator 8"
-   ],
-   "counts": {
-    "feeds": 2,
-    "networks": 1
-   },
-   "networks": [
-    {
-     "network": "ethereum",
-     "feeds": 2
-    }
-   ],
-   "addresses": [
-    {
-     "network": "mainnet",
-     "kind": "node",
-     "address": "0x2Bb7Ab46e037255271fFabA1E12b368d8776fEf4"
-    },
-    {
-     "network": "mainnet",
-     "kind": "payee",
-     "address": "0x12F6806070071af5112F93A7De780821053769a1"
-    },
-    {
-     "network": "mainnet",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
-    }
-   ]
-  },
-  {
-   "slug": "cl-ocr-nav-eth-mainnet-9",
-   "name": "Chainlink Internal NAV Node Operator 9",
-   "website": null,
-   "aliases": [
-    "Chainlink Internal NAV Node Operator 9"
-   ],
-   "counts": {
-    "feeds": 2,
-    "networks": 1
-   },
-   "networks": [
-    {
-     "network": "ethereum",
-     "feeds": 2
-    }
-   ],
-   "addresses": [
-    {
-     "network": "mainnet",
-     "kind": "node",
-     "address": "0xE131b409aB2188774838b89542ED0Ccdfdc4af41"
-    },
-    {
-     "network": "mainnet",
-     "kind": "payee",
-     "address": "0x12F6806070071af5112F93A7De780821053769a1"
-    },
-    {
-     "network": "mainnet",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
     }
    ]
   },
@@ -4577,13 +4950,25 @@
    "slug": "nethermind",
    "name": "nethermind",
    "website": null,
-   "aliases": [
-    "nethermind"
-   ],
+   "sources": {
+    "rdd": true,
+    "transmitters": true
+   },
+   "rdd_ids": {
+    "ethereum": []
+   },
+   "products": {
+    "data_feeds": true,
+    "automation": false,
+    "vrf": false,
+    "functions": false
+   },
    "counts": {
     "feeds": 1,
-    "networks": 1
+    "networks": 1,
+    "streams": null
    },
+   "staking": null,
    "networks": [
     {
      "network": "ethereum",
@@ -4592,24 +4977,19 @@
    ],
    "addresses": [
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "node",
      "address": "0x4Ab22C50399B51f40e5A961D17D035877417D9A5"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "node",
      "address": "0xe883459C2fF696c66B564C832B60c7DB12fd927a"
     },
     {
-     "network": "mainnet",
+     "network": "ethereum",
      "kind": "forwarder",
      "address": "0x6fBF46dA526E620FA93c342833184F8F6981F522"
-    },
-    {
-     "network": "mainnet",
-     "kind": "oracle",
-     "address": "0x0000000000000000000000000000000000000000"
     }
    ]
   }

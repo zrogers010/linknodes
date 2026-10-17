@@ -1849,7 +1849,7 @@
      "shutdown_date": null,
      "status": "active",
      "base_path": null,
-     "operator_count": 10
+     "operator_count": 0
     },
     "ezeth-eth": {
      "name": "ezETH / ETH",
@@ -6790,7 +6790,7 @@
      "shutdown_date": null,
      "status": "active",
      "base_path": null,
-     "operator_count": 10
+     "operator_count": 0
     },
     "wbtc-btc": {
      "name": "WBTC / BTC",

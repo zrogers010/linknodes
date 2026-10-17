@@ -145,8 +145,8 @@ def fetch_lane_support(official_data: dict, chain_id: int, included_chains: dict
     return sorted(supported)
 
 
-def build_ccip_registry(api_url: str, included_chains: dict, environment: str) -> dict:
-    """Build CCIP registry for a specific environment."""
+def build_ccip_registry(api_url: str, included_chains: dict, environment: str) -> tuple[dict, int]:
+    """Build CCIP registry for a specific environment. Returns (registry, status_code)."""
     print(f"\nFetching CCIP {environment} registry from Chainlink API...")
     req = urllib.request.Request(
         api_url,
@@ -155,10 +155,11 @@ def build_ccip_registry(api_url: str, included_chains: dict, environment: str) -
     
     try:
         resp = urllib.request.urlopen(req, timeout=30)
+        status_code = resp.getcode()
         official_data = json.loads(resp.read())
     except Exception as e:
         print(f"Error fetching CCIP API: {e}", file=sys.stderr)
-        return None
+        return None, 0
     
     total_chains = len(official_data['data']['evm'])
     print(f"Fetched {total_chains} chains from official API")
@@ -227,16 +228,21 @@ def build_ccip_registry(api_url: str, included_chains: dict, environment: str) -
             print(f"  - {error}")
         print("\nContinuing anyway (warnings only)...\n")
     
-    return registry
+    return registry, status_code
 
 
 def main() -> None:
+    from refresh_checks import check_rdd_response_codes
+    
     print("=" * 70)
     print("Building CCIP Registries")
     print("=" * 70)
     
+    http_responses = {}
+    
     # Build mainnet registry
-    mainnet_registry = build_ccip_registry(MAINNET_API_URL, MAINNET_CHAINS, "mainnet")
+    mainnet_registry, mainnet_status = build_ccip_registry(MAINNET_API_URL, MAINNET_CHAINS, "mainnet")
+    http_responses[MAINNET_API_URL] = mainnet_status
     if mainnet_registry:
         out_path = Path(__file__).parent / "ccip_registry.json"
         out_path.write_text(json.dumps(mainnet_registry, indent=2))
@@ -244,12 +250,20 @@ def main() -> None:
         print(f"  File size: {out_path.stat().st_size / 1024:.1f} KB")
     
     # Build testnet registry
-    testnet_registry = build_ccip_registry(TESTNET_API_URL, TESTNET_CHAINS, "testnet")
+    testnet_registry, testnet_status = build_ccip_registry(TESTNET_API_URL, TESTNET_CHAINS, "testnet")
+    http_responses[TESTNET_API_URL] = testnet_status
     if testnet_registry:
         out_path = Path(__file__).parent / "ccip_registry_testnet.json"
         out_path.write_text(json.dumps(testnet_registry, indent=2))
         print(f"\n✓ Wrote {out_path.name}: {len(testnet_registry['networks'])} networks")
         print(f"  File size: {out_path.stat().st_size / 1024:.1f} KB")
+    
+    # Run refresh checks
+    try:
+        check_rdd_response_codes(http_responses)
+    except ValueError as e:
+        print(f"\n{e}\n")
+        sys.exit(1)
     
     print("\n" + "=" * 70)
 

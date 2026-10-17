@@ -2,8 +2,12 @@ name: Refresh Data
 
 on:
   schedule:
-    - cron: '17 13 * * *'  # Daily at 06:17 PDT (13:17 UTC)
+    - cron: '17 13 * * *'  # Daily at 13:17 UTC (06:17 PDT / 05:17 PST)
   workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
 
 jobs:
   refresh:
@@ -17,10 +21,25 @@ jobs:
         with:
           python-version: '3.12'
       
-      - name: Install dependencies
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      
+      - name: Get current date
+        id: date
+        run: echo "date=$(date -u +%F)" >> $GITHUB_OUTPUT
+      
+      - name: Install Python dependencies
         run: |
           cd backend
           pip install -r requirements.txt
+          pip install pytest
+      
+      - name: Install frontend dependencies
+        run: |
+          cd frontend
+          npm ci
       
       - name: Run data builders
         id: build
@@ -29,6 +48,11 @@ jobs:
           python3 build_registry.py
           python3 build_operators.py
           python3 build_ccip_registry.py
+      
+      - name: Sync frontend registry data
+        run: |
+          cd frontend
+          node sync-registry-data.js
       
       - name: Run shape validation tests
         run: |
@@ -39,7 +63,7 @@ jobs:
         id: check_changes
         run: |
           cd backend
-          if git diff --quiet registry.json registry_testnet.json data/operators.json data/feed_operators.json ccip_registry.json ccip_registry_testnet.json; then
+          if git diff --quiet registry.json registry_testnet.json data/operators.json data/feed_operators.json ccip_registry.json ccip_registry_testnet.json ../frontend/data/; then
             echo "has_changes=false" >> $GITHUB_OUTPUT
           else
             echo "has_changes=true" >> $GITHUB_OUTPUT
@@ -60,10 +84,10 @@ jobs:
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: 'Data refresh $(date +%Y-%m-%d)'
-          branch: data/refresh-$(date +%Y-%m-%d)
+          commit-message: 'Data refresh ${{ steps.date.outputs.date }}'
+          branch: data/refresh-${{ steps.date.outputs.date }}
           delete-branch: true
-          title: 'Data refresh $(date +%Y-%m-%d)'
+          title: 'Data refresh ${{ steps.date.outputs.date }}'
           body: |
             Automated data refresh from reference-data-directory and on-chain sources.
             
@@ -73,6 +97,8 @@ jobs:
             - [ ] Mapping rates look reasonable
             - [ ] No unexpected operator changes
             - [ ] Feed count changes are expected
+            
+            **Setup note:** Ensure "Allow GitHub Actions to create and approve pull requests" is enabled in repository settings, or use a PAT/App token (GITHUB_TOKEN PRs don't trigger CI by default).
             
             This PR was automatically created by the refresh-data workflow.
           draft: false
