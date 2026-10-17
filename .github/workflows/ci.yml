@@ -3,8 +3,7 @@ name: CI
 on:
   push:
     branches: [main]
-  pull_request:
-    branches: [main]
+  pull_request:  # Run on all PRs regardless of target branch
 
 jobs:
   backend-tests:
@@ -29,7 +28,7 @@ jobs:
       - name: Run unit tests
         run: |
           cd backend
-          pytest test_shape_validation.py test_svr_matching.py test_shutdown.py test_mutation_killers.py test_request_time_status.py -v
+          pytest test_shape_validation.py test_svr_matching.py test_shutdown.py test_mutation_killers.py test_request_time_status.py test_refresh_checks.py -v
       
       - name: Start backend server
         run: |
