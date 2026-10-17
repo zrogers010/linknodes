@@ -539,21 +539,24 @@ def main() -> None:
     print("Building Data Feeds Registries")
     print("=" * 70)
     
-    # Build both registries first (validate everything before writing)
-    print("\nMAINNET:")
-    print("-" * 70)
-    mainnet_registry, mainnet_total, mainnet_temp_dir = build_registry(MAINNET_CHAINS, "mainnet")
-    print(f"✓ Built mainnet: {mainnet_total} feeds across {len(MAINNET_CHAINS)} chains")
-    
-    print("\nTESTNET:")
-    print("-" * 70)
-    testnet_registry, testnet_total, testnet_temp_dir = build_registry(TESTNET_CHAINS, "testnet")
-    print(f"✓ Built testnet: {testnet_total} feeds across {len(TESTNET_CHAINS)} chains")
-    
-    # All builds succeeded - write outputs atomically
-    print("\nWriting outputs...")
+    mainnet_temp_dir = None
+    testnet_temp_dir = None
     
     try:
+        # Build both registries first (validate everything before writing)
+        print("\nMAINNET:")
+        print("-" * 70)
+        mainnet_registry, mainnet_total, mainnet_temp_dir = build_registry(MAINNET_CHAINS, "mainnet")
+        print(f"✓ Built mainnet: {mainnet_total} feeds across {len(MAINNET_CHAINS)} chains")
+        
+        print("\nTESTNET:")
+        print("-" * 70)
+        testnet_registry, testnet_total, testnet_temp_dir = build_registry(TESTNET_CHAINS, "testnet")
+        print(f"✓ Built testnet: {testnet_total} feeds across {len(TESTNET_CHAINS)} chains")
+        
+        # All builds succeeded - write outputs atomically
+        print("\nWriting outputs...")
+        
         import tempfile
         import os
         backend_dir = Path(__file__).parent
@@ -584,14 +587,16 @@ def main() -> None:
         print(f"✓ Wrote {testnet_path.name}: {testnet_total} feeds across {len(TESTNET_CHAINS)} chains "
               f"({testnet_path.stat().st_size / 1024:.0f} KB)")
         
+        print("\n" + "=" * 70)
+        print(f"Total: {mainnet_total + testnet_total} feeds across {len(MAINNET_CHAINS) + len(TESTNET_CHAINS)} chains")
+        print("=" * 70)
+        
     finally:
         # Clean up temp directories
-        shutil.rmtree(mainnet_temp_dir, ignore_errors=True)
-        shutil.rmtree(testnet_temp_dir, ignore_errors=True)
-    
-    print("\n" + "=" * 70)
-    print(f"Total: {mainnet_total + testnet_total} feeds across {len(MAINNET_CHAINS) + len(TESTNET_CHAINS)} chains")
-    print("=" * 70)
+        if mainnet_temp_dir:
+            shutil.rmtree(mainnet_temp_dir, ignore_errors=True)
+        if testnet_temp_dir:
+            shutil.rmtree(testnet_temp_dir, ignore_errors=True)
 
 
 if __name__ == "__main__":

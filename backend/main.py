@@ -68,6 +68,8 @@ def set_test_clock(dt: datetime | None) -> None:
     """Set a test clock override. Pass None to reset to real time."""
     global _CLOCK_OVERRIDE
     _CLOCK_OVERRIDE = dt
+    # Clear cache when clock changes to prevent serving stale status
+    _response_cache.clear()
 
 def get_current_time() -> datetime:
     """Get current time, respecting test clock override."""
@@ -404,7 +406,21 @@ async def _read_feed(network: str, feed: str, round_id: int | None, environment:
                     "See: https://docs.chain.link/data-feeds/svr-feeds"
                 )
         
+        # Cap cache TTL at shutdown boundary to prevent serving stale status
         ttl = HISTORICAL_CACHE_TTL_S if round_id is not None else LATEST_CACHE_TTL_S
+        shutdown_date = feed_meta.get("shutdown_date")
+        if shutdown_date:
+            from datetime import datetime, timezone
+            utc_now = get_current_time()
+            try:
+                shutdown_dt = datetime.strptime(shutdown_date, "%Y-%m-%d").replace(tzinfo=timezone.utc)
+                seconds_until_shutdown = (shutdown_dt - utc_now).total_seconds()
+                if seconds_until_shutdown > 0:
+                    # Cap TTL at shutdown boundary (with 1-second buffer)
+                    ttl = min(ttl, seconds_until_shutdown + 1)
+            except Exception:
+                pass  # Invalid date, use normal TTL
+        
         _response_cache[cache_key] = (time.monotonic() + ttl, response)
         if len(_response_cache) > 8192:
             now = time.monotonic()

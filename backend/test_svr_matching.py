@@ -198,6 +198,7 @@ def test_svr_link_methodology_mismatch():
 
 def test_svr_no_cross_pair_links():
     """Test that SVR feeds never link across different trading pairs."""
+    # Test 1: Different clic and different pairs
     feeds = {
         "eth-usd": {
             "name": "ETH / USD",
@@ -218,6 +219,27 @@ def test_svr_no_cross_pair_links():
     
     assert feeds["btc-usd-svr"].get("base_path") is None, \
         "SVR should never link to a feed with different base/quote pair"
+    
+    # Test 2: Same normalized name but different base (exercises fallback base/quote check)
+    feeds2 = {
+        "special-feed": {
+            "name": "Special Feed",
+            "base": "ETH",
+            "quote": "USD",
+        },
+        "special-feed-svr": {
+            "name": "Special Feed SVR",
+            "svr_label": "Shared SVR",
+            "base": "BTC",  # Different base
+            "quote": "USD",
+        },
+    }
+    
+    link_svr_variants(feeds2)
+    
+    assert feeds2["special-feed-svr"].get("base_path") is None, \
+        "SVR with same normalized name but different base should not link"
+    
     print("✓ Cross-pair links prevented")
 
 

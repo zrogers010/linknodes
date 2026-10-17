@@ -45,11 +45,12 @@ def test_nodes_files_exist():
         dest_dir = tmp_path / "nodes"
         staged_dir.mkdir()
         
-        # Create staged nodes files
+        # Create staged nodes files (including testnet)
         staged_files = {
             "nodes-mainnet.json": [{"id": "op1", "name": "Operator 1"}],
             "nodes-matic-mainnet.json": [{"id": "op2", "name": "Operator 2"}],
             "nodes-avalanche-mainnet.json": [{"id": "op3", "name": "Operator 3"}],
+            "nodes-sepolia.json": [{"id": "op4", "name": "Operator 4"}],
         }
         
         for filename, content in staged_files.items():
@@ -70,18 +71,84 @@ def test_nodes_files_exist():
 
 
 def test_testnet_failure_leaves_mainnet_unchanged():
-    """Test that testnet build failure doesn't corrupt mainnet files."""
-    from build_registry import build_registry, write_nodes
-    import tempfile
-    import shutil
+    """Test that testnet build failure doesn't corrupt mainnet files and cleans up temp dirs."""
+    import hashlib
+    import glob
+    import subprocess
+    from pathlib import Path
+    from unittest.mock import patch, MagicMock
     
-    # This test requires mocking the testnet build to fail
-    # In practice, we verify this with a real 404 scenario
-    # For now, verify the contract: build_registry returns temp_dir
-    # and main() only writes if BOTH builds succeed
+    backend_dir = Path(__file__).parent
     
-    print("✓ Testnet failure protection: build_registry returns staged temp_dir")
-    print("  (Full mutation test requires mocked 404 in testnet build)")
+    # Files to monitor
+    output_files = [
+        backend_dir / "registry.json",
+        backend_dir / "registry_testnet.json",
+    ]
+    nodes_files = list((backend_dir / "data" / "nodes").glob("*.json"))
+    all_files = output_files + nodes_files
+    
+    # Compute SHA256 of all files before
+    def get_file_hashes():
+        hashes = {}
+        for f in all_files:
+            if f.exists():
+                hashes[str(f)] = hashlib.sha256(f.read_bytes()).hexdigest()
+        return hashes
+    
+    before_hashes = get_file_hashes()
+    
+    # Count temp dirs before
+    temp_dirs_before = set(glob.glob("/tmp/registry_build_*"))
+    
+    # Mock httpx to return 404 for testnet feeds
+    with patch('build_registry.httpx.Client') as mock_client_class:
+        mock_client = MagicMock()
+        mock_client_class.return_value.__enter__.return_value = mock_client
+        
+        def mock_get(url):
+            response = MagicMock()
+            # Return 404 for testnet feeds
+            if "sepolia" in url or "fuji" in url:
+                response.status_code = 404
+                response.raise_for_status.side_effect = Exception("404 Not Found")
+            else:
+                # For mainnet, return minimal valid data
+                if "feeds-" in url:
+                    response.status_code = 200
+                    response.json.return_value = []
+                elif "nodes-" in url:
+                    response.status_code = 200
+                    response.json.return_value = []
+                else:
+                    response.status_code = 200
+            return response
+        
+        mock_client.get = mock_get
+        
+        # Run build and expect failure
+        from build_registry import main
+        try:
+            main()
+            assert False, "Build should have failed with testnet 404"
+        except Exception as e:
+            # Expected to fail
+            print(f"✓ Build correctly failed: {type(e).__name__}")
+    
+    # Verify all files unchanged
+    after_hashes = get_file_hashes()
+    for file_path, before_hash in before_hashes.items():
+        after_hash = after_hashes.get(file_path)
+        assert after_hash == before_hash, f"{file_path} was modified"
+    
+    # Verify no new temp dirs remain
+    temp_dirs_after = set(glob.glob("/tmp/registry_build_*"))
+    new_temp_dirs = temp_dirs_after - temp_dirs_before
+    assert len(new_temp_dirs) == 0, f"Temp dirs leaked: {new_temp_dirs}"
+    
+    print("✓ Testnet failure leaves mainnet files unchanged")
+    print("✓ No temp dir leaks")
+
 
 
 def test_product_type_mapping():
