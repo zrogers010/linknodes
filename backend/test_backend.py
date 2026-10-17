@@ -126,6 +126,21 @@ def test_svr_variants():
     
     registry = json.loads(registry_path.read_text())
     
+    def extract_product_type(clic: str) -> str | None:
+        """Extract product type from clic_product_name."""
+        if not clic:
+            return None
+        clic_upper = clic.upper()
+        if "REFPRICE" in clic_upper:
+            return "RefPrice"
+        elif "EXRATE" in clic_upper:
+            return "ExRate"
+        elif "NAV" in clic_upper or "-NAV-" in clic_upper:
+            return "NAV"
+        elif "POR" in clic_upper or "RESERVES" in clic_upper:
+            return "PoR"
+        return None
+    
     svr_variants_found = []
     svr_no_base = []
     svr_invalid_base = []
@@ -135,14 +150,35 @@ def test_svr_variants():
         for feed_key, feed_data in network_feeds.items():
             if feed_data.get("svr_label"):
                 base_path = feed_data.get("base_path")
+                svr_clic = feed_data.get("clic_product_name")
+                svr_type = extract_product_type(svr_clic)
                 
                 if base_path:
                     if base_path not in network_feeds:
                         svr_invalid_base.append(f"{network_key}/{feed_key} -> base_path={base_path} (NOT FOUND)")
-                    elif network_feeds[base_path].get("svr_label"):
-                        svr_invalid_base.append(f"{network_key}/{feed_key} -> base_path={base_path} (POINTS TO ANOTHER SVR)")
                     else:
-                        svr_variants_found.append(f"{network_key}/{feed_key} -> base_path={base_path}")
+                        base_feed = network_feeds[base_path]
+                        if base_feed.get("svr_label"):
+                            svr_invalid_base.append(f"{network_key}/{feed_key} -> base_path={base_path} (POINTS TO ANOTHER SVR)")
+                        else:
+                            base_clic = base_feed.get("clic_product_name")
+                            base_type = extract_product_type(base_clic)
+                            
+                            if svr_clic and base_clic:
+                                if svr_clic.lower() != base_clic.lower():
+                                    svr_invalid_base.append(
+                                        f"{network_key}/{feed_key} -> {base_path}: "
+                                        f"clic mismatch ('{svr_clic}' != '{base_clic}')"
+                                    )
+                                else:
+                                    svr_variants_found.append(f"{network_key}/{feed_key} -> base_path={base_path}")
+                            elif svr_type and base_type and svr_type != base_type:
+                                svr_invalid_base.append(
+                                    f"{network_key}/{feed_key} -> {base_path}: "
+                                    f"product type mismatch ({svr_type} != {base_type})"
+                                )
+                            else:
+                                svr_variants_found.append(f"{network_key}/{feed_key} -> base_path={base_path}")
                 else:
                     clic_name = feed_data.get("clic_product_name")
                     base_asset = feed_data.get("base")
@@ -155,15 +191,19 @@ def test_svr_variants():
                         if candidate.get("svr_label"):
                             continue
                         
-                        if clic_name and candidate.get("clic_product_name") == clic_name:
-                            has_matching_base = True
-                            break
+                        candidate_clic = candidate.get("clic_product_name")
                         
-                        if (base_asset and quote_asset and 
-                            candidate.get("base") == base_asset and 
-                            candidate.get("quote") == quote_asset):
-                            has_matching_base = True
-                            break
+                        if clic_name and candidate_clic:
+                            if clic_name.lower() == candidate_clic.lower():
+                                has_matching_base = True
+                                break
+                        elif not clic_name and base_asset and quote_asset:
+                            if (candidate.get("base") == base_asset and 
+                                candidate.get("quote") == quote_asset):
+                                candidate_type = extract_product_type(candidate_clic)
+                                if svr_type == candidate_type or (not svr_type and not candidate_type):
+                                    has_matching_base = True
+                                    break
                     
                     if has_matching_base:
                         svr_invalid_base.append(f"{network_key}/{feed_key} has matching base but no base_path!")
@@ -172,7 +212,7 @@ def test_svr_variants():
     
     if svr_invalid_base:
         print(f"❌ FAIL: Found {len(svr_invalid_base)} SVR variants with invalid base_path:")
-        for variant in svr_invalid_base[:5]:
+        for variant in svr_invalid_base[:10]:
             print(f"   {variant}")
         return False
     

@@ -329,6 +329,21 @@ def build_registry(chains: dict, environment: str) -> dict:
                         base_asset = compacted.get("base")
                         quote_asset = compacted.get("quote")
                         
+                        def extract_product_type(clic: str) -> str | None:
+                            """Extract product type from clic_product_name (RefPrice, ExRate, NAV, etc)."""
+                            if not clic:
+                                return None
+                            clic_upper = clic.upper()
+                            if "REFPRICE" in clic_upper:
+                                return "RefPrice"
+                            elif "EXRATE" in clic_upper:
+                                return "ExRate"
+                            elif "NAV" in clic_upper or "-NAV-" in clic_upper:
+                                return "NAV"
+                            elif "POR" in clic_upper or "RESERVES" in clic_upper:
+                                return "PoR"
+                            return None
+                        
                         best_match = None
                         
                         for candidate_slug, candidate in feeds.items():
@@ -337,15 +352,20 @@ def build_registry(chains: dict, environment: str) -> dict:
                             if candidate.get("svr_label"):
                                 continue
                             
-                            if clic_name and candidate.get("clic_product_name") == clic_name:
-                                best_match = candidate_slug
-                                break
+                            candidate_clic = candidate.get("clic_product_name")
                             
-                            if (base_asset and quote_asset and 
-                                candidate.get("base") == base_asset and 
-                                candidate.get("quote") == quote_asset):
-                                best_match = candidate_slug
-                                break
+                            if clic_name and candidate_clic:
+                                if clic_name.lower() == candidate_clic.lower():
+                                    best_match = candidate_slug
+                                    break
+                            elif not clic_name and base_asset and quote_asset:
+                                if (candidate.get("base") == base_asset and 
+                                    candidate.get("quote") == quote_asset):
+                                    svr_type = extract_product_type(clic_name)
+                                    candidate_type = extract_product_type(candidate_clic)
+                                    if svr_type == candidate_type or (not svr_type and not candidate_type):
+                                        best_match = candidate_slug
+                                        break
                         
                         if best_match:
                             compacted["base_path"] = best_match

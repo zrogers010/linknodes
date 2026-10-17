@@ -2,7 +2,7 @@
  "version": "2.0.0",
  "environment": "mainnet",
  "source": "chainlink-reference-data-directory",
- "generated_at": 1792264829,
+ "generated_at": 1792265164,
  "networks": {
   "ethereum": {
    "label": "Ethereum",
@@ -8125,7 +8125,7 @@
      "por_source": null,
      "clic_product_name": "FRAX/USD-RefPrice-DF-Arbitrum-001",
      "shutdown_date": null,
-     "base_path": "frax-usd"
+     "base_path": null
     },
     "frxeth-eth-high": {
      "name": "frxETH-ETH Exchange Rate High",
@@ -13987,7 +13987,7 @@
      "por_source": null,
      "clic_product_name": "EZETH/ETH-ExRate-DF-Base-001",
      "shutdown_date": null,
-     "base_path": "ezeth-eth"
+     "base_path": null
     },
     "frnt-por": {
      "name": "FRNT Proof of Reserves",
