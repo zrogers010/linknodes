@@ -64,10 +64,11 @@ def build_address_index(nodes_dir: Path, overrides: dict) -> tuple[dict[str, str
     
     Returns (index, hidden_addresses) where:
     - index maps public addresses to operator IDs
-    - hidden_addresses contains addresses for hidden/internal operators
+    - hidden_addresses contains addresses that appear ONLY in hidden/internal operators
     """
     index = {}
     hidden_addresses = set()
+    public_addresses = set()
     
     for nodes_file in sorted(nodes_dir.glob("*.json")):
         try:
@@ -94,11 +95,15 @@ def build_address_index(nodes_dir: Path, overrides: dict) -> tuple[dict[str, str
                                     if is_hidden:
                                         hidden_addresses.add(addr_lower)
                                     else:
+                                        public_addresses.add(addr_lower)
                                         index[addr_lower] = op_id
                             except ValueError:
                                 pass
         except Exception as e:
             print(f"Warning: Failed to parse {nodes_file.name}: {e}")
+    
+    # Remove addresses that appear in both hidden and public nodes - they should be public
+    hidden_addresses -= public_addresses
     
     return index, hidden_addresses
 
