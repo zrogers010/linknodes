@@ -77,31 +77,26 @@ def get_current_time() -> datetime:
 def is_feed_visible(feed_meta: dict) -> bool:
     """Determine if a feed should be visible at request time.
     
-    - "active" feeds are always visible
-    - "deprecating" feeds are visible until shutdown_date
-    - "shut_down" feeds with shutdown_date in the past are hidden
+    Recomputes status based on shutdown_date vs UTC now:
+    - Feeds with past shutdown dates are hidden (status: shut_down)
+    - Feeds with today/future shutdown dates or category=deprecating are visible (status: deprecating)
+    - All other feeds are visible (status: active)
     """
-    status = feed_meta.get("status", "active")
     shutdown_date_str = feed_meta.get("shutdown_date")
+    category = feed_meta.get("category", "unranked")
     
-    if status == "active":
+    if shutdown_date_str:
+        # Recompute status at request time
+        utc_now = get_current_time().strftime("%Y-%m-%d")
+        
+        # shutdown_date_str is in ISO YYYY-MM-DD format
+        if shutdown_date_str < utc_now:
+            # Past date => shut_down => hidden
+            return False
+        # Today or future => deprecating => visible
         return True
     
-    if status == "deprecating":
-        return True
-    
-    if status == "shut_down" and shutdown_date_str:
-        try:
-            shutdown_date = datetime.fromisoformat(shutdown_date_str).replace(tzinfo=timezone.utc)
-            # Add one day to shutdown_date to hide feeds the day after
-            # (e.g., 2026-10-18 shutdown means hidden starting 2026-10-19 00:00 UTC)
-            from datetime import timedelta
-            hide_after = shutdown_date + timedelta(days=1)
-            return get_current_time() < hide_after
-        except (ValueError, AttributeError):
-            # Invalid date format - show the feed
-            return True
-    
+    # No shutdown date => visible (active or deprecating based on category)
     return True
 
 
@@ -607,12 +602,12 @@ async def healthz():
         "registry_version": REGISTRY_MAINNET["version"],
         "mainnet": {
             "networks": len(REGISTRY_MAINNET["networks"]),
-            "feeds": sum(n["feed_count"] for n in REGISTRY_MAINNET["networks"].values()),
+            "feeds": sum(len(filter_visible_feeds(n["feeds"])) for n in REGISTRY_MAINNET["networks"].values()),
             "ccip_networks": len(CCIP_REGISTRY_MAINNET["networks"]),
         },
         "testnet": {
             "networks": len(REGISTRY_TESTNET["networks"]),
-            "feeds": sum(n["feed_count"] for n in REGISTRY_TESTNET["networks"].values()),
+            "feeds": sum(len(filter_visible_feeds(n["feeds"])) for n in REGISTRY_TESTNET["networks"].values()),
             "ccip_networks": len(CCIP_REGISTRY_TESTNET["networks"]),
         },
         "cache_entries": len(_response_cache),

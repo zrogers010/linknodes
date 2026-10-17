@@ -52,31 +52,41 @@ def test_parse_shutdown_date():
 
 
 def test_compute_feed_status():
-    """Test status computation based on category and shutdown date."""
+    """Test status computation based on category and shutdown date vs UTC now."""
+    # Use fixed reference date for testing: 2026-10-18
+    test_now = "2026-10-18"
+    
     test_cases = [
-        # (category, shutdown_date_iso, expected_status)
-        ("active", None, "active"),
-        ("deprecating", None, "deprecating"),
-        ("active", "2026-10-18", "shut_down"),
-        ("deprecating", "2026-10-18", "shut_down"),
-        ("unranked", None, "active"),
-        (None, "2026-10-18", "shut_down"),
+        # (category, shutdown_date_iso, utc_now, expected_status)
+        ("active", None, test_now, "active"),
+        ("deprecating", None, test_now, "deprecating"),
+        ("unranked", None, test_now, "active"),
+        (None, None, test_now, "active"),
+        # Past shutdown date => shut_down
+        ("active", "2026-10-17", test_now, "shut_down"),
+        ("deprecating", "2026-10-17", test_now, "shut_down"),
+        # Today shutdown date => deprecating
+        ("active", "2026-10-18", test_now, "deprecating"),
+        ("deprecating", "2026-10-18", test_now, "deprecating"),
+        # Future shutdown date => deprecating
+        ("active", "2026-10-19", test_now, "deprecating"),
+        ("deprecating", "2026-10-25", test_now, "deprecating"),
     ]
     
     print("Feed Status Computation:")
-    print("=" * 80)
-    print(f"{'Category':<20} {'Shutdown Date':<20} {'Expected':<15} {'Actual':<15} {'Status':<10}")
-    print("-" * 80)
+    print("=" * 110)
+    print(f"{'Category':<20} {'Shutdown Date':<20} {'UTC Now':<15} {'Expected':<15} {'Actual':<15} {'Status':<10}")
+    print("-" * 110)
     
-    for category, shutdown_date, expected in test_cases:
-        actual = compute_feed_status(category, shutdown_date)
+    for category, shutdown_date, utc_now, expected in test_cases:
+        actual = compute_feed_status(category, shutdown_date, utc_now)
         status = "PASS" if actual == expected else "FAIL"
         cat_display = category if category else "(None)"
         date_display = shutdown_date if shutdown_date else "(None)"
-        print(f"{cat_display:<20} {date_display:<20} {expected:<15} {actual:<15} {status:<10}")
-        assert actual == expected, f"Failed: category={category}, date={shutdown_date} -> expected {expected}, got {actual}"
+        print(f"{cat_display:<20} {date_display:<20} {utc_now:<15} {expected:<15} {actual:<15} {status:<10}")
+        assert actual == expected, f"Failed: category={category}, date={shutdown_date}, now={utc_now} -> expected {expected}, got {actual}"
     
-    print("=" * 80)
+    print("=" * 110)
     print(f"✓ All {len(test_cases)} status computation tests passed\n")
 
 
@@ -85,8 +95,8 @@ def test_feed_visibility_with_clock():
     # Test feed with shutdown date 2026-10-18
     test_feed = {
         "name": "Test Feed",
-        "status": "shut_down",
         "shutdown_date": "2026-10-18",
+        "category": "active",
     }
     
     # Test times
@@ -95,9 +105,9 @@ def test_feed_visibility_with_clock():
     after_shutdown = datetime(2026, 10, 19, 0, 0, 1, tzinfo=timezone.utc)  # Oct 19, 2026 00:00:01 UTC
     
     test_cases = [
-        (before_shutdown, True, "before shutdown date"),
-        (on_shutdown_day, True, "on shutdown date (still visible)"),
-        (after_shutdown, False, "day after shutdown (hidden)"),
+        (before_shutdown, True, "before shutdown date (deprecating)"),
+        (on_shutdown_day, True, "on shutdown date (deprecating)"),
+        (after_shutdown, False, "day after shutdown (shut_down => hidden)"),
     ]
     
     print("Feed Visibility with Injectable Clock:")
@@ -119,34 +129,34 @@ def test_feed_visibility_with_clock():
     print("=" * 100)
     print(f"✓ All {len(test_cases)} visibility tests passed\n")
     
-    # Test active and deprecating feeds (always visible)
-    active_feed = {"status": "active", "shutdown_date": None}
-    deprecating_feed = {"status": "deprecating", "shutdown_date": None}
+    # Test active and deprecating feeds (no shutdown date => always visible)
+    active_feed = {"shutdown_date": None, "category": "active"}
+    deprecating_feed = {"shutdown_date": None, "category": "deprecating"}
     
     assert is_feed_visible(active_feed), "Active feed should always be visible"
     assert is_feed_visible(deprecating_feed), "Deprecating feed should always be visible"
-    print("✓ Active and deprecating feeds are always visible")
+    print("✓ Active and deprecating feeds (no shutdown date) are always visible")
 
 
 def test_deprecated_feed_visibility():
-    """Test that deprecating feeds with future shutdown dates remain visible."""
+    """Test that feeds with future shutdown dates remain visible (deprecating status)."""
     # STBRL-TBRL exchange rate example (shutdown 2026-10-18)
     stbrl_feed = {
         "name": "STBRL / TBRL Exchange Rate",
         "path": "stbrl-tbrl-exchange-rate",
-        "status": "shut_down",
         "shutdown_date": "2026-10-18",
+        "category": "active",
     }
     
-    # Before shutdown: visible
+    # Before shutdown: visible (deprecating)
     set_test_clock(datetime(2026, 10, 17, 12, 0, 0, tzinfo=timezone.utc))
     assert is_feed_visible(stbrl_feed), "Feed should be visible before shutdown date"
     
-    # On shutdown day: still visible
+    # On shutdown day: still visible (deprecating)
     set_test_clock(datetime(2026, 10, 18, 23, 59, 59, tzinfo=timezone.utc))
     assert is_feed_visible(stbrl_feed), "Feed should be visible on shutdown date"
     
-    # Day after: hidden
+    # Day after: hidden (shut_down)
     set_test_clock(datetime(2026, 10, 19, 0, 0, 0, tzinfo=timezone.utc))
     assert not is_feed_visible(stbrl_feed), "Feed should be hidden day after shutdown"
     

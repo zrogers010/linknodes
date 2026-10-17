@@ -12,6 +12,30 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+/**
+ * Check if a feed should be included in prerendered pages.
+ * Drops feeds with past shutdown dates (shut_down status).
+ * Keeps active and deprecating feeds (future/today shutdown dates or no shutdown date).
+ */
+function isFeedVisible(feed) {
+  const shutdownDate = feed.shutdown_date;
+  if (!shutdownDate) {
+    // No shutdown date => visible
+    return true;
+  }
+  
+  // Get UTC today in YYYY-MM-DD format
+  const utcToday = new Date().toISOString().split('T')[0];
+  
+  // Past shutdown date => shut_down => hidden
+  if (shutdownDate < utcToday) {
+    return false;
+  }
+  
+  // Today or future => deprecating => visible
+  return true;
+}
+
 // Read mainnet registries from frontend/data/
 const feedsRegistry = JSON.parse(fs.readFileSync(path.join(__dirname, 'data/registry.json'), 'utf8'));
 const ccipRegistry = JSON.parse(fs.readFileSync(path.join(__dirname, 'data/ccip_registry.json'), 'utf8'));
@@ -237,6 +261,11 @@ for (const [chainId, network] of Object.entries(feedsRegistryTestnet.networks)) 
 // 5. Individual feed pages (mainnet + testnet)
 for (const [chainId, network] of Object.entries(feedsRegistry.networks)) {
   for (const [feedSlug, feed] of Object.entries(network.feeds)) {
+    // Skip shut_down feeds (past shutdown dates)
+    if (!isFeedVisible(feed)) {
+      continue;
+    }
+    
     const jsonLd = {
       '@context': 'https://schema.org',
       '@type': 'DataFeed',
@@ -265,6 +294,11 @@ for (const [chainId, network] of Object.entries(feedsRegistry.networks)) {
 
 for (const [chainId, network] of Object.entries(feedsRegistryTestnet.networks)) {
   for (const [feedSlug, feed] of Object.entries(network.feeds)) {
+    // Skip shut_down feeds (past shutdown dates)
+    if (!isFeedVisible(feed)) {
+      continue;
+    }
+    
     const jsonLd = {
       '@context': 'https://schema.org',
       '@type': 'DataFeed',

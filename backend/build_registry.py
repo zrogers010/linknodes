@@ -222,18 +222,34 @@ def parse_shutdown_date(shutdown_text: str | None) -> str | None:
     return None
 
 
-def compute_feed_status(category: str | None, shutdown_date_iso: str | None) -> str:
-    """Compute feed status based on category and shutdown date.
+def compute_feed_status(category: str | None, shutdown_date_iso: str | None, utc_now: str | None = None) -> str:
+    """Compute feed status based on category and shutdown date vs UTC today.
+    
+    Args:
+        category: Feed category from RDD
+        shutdown_date_iso: Shutdown date in ISO YYYY-MM-DD format
+        utc_now: Current UTC date for testing (format: YYYY-MM-DD). If None, uses today.
     
     Returns:
-    - "shut_down" if shutdown_date is set (will be filtered at request time)
-    - "deprecating" if category is deprecating
-    - "active" otherwise
+        - "shut_down" if shutdown_date is in the past
+        - "deprecating" if shutdown_date is today/future OR category is deprecating
+        - "active" otherwise
     """
     if shutdown_date_iso:
-        return "shut_down"
+        from datetime import datetime, timezone
+        if utc_now is None:
+            utc_now = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+        
+        # Compare dates as strings (YYYY-MM-DD format sorts correctly)
+        if shutdown_date_iso < utc_now:
+            return "shut_down"
+        else:
+            # Today or future => deprecating
+            return "deprecating"
+    
     if category == "deprecating":
         return "deprecating"
+    
     return "active"
 
 
