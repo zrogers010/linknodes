@@ -1,13 +1,28 @@
 export interface FeedMeta {
   name: string
+  path: string
   address: string
+  aggregator?: string | null
+  contract_version?: number | null
+  svr_proxy?: string | null
+  svr_label?: string | null
   decimals: number | null
   heartbeat: number | null
   deviation_threshold_pct: number | null
   category: string
   feed_type: string
+  product_type?: string | null
+  base?: string | null
+  quote?: string | null
   asset_name: string
-  market_hours: string
+  market_hours?: string | null
+  issuer?: string | null
+  por_auditor?: string | null
+  por_source?: string | null
+  clic_product_name?: string | null
+  shutdown_date?: string | null
+  status?: string
+  base_path?: string | null
 }
 
 export interface NetworkMeta {

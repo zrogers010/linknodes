@@ -21,6 +21,7 @@ import asyncio
 import json
 import time
 from collections import defaultdict, deque
+from datetime import datetime, timezone
 from pathlib import Path
 
 import uvicorn
@@ -54,6 +55,74 @@ def get_registry(environment: str = "mainnet") -> dict:
 def get_ccip_registry(environment: str = "mainnet") -> dict:
     """Get the appropriate CCIP registry based on environment."""
     return CCIP_REGISTRY_TESTNET if environment == "testnet" else CCIP_REGISTRY_MAINNET
+
+
+# Injectable clock for testing shutdown logic
+def _utc_now() -> datetime:
+    """Get current UTC time. Injectable for testing."""
+    return datetime.now(timezone.utc)
+
+_CLOCK_OVERRIDE: datetime | None = None
+
+def set_test_clock(dt: datetime | None) -> None:
+    """Set a test clock override. Pass None to reset to real time."""
+    global _CLOCK_OVERRIDE
+    _CLOCK_OVERRIDE = dt
+
+def get_current_time() -> datetime:
+    """Get current time, respecting test clock override."""
+    return _CLOCK_OVERRIDE if _CLOCK_OVERRIDE is not None else _utc_now()
+
+
+def is_feed_visible(feed_meta: dict) -> bool:
+    """Determine if a feed should be visible at request time.
+    
+    Recomputes status based on shutdown_date vs UTC now:
+    - Feeds with past shutdown dates are hidden (status: shut_down)
+    - Feeds with today/future shutdown dates or category=deprecating are visible (status: deprecating)
+    - All other feeds are visible (status: active)
+    """
+    shutdown_date_str = feed_meta.get("shutdown_date")
+    category = feed_meta.get("category", "unranked")
+    
+    if shutdown_date_str:
+        # Recompute status at request time
+        utc_now = get_current_time().strftime("%Y-%m-%d")
+        
+        # shutdown_date_str is in ISO YYYY-MM-DD format
+        if shutdown_date_str < utc_now:
+            # Past date => shut_down => hidden
+            return False
+        # Today or future => deprecating => visible
+        return True
+    
+    # No shutdown date => visible (active or deprecating based on category)
+    return True
+
+
+def filter_visible_feeds(feeds: dict) -> dict:
+    """Filter feeds dict to only include visible feeds at request time."""
+    return {slug: meta for slug, meta in feeds.items() if is_feed_visible(meta)}
+
+
+def recompute_feed_status(feed_meta: dict) -> str:
+    """Recompute feed status at request time using current UTC date."""
+    from build_registry import compute_feed_status
+    
+    shutdown_date_iso = feed_meta.get("shutdown_date")
+    category = feed_meta.get("category", "unranked")
+    utc_now = get_current_time().strftime("%Y-%m-%d")
+    
+    return compute_feed_status(category, shutdown_date_iso, utc_now)
+
+
+def recompute_feeds_status(feeds: dict) -> dict:
+    """Return feeds dict with status recomputed at request time."""
+    return {
+        slug: {**meta, "status": recompute_feed_status(meta)}
+        for slug, meta in feeds.items()
+    }
+
 
 RPC_TIMEOUT_S = 8.0
 LATEST_CACHE_TTL_S = 5.0       # Chainlink updates on heartbeat/deviation; 5s loses nothing
@@ -177,6 +246,7 @@ def _resolve(network: str, feed: str, environment: str = "mainnet") -> tuple[dic
     Resolve network and feed, returning (network_data, feed_data, resolved_name).
     resolved_name is set if we fell back to a variant (e.g., eth-usd -> eth-usd-svr).
     Chain slugs are globally unique, so if not found in the requested environment, try the other.
+    Filters out shut-down feeds at request time.
     """
     registry = get_registry(environment)
     net = registry["networks"].get(network.lower())
@@ -190,9 +260,12 @@ def _resolve(network: str, feed: str, environment: str = "mainnet") -> tuple[dic
     if not net:
         raise HTTPException(status_code=400, detail=f"Unknown network '{network}'.")
     
+    # Filter visible feeds at request time
+    visible_feeds = filter_visible_feeds(net["feeds"])
+    
     # Try exact match first
     feed_lower = feed.lower()
-    feed_meta = net["feeds"].get(feed_lower)
+    feed_meta = visible_feeds.get(feed_lower)
     resolved_name = None
     
     # If not found, try SVR (Smart Value Recapture) variants
@@ -200,21 +273,21 @@ def _resolve(network: str, feed: str, environment: str = "mainnet") -> tuple[dic
     if not feed_meta:
         for suffix in ['-svr', '-shared-svr', '-shared-svr-2']:
             variant = f"{feed_lower}{suffix}"
-            if variant in net["feeds"]:
-                feed_meta = net["feeds"][variant]
+            if variant in visible_feeds:
+                feed_meta = visible_feeds[variant]
                 resolved_name = variant
                 break
         
         # If still not found, try removing -svr suffix (reverse direction)
         if not feed_meta and feed_lower.endswith('-svr'):
             base_name = feed_lower.replace('-svr', '').replace('-shared', '')
-            if base_name in net["feeds"]:
-                feed_meta = net["feeds"][base_name]
+            if base_name in visible_feeds:
+                feed_meta = visible_feeds[base_name]
                 resolved_name = base_name
     
     if not feed_meta:
-        # Provide helpful error with close matches
-        available_feeds = list(net["feeds"].keys())
+        # Provide helpful error with close matches from visible feeds
+        available_feeds = list(visible_feeds.keys())
         close_matches = [f for f in available_feeds if feed_lower in f or f in feed_lower][:5]
         
         error_msg = f"Feed '{feed}' not found on {net['label']}."
@@ -229,7 +302,15 @@ def _resolve(network: str, feed: str, environment: str = "mainnet") -> tuple[dic
 
 
 async def _read_feed(network: str, feed: str, round_id: int | None, environment: str = "mainnet") -> dict:
-    """Core read path: micro-cache, then concurrent eth_calls with RPC failover."""
+    """Core read path: micro-cache, then concurrent eth_calls with RPC failover.
+    
+    Note: _resolve() must be called BEFORE the cache lookup. It filters out shut-down
+    feeds via filter_visible_feeds(), ensuring they 404 immediately at request time
+    rather than being served from cache.
+    """
+    # Resolve feed first - this 404s shut-down feeds before cache lookup
+    net, feed_meta, resolved_name = _resolve(network, feed, environment)
+    
     cache_key = (environment, network, feed, round_id)
     cache_entry = _response_cache.get(cache_key)
     if cache_entry and cache_entry[0] > time.monotonic():
@@ -237,7 +318,6 @@ async def _read_feed(network: str, feed: str, round_id: int | None, environment:
         cached["meta"] = {**cached["meta"], "cache": "hit"}
         return cached
 
-    net, feed_meta, resolved_name = _resolve(network, feed, environment)
     address = feed_meta["address"]
 
     last_error: Exception | None = None
@@ -301,6 +381,7 @@ async def _read_feed(network: str, feed: str, round_id: int | None, environment:
                 "aggregator_version": agg_version,
                 "feed_type": feed_meta["feed_type"],
                 "risk_category": feed_meta["category"],
+                "status": recompute_feed_status(feed_meta),
                 "heartbeat_seconds": feed_meta["heartbeat"],
                 "deviation_threshold_pct": feed_meta["deviation_threshold_pct"],
                 "market_hours": feed_meta["market_hours"],
@@ -345,11 +426,28 @@ async def _read_feed(network: str, feed: str, round_id: int | None, environment:
 async def api_get_registry(
     environment: str = Query("mainnet", description="Environment: mainnet or testnet")
 ):
-    """Full static catalog so the frontend renders every selector from one source of truth."""
+    """Full static catalog so the frontend renders every selector from one source of truth.
+    Filters out shut-down feeds at request time based on UTC current time."""
     env = environment.lower()
     if env not in ["mainnet", "testnet"]:
         raise HTTPException(status_code=400, detail="environment must be 'mainnet' or 'testnet'")
-    return get_registry(env)
+    
+    registry = get_registry(env)
+    
+    # Filter visible feeds and recompute status for each network
+    filtered_registry = {
+        **registry,
+        "networks": {
+            net_slug: {
+                **net_data,
+                "feeds": recompute_feeds_status(filter_visible_feeds(net_data["feeds"])),
+                "feed_count": len(filter_visible_feeds(net_data["feeds"])),
+            }
+            for net_slug, net_data in registry["networks"].items()
+        }
+    }
+    
+    return filtered_registry
 
 
 @app.get("/v1/query/{network}/{feed}")
@@ -381,14 +479,20 @@ async def compare_feed(
     environment: str = Query("mainnet", description="Environment: mainnet or testnet"),
 ):
     """Query a feed on every chain it is deployed on, concurrently, and
-    summarize the cross-chain spread."""
+    summarize the cross-chain spread. Only includes visible (non-shut-down) feeds."""
     env = environment.lower()
     if env not in ["mainnet", "testnet"]:
         raise HTTPException(status_code=400, detail="environment must be 'mainnet' or 'testnet'")
     
     feed = feed.lower()
     registry = get_registry(env)
-    networks = [key for key, net in registry["networks"].items() if feed in net["feeds"]]
+    
+    # Only include networks where the feed is visible
+    networks = [
+        key for key, net in registry["networks"].items()
+        if feed in filter_visible_feeds(net["feeds"])
+    ]
+    
     if not networks:
         raise HTTPException(status_code=404, detail=f"No chain publishes a '{feed}' feed.")
 
@@ -526,12 +630,12 @@ async def healthz():
         "registry_version": REGISTRY_MAINNET["version"],
         "mainnet": {
             "networks": len(REGISTRY_MAINNET["networks"]),
-            "feeds": sum(n["feed_count"] for n in REGISTRY_MAINNET["networks"].values()),
+            "feeds": sum(len(filter_visible_feeds(n["feeds"])) for n in REGISTRY_MAINNET["networks"].values()),
             "ccip_networks": len(CCIP_REGISTRY_MAINNET["networks"]),
         },
         "testnet": {
             "networks": len(REGISTRY_TESTNET["networks"]),
-            "feeds": sum(n["feed_count"] for n in REGISTRY_TESTNET["networks"].values()),
+            "feeds": sum(len(filter_visible_feeds(n["feeds"])) for n in REGISTRY_TESTNET["networks"].values()),
             "ccip_networks": len(CCIP_REGISTRY_TESTNET["networks"]),
         },
         "cache_entries": len(_response_cache),

@@ -24,6 +24,12 @@ jobs:
         run: |
           cd backend
           pip install -r requirements.txt
+          pip install pytest
+      
+      - name: Run unit tests
+        run: |
+          cd backend
+          pytest test_shape_validation.py test_svr_matching.py test_shutdown.py test_mutation_killers.py test_request_time_status.py -v
       
       - name: Start backend server
         run: |

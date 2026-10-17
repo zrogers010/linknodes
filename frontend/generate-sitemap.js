@@ -7,6 +7,30 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+/**
+ * Check if a feed should be included in the sitemap.
+ * Drops feeds with past shutdown dates (shut_down status).
+ * Keeps active and deprecating feeds (future/today shutdown dates or no shutdown date).
+ */
+function isFeedVisible(feed) {
+  const shutdownDate = feed.shutdown_date;
+  if (!shutdownDate) {
+    // No shutdown date => visible
+    return true;
+  }
+  
+  // Get UTC today in YYYY-MM-DD format
+  const utcToday = new Date().toISOString().split('T')[0];
+  
+  // Past shutdown date => shut_down => hidden
+  if (shutdownDate < utcToday) {
+    return false;
+  }
+  
+  // Today or future => deprecating => visible
+  return true;
+}
+
 // Read mainnet registries from frontend/data/
 const ccipRegistryPath = path.join(__dirname, 'data/ccip_registry.json');
 const ccipRegistry = JSON.parse(fs.readFileSync(ccipRegistryPath, 'utf8'));
@@ -17,6 +41,7 @@ const feedsRegistry = JSON.parse(fs.readFileSync(feedsRegistryPath, 'utf8'));
 // Read testnet registries from frontend/data/
 const ccipRegistryTestnetPath = path.join(__dirname, 'data/ccip_registry_testnet.json');
 const ccipRegistryTestnet = JSON.parse(fs.readFileSync(ccipRegistryTestnetPath, 'utf8'));
+
 
 const feedsRegistryTestnetPath = path.join(__dirname, 'data/registry_testnet.json');
 const feedsRegistryTestnet = JSON.parse(fs.readFileSync(feedsRegistryTestnetPath, 'utf8'));
@@ -51,13 +76,15 @@ for (const [chainId, network] of Object.entries(feedsRegistry.networks)) {
     changefreq: 'daily'
   });
   
-  // Add individual feed pages
-  for (const feedSlug of Object.keys(network.feeds)) {
-    feedPages.push({
-      url: `/feeds/${chainId}/${feedSlug}`,
-      priority: 0.7,
-      changefreq: 'daily'
-    });
+  // Add individual feed pages (exclude shut_down feeds)
+  for (const [feedSlug, feedMeta] of Object.entries(network.feeds)) {
+    if (isFeedVisible(feedMeta)) {
+      feedPages.push({
+        url: `/feeds/${chainId}/${feedSlug}`,
+        priority: 0.7,
+        changefreq: 'daily'
+      });
+    }
   }
 }
 
@@ -69,13 +96,15 @@ for (const [chainId, network] of Object.entries(feedsRegistryTestnet.networks)) 
     changefreq: 'daily'
   });
   
-  // Add individual feed pages
-  for (const feedSlug of Object.keys(network.feeds)) {
-    feedPages.push({
-      url: `/feeds/${chainId}/${feedSlug}`,
-      priority: 0.7,
-      changefreq: 'daily'
-    });
+  // Add individual feed pages (exclude shut_down feeds)
+  for (const [feedSlug, feedMeta] of Object.entries(network.feeds)) {
+    if (isFeedVisible(feedMeta)) {
+      feedPages.push({
+        url: `/feeds/${chainId}/${feedSlug}`,
+        priority: 0.7,
+        changefreq: 'daily'
+      });
+    }
   }
 }
 
