@@ -2,7 +2,7 @@
  "version": "3.0.0",
  "environment": "testnet",
  "source": "chainlink-reference-data-directory",
- "generated_at": 1792266831,
+ "generated_at": 1792271028,
  "networks": {
   "sepolia": {
    "label": "Ethereum Sepolia",

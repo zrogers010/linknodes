@@ -520,23 +520,44 @@ def main() -> None:
     print("Building Data Feeds Registries")
     print("=" * 70)
     
-    # Build mainnet registry
+    # Build both registries first (validate everything before writing)
     print("\nMAINNET:")
     print("-" * 70)
     mainnet_registry, mainnet_total = build_registry(MAINNET_CHAINS, "mainnet")
-    out = Path(__file__).parent / "registry.json"
-    out.write_text(json.dumps(mainnet_registry, indent=1))
-    print(f"\n✓ Wrote {out.name}: {mainnet_total} feeds across {len(MAINNET_CHAINS)} chains "
-          f"({out.stat().st_size / 1024:.0f} KB)")
+    print(f"✓ Built mainnet: {mainnet_total} feeds across {len(MAINNET_CHAINS)} chains")
     
-    # Build testnet registry
     print("\nTESTNET:")
     print("-" * 70)
     testnet_registry, testnet_total = build_registry(TESTNET_CHAINS, "testnet")
-    out = Path(__file__).parent / "registry_testnet.json"
-    out.write_text(json.dumps(testnet_registry, indent=1))
-    print(f"\n✓ Wrote {out.name}: {testnet_total} feeds across {len(TESTNET_CHAINS)} chains "
-          f"({out.stat().st_size / 1024:.0f} KB)")
+    print(f"✓ Built testnet: {testnet_total} feeds across {len(TESTNET_CHAINS)} chains")
+    
+    # All builds succeeded - write outputs atomically
+    print("\nWriting outputs...")
+    
+    import tempfile
+    import os
+    backend_dir = Path(__file__).parent
+    
+    # Write to temp files first
+    with tempfile.NamedTemporaryFile(mode='w', dir=backend_dir, delete=False, suffix='.tmp') as tmp:
+        tmp.write(json.dumps(mainnet_registry, indent=1))
+        tmp_mainnet = tmp.name
+    
+    with tempfile.NamedTemporaryFile(mode='w', dir=backend_dir, delete=False, suffix='.tmp') as tmp:
+        tmp.write(json.dumps(testnet_registry, indent=1))
+        tmp_testnet = tmp.name
+    
+    # Atomic replace
+    mainnet_path = backend_dir / "registry.json"
+    testnet_path = backend_dir / "registry_testnet.json"
+    
+    os.replace(tmp_mainnet, mainnet_path)
+    os.replace(tmp_testnet, testnet_path)
+    
+    print(f"✓ Wrote {mainnet_path.name}: {mainnet_total} feeds across {len(MAINNET_CHAINS)} chains "
+          f"({mainnet_path.stat().st_size / 1024:.0f} KB)")
+    print(f"✓ Wrote {testnet_path.name}: {testnet_total} feeds across {len(TESTNET_CHAINS)} chains "
+          f"({testnet_path.stat().st_size / 1024:.0f} KB)")
     
     print("\n" + "=" * 70)
     print(f"Total: {mainnet_total + testnet_total} feeds across {len(MAINNET_CHAINS) + len(TESTNET_CHAINS)} chains")
