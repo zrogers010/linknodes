@@ -83,18 +83,34 @@ def test_nodes_files_exist():
 
 
 def test_testnet_failure_leaves_mainnet_unchanged():
-    """Test that testnet build failure doesn't corrupt mainnet files and cleans up temp dirs."""
+    """Test that testnet build failure doesn't corrupt files and cleans up temp dirs."""
     import hashlib
     import glob
     import shutil
     import tempfile
+    import subprocess
+    import sys
     from pathlib import Path
-    from unittest.mock import patch, MagicMock
     import pytest
     
     backend_dir = Path(__file__).parent
     
-    # Create a tmp copy of backend/ to avoid corrupting committed files
+    # Hash real backend files BEFORE test
+    real_files = [
+        backend_dir / "registry.json",
+        backend_dir / "registry_testnet.json",
+    ] + list((backend_dir / "data" / "nodes").glob("*.json"))
+    
+    def get_real_file_hashes():
+        hashes = {}
+        for f in real_files:
+            if f.exists():
+                hashes[str(f)] = hashlib.sha256(f.read_bytes()).hexdigest()
+        return hashes
+    
+    real_before_hashes = get_real_file_hashes()
+    
+    # Create a tmp copy of backend/ to run build in isolation
     with tempfile.TemporaryDirectory() as tmp_dir:
         tmp_backend = Path(tmp_dir) / "backend"
         tmp_backend.mkdir()
@@ -113,84 +129,83 @@ def test_testnet_failure_leaves_mainnet_unchanged():
                 shutil.copy2(node_file, nodes_dst / node_file.name)
         
         # Files to monitor in tmp directory
-        output_files = [
+        tmp_files = [
             tmp_backend / "registry.json",
             tmp_backend / "registry_testnet.json",
-        ]
-        nodes_files = list((tmp_backend / "data" / "nodes").glob("*.json"))
-        all_files = output_files + nodes_files
+        ] + list((tmp_backend / "data" / "nodes").glob("*.json"))
         
-        # Compute SHA256 of all files before
-        def get_file_hashes():
+        def get_tmp_file_hashes():
             hashes = {}
-            for f in all_files:
+            for f in tmp_files:
                 if f.exists():
                     hashes[str(f)] = hashlib.sha256(f.read_bytes()).hexdigest()
             return hashes
         
-        before_hashes = get_file_hashes()
+        tmp_before_hashes = get_tmp_file_hashes()
         
         # Count temp dirs before
         temp_dirs_before = set(glob.glob("/tmp/registry_build_*"))
         
-        # Mock httpx to return 404 for testnet feeds
-        with patch('build_registry.httpx.Client') as mock_client_class:
-            mock_client = MagicMock()
-            mock_client_class.return_value.__enter__.return_value = mock_client
-            
-            def mock_get(url):
-                response = MagicMock()
-                # Return 404 for testnet feeds
-                if "sepolia" in url or "fuji" in url:
-                    response.status_code = 404
-                    response.raise_for_status.side_effect = Exception("404 Not Found")
-                else:
-                    # For mainnet, return minimal valid data
-                    if "feeds-" in url:
-                        response.status_code = 200
-                        response.json.return_value = []
-                    elif "nodes-" in url:
-                        response.status_code = 200
-                        response.json.return_value = []
-                    else:
-                        response.status_code = 200
-                return response
-            
-            mock_client.get = mock_get
-            
-            # Change to tmp directory and run build
-            import os
-            orig_dir = os.getcwd()
-            try:
-                os.chdir(tmp_backend)
-                
-                # Import and run main from tmp location
-                import sys
-                sys.path.insert(0, str(tmp_backend))
-                import build_registry
-                
-                # Expect main() to raise due to testnet 404
-                with pytest.raises(Exception):
-                    build_registry.main()
-                
-            finally:
-                os.chdir(orig_dir)
-                if str(tmp_backend) in sys.path:
-                    sys.path.remove(str(tmp_backend))
+        # Run build_registry.main() as subprocess in tmp directory with mocked httpx
+        # Use subprocess to ensure it runs from tmp copy, not imported backend module
+        test_script = tmp_backend / "test_build.py"
+        test_script.write_text("""
+import sys
+from unittest.mock import patch, MagicMock
+
+def mock_get(url):
+    response = MagicMock()
+    if "sepolia" in url or "fuji" in url:
+        response.status_code = 404
+        response.raise_for_status.side_effect = Exception("404 Not Found")
+    else:
+        if "feeds-" in url or "nodes-" in url:
+            response.status_code = 200
+            response.json.return_value = []
+        else:
+            response.status_code = 200
+    return response
+
+with patch('httpx.Client') as mock_client_class:
+    mock_client = MagicMock()
+    mock_client_class.return_value.__enter__.return_value = mock_client
+    mock_client.get = mock_get
+    
+    from build_registry import main
+    main()
+""")
         
-        # Verify all files unchanged
-        after_hashes = get_file_hashes()
-        for file_path, before_hash in before_hashes.items():
-            after_hash = after_hashes.get(file_path)
-            assert after_hash == before_hash, f"{file_path} was modified"
+        # Run subprocess
+        result = subprocess.run(
+            [sys.executable, str(test_script)],
+            cwd=str(tmp_backend),
+            capture_output=True,
+            text=True
+        )
+        
+        # Build should have failed with non-zero exit
+        assert result.returncode != 0, "Build should fail when testnet 404s"
+        
+        # Verify tmp files unchanged
+        tmp_after_hashes = get_tmp_file_hashes()
+        for file_path, before_hash in tmp_before_hashes.items():
+            after_hash = tmp_after_hashes.get(file_path)
+            assert after_hash == before_hash, f"TMP {file_path} was modified"
         
         # Verify no new temp dirs remain
         temp_dirs_after = set(glob.glob("/tmp/registry_build_*"))
         new_temp_dirs = temp_dirs_after - temp_dirs_before
         assert len(new_temp_dirs) == 0, f"Temp dirs leaked: {new_temp_dirs}"
-        
-        print("✓ Testnet failure leaves mainnet files unchanged")
-        print("✓ No temp dir leaks")
+    
+    # Verify REAL backend files are unchanged
+    real_after_hashes = get_real_file_hashes()
+    for file_path, before_hash in real_before_hashes.items():
+        after_hash = real_after_hashes.get(file_path)
+        assert after_hash == before_hash, f"REAL {file_path} was modified by test!"
+    
+    print("✓ Testnet failure leaves tmp files unchanged")
+    print("✓ Real backend files untouched")
+    print("✓ No temp dir leaks")
 
 
 

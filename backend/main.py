@@ -302,25 +302,16 @@ def _resolve(network: str, feed: str, environment: str = "mainnet") -> tuple[dic
 
 
 async def _read_feed(network: str, feed: str, round_id: int | None, environment: str = "mainnet") -> dict:
-    """Core read path: micro-cache, then concurrent eth_calls with RPC failover."""
-    # Resolve feed first to get shutdown_date for cache key
+    """Core read path: micro-cache, then concurrent eth_calls with RPC failover.
+    
+    Note: _resolve() must be called BEFORE the cache lookup. It filters out shut-down
+    feeds via filter_visible_feeds(), ensuring they 404 immediately at request time
+    rather than being served from cache.
+    """
+    # Resolve feed first - this 404s shut-down feeds before cache lookup
     net, feed_meta, resolved_name = _resolve(network, feed, environment)
     
-    # Include shutdown boundary in cache key to prevent serving stale status across boundary
-    shutdown_date = feed_meta.get("shutdown_date")
-    cache_date_key = None
-    if shutdown_date:
-        from datetime import datetime, timezone, timedelta
-        try:
-            shutdown_dt = datetime.strptime(shutdown_date, "%Y-%m-%d").replace(tzinfo=timezone.utc)
-            boundary_dt = shutdown_dt + timedelta(days=1)
-            # Key on which side of the boundary we are
-            utc_now = get_current_time()
-            cache_date_key = "pre" if utc_now < boundary_dt else "post"
-        except Exception:
-            pass
-    
-    cache_key = (environment, network, feed, round_id, cache_date_key)
+    cache_key = (environment, network, feed, round_id)
     cache_entry = _response_cache.get(cache_key)
     if cache_entry and cache_entry[0] > time.monotonic():
         cached = dict(cache_entry[1])
@@ -420,23 +411,7 @@ async def _read_feed(network: str, feed: str, round_id: int | None, environment:
                     "See: https://docs.chain.link/data-feeds/svr-feeds"
                 )
         
-        # Cap cache TTL at shutdown boundary to prevent serving stale status
         ttl = HISTORICAL_CACHE_TTL_S if round_id is not None else LATEST_CACHE_TTL_S
-        shutdown_date = feed_meta.get("shutdown_date")
-        if shutdown_date:
-            from datetime import datetime, timezone, timedelta
-            utc_now = get_current_time()
-            try:
-                shutdown_dt = datetime.strptime(shutdown_date, "%Y-%m-%d").replace(tzinfo=timezone.utc)
-                # Boundary is the day after shutdown_date at 00:00 UTC
-                boundary_dt = shutdown_dt + timedelta(days=1)
-                seconds_until_boundary = (boundary_dt - utc_now).total_seconds()
-                if seconds_until_boundary > 0:
-                    # Cap TTL at shutdown boundary
-                    ttl = min(ttl, seconds_until_boundary)
-            except Exception:
-                pass  # Invalid date, use normal TTL
-        
         _response_cache[cache_key] = (time.monotonic() + ttl, response)
         if len(_response_cache) > 8192:
             now = time.monotonic()
