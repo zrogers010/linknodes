@@ -57,16 +57,16 @@ jobs:
       - name: Run shape validation tests
         run: |
           cd backend
-          python3 -m pytest test_shape_validation.py test_refresh_checks.py -v
+          python3 -m pytest test_shape_validation.py test_refresh_checks.py test_operators.py -v
       
       - name: Check for changes
         id: check_changes
         run: |
           cd backend
-          if git diff --quiet registry.json registry_testnet.json data/operators.json data/feed_operators.json ccip_registry.json ccip_registry_testnet.json ../frontend/data/; then
-            echo "has_changes=false" >> $GITHUB_OUTPUT
-          else
+          if python3 check_data_changes.py; then
             echo "has_changes=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_changes=false" >> $GITHUB_OUTPUT
           fi
       
       - name: Generate diff summary

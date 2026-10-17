@@ -195,12 +195,12 @@ def crawl_transmitters(registry: dict, address_index: dict, overrides: dict, max
                     
                     # Count hidden vs public for stats
                     hidden_ops = [op for op in operators if op in hidden_ids]
-                    public_ops = [op for op in operators if op not in hidden_ids]
+                    public_ops = [op.lower() for op in operators if op not in hidden_ids]  # Lowercase slugs
                     
                     feed_operators[network_key][path] = {
                         "aggregator": feed["aggregator"],
                         "transmitters": transmitters,
-                        "operators": public_ops  # Only store public operators
+                        "operators": public_ops  # Lowercase slugs matching operators.json
                     }
                     
                     stats[network_key]["total"] += len(transmitters)
@@ -217,9 +217,12 @@ def crawl_transmitters(registry: dict, address_index: dict, overrides: dict, max
     print(f"\nCrawl complete in {elapsed:.1f}s")
     print("\nMapping rates:")
     
-    # Calculate total RPC calls and failures
-    total_rpc_calls = sum(s["total"] + s["failed"] for s in stats.values())
-    total_rpc_failures = sum(s["failed"] for s in stats.values())
+    # Calculate feed-level RPC stats (not transmitter-level)
+    total_attempted_feeds = sum(
+        len([f for f in network_data["feeds"].values() if f.get("aggregator")])
+        for network_data in registry["networks"].values()
+    )
+    total_failed_feeds = sum(s["failed"] for s in stats.values())
     
     for network_key in sorted(stats.keys()):
         s = stats[network_key]
@@ -237,9 +240,9 @@ def crawl_transmitters(registry: dict, address_index: dict, overrides: dict, max
             print(f"\n{e}\n")
             raise
     
-    # Check overall RPC failure rate
+    # Check overall RPC failure rate (failed feeds / attempted feeds)
     try:
-        check_rpc_failure_rate(total_rpc_failures, total_rpc_calls, max_failure_pct=30.0)
+        check_rpc_failure_rate(total_failed_feeds, total_attempted_feeds, max_failure_pct=30.0)
     except ValueError as e:
         print(f"\n{e}\n")
         raise
@@ -270,7 +273,8 @@ def build_operators_dataset(feed_operators: dict, nodes_dir: Path, overrides: di
         "feeds": [],
         "networks": set(),
         "addresses": [],
-        "names": set()
+        "names": set(),
+        "rdd_ids": defaultdict(set),  # Track node IDs per network
     })
     
     for network_key, feeds in feed_operators.items():
@@ -282,7 +286,8 @@ def build_operators_dataset(feed_operators: dict, nodes_dir: Path, overrides: di
                 })
                 operator_data[op_id]["networks"].add(network_key)
     
-    for nodes_file in nodes_dir.glob("*.json"):
+    # Populate RDD IDs and other data from nodes files
+    for nodes_file in sorted(nodes_dir.glob("*.json")):  # Sort for determinism
         try:
             nodes = json.loads(nodes_file.read_text())
             network_key = nodes_to_network.get(nodes_file.stem, nodes_file.stem)
@@ -299,6 +304,8 @@ def build_operators_dataset(feed_operators: dict, nodes_dir: Path, overrides: di
                 
                 if op_id in operator_data:
                     operator_data[op_id]["names"].add(node.get("name", ""))
+                    operator_data[op_id]["rdd_ids"][network_key].add(op_id)  # Add node ID for this network
+                    
                     website = node.get("website")
                     if website and not operator_data[op_id].get("website"):
                         operator_data[op_id]["website"] = website
@@ -326,45 +333,43 @@ def build_operators_dataset(feed_operators: dict, nodes_dir: Path, overrides: di
         # Make name selection deterministic: sort names and pick first
         names_list = sorted(data["names"]) if data["names"] else []
         name = names_list[0] if names_list else op_id
-        website = data.get("website") or overrides.get("website_overrides", {}).get(op_id)
+        aliases = names_list  # All raw names from nodes files
+        website = data.get("website") or overrides.get("website_overrides", {}).get(op_id.lower())
         
         network_counts = defaultdict(int)
         for feed in data["feeds"]:
             network_counts[feed["network"]] += 1
         
-        # Collect RDD IDs per network (node IDs from nodes files)
-        rdd_ids = {}
-        for feed in data["feeds"]:
-            net = feed["network"]
-            if net not in rdd_ids:
-                rdd_ids[net] = []
+        # Convert rdd_ids sets to sorted lists
+        rdd_ids_dict = {
+            net: sorted(ids) for net, ids in data["rdd_ids"].items() if ids
+        }
+        
+        # Sort addresses for determinism
+        sorted_addresses = sorted(data["addresses"], key=lambda x: (x["network"], x["kind"], x["address"]))
         
         operators.append({
             "slug": op_id.lower(),  # Lowercase slugs
             "name": name,
+            "aliases": aliases,  # Real raw names from nodes files
             "website": website,
-            "sources": {  # Object, not string
+            "sources": {  # Object (not string)
                 "rdd": True,
                 "transmitters": True
             },
-            "rdd_ids": rdd_ids if rdd_ids else None,
-            "products": {  # Products support (Data Feeds only for now)
-                "data_feeds": True,
-                "automation": False,
-                "vrf": False,
-                "functions": False
+            "rdd_ids": rdd_ids_dict if rdd_ids_dict else None,  # Real node IDs or null
+            "products": {
+                "data_feeds": True,  # Derived from feeds > 0
             },
             "counts": {
                 "feeds": len(data["feeds"]),
                 "networks": len(data["networks"]),
-                "streams": None  # Streams not crawled yet
             },
-            "staking": None,  # Staking data not yet implemented
             "networks": [
                 {"network": net, "feeds": count}
                 for net, count in sorted(network_counts.items())
             ],
-            "addresses": data["addresses"]  # Already filtered during collection
+            "addresses": sorted_addresses
         })
     
     operators.sort(key=lambda x: x["counts"]["feeds"], reverse=True)

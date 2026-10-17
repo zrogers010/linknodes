@@ -531,6 +531,24 @@ def build_registry(chains: dict, environment: str) -> dict:
                     print(f"ERROR: {e}")
                     raise
         
+        # Check feed counts vs previously committed registry
+        old_registry_path = Path(__file__).parent / f"registry{'_testnet' if environment == 'testnet' else ''}.json"
+        if old_registry_path.exists():
+            try:
+                old_registry = json.loads(old_registry_path.read_text())
+                for network_key in registry["networks"].keys():
+                    new_count = registry["networks"][network_key]["feed_count"]
+                    old_count = old_registry.get("networks", {}).get(network_key, {}).get("feed_count", 0)
+                    if old_count > 0:  # Only check if network existed before
+                        try:
+                            check_feed_count_change(network_key, old_count, new_count, max_change_pct=20.0)
+                        except ValueError as e:
+                            print(f"\n{e}\n")
+                            raise
+            except json.JSONDecodeError:
+                # Old registry corrupt or missing - skip check
+                pass
+        
         # All validations passed - return registry and staged nodes directory
         # (Nodes will be written atomically in main() after all builds succeed)
         
