@@ -36,6 +36,11 @@ def main():
         backend / "ccip_registry_testnet.json",
     ]
     
+    # Add all nodes files
+    nodes_dir = backend / "data" / "nodes"
+    if nodes_dir.exists():
+        files_to_check.extend(nodes_dir.glob("*.json"))
+    
     has_changes = False
     
     for file_path in files_to_check:
@@ -46,8 +51,10 @@ def main():
         try:
             current = json.loads(file_path.read_text())
             current_stripped = strip_timestamps(current)
-        except:
-            continue
+        except Exception as e:
+            # Treat parse errors as failures, not "no changes"
+            print(f"ERROR: Failed to parse {file_path.name}: {e}")
+            raise
         
         # Get committed version
         import subprocess

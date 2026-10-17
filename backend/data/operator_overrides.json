@@ -8,9 +8,8 @@
     "mercury-"
   ],
   "website_overrides": {
-    "shultzprime": "https://ztake.org",
-    "syncnode": "https://syncnode.ro",
-    "dextrac": "https://dextrac.com"
+    "shultzpro": "https://ztake.org",
+    "syncnode": "https://syncnode.ro"
   },
   "name_overrides": {},
   "alias_map": {

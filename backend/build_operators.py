@@ -59,18 +59,26 @@ def should_hide_operator(op_id: str, op_name: str, overrides: dict) -> bool:
     return False
 
 
-def build_address_index(nodes_dir: Path, overrides: dict) -> dict[str, str]:
-    """Build address -> operator_id index from all nodes files."""
-    index = {}
+def build_address_index(nodes_dir: Path, overrides: dict) -> tuple[dict[str, str], set[str]]:
+    """Build address -> operator_id index from all nodes files.
     
-    for nodes_file in nodes_dir.glob("*.json"):
+    Returns (index, hidden_addresses) where:
+    - index maps public addresses to operator IDs
+    - hidden_addresses contains addresses for hidden/internal operators
+    """
+    index = {}
+    hidden_addresses = set()
+    
+    for nodes_file in sorted(nodes_dir.glob("*.json")):
         try:
             nodes = json.loads(nodes_file.read_text())
             for node in nodes:
                 op_id = node.get("id")
                 op_name = node.get("name", "")
-                if not op_id or should_hide_operator(op_id, op_name, overrides):
+                if not op_id:
                     continue
+                
+                is_hidden = should_hide_operator(op_id, op_name, overrides)
                 
                 for field in ["nodeAddress", "forwarderAddress", "payeeAddress", "oracleAddress"]:
                     value = node.get(field)
@@ -82,35 +90,25 @@ def build_address_index(nodes_dir: Path, overrides: dict) -> dict[str, str]:
                         if addr and addr.startswith("0x"):
                             try:
                                 if int(addr, 16) != 0:
-                                    index[addr.lower()] = op_id
+                                    addr_lower = addr.lower()
+                                    if is_hidden:
+                                        hidden_addresses.add(addr_lower)
+                                    else:
+                                        index[addr_lower] = op_id
                             except ValueError:
                                 pass
         except Exception as e:
             print(f"Warning: Failed to parse {nodes_file.name}: {e}")
     
-    return index
+    return index, hidden_addresses
 
 
-def crawl_transmitters(registry: dict, address_index: dict, overrides: dict, max_retries: int = 3) -> dict:
+def crawl_transmitters(registry: dict, address_index: dict, hidden_addresses: set[str], overrides: dict, max_retries: int = 3) -> dict:
     """Crawl transmitters from all feed aggregators."""
     from refresh_checks import check_transmitter_mapping_rate, check_rpc_failure_rate
     
     feed_operators = {}
     stats = defaultdict(lambda: {"total": 0, "mapped": 0, "failed": 0, "hidden": 0})
-    
-    # Get set of hidden operator IDs for exclusion from mapping rate
-    hidden_ids = set()
-    nodes_dir = NODES_DIR
-    for nodes_file in nodes_dir.glob("*.json"):
-        try:
-            nodes = json.loads(nodes_file.read_text())
-            for node in nodes:
-                op_id = node.get("id")
-                op_name = node.get("name", "")
-                if op_id and should_hide_operator(op_id, op_name, overrides):
-                    hidden_ids.add(op_id)
-        except Exception:
-            pass
     
     client = httpx.Client(timeout=40)
     start_time = time.time()
@@ -190,23 +188,27 @@ def crawl_transmitters(registry: dict, address_index: dict, overrides: dict, max
                             continue
                 
                 if transmitters:
-                    operators = [address_index.get(addr.lower()) for addr in transmitters]
-                    operators = [op for op in operators if op]
+                    # Map transmitters: hidden addresses to None, public addresses to operator IDs
+                    mapped_ops = []
+                    hidden_count = 0
                     
-                    # Count hidden vs public for stats
-                    hidden_ops = [op for op in operators if op in hidden_ids]
-                    public_ops = [op.lower() for op in operators if op not in hidden_ids]  # Lowercase slugs
+                    for addr in transmitters:
+                        addr_lower = addr.lower()
+                        if addr_lower in hidden_addresses:
+                            hidden_count += 1
+                        elif addr_lower in address_index:
+                            mapped_ops.append(address_index[addr_lower].lower())
                     
                     feed_operators[network_key][path] = {
                         "aggregator": feed["aggregator"],
                         "transmitters": transmitters,
-                        "operators": public_ops  # Lowercase slugs matching operators.json
+                        "operators": mapped_ops  # Lowercase slugs matching operators.json
                     }
                     
                     stats[network_key]["total"] += len(transmitters)
-                    stats[network_key]["hidden"] += len(hidden_ops)
+                    stats[network_key]["hidden"] += hidden_count
                     # Only count public operators in mapping rate
-                    stats[network_key]["mapped"] += len(public_ops)
+                    stats[network_key]["mapped"] += len(mapped_ops)
                 else:
                     stats[network_key]["failed"] += 1
             
@@ -302,13 +304,15 @@ def build_operators_dataset(feed_operators: dict, nodes_dir: Path, overrides: di
                 if not op_id or should_hide_operator(op_id, op_name, overrides):
                     continue
                 
-                if op_id in operator_data:
-                    operator_data[op_id]["names"].add(node.get("name", ""))
-                    operator_data[op_id]["rdd_ids"][network_key].add(op_id)  # Add node ID for this network
+                # Use lowercase slug for lookup (case-insensitive matching)
+                op_slug = op_id.lower()
+                if op_slug in operator_data:
+                    operator_data[op_slug]["names"].add(node.get("name", ""))
+                    operator_data[op_slug]["rdd_ids"][network_key].add(op_id)  # Add node ID for this network
                     
                     website = node.get("website")
-                    if website and not operator_data[op_id].get("website"):
-                        operator_data[op_id]["website"] = website
+                    if website and not operator_data[op_slug].get("website"):
+                        operator_data[op_slug]["website"] = website
                     
                     for field in ["nodeAddress", "forwarderAddress", "payeeAddress", "oracleAddress"]:
                         value = node.get(field)
@@ -318,7 +322,7 @@ def build_operators_dataset(feed_operators: dict, nodes_dir: Path, overrides: di
                                 if addr and addr.startswith("0x") and addr != "0x0000000000000000000000000000000000000000":
                                     try:
                                         if int(addr, 16) != 0:
-                                            operator_data[op_id]["addresses"].append({
+                                            operator_data[op_slug]["addresses"].append({
                                                 "network": network_key,
                                                 "kind": field.replace("Address", "").lower(),
                                                 "address": addr
@@ -386,7 +390,10 @@ def build_operators_dataset(feed_operators: dict, nodes_dir: Path, overrides: di
     
     return {
         "generated_at": datetime.now(timezone.utc).isoformat(),
-        "source": "chainlink-rdd-nodes + on-chain transmitters",
+        "sources": {
+            "rdd": True,
+            "transmitters": True
+        },
         "operators": operators
     }
 
@@ -422,11 +429,11 @@ def main():
     overrides = json.loads(OVERRIDES_PATH.read_text()) if OVERRIDES_PATH.exists() else {}
     
     print(f"\nIndexing nodes files from {NODES_DIR}...")
-    address_index = build_address_index(NODES_DIR, overrides)
-    print(f"✓ Indexed {len(address_index)} addresses")
+    address_index, hidden_addresses = build_address_index(NODES_DIR, overrides)
+    print(f"✓ Indexed {len(address_index)} public addresses, {len(hidden_addresses)} hidden addresses")
     
     print(f"\nCrawling transmitters from {sum(len(n['feeds']) for n in registry['networks'].values())} feeds...")
-    feed_operators = crawl_transmitters(registry, address_index, overrides)
+    feed_operators = crawl_transmitters(registry, address_index, hidden_addresses, overrides)
     
     print(f"\nBuilding operators dataset...")
     operators = build_operators_dataset(feed_operators, NODES_DIR, overrides, registry)
