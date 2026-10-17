@@ -13,7 +13,6 @@ from refresh_checks import (
     check_rdd_response_codes,
     check_transmitter_mapping_rate,
     check_feed_count_change,
-    check_nops_count,
     check_rpc_failure_rate,
     check_hidden_operators,
 )
@@ -73,20 +72,6 @@ def test_check_feed_count_change_fails_above_20_percent():
     assert "exceeding 20" in str(excinfo.value)
 
 
-def test_check_nops_count_passes_at_20():
-    """Test passes when NOPs count is above 15."""
-    check_nops_count(20)
-
-
-def test_check_nops_count_fails_below_15():
-    """Test fails when NOPs count is below 15."""
-    with pytest.raises(ValueError) as excinfo:
-        check_nops_count(10)
-    
-    assert "only 10 operators" in str(excinfo.value)
-    assert "below minimum 15" in str(excinfo.value)
-
-
 def test_check_rpc_failure_rate_passes_at_10_percent():
     """Test passes when RPC failure rate is below 30%."""
     check_rpc_failure_rate(10, 100)  # 10% failure rate
@@ -104,18 +89,18 @@ def test_check_rpc_failure_rate_fails_above_30_percent():
 def test_check_hidden_operators_passes_with_clean_operators():
     """Test passes when no operators match hidden patterns."""
     operators = [
-        {"id": "linkpool", "name": "LinkPool"},
-        {"id": "chainlayer", "name": "ChainLayer"}
+        {"slug": "linkpool", "name": "LinkPool"},
+        {"slug": "chainlayer", "name": "ChainLayer"}
     ]
     hidden_patterns = ["cl-ocr-nav-", "chainlink-internal-nav-", "chainlink internal"]
     check_hidden_operators(operators, hidden_patterns)
 
 
 def test_check_hidden_operators_fails_on_id_match():
-    """Test fails when operator id matches hidden pattern."""
+    """Test fails when operator slug matches hidden pattern."""
     operators = [
-        {"id": "linkpool", "name": "LinkPool"},
-        {"id": "cl-ocr-nav-eth-mainnet-0", "name": "Some Name"}
+        {"slug": "linkpool", "name": "LinkPool"},
+        {"slug": "cl-ocr-nav-eth-mainnet-0", "name": "Some Name"}
     ]
     hidden_patterns = ["cl-ocr-nav-"]
     with pytest.raises(ValueError) as excinfo:
@@ -128,7 +113,7 @@ def test_check_hidden_operators_fails_on_id_match():
 def test_check_hidden_operators_fails_on_name_match():
     """Test fails when operator name matches hidden pattern."""
     operators = [
-        {"id": "some-id", "name": "Chainlink Internal NAV Node"}
+        {"slug": "some-id", "name": "Chainlink Internal NAV Node"}
     ]
     hidden_patterns = ["chainlink internal"]
     with pytest.raises(ValueError) as excinfo:

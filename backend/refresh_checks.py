@@ -74,23 +74,6 @@ def check_feed_count_change(network: str, old_count: int, new_count: int, max_ch
         )
 
 
-def check_nops_count(count: int, min_count: int = 15) -> None:
-    """Check that NOPs parser found at least min_count operators.
-    
-    Args:
-        count: Number of operators found
-        min_count: Minimum required operators (default 15)
-        
-    Raises:
-        ValueError: If operator count is below minimum
-    """
-    if count < min_count:
-        raise ValueError(
-            f"❌ REFRESH CHECK FAILED: "
-            f"NOPs parser found only {count} operators, below minimum {min_count}"
-        )
-
-
 def check_rpc_failure_rate(failed: int, total: int, max_failure_pct: float = 30.0) -> None:
     """Check that RPC call failure rate is below threshold.
     
@@ -118,7 +101,7 @@ def check_hidden_operators(operators: list, hidden_patterns: list) -> None:
     """Check that no public operator matches hidden patterns.
     
     Args:
-        operators: List of operator dicts with 'id' and 'name' fields
+        operators: List of operator dicts with 'slug' and 'name' fields
         hidden_patterns: List of patterns to check against (case-insensitive)
         
     Raises:
@@ -127,13 +110,13 @@ def check_hidden_operators(operators: list, hidden_patterns: list) -> None:
     violations = []
     
     for op in operators:
-        op_id = op.get("id", "").lower()
+        op_slug = op.get("slug", "").lower()
         op_name = op.get("name", "").lower()
         
         for pattern in hidden_patterns:
             pattern_lower = pattern.lower()
-            if pattern_lower in op_id or pattern_lower in op_name:
-                violations.append(f"{op['id']} (name: {op['name']}) matches hidden pattern '{pattern}'")
+            if pattern_lower in op_slug or pattern_lower in op_name:
+                violations.append(f"{op['slug']} (name: {op['name']}) matches hidden pattern '{pattern}'")
     
     if violations:
         raise ValueError(
