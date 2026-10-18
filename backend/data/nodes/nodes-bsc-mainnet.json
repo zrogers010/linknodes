@@ -1,0 +1,1283 @@
+[
+ {
+  "id": "01node",
+  "website": "https://01node.com",
+  "name": "01Node",
+  "status": "active",
+  "nodeAddress": [
+   "0x54f177F25600144561610AE7214A6Bf9199217f7",
+   "0xBc5622E7e5e9d11E7eebB56e0F9D9018e3d09E2d"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "01Node BSC Mainnet OCR",
+    "nodeAddress": "0x54f177F25600144561610AE7214A6Bf9199217f7",
+    "publicKey": "2cd595e0ea7b41d913bba5400b576fceb425ad96b2549a042bfb97de7735d10b"
+   }
+  ],
+  "peerId": [
+   "12D3KooWDc2dsBhwE2DNyW7oF6JFmJkjwgeBoApzorhtzAaRZfkS"
+  ],
+  "ocr2ConfigPublicKey": [
+   "ocr2cfg_evm_78a77808411f6020a68e269f6c3008296c5ec66cee7cbd2a6cba5c904a3c0e76"
+  ],
+  "ocr2OffchainPublicKey": [
+   "ocr2off_evm_3c5f1099de55c5733fb776315a3c8b81d211b9c2ea8d5964f90be542811d264c"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_89bdd42485df4750d32ee6c64f160e4a5ef0b02a"
+  ],
+  "forwardingEnabled": true,
+  "forwarderAddress": "0x7511839dFfaf432A5DbA567bc1Aa77115EfEf882"
+ },
+ {
+  "id": "blockdaemon",
+  "website": "https://blockdaemon.com/",
+  "name": "Blockdaemon",
+  "status": "active",
+  "nodeAddress": [
+   "0xed3A0ac63d7e48399D05d9a25925e8FCb0Cd98D0",
+   "0x4129AceAE0D32fa1A67A8eDB1CAA93Bd21a9aDf6"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Blockdaemon BSC Mainnet OCR",
+    "nodeAddress": "0xed3A0ac63d7e48399D05d9a25925e8FCb0Cd98D0",
+    "publicKey": "d8a08283abfdf8db71e7bd19175df8de00e1473cc9580989b4fb7456bacf005e"
+   }
+  ],
+  "peerId": [
+   "12D3KooWBrVv45NNGsBtJsJGTB7yPvRzUQRCr7kRY4F4ygpFCVUP"
+  ],
+  "ocr2ConfigPublicKey": [
+   "ocr2cfg_evm_a649588c8f596aea6d195aa3bf03d040f34a6bb9da953b90351bffbf3bbf8d55"
+  ],
+  "ocr2OffchainPublicKey": [
+   "ocr2off_evm_9d0f9ab7a47c0925ad921219ba41fd4f287a381537ea5c60b35b5531d5921d0a"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_0d59e86990cf7caf8d4ab38429d96f1ae5b4bebc"
+  ],
+  "forwardingEnabled": true,
+  "forwarderAddress": "0x080f02795ba9003404Aceaf102f14443647DBe08"
+ },
+ {
+  "id": "chainlayer",
+  "website": "",
+  "name": "Chainlayer",
+  "status": "active",
+  "nodeAddress": [
+   "0xAd28531021eB793874E8Dfb84b9e7b862C9e0e53",
+   "0x6538E6F9f03b8315a69bE08eFb49Bb06B1DF6932"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Chainlayer BSC Mainnet OCR",
+    "nodeAddress": "0xAd28531021eB793874E8Dfb84b9e7b862C9e0e53",
+    "publicKey": "e0cea8fe6eec411f1a210a3f9776e9777cb996d425e0b59acce902b21aba4fae"
+   }
+  ],
+  "peerId": [
+   "12D3KooWLHUfiDAoDnMvacxZffggbwnAfF4KRhVUf3REUU8dNbkf"
+  ],
+  "ocr2ConfigPublicKey": [
+   "ocr2cfg_evm_92489833f7d1b1ef0c36fdd6a4ddfe8f63c2d2aef88bfbf0fcc86782283c5351"
+  ],
+  "ocr2OffchainPublicKey": [
+   "ocr2off_evm_ea51fb02678bec5ac82cb52a1cd3f47be6da95fa0eed6387741e3b7db0e5ea59"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_482d545ce3d0a1813ef32a47544a56f17ee68937"
+  ],
+  "forwardingEnabled": true,
+  "forwarderAddress": "0xa13814fE399ea85e0541B4FdD2b38efa149c8Ee5"
+ },
+ {
+  "id": "clcp-ocr-auto-bsc-mainnet-nodes-0",
+  "website": "",
+  "name": "BSC Mainnet Public OCR2 Node 0",
+  "status": "active",
+  "nodeAddress": [
+   "0x4566A2C73A966fEBe05e4C36D60b8BD13115d18f"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "BSC Mainnet Public OCR2 Node 0",
+    "nodeAddress": "0x4566A2C73A966fEBe05e4C36D60b8BD13115d18f",
+    "publicKey": "e2c18f37601bcf824a982e259ff637d5538d6d66a11e1a586354d4e6bbdff4f8"
+   }
+  ],
+  "payeeAddress": "0x19693c05c93b84Be6a1b6dbA8A98da925a310801",
+  "peerId": [
+   "12D3KooWRuAnwrXXPHESnice6bwRtMiwYiK44QCvZmVCtRVU7fYr"
+  ],
+  "ocr2Id": [
+   "75fd71fd0c54eaffe65a0b99b7d1f3d5b8ac204e522ae68028aacf4fe2d5b713"
+  ],
+  "ocr2ConfigPublicKey": [
+   "ocr2cfg_evm_a61fb206dc8c0ae717dc8aeb32417262351b83359bc6856ab5934ffa40a88147"
+  ],
+  "ocr2OffchainPublicKey": [
+   "ocr2off_evm_47121be30733d0442681ad6ca792b4f4f08e64bdef15807cfccb0da46fdeaae5"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_b75c527a8a1083e546cb8ff8488adac2922c1b70"
+  ]
+ },
+ {
+  "id": "clcp-ocr-auto-bsc-mainnet-nodes-1",
+  "website": "",
+  "name": "BSC Mainnet Public OCR2 Node 1",
+  "status": "active",
+  "nodeAddress": [
+   "0x8c1f1479A9002E37b9dCa1c979a2991E04d75eB1"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "BSC Mainnet Public OCR2 Node 1",
+    "nodeAddress": "0x8c1f1479A9002E37b9dCa1c979a2991E04d75eB1",
+    "publicKey": "41aee26f9dc27d7c055d287b364d19f88ce4ddab09b9024c4175f52d705fe2a0"
+   }
+  ],
+  "payeeAddress": "0x19693c05c93b84Be6a1b6dbA8A98da925a310801",
+  "peerId": [
+   "12D3KooWCaRMxNaLYTiDXywfnEr1nDVgTmRXWuQFJ5iYL9QeUXFC"
+  ],
+  "ocr2Id": [
+   "696fbdf44afa6f76918e24d29a9ea3c5ddd0cebabd1b043e3e4717859256e57c"
+  ],
+  "ocr2ConfigPublicKey": [
+   "ocr2cfg_evm_4aec57ed7f3d1beca3cc9cde0236ae5da6368642b491da3f87cc8f477de27a2a"
+  ],
+  "ocr2OffchainPublicKey": [
+   "ocr2off_evm_7b1169cb603e8f8b2a23ec99b17a6bfd6b3d048c773b4728cdaa561050b48bf3"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_c55df912c5cd095fde06aeb8012643bd6255f561"
+  ]
+ },
+ {
+  "id": "dexTrac",
+  "website": "",
+  "name": "DexTrac",
+  "status": "active",
+  "nodeAddress": [
+   "0xa53bdb1522a58dEe57B89e0579C13B15825B8D77",
+   "0x1a6f54a4A71F30c11AD8A140b0Ffa1DDDf54cb69"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "DexTrac BSC Mainnet OCR",
+    "nodeAddress": "0xa53bdb1522a58dEe57B89e0579C13B15825B8D77",
+    "publicKey": "e591c6a7ce2f719b9c15bbeffa3ba098999e975befa4a403fee3e35524e2b3c8"
+   }
+  ],
+  "peerId": [
+   "12D3KooWCD4HtFyNkyAizjPxripKyeazxfHxcRmcmngYDvJuLP81"
+  ],
+  "ocr2ConfigPublicKey": [
+   "ocr2cfg_evm_115a1126d8d8fc70c3c9ece94be336e79054526c9cb2020977b250651e20e11b"
+  ],
+  "ocr2OffchainPublicKey": [
+   "ocr2off_evm_6fe622485d28a7e2883b6c91a9890529af1ad899a31c67a853981d8141328a96"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_e0fa0cfcbb9b2b8e863954315fdf0caff67b98b6"
+  ],
+  "forwardingEnabled": true,
+  "forwarderAddress": "0xc7F79eA9c7FF17968eEC60b4CC9880905cFdb2f4"
+ },
+ {
+  "id": "easy2Stake",
+  "website": "https://www.easy2stake.com",
+  "name": "Easy 2 stake",
+  "status": "active",
+  "nodeAddress": [
+   "0xA1e96Ecaab9d97Bd17583966963C486cf856B639",
+   "0x1B08D5A5d25403a7E930a72a100D793699Bb27b7"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Easy2Stake BSC Mainnet OCR",
+    "nodeAddress": "0xA1e96Ecaab9d97Bd17583966963C486cf856B639",
+    "publicKey": "c043ef64a023a99caa323b2b02b71f5e2c90d568742d491596fdd273694e01b7"
+   }
+  ],
+  "peerId": [
+   "12D3KooWEhTVFMxKhn8qGVEiTU1yooo276MSBC4Mh3hWhsuRys1i"
+  ],
+  "ocr2ConfigPublicKey": [
+   "ocr2cfg_evm_c998012cab6b454b93aaae7b408ed507fd823d66ba5e87056b4391081d479539"
+  ],
+  "ocr2OffchainPublicKey": [
+   "ocr2off_evm_fc471334de70abbe1379f355be871e4786d387fe939b3a92573f99b8f2e15640"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_19ec7f54698dca177d1fb45337c472e2a01a7d41"
+  ],
+  "forwardingEnabled": true,
+  "forwarderAddress": "0x5b4813eE2D4366D73C89D7870aFa82BF2FBB3E71"
+ },
+ {
+  "id": "fiews",
+  "website": "",
+  "name": "Fiews",
+  "status": "active",
+  "nodeAddress": [
+   "0xE6E6D6b5Fb5688e41aaB43686c87ea24Ef4b76A8",
+   "0x695Fe5ccb3382783E6c9E9f5bAF0774D25a164Cb"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Fiews BSC Mainnet OCR",
+    "nodeAddress": "0xE6E6D6b5Fb5688e41aaB43686c87ea24Ef4b76A8",
+    "publicKey": "e9bc88c3a7b92ef87e031c677c3fc551651b1e7b601bdbcb0a5cd9de9d7957a1"
+   }
+  ],
+  "peerId": [
+   "12D3KooWRkKtth6hiKtB2vmKvXWW9pbi4ifeUEp845iVymuBQMnR"
+  ],
+  "ocr2ConfigPublicKey": [
+   "ocr2cfg_evm_7050a8bea2129cd981a784ce440da2efab13da0dfde7bccda014b57479cf9728"
+  ],
+  "ocr2OffchainPublicKey": [
+   "ocr2off_evm_3a8f769cafd21c0b62dbfdf1094728836d1095f808c6cb94f91e144375f8ccba"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_f03169da06eb50496295e5e40ba6c187d43f2d11"
+  ],
+  "forwardingEnabled": true,
+  "forwarderAddress": "0xF72bb66E324B5188c6178c6401Ee982FA30bE096"
+ },
+ {
+  "id": "frameworkVentures",
+  "website": "",
+  "name": "Framework Ventures",
+  "status": "active",
+  "nodeAddress": [
+   "0xC5aaf1525Dd8E1A5a01273C3d59C47426F426756",
+   "0xf6D83D55a4E4002A855853f15503dd44FDA0c0f6"
+  ],
+  "oracleAddress": "0x709ACFe2a31f4eCf02600f91881d06cf13022ab4",
+  "csaKeys": [
+   {
+    "nodeName": "FrameworkVentures BSC Mainnet OCR",
+    "nodeAddress": "0xC5aaf1525Dd8E1A5a01273C3d59C47426F426756",
+    "publicKey": "d0d8fd95f98817d83e4057f49367c84f55fd0201403286e7b4017b2270f1bf81"
+   }
+  ],
+  "payeeAddress": "0x6eF38c3d1D85B710A9e160aD41B912Cb8CAc2589",
+  "peerId": [
+   "12D3KooWMdcjuxAWcgcS3FuHLr9x4f9eMm3hts3QMkp1bzhn7h4H"
+  ],
+  "ocr2ConfigPublicKey": [
+   "ocr2cfg_evm_5dde369003a6069e1af1e1706db7e0dcd7b0846ade4cd3aaa731a0ad3d2bd615"
+  ],
+  "ocr2OffchainPublicKey": [
+   "ocr2off_evm_b40432b15338ee45169f792924bb5432aaa2fcb1d4b0b0785e7679dc31f1eb5e"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_b69de6773ad119f8f9f13627f9d77fae20e652b2"
+  ],
+  "forwardingEnabled": true,
+  "forwarderAddress": "0xF87C2E9f08c04f805d15C5E90273227639151860"
+ },
+ {
+  "id": "galaxy",
+  "website": "",
+  "name": "Galaxy",
+  "status": "active",
+  "nodeAddress": [
+   "0x366e1467Ad847522F297DCF4E38D467eD417E052",
+   "0x8b6a25E8412a5a81EEefd5184d155C9b0553Cf52"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Galaxy BSC Mainnet OCR",
+    "nodeAddress": "0x366e1467Ad847522F297DCF4E38D467eD417E052",
+    "publicKey": "9eaf37b1e85d22eb2b5f8e30f2dbfa37b062a612c4ce82bd16314041893ee535"
+   }
+  ],
+  "peerId": [
+   "12D3KooWHcYF2KprBYPZsPYHZZnTXaXPWdS9MjSojbKDVZi5yM1N"
+  ],
+  "ocr2ConfigPublicKey": [
+   "ocr2cfg_evm_9dabfd4d47ffed896abca18e7cf99543675fe6307b65afc927aa71fb3832d766"
+  ],
+  "ocr2OffchainPublicKey": [
+   "ocr2off_evm_7f518024b3019d4fd9acd98cff04eceb355106eb78806c48ff834a8666f773e1"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_c92696755d282c8b32aa7088dbcc19da191987ff"
+  ],
+  "forwardingEnabled": true,
+  "forwarderAddress": "0xaaC815bcd3d1eCEACfC51608c4EaF194eEfd14f1"
+ },
+ {
+  "id": "inotel",
+  "website": "",
+  "name": "Inotel",
+  "status": "active",
+  "nodeAddress": [
+   "0x5901B2B3B48e5310605fc1bb4a51B1001680a05B",
+   "0x4587Cf7D37aF6Da0bEfE9fd64f17464298f073C3"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Inotel BSC Mainnet OCR",
+    "nodeAddress": "0x5901B2B3B48e5310605fc1bb4a51B1001680a05B",
+    "publicKey": "e8b634c0ffa7f10b2e3172af7aca87352a987d2c278537e6502dc1854f8d65e7"
+   }
+  ],
+  "payeeAddress": "0xdD831352762e9de7ad5a264990e1bB9F87A6Fc21",
+  "peerId": [
+   "12D3KooWQZ6sPRJaDWwy14TN6jndt7Ns6h8zGiwkZRLDU46jMQC7"
+  ],
+  "ocr2ConfigPublicKey": [
+   "ocr2cfg_evm_248671619a190762526e674f0af2066994a3814018a6dec649dbaf376485e277"
+  ],
+  "ocr2OffchainPublicKey": [
+   "ocr2off_evm_48ef333c4a337996a495da96caa2ed6a76830fc4301c5bd4b1b713db0cc6a2b4"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_f9dce043b039cd888fe04e43272e473dc58f1fc3"
+  ],
+  "forwardingEnabled": true,
+  "forwarderAddress": "0xc3bC83292fcc9c646E61f37126839449736d64FD"
+ },
+ {
+  "id": "linkForest",
+  "website": "",
+  "name": "LinkForest",
+  "status": "active",
+  "nodeAddress": [
+   "0xa6b40a7Bcc64E813C22561c921B81bc7A6b43eF9",
+   "0xE824e2015d39ffA9b42bf76fb692D1Bd93218eAa"
+  ],
+  "oracleAddress": "0xf182052A7514dDf9067d81dc6f7267AA329859F2",
+  "csaKeys": [
+   {
+    "nodeName": "LinkForest BSC Mainnet OCR",
+    "nodeAddress": "0xa6b40a7Bcc64E813C22561c921B81bc7A6b43eF9",
+    "publicKey": "28cc888f66071d0ef537996e956a5133bb48cd64a234c12c336a9d26217758f4"
+   }
+  ],
+  "peerId": [
+   "12D3KooWENxmop4fWyWoCy3LC3jTNRHSRuQe7yMbWmSR4Z5oyBrf"
+  ],
+  "ocr2ConfigPublicKey": [
+   "ocr2cfg_evm_0dc341e7583f36981dd1bafd96034089a3a4351a672b2dd4c5f03aa9fa7df935"
+  ],
+  "ocr2OffchainPublicKey": [
+   "ocr2off_evm_2fb3ea30567b0530c657ebc269186ce47757abca73bb4423b805ddb712d97b60"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_a3bef228bdb4886f7ce6025cafa6420fe1d2ae51"
+  ],
+  "forwardingEnabled": true,
+  "forwarderAddress": "0x342682197497FC9b860e914636847F1a9AD8b037"
+ },
+ {
+  "id": "linkPool",
+  "website": "",
+  "name": "LinkPool",
+  "status": "active",
+  "nodeAddress": [
+   "0x37Fc26312b831f7efb494cDB192c9aE91Fd27597",
+   "0xc8F3F83bfB4b0e4d06b933EE9A4A77bc305d7aD9"
+  ],
+  "oracleAddress": "0x63B72AF260E8b40A7b89E238FeB53448A97b03D2",
+  "csaKeys": [
+   {
+    "nodeName": "LinkPool BSC Mainnet OCR",
+    "nodeAddress": "0x37Fc26312b831f7efb494cDB192c9aE91Fd27597",
+    "publicKey": "c3ad198887094f3d8494777f1868ef02e1505cb7ceac12a28d9d9e5fab304417"
+   }
+  ],
+  "payeeAddress": "0xDF812B91D8bf6DF698BFD1D8047839479Ba63420",
+  "peerId": [
+   "12D3KooWHHLd7iFSDaEWTDmj9xPkDxhsSiKSkxiwv6QFcG124tuQ"
+  ],
+  "ocr2ConfigPublicKey": [
+   "ocr2cfg_evm_48627568bc010ef75f06c852f1df37d250ef887f3b38aa99e8bdd5cf5990a753"
+  ],
+  "ocr2OffchainPublicKey": [
+   "ocr2off_evm_f9eb8299fef998e656ba47613ace967d91928e8689155aecd6aa709d330e787e"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_418673915c78075459dd822fc8e4260cb6958143"
+  ],
+  "forwardingEnabled": true,
+  "forwarderAddress": "0xdB1A1C98F4A23c8C78B7B2c44Cd9678Ff286A0A1"
+ },
+ {
+  "id": "linkRiver",
+  "website": "",
+  "name": "LinkRiver",
+  "status": "active",
+  "nodeAddress": [
+   "0xEBbc95fB63ad3e0D66169297c029BCd8e86fdc71",
+   "0x0560E593e3E3a7a3e25142c569727dBf2d4E4289"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "LinkRiver BSC Mainnet OCR",
+    "nodeAddress": "0xEBbc95fB63ad3e0D66169297c029BCd8e86fdc71",
+    "publicKey": "218234160799295b1bc2c3180700a062361d6c794b33cf2d39e11bfd018e77cd"
+   }
+  ],
+  "peerId": [
+   "12D3KooWCJBpt16FtpBDGVsRToVTKzCoxdn2wk1mFtFGdeoqLd5y"
+  ],
+  "ocr2ConfigPublicKey": [
+   "ocr2cfg_evm_ea06ef625c628077a66d2b90282ade9c92739dee41988a94b1e3bf23edb5d364"
+  ],
+  "ocr2OffchainPublicKey": [
+   "ocr2off_evm_5c0b0abc38863d9f34ebd89bd1bcea4571ac750f744c3e746cf9781053171735"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_110d14efc4b1d98c302b023bb3787d71079955be"
+  ],
+  "forwardingEnabled": true,
+  "forwarderAddress": "0xD979873cFAf9a655F44006Fe01B148f1ABbc47Cc"
+ },
+ {
+  "id": "newRoad",
+  "website": "https://newroad.network",
+  "name": "Newroad Network",
+  "status": "active",
+  "nodeAddress": [
+   "0xA787D76966254faAe59174e0be8bE95a3D5E7261",
+   "0xDe4bbDe7F5205d6625bb90732c8e7d586f445033"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "NewRoad BSC Mainnet OCR",
+    "nodeAddress": "0xA787D76966254faAe59174e0be8bE95a3D5E7261",
+    "publicKey": "58bcef78a6b585833fed9d3f65fc8151f0c84801d0603ae58b50cc69eaff4fa6"
+   }
+  ],
+  "peerId": [
+   "12D3KooWK4FCeGRee9oru4hR6TrVgExDhmdpq3pANo9yzTTtSUkL"
+  ],
+  "ocr2ConfigPublicKey": [
+   "ocr2cfg_evm_ed878fa7b9682e5720a1d0cb9fb99c79c370a5a75eaa8854408bc232ba62a408"
+  ],
+  "ocr2OffchainPublicKey": [
+   "ocr2off_evm_8d495718925ace6a83b183a3b1b63c1dbb85980efadf0cccebd8575bca3e4805"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_9d6d678a1a8a506c13ad3a2c8825548d5213aacc"
+  ],
+  "forwardingEnabled": true,
+  "forwarderAddress": "0x9dFCA5435036ad0069ECa7C8e15b0c5c44548952"
+ },
+ {
+  "id": "onchainTech",
+  "website": "https://www.onchain.com.au",
+  "name": "On-chain Tech",
+  "status": "active",
+  "nodeAddress": [
+   "0xD46a5604CA9fEe830e291248701F616f53Bf174B",
+   "0x1c7a919f551bFbD8C7433a8e513818591454fe86"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "OnchainTech BSC Mainnet OCR",
+    "nodeAddress": "0xD46a5604CA9fEe830e291248701F616f53Bf174B",
+    "publicKey": "46bc91ba22c6dfd3e2866fec45dae75e347d9b435414f7422bee7e5c03b1638a"
+   }
+  ],
+  "payeeAddress": "0x9E788De47d7Bcfa3e6F4EF1cecA3161A5339594C",
+  "peerId": [
+   "12D3KooWE4g5qdUpVtYRAwJAETkuMtVJ9HFoiMNPP2VYCzMajBGu"
+  ],
+  "ocr2ConfigPublicKey": [
+   "ocr2cfg_evm_a73e40619b9b29c571a74bb45f13c5504a1d77ab9a7d2470ae2449cbc105a134"
+  ],
+  "ocr2OffchainPublicKey": [
+   "ocr2off_evm_acf3ec56e12f3214e150015cd04b784be06b4a572c05ce2e6b7210a5cb84d68f"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_1cb20a78ddf8fc546e877f210160f2c6be9b7012"
+  ],
+  "forwardingEnabled": true,
+  "forwarderAddress": "0x42b950F1Cf4855a54f6d0bd6981687Eb4d5d6a18"
+ },
+ {
+  "id": "pierTwo",
+  "website": "",
+  "name": "Pier Two",
+  "status": "active",
+  "nodeAddress": [
+   "0xC0fBE521016A1a4Eb481cE23BbFDAD3cc45575c2",
+   "0xEA46B3E1499906bE5A95bCa28991B873d5a06750"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Pier Two BSC Mainnet OCR",
+    "nodeAddress": "0xC0fBE521016A1a4Eb481cE23BbFDAD3cc45575c2",
+    "publicKey": "9135d8d58fa6288b7c574b847698865b9eb9c99792341611b0d5f9879d7976e8"
+   }
+  ],
+  "peerId": [
+   "12D3KooWB9vqncBeqMa3WHDzivQ2REaBauXGdXUDarj1gWijMVEh"
+  ],
+  "ocr2ConfigPublicKey": [
+   "ocr2cfg_evm_90d32189f58fe044ca45a964d0a49f90890c9fe5b3b171cc69664e5c12935e0d"
+  ],
+  "ocr2OffchainPublicKey": [
+   "ocr2off_evm_e771d8bfb27ab1d317f893c1586261dd6b807f0009d9caf6d4291ab8fb8a05de"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_84d3ec5b68f815191ba1ef2f996dcb6e6ffa7f24"
+  ],
+  "forwardingEnabled": true,
+  "forwarderAddress": "0xE0a047E8705ca7C08076975F8568f123e5D34C11"
+ },
+ {
+  "id": "shultzPro",
+  "website": "",
+  "name": "ShultzPrime",
+  "status": "active",
+  "nodeAddress": [
+   "0xC7B702ee7C5b63BD5fF534FaAA82320CaB2B2c0F",
+   "0x6c984419bc7d8c6DFf55ef50F682E26173b3534c"
+  ],
+  "oracleAddress": "0x56f76065b3dC3632BD6f4212Bf668ff9D925A706",
+  "csaKeys": [
+   {
+    "nodeName": "ShultzPrime BSC Mainnet OCR",
+    "nodeAddress": "0xC7B702ee7C5b63BD5fF534FaAA82320CaB2B2c0F",
+    "publicKey": "458f7a52042e31de984c2fe0a0d4689a5f3fd8a816fb1a2495659671719e467a"
+   }
+  ],
+  "payeeAddress": "0xBa5ed4Cd392ABC8Df7009B4A385eB3e05c7375F1",
+  "peerId": [
+   "12D3KooWFbetKQGnXqtqEZ4SZRF1HAydxupL9AG2Qc2ZvhtiVRhb"
+  ],
+  "ocr2ConfigPublicKey": [
+   "ocr2cfg_evm_d44cd3cf42fb42c419b3650d1d287f010e61fa15ede7d3dffd419cac1f407369"
+  ],
+  "ocr2OffchainPublicKey": [
+   "ocr2off_evm_8b464e82dd23dda20350c8e7666cd6e2b353f16d4aa529f7ed5c5189a50fbce4"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_a728aa2c49eb123e9de0b3a79a9ed727af289865"
+  ],
+  "forwardingEnabled": true,
+  "forwarderAddress": "0x2c14565cDDC53F3a60D27E8C345809a31D934642"
+ },
+ {
+  "id": "simplyVC",
+  "website": "",
+  "name": "Simply VC",
+  "status": "active",
+  "nodeAddress": [
+   "0xBF44AcA665062a696b2d4c72663CFefD87769A10",
+   "0xCF3fb8AE427387D0f8eDA37168b5E0523c1Ea3b1"
+  ],
+  "oracleAddress": "0xaDb83Abbf7A8987AfB76DB33Ed2855A07f5497C7",
+  "csaKeys": [
+   {
+    "nodeName": "SimplyVC BSC Mainnet OCR",
+    "nodeAddress": "0xBF44AcA665062a696b2d4c72663CFefD87769A10",
+    "publicKey": "42fa872964696308f4db53c55e9e74f1e54e945d2632f547c4db7242d3f9e49c"
+   }
+  ],
+  "peerId": [
+   "12D3KooWQEqZfw9NNmuZ4weBFib9EwUGmsTRTFncERMZpkU2Lzij"
+  ],
+  "ocr2ConfigPublicKey": [
+   "ocr2cfg_evm_ba69fff63017fb641db1b26e192949b1c08cac38709b99bbf27adf1c10a76a0b"
+  ],
+  "ocr2OffchainPublicKey": [
+   "ocr2off_evm_fb6994713b06900e5857013f2cb63638e46ea37671ad31d2cdf04e0355998cdd"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_fbdb2d338e5c06dd62b0574262d1cf4b529d0f85"
+  ],
+  "forwardingEnabled": true,
+  "forwarderAddress": "0x328e4BDcf3096C36D9CB2d989Da6995b461140ac"
+ },
+ {
+  "id": "snzPool",
+  "website": "",
+  "name": "SNZPool",
+  "status": "active",
+  "nodeAddress": [
+   "0x573352F3FD171FB103Fd9107D04D5025660f1B8a",
+   "0xDa6d948aEE1f2ED9d066e43dAA0054FD749175b0"
+  ],
+  "oracleAddress": "0x56CD9228cD980e8aE3afdF8dfFA7a2E87e8360d9",
+  "csaKeys": [
+   {
+    "nodeName": "SnzPool BSC Mainnet OCR",
+    "nodeAddress": "0x573352F3FD171FB103Fd9107D04D5025660f1B8a",
+    "publicKey": "c7baa18b3172518546e6ada0b6aa67b5a6d004e739acf41c222e562df5c04145"
+   }
+  ],
+  "peerId": [
+   "12D3KooWRyd91maw5h6m6139WdLPqEoUqSx9ZiYwbEjLpePGj2vh"
+  ],
+  "ocr2ConfigPublicKey": [
+   "ocr2cfg_evm_0643dd27940afafb160e73339cf03e4c019cff77673ad75e290b7d790dc40b72"
+  ],
+  "ocr2OffchainPublicKey": [
+   "ocr2off_evm_0c380136c3af4baa2d9904a691a45882b02997bd6a6136aec80bf3416a60972a"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_3190240813181be406a95ee7435e539e5b3a58e9"
+  ],
+  "forwardingEnabled": true,
+  "forwarderAddress": "0x5d6173E05c3Af359DBb13ee12Af726E34AAeDAD2"
+ },
+ {
+  "id": "syncnode",
+  "website": "https://wallet.syncnode.ro",
+  "name": "SyncNode",
+  "status": "active",
+  "nodeAddress": [
+   "0x5ce038429e4d6025F94Ae271759d63bcfdCCb6cC",
+   "0xAD904E4804fA66dDD279bf2bDE14df0e0b5F6f3F"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Syncnode BSC Mainnet OCR",
+    "nodeAddress": "0x5ce038429e4d6025F94Ae271759d63bcfdCCb6cC",
+    "publicKey": "ce5ad87ad802d45b1dede4ca36df5aae4e6785338c0ba4ce0172d6fc60d0cbc5"
+   }
+  ],
+  "peerId": [
+   "12D3KooWG4B2MfNvonytuufibXQJfSrBq56ZZ4DNQsneboeS7T3Y"
+  ],
+  "ocr2ConfigPublicKey": [
+   "ocr2cfg_evm_ea84f07105d4788646615ad93f26123ce03569fc2b9bdfe12603136784e4f613"
+  ],
+  "ocr2OffchainPublicKey": [
+   "ocr2off_evm_9a4bae112a8394f4092eccc140cb688c0a99083181791ff611d2f1070d4ed543"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_9a27a0502578604676970310a36df2f313aaaaa0"
+  ],
+  "forwardingEnabled": true,
+  "forwarderAddress": "0x1877d26Dabef3b5869aAA788EbFB39F1d6C477A0"
+ },
+ {
+  "id": "temp-ccip-clf",
+  "website": "",
+  "name": "clf",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": null
+ },
+ {
+  "id": "temp-ccip-dexTrac",
+  "website": "",
+  "name": "DexTrac",
+  "status": "active",
+  "nodeAddress": [
+   "0xa04Ed470720D6053DDC8e52a5ccD932c20cA7CD7"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "DexTrac",
+    "nodeAddress": "0xa04Ed470720D6053DDC8e52a5ccD932c20cA7CD7",
+    "publicKey": "c2617b2a413ecdb8142bacfef52845261a402b5d8460dd4a13d1d30d2c2e5bf2"
+   }
+  ],
+  "payeeAddress": "0x9efa0A617C0552F1558c95993aA8b8A68b3e709C",
+  "peerId": [
+   "12D3KooWEdpCtL2eNrNhJNuGNMVxhzcxrVoVMUXtGox65kWakbcF"
+  ],
+  "ocr2Id": [
+   "f293ecf54212f0a6b5a7f5db6d091a8cb8b1528a7a8d98e1eab184e82a5e9d69"
+  ],
+  "ocr2ConfigPublicKey": [
+   "58e518f810b6fbca5f6391cd3643c2cfe94a47c3594e6357a8192ba1563d7e49"
+  ],
+  "ocr2OffchainPublicKey": [
+   "6905bfb23083506ce40b28a5683f09a14eabfef74f65237da798f08f2af4ae4f"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_c4fd363861673327bacfa1aee04b9a991459a1d2"
+  ]
+ },
+ {
+  "id": "temp-ccip-fiews",
+  "website": "",
+  "name": "Fiews",
+  "status": "active",
+  "nodeAddress": [
+   "0x25e0E48f7d456342016111251FF299192e6606bc"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Fiews",
+    "nodeAddress": "0x25e0E48f7d456342016111251FF299192e6606bc",
+    "publicKey": "cde24d49c3960b3edbb2942335011fff4757c9198cbf75eb158c5b7299c54092"
+   }
+  ],
+  "payeeAddress": "0x15918ff7f6C44592C81d999B442956B07D26CC44",
+  "peerId": [
+   "12D3KooWLYR7HHNrQVqeQKEzN3P3tn8HKxQGnMY2CkEYpNQpWURy"
+  ],
+  "ocr2Id": [
+   "d4cd7eac37cf12655db802b2c03e66115fc63e7c251af7143bf4eca3099b21b3"
+  ],
+  "ocr2ConfigPublicKey": [
+   "5ad468a6659d43c887c1729474898fae73a1ed950bf15cc74e13a4327d63dd23"
+  ],
+  "ocr2OffchainPublicKey": [
+   "26e1e628541a1ed60ac2e39c252708ead987ee74ec1665d776c2c8c09cdc23a5"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_9ca9809476be48b7a700d50b3d10a98d993dd8a5"
+  ]
+ },
+ {
+  "id": "temp-ccip-galaxy",
+  "website": "",
+  "name": "Galaxy",
+  "status": "active",
+  "nodeAddress": [
+   "0xF2073874894E3a3a96473bf6E5Fc0063eaa7D213"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Galaxy",
+    "nodeAddress": "0xF2073874894E3a3a96473bf6E5Fc0063eaa7D213",
+    "publicKey": "f76c8197b5ad265bf449ba5dc0f0260deb3a35be062b472081845eb3e15f2b2f"
+   }
+  ],
+  "payeeAddress": "0x59eCf48345A221E0731E785ED79eD40d0A94E2A5",
+  "peerId": [
+   "12D3KooWKpZk4VmiUhWfxkeMyfSWska8uD63DiLqCJHPC4e7d9fg"
+  ],
+  "ocr2Id": [
+   "e0fa50c944e8a9ba0e663540f46a730c68438b96a65bdd4f37f7ce13c1a02bf7"
+  ],
+  "ocr2ConfigPublicKey": [
+   "d3a01961961508292643dd91e281b81f1e51a640bf71db47ff250f57fc7aa522"
+  ],
+  "ocr2OffchainPublicKey": [
+   "6c0815af773006869e922b6bba15f9c1d5e3af05b9bddafbd57b131abd517f20"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_08eaee68e44caae09aa94367181470d92946310e"
+  ]
+ },
+ {
+  "id": "temp-ccip-kytzu",
+  "website": "",
+  "name": "Kytzu",
+  "status": "active",
+  "nodeAddress": [
+   "0x6B0A9d7Bd3eafa53723f8133267B2B92b150bF5e"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Kytzu",
+    "nodeAddress": "0x6B0A9d7Bd3eafa53723f8133267B2B92b150bF5e",
+    "publicKey": "601955eaddbc56f15370418f935803b779cb790ed9e4d136a0057262f21e9925"
+   }
+  ],
+  "payeeAddress": "0x001E0d294383d5b4136476648aCc8D04a6461Ae3",
+  "peerId": [
+   "12D3KooWEsYrq5Kkntknp1ktfFdpLwvQStvrZCEoQZ96nrn1rNRx"
+  ],
+  "ocr2Id": [
+   "c9ddb24d762fe2cc11097e25580f382a663b4eee2c3a705b25892b769ece6089"
+  ],
+  "ocr2ConfigPublicKey": [
+   "9f3ff8c4c6882713cf14673b36cdbcb0cfc16e4b027a3691362473ac4f232a59"
+  ],
+  "ocr2OffchainPublicKey": [
+   "0aabd47efdba67f9a862654ceddcd68d7bfb3857fe546a269658a0da2ea42e58"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_7a3c53356ae7797284b3c8dac27115015a8744bc"
+  ]
+ },
+ {
+  "id": "temp-ccip-linkForest",
+  "website": "",
+  "name": "LinkForest",
+  "status": "active",
+  "nodeAddress": [
+   "0xF0f0a40035cAA716ac5ec082F2488D3fF55b0D7f"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "LinkForest",
+    "nodeAddress": "0xF0f0a40035cAA716ac5ec082F2488D3fF55b0D7f",
+    "publicKey": "84a432173982dc7eb07034354b491d23c3a16d09d1253f27a37df31778b6b985"
+   }
+  ],
+  "payeeAddress": "0x4564A9c6061f6f1F2Eadb954B1b3C241D2DC984e",
+  "peerId": [
+   "12D3KooWFTDW37Bo25J2ZHyUiTyiruWqzW5ALRQ4BeNc1GFtzhgb"
+  ],
+  "ocr2Id": [
+   "0d2a659fbdaff2a6d9ca36a6fdb9244046e0a87edb20b00544090aa4ede587b1"
+  ],
+  "ocr2ConfigPublicKey": [
+   "ce2078b1348c7676f731a90b69cd18c232737a1d1fb3943a1eff147ac3962813"
+  ],
+  "ocr2OffchainPublicKey": [
+   "861ee0fea458561fc3ec7c13c2695416ba39483b49f438677332d41d73f68efe"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_e24ed7652ba5bfa1b3e8caed4bf6065b93b734a6"
+  ]
+ },
+ {
+  "id": "temp-ccip-linkPool",
+  "website": "",
+  "name": "LinkPool",
+  "status": "active",
+  "nodeAddress": [
+   "0x90a59345a36fcAAc56d8813C46Be9a4442d9E2Ec"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "LinkPool",
+    "nodeAddress": "0x90a59345a36fcAAc56d8813C46Be9a4442d9E2Ec",
+    "publicKey": "9ebd6523eb5668e01efc577d777314f29bef329105909d583b9f76c2247276fc"
+   }
+  ],
+  "payeeAddress": "0xDF812B91D8bf6DF698BFD1D8047839479Ba63420",
+  "peerId": [
+   "12D3KooWHveZoFUrHuJHQPyziCiqJLDvnXFd9C5C5pZ3kPt6Y2M4"
+  ],
+  "ocr2Id": [
+   "3bd0217ac5723e2df463aae8eafe1d1ef2374588a62e53a30a31aa33284925e1"
+  ],
+  "ocr2ConfigPublicKey": [
+   "e86900dda57b0b3f2c17140b9e0180336d9f961c34a5da4be697fc4d5674d434"
+  ],
+  "ocr2OffchainPublicKey": [
+   "2efb51a69e2ebbfa14744d3607023d10bc48f84d562dde96a5f290b2058d3768"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_41fa7e165f7ad96fec5eeb2a715d18dd9a4681d3"
+  ]
+ },
+ {
+  "id": "temp-ccip-linkRiver",
+  "website": "",
+  "name": "LinkRiver",
+  "status": "active",
+  "nodeAddress": [
+   "0x6afA1D3Eb24106EE4aAf57D80950c4ccBD1300b9"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "LinkRiver",
+    "nodeAddress": "0x6afA1D3Eb24106EE4aAf57D80950c4ccBD1300b9",
+    "publicKey": "c92445b2ad505280d1b91b20b08ffe50fb35e658ff78935cc2789cfaee14133a"
+   }
+  ],
+  "payeeAddress": "0x14f94049397C3F1807c45B6f854Cb5F36bC4393B",
+  "peerId": [
+   "12D3KooWC4tMNyFtUvBYB7N7WSQSCSPDWMJcErrBf4FHdpNpXKzW"
+  ],
+  "ocr2Id": [
+   "c7d0d5aba9d1a25c17c267a7003ec543558f45b9110ff8802a59af8f09298d59"
+  ],
+  "ocr2ConfigPublicKey": [
+   "48b69035116da58fb743649298acbddd6c27ef1b5d194d978873a83955e9362c"
+  ],
+  "ocr2OffchainPublicKey": [
+   "900bea3e9727b3921a715f8deb2ba32bf5bb89eb8314537658584cd2dc77373c"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_d29971a9eac66b42ba5b1472204c0bcca8e15c6e"
+  ]
+ },
+ {
+  "id": "temp-ccip-newRoad",
+  "website": "",
+  "name": "NewRoad",
+  "status": "active",
+  "nodeAddress": [
+   "0xBCac4d2009203BFDf664D5f456F8c4C8A8882a5A"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "NewRoad",
+    "nodeAddress": "0xBCac4d2009203BFDf664D5f456F8c4C8A8882a5A",
+    "publicKey": "6b563afe4df0e7dc31db55e91a2a45cf93ead0fc9c7ee31b0820728c389a6781"
+   }
+  ],
+  "payeeAddress": "0x670dBCf722ee66079DAB6456071e8d536eEC1463",
+  "peerId": [
+   "12D3KooWGomJ3qS3VHybc6smSmUCfms6M4tTvht1zjAyvx6aRurf"
+  ],
+  "ocr2Id": [
+   "26da5077f23ad045902e50347ce292e4bb87383cfe90e4590bf097b07f20e537"
+  ],
+  "ocr2ConfigPublicKey": [
+   "229d6093222e2d1422f603294c4a47178c1bb2e58009022917397a0b34fc8071"
+  ],
+  "ocr2OffchainPublicKey": [
+   "47009b01402ed998edaeded5d81d164687ef7d152aef04dcf84e19c3cede7ac6"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_a2b7c82d2b90a4e94f0c3027c0999e4f44f4cc9f"
+  ]
+ },
+ {
+  "id": "temp-ccip-northWestNodes",
+  "website": "",
+  "name": "NorthWestNodes",
+  "status": "active",
+  "nodeAddress": [
+   "0x0fc372E74aB2E087811fBdDCF8AaaCb2682563c9"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "NorthWestNodes",
+    "nodeAddress": "0x0fc372E74aB2E087811fBdDCF8AaaCb2682563c9",
+    "publicKey": "b4204cba6bbf0a234967507e47c42d5df7b2b1148ba89c2953165cbe726b678e"
+   }
+  ],
+  "payeeAddress": "0x0921E157b690c4F89F7C2a210cFd8bF3964F6776",
+  "peerId": [
+   "12D3KooWMLefyx8GmMDXqmLMAdpT6makHGvmzZwepHPWmVgUQQjW"
+  ],
+  "ocr2Id": [
+   "6bfe58b9d9a58cdeeb37d9617093df2c3a663fb54040ce78d2cc83a1552b62ae"
+  ],
+  "ocr2ConfigPublicKey": [
+   "041b28e824e40ccf76b8cd6bf0606d5d7c1758279b0c26fd80c8c0e0c919b366"
+  ],
+  "ocr2OffchainPublicKey": [
+   "bf9fedef15d525a8e43b1bb2a83a0ce5053148390395a0deece0ffa1b7b38036"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_fc0a7b612ce625c10debc660cd67452ebdbec207"
+  ]
+ },
+ {
+  "id": "temp-ccip-omniscience",
+  "website": "",
+  "name": "Omniscience",
+  "status": "active",
+  "nodeAddress": [
+   "0x445De071A254ded62D80c5295a5a96cAf9aD77A8"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Omniscience",
+    "nodeAddress": "0x445De071A254ded62D80c5295a5a96cAf9aD77A8",
+    "publicKey": "e423aa5bc0f1c011c9307c14fd51400e78d81ed3456124856f5a7d52d4a0a2a2"
+   }
+  ],
+  "payeeAddress": "0x6D837Ef25d10d26BDc8629E3390F2e7ff6261D99",
+  "peerId": [
+   "12D3KooWBxDjHksFmbJF97beBfDiYG8ZNygeY3DbmEgWuKLQrN71"
+  ],
+  "ocr2Id": [
+   "dfe234df79739c1b1485c23feb813c9cd6b04d0dc31bdeb5000b17ff8d91493a"
+  ],
+  "ocr2ConfigPublicKey": [
+   "5f7f3d6bcc7585008c4eb008ac97e0c819caf98b4a2c8433c90670667a4fb86b"
+  ],
+  "ocr2OffchainPublicKey": [
+   "7d765c3d5b1daa1250dda7cfe2d6596c9cc73ab7b8eadc09cf7f2649926f932f"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_b4a378c2a17f4b8d4767616b4469807223f27a26"
+  ]
+ },
+ {
+  "id": "temp-ccip-p2pOrg",
+  "website": "",
+  "name": "P2pOrg",
+  "status": "active",
+  "nodeAddress": [
+   "0x85d6849c34780A18Edf0D780304A593F3B6834c8"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "P2pOrg",
+    "nodeAddress": "0x85d6849c34780A18Edf0D780304A593F3B6834c8",
+    "publicKey": "589c889e0e340e1caf32ae799e6d9448dd02d85aefbab81af1887d36bdae53ca"
+   }
+  ],
+  "payeeAddress": "0xa06B89B08F038Aff4F81ce0A45c5aCb040477c3b",
+  "peerId": [
+   "12D3KooWCnvShYbszDzJpRwjgcdT7jfvjVLobmQ6H3KePtSTK4tp"
+  ],
+  "ocr2Id": [
+   "38239a3038a7a2008e5bbab16e7e4f155ab490f5686304519220e83a0ee1afa9"
+  ],
+  "ocr2ConfigPublicKey": [
+   "5914855190193386ddbf51fcc4ccdf533c5efc2da9d6338f037ec87557adeb1f"
+  ],
+  "ocr2OffchainPublicKey": [
+   "4e91877b9aab81c16785b0d5ad21d79c8e624b6aa43237bcdeef916df4d96c8d"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_cbf79800f67af0f5391d49b98c63ee4e3c976e2d"
+  ]
+ },
+ {
+  "id": "temp-ccip-pierTwo",
+  "website": "",
+  "name": "Pier Two",
+  "status": "active",
+  "nodeAddress": [
+   "0x4e793dB6da959C33F754D2239f2b4BCBd94f025a"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Pier Two",
+    "nodeAddress": "0x4e793dB6da959C33F754D2239f2b4BCBd94f025a",
+    "publicKey": "cd9262bf9643c5e6243e53c9fb4efa88fbca669b9e9c74e1d93d01bbb51a5175"
+   }
+  ],
+  "payeeAddress": "0x3FB4600736d306Ee2A89EdF0356D4272fb095768",
+  "peerId": [
+   "12D3KooWEsNv9tPSUmxSxbNDhs2rJGwdcQDTfEa6YrkUBy8upW5Y"
+  ],
+  "ocr2Id": [
+   "0875817b91813bf1d921bee64301d863763fbd4891964d034100cb677447ae47"
+  ],
+  "ocr2ConfigPublicKey": [
+   "aec5cd3d90e6fc458dba6990b2b8f5996253173ede55a8f1ba4ec8cc2ffe4d02"
+  ],
+  "ocr2OffchainPublicKey": [
+   "620d6d2446242de2ef971b7cdb54c6b9c7751e99a2d6ba7be4e6f9083186d640"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_f2c04359575b08f71629ca89e9085b2d2076e286"
+  ]
+ },
+ {
+  "id": "temp-ccip-prophet",
+  "website": "",
+  "name": "Prophet",
+  "status": "active",
+  "nodeAddress": [
+   "0x180eE3fb4BD9e6f874f01A1C7c44598585f3599D"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Prophet",
+    "nodeAddress": "0x180eE3fb4BD9e6f874f01A1C7c44598585f3599D",
+    "publicKey": "4c0ac92ec1af1a4007876dd6d7179bfda9c1b96c44d87641983b333dd45d4943"
+   }
+  ],
+  "payeeAddress": "0xCB3396Ee80F304f979d7305731ff9264d60298b3",
+  "peerId": [
+   "12D3KooWR8zefNNCSUYjT35SYRfY95ENjq5XKXN5uLNAZkUc5F7A"
+  ],
+  "ocr2Id": [
+   "18064bc4e1c619c4724d7e632c5a57be31ccbd915ae40c65c672034e9643a370"
+  ],
+  "ocr2ConfigPublicKey": [
+   "1a8e5ecddaa1faf1b8c380fc1db5638fd62568b6edc36bf6da5f5621f14cc33c"
+  ],
+  "ocr2OffchainPublicKey": [
+   "f1f66c1a7af0e6da0e7d437e5b21cf158e8df8a6c3362e95755185908bc6c6ea"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_a69d606205419f67a46d772c66cf685971d5ceed"
+  ]
+ },
+ {
+  "id": "temp-ccip-syncnode",
+  "website": "",
+  "name": "Syncnode",
+  "status": "active",
+  "nodeAddress": [
+   "0x376aDb3316991F09dCC7771273258eB333a6cEd1"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Syncnode",
+    "nodeAddress": "0x376aDb3316991F09dCC7771273258eB333a6cEd1",
+    "publicKey": "536d79bb9eb86d26ec9cb1fb4a01947656a2418d50c055b375239a889476caaa"
+   }
+  ],
+  "payeeAddress": "0xC51D3470693BC049809A1c515606124c7C75908d",
+  "peerId": [
+   "12D3KooWPszHGLaFwydr8dGZrjpJpV5nev1R2EWbhfkqPPuAndoH"
+  ],
+  "ocr2Id": [
+   "2e7a09121d421e525579496016938c929ee645153a645f53db4ba066f199cbbb"
+  ],
+  "ocr2ConfigPublicKey": [
+   "584a22c9de2e866adfb07ddf339f22012139d977eb289e286c950d8385c0d64f"
+  ],
+  "ocr2OffchainPublicKey": [
+   "6b7c2b27bd43c3b09fdd2656ab3d6ab3b91421a3d222b1bea8b590f7673ea5f7"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_58f94e05e34f9319627fafdb64bb01e8d590878c"
+  ]
+ },
+ {
+  "id": "temp-ccip-validationCloud",
+  "website": "",
+  "name": "ValidationCloud",
+  "status": "active",
+  "nodeAddress": [
+   "0x91b68A402e44364c55Dd242CE34982bB2d9FA7a9"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "ValidationCloud",
+    "nodeAddress": "0x91b68A402e44364c55Dd242CE34982bB2d9FA7a9",
+    "publicKey": "759bbee3dc531a0f40610cc085da1bcbbf44ffa235bc9b3f82158f380fb6f418"
+   }
+  ],
+  "payeeAddress": "0x183A96629fF566e7AA8AfA38980Cd037EB40A59A",
+  "peerId": [
+   "12D3KooWMAXQM1Cz6ywYky1oTDfSLkuZL7Rh44ftmBMZEw3PZk7v"
+  ],
+  "ocr2Id": [
+   "0d77ce66cc4a409cc30e782b4915455cafc592c5c6ddfd5891601eaed219fa9f"
+  ],
+  "ocr2ConfigPublicKey": [
+   "df7931f9d55263314086093e349f0c8f073177a0ead0fa809f9dd764d7e20a5c"
+  ],
+  "ocr2OffchainPublicKey": [
+   "eef0fe68aee419076794c309073793a6f35ef3a1e497b79489688ad32f96764e"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_925f08725819ed7fa98269a92a7c14093c4395c5"
+  ]
+ },
+ {
+  "id": "temp-ccip-wetez",
+  "website": "",
+  "name": "Wetez",
+  "status": "active",
+  "nodeAddress": [
+   "0x21F500EB03C79ff2260E2Eb045e37eFE16b460D8"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Wetez",
+    "nodeAddress": "0x21F500EB03C79ff2260E2Eb045e37eFE16b460D8",
+    "publicKey": "f29b759185a814ed9ef4932771148cfbe1f53a017cfee8916e1c8ac79ca5c394"
+   }
+  ],
+  "payeeAddress": "0x9dc4573f23b87ad2ea1BB1Efc35c03eaE17194ba",
+  "peerId": [
+   "12D3KooWDv6TLb1KRcRAC8Hc3sP6WU7dvRhZyfFJ8kzMpjWq4JU7"
+  ],
+  "ocr2Id": [
+   "933fb01ac8f165217e0918218383986ed2e0e0bc6a370433c08e318d60203a02"
+  ],
+  "ocr2ConfigPublicKey": [
+   "f8926de50b758f788150e4142fdeba0ddad724743802537daa18540381715f6a"
+  ],
+  "ocr2OffchainPublicKey": [
+   "767aa537b34a3dedc81879af86bd53fa5988f011e61adbc6bc68992504a3244b"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_e79782642b9d6a9cc8a6619d30e27be1d761ba44"
+  ]
+ },
+ {
+  "id": "tiingo",
+  "website": "https://www.tiingo.com/",
+  "name": "Tiingo",
+  "status": "active",
+  "nodeAddress": [
+   "0xfD9fd7dcA91fB4C17f2c389C318911162cf623A6",
+   "0xC51ACB853C7208C4B35349fDab0E133729B8C62c"
+  ],
+  "oracleAddress": "0x3ee8DFE6094f642f1D19B7ADF6B1a71c57453A8d",
+  "csaKeys": [
+   {
+    "nodeName": "Tiingo BSC Mainnet OCR",
+    "nodeAddress": "0xfD9fd7dcA91fB4C17f2c389C318911162cf623A6",
+    "publicKey": "67550b376197fe28c4b589efc08a12963a86a0c2eb33f97f2ad244b81e6eaa55"
+   }
+  ],
+  "payeeAddress": "0xfAE26207ab74ee528214ee92f94427f8Cdbb6A32",
+  "peerId": [
+   "12D3KooWSnUgv8gZr7t5QQDNuBF3btMV2nBv2en79AB3SnygS3W5"
+  ],
+  "ocr2ConfigPublicKey": [
+   "ocr2cfg_evm_b99c8e9bd01850db9cc81d4a51b12ffd394e22ea1d581fd043cb1f14eef12b7b"
+  ],
+  "ocr2OffchainPublicKey": [
+   "ocr2off_evm_b007046b67a7a58fdcc9b39cbe6fa8fd6b69a0d203a28a6d962633d9d7991705"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_3a2d414fb9c56ed9eecd2aa3ce5fcfef467a7b83"
+  ],
+  "forwardingEnabled": true,
+  "forwarderAddress": "0x3A642243e38beA40322aa9A7e59c26Aa27Cc6F8D"
+ },
+ {
+  "id": "validationCloud",
+  "website": "",
+  "name": "Validation Cloud",
+  "status": "active",
+  "nodeAddress": [
+   "0x3032cE567c21329fC95B150022d50753ecCB4F1d",
+   "0xaA6760D1280d01aA2C4f6a5c3c5f30e5D613740b"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "ValidationCloud BSC Mainnet OCR",
+    "nodeAddress": "0x3032cE567c21329fC95B150022d50753ecCB4F1d",
+    "publicKey": "a03a08a8a456a3b6c35f7f90c4018ecebfe7b1d84169d513f1bcb4a6abf831ff"
+   }
+  ],
+  "peerId": [
+   "12D3KooWBRpauBa5i17v2idzBRC9sUQkVpo5R9qukYdr65J98tuC"
+  ],
+  "ocr2ConfigPublicKey": [
+   "ocr2cfg_evm_53410d1ab09aca8a69c950f95878ee915d699c1db79278762a57e2c9283c5173"
+  ],
+  "ocr2OffchainPublicKey": [
+   "ocr2off_evm_d736651262e02f521bc15b56a2b45bf3ae8eef5ebe8f67e9e3fa5cefae6d9810"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_2515ec3ca65e5bdc8edcf2c2e33ab5ddd5f5edd5"
+  ],
+  "forwardingEnabled": true,
+  "forwarderAddress": "0x8bDB5E089E9285037E6874D8F3160b5548611380"
+ }
+]

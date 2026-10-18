@@ -756,6 +756,11 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://www.linknodes.io/feeds/ethereum/eigen-usd</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://www.linknodes.io/feeds/ethereum/enj-eth</loc>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
@@ -3361,6 +3366,11 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://www.linknodes.io/feeds/base/hbtc-por</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://www.linknodes.io/feeds/base/home-usd</loc>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
@@ -5366,6 +5376,11 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://www.linknodes.io/feeds/avalanche/auto-wylds-exchange-rate</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://www.linknodes.io/feeds/avalanche/avax-usd</loc>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
@@ -5492,6 +5507,16 @@
   </url>
   <url>
     <loc>https://www.linknodes.io/feeds/avalanche/gmx-usd</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.linknodes.io/feeds/avalanche/hastraprime-wylds-exchange-rate</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.linknodes.io/feeds/avalanche/hastrasmb-wylds-exchange-rate</loc>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
@@ -8847,6 +8872,131 @@
   </url>
   <url>
     <loc>https://www.linknodes.io/feeds/polygon-amoy/usdt-usd</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.linknodes.io/feeds/avalanche-fuji</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.linknodes.io/feeds/avalanche-fuji/USDT-USD</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.linknodes.io/feeds/avalanche-fuji/ape-usd</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.linknodes.io/feeds/avalanche-fuji/arb-usd</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.linknodes.io/feeds/avalanche-fuji/avax-usd</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.linknodes.io/feeds/avalanche-fuji/axs-usd</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.linknodes.io/feeds/avalanche-fuji/bat-usd</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.linknodes.io/feeds/avalanche-fuji/bnb-usd</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.linknodes.io/feeds/avalanche-fuji/btc-eth</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.linknodes.io/feeds/avalanche-fuji/btc-usd</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.linknodes.io/feeds/avalanche-fuji/btc-usd-30d-realized-vol</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.linknodes.io/feeds/avalanche-fuji/chz-usd</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.linknodes.io/feeds/avalanche-fuji/comp-usd</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.linknodes.io/feeds/avalanche-fuji/dot-usd</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.linknodes.io/feeds/avalanche-fuji/eth-usd</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.linknodes.io/feeds/avalanche-fuji/eth-usd-30d-realized-vol</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.linknodes.io/feeds/avalanche-fuji/eur-usd</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.linknodes.io/feeds/avalanche-fuji/link-avax</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.linknodes.io/feeds/avalanche-fuji/link-eth</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.linknodes.io/feeds/avalanche-fuji/link-usd</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.linknodes.io/feeds/avalanche-fuji/near-usd</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.linknodes.io/feeds/avalanche-fuji/snx-usd</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.linknodes.io/feeds/avalanche-fuji/uni-usd</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.linknodes.io/feeds/avalanche-fuji/usdc-usd</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.linknodes.io/feeds/avalanche-fuji/zrx-usd</loc>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>

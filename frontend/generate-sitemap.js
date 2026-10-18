@@ -7,16 +7,57 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Read mainnet registries from frontend/data/
-const ccipRegistryPath = path.join(__dirname, 'data/ccip_registry.json');
-const ccipRegistry = JSON.parse(fs.readFileSync(ccipRegistryPath, 'utf8'));
+/**
+ * Check if a feed should be included in the sitemap.
+ * Drops feeds with past shutdown dates (shut_down status).
+ * Keeps active and deprecating feeds (future/today shutdown dates or no shutdown date).
+ * 
+ * Malformed dates (non-ISO YYYY-MM-DD format) are treated as immediate shutdown (hidden).
+ */
+function isFeedVisible(feed) {
+  const shutdownDate = feed.shutdown_date;
+  if (!shutdownDate) {
+    // No shutdown date => visible
+    return true;
+  }
+  
+  // Validate strict ISO YYYY-MM-DD format
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(shutdownDate)) {
+    // Malformed date (e.g. 'garbage', 'TBD', '2026-6-3') => treat as immediate shutdown
+    return false;
+  }
+  
+  // Get UTC today in YYYY-MM-DD format
+  const utcToday = new Date().toISOString().split('T')[0];
+  
+  // Past shutdown date => shut_down => hidden
+  if (shutdownDate < utcToday) {
+    return false;
+  }
+  
+  // Today or future => deprecating => visible
+  return true;
+}
 
-const feedsRegistryPath = path.join(__dirname, 'data/registry.json');
-const feedsRegistry = JSON.parse(fs.readFileSync(feedsRegistryPath, 'utf8'));
+// Export for testing
+export { isFeedVisible };
+
+// Only run main code if executed directly (not imported)
+import { pathToFileURL } from 'url';
+const isDirectExecution = import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href;
+
+if (isDirectExecution) {
+  // Read mainnet registries from frontend/data/
+  const ccipRegistryPath = path.join(__dirname, 'data/ccip_registry.json');
+  const ccipRegistry = JSON.parse(fs.readFileSync(ccipRegistryPath, 'utf8'));
+
+  const feedsRegistryPath = path.join(__dirname, 'data/registry.json');
+  const feedsRegistry = JSON.parse(fs.readFileSync(feedsRegistryPath, 'utf8'));
 
 // Read testnet registries from frontend/data/
 const ccipRegistryTestnetPath = path.join(__dirname, 'data/ccip_registry_testnet.json');
 const ccipRegistryTestnet = JSON.parse(fs.readFileSync(ccipRegistryTestnetPath, 'utf8'));
+
 
 const feedsRegistryTestnetPath = path.join(__dirname, 'data/registry_testnet.json');
 const feedsRegistryTestnet = JSON.parse(fs.readFileSync(feedsRegistryTestnetPath, 'utf8'));
@@ -51,13 +92,15 @@ for (const [chainId, network] of Object.entries(feedsRegistry.networks)) {
     changefreq: 'daily'
   });
   
-  // Add individual feed pages
-  for (const feedSlug of Object.keys(network.feeds)) {
-    feedPages.push({
-      url: `/feeds/${chainId}/${feedSlug}`,
-      priority: 0.7,
-      changefreq: 'daily'
-    });
+  // Add individual feed pages (exclude shut_down feeds)
+  for (const [feedSlug, feedMeta] of Object.entries(network.feeds)) {
+    if (isFeedVisible(feedMeta)) {
+      feedPages.push({
+        url: `/feeds/${chainId}/${feedSlug}`,
+        priority: 0.7,
+        changefreq: 'daily'
+      });
+    }
   }
 }
 
@@ -69,13 +112,15 @@ for (const [chainId, network] of Object.entries(feedsRegistryTestnet.networks)) 
     changefreq: 'daily'
   });
   
-  // Add individual feed pages
-  for (const feedSlug of Object.keys(network.feeds)) {
-    feedPages.push({
-      url: `/feeds/${chainId}/${feedSlug}`,
-      priority: 0.7,
-      changefreq: 'daily'
-    });
+  // Add individual feed pages (exclude shut_down feeds)
+  for (const [feedSlug, feedMeta] of Object.entries(network.feeds)) {
+    if (isFeedVisible(feedMeta)) {
+      feedPages.push({
+        url: `/feeds/${chainId}/${feedSlug}`,
+        priority: 0.7,
+        changefreq: 'daily'
+      });
+    }
   }
 }
 
@@ -138,9 +183,10 @@ ${feedPages.map(page => `  <url>
 </urlset>
 `;
 
-// Write sitemap
-const outputPath = path.join(__dirname, 'public/sitemap.xml');
-fs.writeFileSync(outputPath, sitemap);
-console.log(`Sitemap generated: ${outputPath}`);
-console.log(`Total URLs: ${lanes.length + feedPages.length + 8}`);
+  // Write sitemap
+  const outputPath = path.join(__dirname, 'public/sitemap.xml');
+  fs.writeFileSync(outputPath, sitemap);
+  console.log(`Sitemap generated: ${outputPath}`);
+  console.log(`Total URLs: ${lanes.length + feedPages.length + 8}`);
+}
 

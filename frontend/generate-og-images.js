@@ -46,7 +46,10 @@ const createOGImage = async (title, subtitle, filename) => {
   const outputPath = path.join(__dirname, 'public', filename);
   
   await sharp(Buffer.from(svg))
-    .png()
+    .png({
+      compressionLevel: 9,
+      effort: 10
+    })
     .toFile(outputPath);
   
   console.log(`Generated: ${outputPath}`);

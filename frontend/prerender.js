@@ -12,13 +12,53 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Read mainnet registries from frontend/data/
-const feedsRegistry = JSON.parse(fs.readFileSync(path.join(__dirname, 'data/registry.json'), 'utf8'));
-const ccipRegistry = JSON.parse(fs.readFileSync(path.join(__dirname, 'data/ccip_registry.json'), 'utf8'));
+/**
+ * Check if a feed should be included in prerendered pages.
+ * Drops feeds with past shutdown dates (shut_down status).
+ * Keeps active and deprecating feeds (future/today shutdown dates or no shutdown date).
+ * 
+ * Malformed dates (non-ISO YYYY-MM-DD format) are treated as immediate shutdown (hidden).
+ */
+function isFeedVisible(feed) {
+  const shutdownDate = feed.shutdown_date;
+  if (!shutdownDate) {
+    // No shutdown date => visible
+    return true;
+  }
+  
+  // Validate strict ISO YYYY-MM-DD format
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(shutdownDate)) {
+    // Malformed date (e.g. 'garbage', 'TBD', '2026-6-3') => treat as immediate shutdown
+    return false;
+  }
+  
+  // Get UTC today in YYYY-MM-DD format
+  const utcToday = new Date().toISOString().split('T')[0];
+  
+  // Past shutdown date => shut_down => hidden
+  if (shutdownDate < utcToday) {
+    return false;
+  }
+  
+  // Today or future => deprecating => visible
+  return true;
+}
 
-// Read testnet registries from frontend/data/
-const feedsRegistryTestnet = JSON.parse(fs.readFileSync(path.join(__dirname, 'data/registry_testnet.json'), 'utf8'));
-const ccipRegistryTestnet = JSON.parse(fs.readFileSync(path.join(__dirname, 'data/ccip_registry_testnet.json'), 'utf8'));
+// Export for testing
+export { isFeedVisible };
+
+// Only run main code if executed directly (not imported)
+import { pathToFileURL } from 'url';
+const isDirectExecution = import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href;
+
+if (isDirectExecution) {
+  // Read mainnet registries from frontend/data/
+  const feedsRegistry = JSON.parse(fs.readFileSync(path.join(__dirname, 'data/registry.json'), 'utf8'));
+  const ccipRegistry = JSON.parse(fs.readFileSync(path.join(__dirname, 'data/ccip_registry.json'), 'utf8'));
+
+  // Read testnet registries from frontend/data/
+  const feedsRegistryTestnet = JSON.parse(fs.readFileSync(path.join(__dirname, 'data/registry_testnet.json'), 'utf8'));
+  const ccipRegistryTestnet = JSON.parse(fs.readFileSync(path.join(__dirname, 'data/ccip_registry_testnet.json'), 'utf8'));
 
 // Read the built index.html template
 const distPath = path.join(__dirname, 'dist');
@@ -237,6 +277,11 @@ for (const [chainId, network] of Object.entries(feedsRegistryTestnet.networks)) 
 // 5. Individual feed pages (mainnet + testnet)
 for (const [chainId, network] of Object.entries(feedsRegistry.networks)) {
   for (const [feedSlug, feed] of Object.entries(network.feeds)) {
+    // Skip shut_down feeds (past shutdown dates)
+    if (!isFeedVisible(feed)) {
+      continue;
+    }
+    
     const jsonLd = {
       '@context': 'https://schema.org',
       '@type': 'DataFeed',
@@ -265,6 +310,11 @@ for (const [chainId, network] of Object.entries(feedsRegistry.networks)) {
 
 for (const [chainId, network] of Object.entries(feedsRegistryTestnet.networks)) {
   for (const [feedSlug, feed] of Object.entries(network.feeds)) {
+    // Skip shut_down feeds (past shutdown dates)
+    if (!isFeedVisible(feed)) {
+      continue;
+    }
+    
     const jsonLd = {
       '@context': 'https://schema.org',
       '@type': 'DataFeed',
@@ -309,10 +359,16 @@ const notFoundHtml = injectMetaTags(template, {
 fs.writeFileSync(path.join(distPath, '404.html'), notFoundHtml);
 fileCount++;
 
-console.log(`✅ Prerendered ${fileCount} HTML files`);
-console.log(`   - ${productPages.length} product pages`);
-console.log(`   - ${ccipLanes.length} CCIP lane pages`);
-console.log(`   - ${Object.keys(feedsRegistry.networks).length + 1} feed index pages`);
-console.log(`   - ${Object.values(feedsRegistry.networks).reduce((sum, n) => sum + Object.keys(n.feeds).length, 0)} individual feed pages`);
-console.log(`   - 1 operators page`);
-console.log(`   - 1 404 page`);
+  console.log(`✅ Prerendered ${fileCount} HTML files`);
+  console.log(`   - ${productPages.length} product pages`);
+  console.log(`   - ${ccipLanes.length} CCIP lane pages`);
+  console.log(`   - ${Object.keys(feedsRegistry.networks).length + 1} feed index pages`);
+  // Count filtered feeds (mainnet + testnet)
+  const mainnetFilteredCount = Object.values(feedsRegistry.networks).reduce((sum, n) => 
+    sum + Object.values(n.feeds).filter(isFeedVisible).length, 0);
+  const testnetFilteredCount = Object.values(feedsRegistryTestnet.networks).reduce((sum, n) => 
+    sum + Object.values(n.feeds).filter(isFeedVisible).length, 0);
+  console.log(`   - ${mainnetFilteredCount + testnetFilteredCount} individual feed pages`);
+  console.log(`   - 1 operators page`);
+  console.log(`   - 1 404 page`);
+}

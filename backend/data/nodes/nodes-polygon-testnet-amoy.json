@@ -1,0 +1,1516 @@
+[
+ {
+  "id": "cl-auto-polygon-amoy-0",
+  "website": "",
+  "name": "Polygon Amoy Testnet Automation Node 0",
+  "status": "active",
+  "nodeAddress": [
+   "0x1ea090f99E6C7A3588F64f8BA5E059e63B086109"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Polygon Amoy Testnet Automation Node 0",
+    "nodeAddress": "0x1ea090f99E6C7A3588F64f8BA5E059e63B086109",
+    "publicKey": "50c4a0a638764fc8af76ee47cf92c22361788b270e243861db72af1f6f46fb78"
+   }
+  ],
+  "payeeAddress": "0x5B0d46032e47939173b287c3BF594ff7Db75c1ca",
+  "peerId": [
+   "12D3KooWRPUjxH9UbHdXuyaoFqJ812frgNYpLkSqkbwvhQjWA95j"
+  ],
+  "ocr2Id": [
+   "d854e7796b82eebfd00295e3edf6bc9f9bb1b6da17dbc7267314e075771eb134"
+  ],
+  "ocr2ConfigPublicKey": [
+   "ocr2cfg_evm_3629394011d6b440ed86865ab6131760769e9f251ab268e4a327ffbf086e5e33"
+  ],
+  "ocr2OffchainPublicKey": [
+   "ocr2off_evm_c0e9ad94a134d23f7fba92defef6a701efdcd5bfceabfcfc19b547baf995b6ba"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_a49530acf4f94c8e1f3813af582188691883b649"
+  ]
+ },
+ {
+  "id": "cl-auto-polygon-amoy-1",
+  "website": "",
+  "name": "Polygon Amoy Testnet Automation Node 1",
+  "status": "active",
+  "nodeAddress": [
+   "0xf1e58F7EBB4a28A693ABF9F9A4B35784721E317d"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Polygon Amoy Testnet Automation Node 1",
+    "nodeAddress": "0xf1e58F7EBB4a28A693ABF9F9A4B35784721E317d",
+    "publicKey": "b16afb28c4195dc6fc149d3a05534c68ac609f49cd7503733069537d21a77c16"
+   }
+  ],
+  "payeeAddress": "0x5B0d46032e47939173b287c3BF594ff7Db75c1ca",
+  "peerId": [
+   "12D3KooWPb9FPooTNQmB3ifT74cSXamFZKAbriAQ1kDG12Df9GK9"
+  ],
+  "ocr2Id": [
+   "bdb9106c6d8327b61e6e547d326b6d131a466db0b35cd0f11d5fa918f958f34b"
+  ],
+  "ocr2ConfigPublicKey": [
+   "ocr2cfg_evm_cd68787a22be4d1f4f60469bb0784e7942e263a97fc7b40dee28f1c21c2ab419"
+  ],
+  "ocr2OffchainPublicKey": [
+   "ocr2off_evm_4d235278a67a41ff05f5d024ee0c6803fadcad81c8adbd4850ad36130d03292b"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_f10ada6137c5e00f30018241dc2e3de470f7cc24"
+  ]
+ },
+ {
+  "id": "cl-auto-polygon-amoy-2",
+  "website": "",
+  "name": "Polygon Amoy Testnet Automation Node 2",
+  "status": "active",
+  "nodeAddress": [
+   "0xa6103b1353dD54a7bcFd9aA5F048739Ae872b107"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Polygon Amoy Testnet Automation Node 2",
+    "nodeAddress": "0xa6103b1353dD54a7bcFd9aA5F048739Ae872b107",
+    "publicKey": "066ebe12869a153ce15d53b791b52c4003e17c474f0ed22e8ca3d875fb614917"
+   }
+  ],
+  "payeeAddress": "0x5B0d46032e47939173b287c3BF594ff7Db75c1ca",
+  "peerId": [
+   "12D3KooWFhq8MZWZpRPU2B2C8wnMeuct5VwrgwqzeMvpqo2mVYo7"
+  ],
+  "ocr2Id": [
+   "7d228ebe164577bb701e7fe0b291b77ffe1564c3ae828eb1388f8f201950c248"
+  ],
+  "ocr2ConfigPublicKey": [
+   "ocr2cfg_evm_a73ef93ef9201c3939830a48c71b89d58c846e40ad56acc9e8cadb4865c84972"
+  ],
+  "ocr2OffchainPublicKey": [
+   "ocr2off_evm_a83e4a0bbd7dd8c10d79c04943b75299e790bfa04d2c017710079665aa7c5e26"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_bec33048a7cda4c99d7149e3f2c1fa6e96137b85"
+  ]
+ },
+ {
+  "id": "cl-auto-polygon-amoy-3",
+  "website": "",
+  "name": "Polygon Amoy Testnet Automation Node 3",
+  "status": "active",
+  "nodeAddress": [
+   "0xE361047B32957989e2db76913A124B9B459e4496"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Polygon Amoy Testnet Automation Node 3",
+    "nodeAddress": "0xE361047B32957989e2db76913A124B9B459e4496",
+    "publicKey": "ec27da68b22f87a4f6b94197f37b84d022a8b84579ea3ed11005277e6f8bf163"
+   }
+  ],
+  "payeeAddress": "0x5B0d46032e47939173b287c3BF594ff7Db75c1ca",
+  "peerId": [
+   "12D3KooWQYMSZgXbBrzSsFfr7NS8u9ZsTwJhk6zJvEUKyLWEZyCa"
+  ],
+  "ocr2Id": [
+   "b20f7815adf55ec25ca5a81e06d823b77309ba4d5b632f67cc2f5dc8e0186d9a"
+  ],
+  "ocr2ConfigPublicKey": [
+   "ocr2cfg_evm_7462986369bfcdf7ab2e7444d8b758e2dc06f44fdacf67f188d0ff5905adf60d"
+  ],
+  "ocr2OffchainPublicKey": [
+   "ocr2off_evm_fd8322aac3e537e4dc892c94b657600ffc4d6e4b8e07ce67c73c0aaaf32cf7e6"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_f21209bcb6d90ed3d73f7114e8470646e11c9424"
+  ]
+ },
+ {
+  "id": "cl-auto-polygon-amoy-stage-0",
+  "website": "",
+  "name": "Polygon Amoy Testnet Automation Staging Node 0",
+  "status": "active",
+  "nodeAddress": [
+   "0xd2239Da4DC9BE14d1208fc97F462702715619200"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Polygon Amoy Testnet Automation Staging Node 0",
+    "nodeAddress": "0xd2239Da4DC9BE14d1208fc97F462702715619200",
+    "publicKey": "8446e9e150cd53917c07f70a121d632d9bef17d5181fb3ec9c7420e179404310"
+   }
+  ],
+  "payeeAddress": "0x26c59D687A0d61a86D2969C377c77B06005aA9D1",
+  "peerId": [
+   "12D3KooWCQTEAYfhXGXZbyqUo61oubUJroNn5121RM4WHQfHL3wN"
+  ],
+  "ocr2Id": [
+   "fc53ff24292375cdebe01fff9244a254451163dbfb04ec344732058ab0ed60fe"
+  ],
+  "ocr2ConfigPublicKey": [
+   "ocr2cfg_evm_5fc87ae06ca35d2d5443413e3f82957132f82db0a252f424e9cf34c5f343a402"
+  ],
+  "ocr2OffchainPublicKey": [
+   "ocr2off_evm_94db61d4c58671fd3f554a4bbf8ee26bb1129319531811b1038a493b3e7dcd69"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_f2e3327e6846e743e3009e7b5b40479a1c9b5b8f"
+  ]
+ },
+ {
+  "id": "cl-auto-polygon-amoy-stage-1",
+  "website": "",
+  "name": "Polygon Amoy Testnet Automation Staging Node 1",
+  "status": "active",
+  "nodeAddress": [
+   "0xe6730286B4AAed27EA17e988a453061Fe2090Bc2"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Polygon Amoy Testnet Automation Staging Node 1",
+    "nodeAddress": "0xe6730286B4AAed27EA17e988a453061Fe2090Bc2",
+    "publicKey": "526ad3e8d1c8db62f7c4f00bf5041ed888f6531a65df09d8e7e7836cd399bf4d"
+   }
+  ],
+  "payeeAddress": "0x26c59D687A0d61a86D2969C377c77B06005aA9D1",
+  "peerId": [
+   "12D3KooWSkC3VhdsFyH4kFrpupPUfbuNcasZB3vgTgbnYzVJ1UHW"
+  ],
+  "ocr2Id": [
+   "5c1ec376e92456afc00479d41b3da90c2fd7df2a9f45f50462b5526d442b29c7"
+  ],
+  "ocr2ConfigPublicKey": [
+   "ocr2cfg_evm_62e14dddfb376e796c50ca4324f234cb1756036d625ebb2648a7ee9e7e47c20c"
+  ],
+  "ocr2OffchainPublicKey": [
+   "ocr2off_evm_7bf2d95381ce51b37b33e3abce6ea73ed4c0b1806573357333cd42cf0ac01517"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_71fa161f04cb0379d44aab49e60cb258f78d6a2d"
+  ]
+ },
+ {
+  "id": "cl-auto-polygon-amoy-stage-2",
+  "website": "",
+  "name": "Polygon Amoy Testnet Automation Staging Node 2",
+  "status": "active",
+  "nodeAddress": [
+   "0x717b3ac34767cFfEbc8E6f5A89f8da09dDB52c3C"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Polygon Amoy Testnet Automation Staging Node 2",
+    "nodeAddress": "0x717b3ac34767cFfEbc8E6f5A89f8da09dDB52c3C",
+    "publicKey": "83994a7251147c0391561c9f3023faca3ee6e88de3fff10a3b6e5a370ce2d527"
+   }
+  ],
+  "payeeAddress": "0x26c59D687A0d61a86D2969C377c77B06005aA9D1",
+  "peerId": [
+   "12D3KooWGZbTNvcKbwrrcysbWgZvhxYLF36wrM2pgeTTVeYpwvAX"
+  ],
+  "ocr2Id": [
+   "9eebe740d9ad95119bd0e88692e4483376082916bcaeb0f596c97e9a681b12ac"
+  ],
+  "ocr2ConfigPublicKey": [
+   "ocr2cfg_evm_0ccd677ef0489b3c4ae9ddb53709e2e2de636547207311d7680a62cacc069a63"
+  ],
+  "ocr2OffchainPublicKey": [
+   "ocr2off_evm_9826d588c34137b301975f0d07e80b3007be25aabce042c12c19504d1fa01793"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_8912f1039385df1c1ba3196f8820e9f63627aad4"
+  ]
+ },
+ {
+  "id": "cl-auto-polygon-amoy-stage-3",
+  "website": "",
+  "name": "Polygon Amoy Testnet Automation Staging Node 3",
+  "status": "active",
+  "nodeAddress": [
+   "0x5cf812B74775Fd8438535738ec14e4F612E3B36F"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Polygon Amoy Testnet Automation Staging Node 3",
+    "nodeAddress": "0x5cf812B74775Fd8438535738ec14e4F612E3B36F",
+    "publicKey": "bdf1e5ed5feed10086343f97a576391e06dbfc912a01c168f598524d9ca1b98c"
+   }
+  ],
+  "payeeAddress": "0x26c59D687A0d61a86D2969C377c77B06005aA9D1",
+  "peerId": [
+   "12D3KooWCBaqDFgcsm7mDQiM4oMZiHZ4Y2iBK8VNLsmmCs5mCqY2"
+  ],
+  "ocr2Id": [
+   "103c500d0ccdd877a148948cd8372b2dd7feae43ded88a7a89b9593be6148a88"
+  ],
+  "ocr2ConfigPublicKey": [
+   "ocr2cfg_evm_443bb98fdcf7cf25d6b3bd3ce8e0974d7f8fdf45e9a3511860adb81a101f004e"
+  ],
+  "ocr2OffchainPublicKey": [
+   "ocr2off_evm_c1d2027daa81d6a62ea5cd5f2e71ea2b1d86a569f0b703e42be763b6ca50a856"
+  ],
+  "ocr2OnchainPublicKey": [
+   "ocr2on_evm_f7880a8f67bc27bb45e9d342f676b67a52859b16"
+  ]
+ },
+ {
+  "id": "ocr-polygon-amoy-0",
+  "website": "",
+  "name": "ocr-polygon-amoy-0",
+  "status": "active",
+  "nodeAddress": [
+   "0x32df61d9074e3A1c63FcfDb034C12c58c4e75e3D"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Chainlink Testnet (0) ocr-polygon-amoy-0 OCR",
+    "nodeAddress": "0x32df61d9074e3A1c63FcfDb034C12c58c4e75e3D",
+    "publicKey": "8ac0789835532c329116ee09bb4670244d398dd03539b4ecf9acf8123a2ea5f6"
+   }
+  ],
+  "peerId": [
+   "12D3KooWGjdqH7CdTJJvbKhNC8XwczJp8uFMNEwqPc9iHEqgmpd3"
+  ]
+ },
+ {
+  "id": "ocr-polygon-amoy-1",
+  "website": "",
+  "name": "ocr-polygon-amoy-1",
+  "status": "active",
+  "nodeAddress": [
+   "0x75d83D2cdc9CBe12F4192725C47A54330cD535f8"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Chainlink Testnet (1) ocr-polygon-amoy-1 OCR",
+    "nodeAddress": "0x75d83D2cdc9CBe12F4192725C47A54330cD535f8",
+    "publicKey": "47d39f82d73643dcd7739c798df31ae249ee2569edcd2fe060cf08d22ab9dc30"
+   }
+  ],
+  "peerId": [
+   "12D3KooWPdYg3QaS1YSFwz1adfGMDhbpHii4pB7gAen3bKTDndcV"
+  ]
+ },
+ {
+  "id": "ocr-polygon-amoy-2",
+  "website": "",
+  "name": "ocr-polygon-amoy-2",
+  "status": "active",
+  "nodeAddress": [
+   "0x430E630776C3a363728E6529854deA5603925cD2"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Chainlink Testnet (2) ocr-polygon-amoy-2 OCR",
+    "nodeAddress": "0x430E630776C3a363728E6529854deA5603925cD2",
+    "publicKey": "c64fac3612fb0cbdd463d35e4d842771f938514cbc734b06f17d5297c357811b"
+   }
+  ],
+  "peerId": [
+   "12D3KooWPMhR4rsSmcCUgRq4ct7q7u9zjyvLVF1CTRf7SLFTCmyo"
+  ]
+ },
+ {
+  "id": "ocr-polygon-amoy-3",
+  "website": "",
+  "name": "ocr-polygon-amoy-3",
+  "status": "active",
+  "nodeAddress": [
+   "0x0e8785A63852b789256Ce69Fc8C2A53cdDbB6b27"
+  ],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Chainlink Testnet (3) ocr-polygon-amoy-3 OCR",
+    "nodeAddress": "0x0e8785A63852b789256Ce69Fc8C2A53cdDbB6b27",
+    "publicKey": "320f570357a98b6e4b52a1dd7d8fad6f0e5b6ef7ed2911e66035b3e8bf159744"
+   }
+  ],
+  "peerId": [
+   "12D3KooWDMqnyRsfYZsD23tP1oMioXc7WjeMR2cAZfGNr47m3o8R"
+  ]
+ },
+ {
+  "id": "temp-ccip-infra-testnet-0",
+  "website": "",
+  "name": "infra-testnet-0",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIP Infra Testnet 0",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "5ff6fdab98a77bc190e3f297d3fe0bb2a4f0257fcaccbd2d1a251e04a361e43c"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-infra-testnet-1",
+  "website": "",
+  "name": "infra-testnet-1",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIP Infra Testnet 1",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "3b84081c73591a871c223b7763203d40026bad5ee1f139ad641c5d662821cdcc"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-infra-testnet-10",
+  "website": "",
+  "name": "infra-testnet-10",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIP Infra Testnet 10",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "115cfa1585db147c50f71cd258da1aa2cea1f078d5a968365c932e618fc4db84"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-infra-testnet-11",
+  "website": "",
+  "name": "infra-testnet-11",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIP Infra Testnet 11",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "c506ca61018b31a1e5e4ccdf3604fa7eba3a59c074ce4b8fcc9596f49f79f33d"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-infra-testnet-12",
+  "website": "",
+  "name": "infra-testnet-12",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIP Infra Testnet 12",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "1e6607eec2270143f6c8e2b15ed958c9aeb80369577428ee9a9cfb72df98c731"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-infra-testnet-13",
+  "website": "",
+  "name": "infra-testnet-13",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIP Infra Testnet 13",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "18c0b7cfbbde5e19b2bd40ba7318d291d3bda46e764415325ab6b9f9a8e03999"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-infra-testnet-14",
+  "website": "",
+  "name": "infra-testnet-14",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIP Infra Testnet 14",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "b4510ff1f37073a071d178dd95a98dccca7c297e04bda5a28c19f7b17bbdbaa8"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-infra-testnet-15",
+  "website": "",
+  "name": "infra-testnet-15",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIP Infra Testnet 15",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "9f15e4a74f96f2131cdfc787435db317f8388a403ac50612ed1632bf36580ad9"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-infra-testnet-2",
+  "website": "",
+  "name": "infra-testnet-2",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIP Infra Testnet 2",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "504313038207ea9b44c3a77819bdcd013f78c3141e588c297c2fca6d64074def"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-infra-testnet-3",
+  "website": "",
+  "name": "infra-testnet-3",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIP Infra Testnet 3",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "c11886df8c0f03c80c2c1f7c4d322fe3e85d592848712c0f57754a89c3de38e7"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-infra-testnet-4",
+  "website": "",
+  "name": "infra-testnet-4",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIP Infra Testnet 4",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "08af2fa51631c018d7eec03f260ea653784388b83c972a83e68886e0c1c309df"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-infra-testnet-5",
+  "website": "",
+  "name": "infra-testnet-5",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIP Infra Testnet 5",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "171cd4dc1b2964ff957e551609c544d344b46021dea147fc106b93425f77635c"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-infra-testnet-6",
+  "website": "",
+  "name": "infra-testnet-6",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIP Infra Testnet 6",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "338ca504771657d75be2197c48191f7ee3ca2304e41085f0f36ebc9a079fd56f"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-infra-testnet-7",
+  "website": "",
+  "name": "infra-testnet-7",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIP Infra Testnet 7",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "8a29dfe5806d4a3db2bd097ed5746ff84469cd089eac325f74f577e67d8a5331"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-infra-testnet-8",
+  "website": "",
+  "name": "infra-testnet-8",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIP Infra Testnet 8",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "65b06afaa24d976fe39109aa1de734e1b63178f9041edd217736731adb552f3d"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-infra-testnet-9",
+  "website": "",
+  "name": "infra-testnet-9",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIP Infra Testnet 9",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "9f07a995125edf7a0bf33276fe44f5daa22f7000fc3f79c92c987873af020ca9"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-v2-prod-0",
+  "website": "",
+  "name": "ccip-prod-0",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIPv2 Prod 0",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "3c635d2449feaced27af2b637e48b4a03ad12ed1892d66accfd349e96b77ee1c"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-v2-prod-0-bt",
+  "website": "",
+  "name": "ccip-prod-0-bt",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIPv2 Prod 0-bt",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "cc928641850dabdd405d0643b45eb44be804521f6479e5f1d9e19ed45cdaffee"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-v2-prod-1",
+  "website": "",
+  "name": "ccip-prod-1",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIPv2 Prod 1",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "e23821cb7d804c419f627e4bd636a5a9a88fbd03a4ad343aa313bbf388da7166"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-v2-prod-10",
+  "website": "",
+  "name": "ccip-prod-10",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIPv2 Prod 10",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "7e0cd6bab6719382cacc41b1991b856cd8c452e57b03497734b8ac8f97693905"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-v2-prod-11",
+  "website": "",
+  "name": "ccip-prod-11",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIPv2 Prod 11",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "542603648594d782c30ef7fa6dc2435bd8227a268c146e6c891fa3817ce07797"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-v2-prod-12",
+  "website": "",
+  "name": "ccip-prod-12",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIPv2 Prod 12",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "01a0bc4ddcaa765bf7318783d343a7717c36a8412e7dbb98640a84a1c01a44af"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-v2-prod-13",
+  "website": "",
+  "name": "ccip-prod-13",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIPv2 Prod 13",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "e141bd418b89b217a0d9853b710ce3301561d979cb943d8dbd1baded9713c716"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-v2-prod-14",
+  "website": "",
+  "name": "ccip-prod-14",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIPv2 Prod 14",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "28294202a2ad1fdec000d23742058435694f460d7742c91152e1dd577c765a5e"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-v2-prod-15",
+  "website": "",
+  "name": "ccip-prod-15",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIPv2 Prod 15",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "7ca6be8ee535577327ce70505029102f6b90d42dcbd5cabdfbd0e0dd00afa76f"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-v2-prod-2",
+  "website": "",
+  "name": "ccip-prod-2",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIPv2 Prod 2",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "e61fcf0657bc9aa131347c9b5249909f500dce4062960bdebf97609240f402e1"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-v2-prod-3",
+  "website": "",
+  "name": "ccip-prod-3",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIPv2 Prod 3",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "a45fdf144e5e49337488dd4c34d27a28469c2e9bc213987a59a887d39f649cf5"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-v2-prod-4",
+  "website": "",
+  "name": "ccip-prod-4",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIPv2 Prod 4",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "6b56626643096ad67162c14b1c7961ccf1ac225872ffb68085be971838a6ac44"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-v2-prod-5",
+  "website": "",
+  "name": "ccip-prod-5",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIPv2 Prod 5",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "bc482f395ec12869d6f78b56d1034fd725dddba2afeffdb9fc2e5e0adb777772"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-v2-prod-6",
+  "website": "",
+  "name": "ccip-prod-6",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIPv2 Prod 6",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "e92ac792b8c93f0a7e2124c39dad9ec7ea009e99d310ee309974416d905869fe"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-v2-prod-7",
+  "website": "",
+  "name": "ccip-prod-7",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIPv2 Prod 7",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "98f3f457dbdc96afa76e24c0093618259cae0eb98d6026734528c6363e768c94"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-v2-prod-8",
+  "website": "",
+  "name": "ccip-prod-8",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIPv2 Prod 8",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "ff633342723e4653483e38ce7d7140575ee426394b290111381dcc3592daf0d1"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-v2-prod-9",
+  "website": "",
+  "name": "ccip-prod-9",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIPv2 Prod 9",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "207df9e6aca56f10121b7aeb466436414a0e967c9645a5f94888ad920db0f315"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-v2-staging-0",
+  "website": "",
+  "name": "staging-0",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIPv2 Staging 0",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "7c4e7b4bec66fe60685c990bbd52ee3b173a14a390b5f27d1145b4dd1ac7dc67"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-v2-staging-0-bt",
+  "website": "",
+  "name": "staging-0-bt",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIPv2 Staging 0 bt",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "806f0a615d28c28b5dc2518fc6ac1fa7dec95215f891cf4deac9b3f1e5466eb3"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-v2-staging-1",
+  "website": "",
+  "name": "staging-1",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIPv2 Staging 1",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "bfce20b5e791c1e2421322e121ce2da141d201183c9c848063d6d00256498846"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-v2-staging-2",
+  "website": "",
+  "name": "staging-2",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIPv2 Staging 2",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "ee8d888411e534cea8d2e94967bb801f5611b14dba2b935d009f490ebf240f5f"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-v2-staging-3",
+  "website": "",
+  "name": "staging-3",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIPv2 Staging 3",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "18720fb4a51bc6f745707f738c54ca4084c379efff5defc4cbaec833f29f31aa"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-v2-staging-4",
+  "website": "",
+  "name": "staging-4",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIPv2 Staging 4",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "b4d2ffd90e10cc73e95cf5daf5c1631fddbd750b1d074475279591348fab410c"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-v2-staging-5",
+  "website": "",
+  "name": "staging-5",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIPv2 Staging 5",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "7c58904a621634cb8ad20feca309d84390a24d72e3befea010d7e8961006ec9a"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-v2-staging-6",
+  "website": "",
+  "name": "staging-6",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "CCIPv2 Staging 6",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "a7b3a23794db70a06171d145f67c2284d23a52d9205835f788cd1c8a76baf3ec"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccv-griddle-staging-0",
+  "website": "",
+  "name": "ccv-griddle-staging-0",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Chainlink CCV Staging 0",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "be7b515dcba8644713ef97b2d13d14a8bb9bd82dae57166db29c406e4e2baa51"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccv-griddle-staging-1",
+  "website": "",
+  "name": "ccv-griddle-staging-1",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Chainlink CCV Staging 1",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "90f6e2c9ff28bac3842795ba8e9376e8ab5caa22f3e2614de7525c06a9df3fa1"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccv-griddle-staging-10",
+  "website": "",
+  "name": "ccv-griddle-staging-10",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Chainlink CCV Staging 10",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "39d25a0b83fe4a3771c958be40bfe4905bd8e822aac82c6a2175d0e2e0fc404d"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccv-griddle-staging-11",
+  "website": "",
+  "name": "ccv-griddle-staging-11",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Chainlink CCV Staging 11",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "49cf72eec5631e17b25d0123495c25fbde1197b8ea883b877856afe4d72f4c51"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccv-griddle-staging-12",
+  "website": "",
+  "name": "ccv-griddle-staging-12",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Chainlink CCV Staging 12",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "5367a745a1563d86f193532c3c879de000f2b6ee9e58059780a7e8e76b79e21f"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccv-griddle-staging-13",
+  "website": "",
+  "name": "ccv-griddle-staging-13",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Chainlink CCV Staging 13",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "7469688cceade61d1b5b31b65b40360835dfe60aea24472abf55bd609d72d59e"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccv-griddle-staging-14",
+  "website": "",
+  "name": "ccv-griddle-staging-14",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Chainlink CCV Staging 14",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "95cc2a5c471fc8eec930e0278cf57b8d94370e90928d6d62fb4780fd5f08d5fa"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccv-griddle-staging-15",
+  "website": "",
+  "name": "ccv-griddle-staging-15",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Chainlink CCV Staging 15",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "3e4a344d80d61148dc234f30a64969f0164d5d6b41c5863dfc0dc0c3b28f0d78"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccv-griddle-staging-16",
+  "website": "",
+  "name": "ccv-griddle-staging-16",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Chainlink CCV Staging 16",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "aeba5c8c6fcf68b3e03453371d3b713dd4813b906069b8e50c3487882883c977"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccv-griddle-staging-17",
+  "website": "",
+  "name": "ccv-griddle-staging-17",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Chainlink CCV Staging 17",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "42f8c9d6c7d81bce5b670006cbb806c2f5d8a21561d5e36e80a21976bd061b9e"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccv-griddle-staging-18",
+  "website": "",
+  "name": "ccv-griddle-staging-18",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Chainlink CCV Staging 18",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "a62b9047b2d78c177348c23e47c8cde94bdd903114c2bee4d374bc66be0e4f4c"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccv-griddle-staging-19",
+  "website": "",
+  "name": "ccv-griddle-staging-19",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Chainlink CCV Staging 19",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "378571a8feedfa8f7cbaccccf73111a74b108703e41656836be2dd2ed7f4c1bb"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccv-griddle-staging-2",
+  "website": "",
+  "name": "ccv-griddle-staging-2",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Chainlink CCV Staging 2",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "79ff7e4178d64f6e7a87f5b7d9df27b6e90dcada6a0c5c33cdf422a3521005dd"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccv-griddle-staging-20",
+  "website": "",
+  "name": "ccv-griddle-staging-20",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Chainlink CCV Staging 20",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "e5671d6d8f89e627f2097acd42600352bcde28d99141867293c5f8d8865a101a"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccv-griddle-staging-3",
+  "website": "",
+  "name": "ccv-griddle-staging-3",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Chainlink CCV Staging 3",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "ba310e8dee96fd13fc07d00d189262d5eb15b084bf87d1ec78aadbad0f679cd5"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccv-griddle-staging-4",
+  "website": "",
+  "name": "ccv-griddle-staging-4",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Chainlink CCV Staging 4",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "c05c438d738afac0f41bd52fd47618b66260272507fa9e51631473f09de9a8d9"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccv-griddle-staging-5",
+  "website": "",
+  "name": "ccv-griddle-staging-5",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Chainlink CCV Staging 5",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "13b8a0e40303ff9730b185da4c17db4bd85f374a0ce4855613ce595704bc8cf7"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccv-griddle-staging-6",
+  "website": "",
+  "name": "ccv-griddle-staging-6",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Chainlink CCV Staging 6",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "11fde00c137fba8c192fcbb8442825eaee9abca05ad5b896380007eaa337c928"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccv-griddle-staging-7",
+  "website": "",
+  "name": "ccv-griddle-staging-7",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Chainlink CCV Staging 7",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "149444e8e9b1dbcc81e8d0f10bfa92ecd1e7a5b8c4322dff62f17ca6179f6004"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccv-griddle-staging-8",
+  "website": "",
+  "name": "ccv-griddle-staging-8",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Chainlink CCV Staging 8",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "15b622172dd092303a8ed00403789fa62f8561abf70448d00cabca3bb44e3bd3"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccv-griddle-staging-9",
+  "website": "",
+  "name": "ccv-griddle-staging-9",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Chainlink CCV Staging 9",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "fc34178bc16262904ff142db15eed49ef782e8bbee2182c00f11eb5e034aa2cb"
+   }
+  ]
+ },
+ {
+  "id": "temp-chainlink-ccv-staging-0",
+  "website": "",
+  "name": "chainlink-ccv-staging-0",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Chainlink CCV Staging 0",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "6511be2bb900f66d6af49d678cdc4a24921a5ef802d1eac6148c73feaddecd0d"
+   }
+  ]
+ },
+ {
+  "id": "temp-chainlink-ccv-staging-1",
+  "website": "",
+  "name": "chainlink-ccv-staging-1",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Chainlink CCV Staging 1",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "62bbab6a0c51265c947df2f51a6b16af93c950e3e014507f489f33c241912036"
+   }
+  ]
+ },
+ {
+  "id": "temp-chainlink-ccv-staging-10",
+  "website": "",
+  "name": "chainlink-ccv-staging-10",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Chainlink CCV Staging 10",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "d08677fcfdb2d6b3baac97f83ed22732b3e3165afe591cf6927fe230dd625615"
+   }
+  ]
+ },
+ {
+  "id": "temp-chainlink-ccv-staging-11",
+  "website": "",
+  "name": "chainlink-ccv-staging-11",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Chainlink CCV Staging 11",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "fb3475391cf8e76e5f9106dab3915a79cd1853960c12cf0a861e0abd99dcb145"
+   }
+  ]
+ },
+ {
+  "id": "temp-chainlink-ccv-staging-12",
+  "website": "",
+  "name": "chainlink-ccv-staging-12",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Chainlink CCV Staging 12",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "45dff40953eb4b8f1d015676ac3f2cac4063668b69b7986cd3ec68844a860b8c"
+   }
+  ]
+ },
+ {
+  "id": "temp-chainlink-ccv-staging-13",
+  "website": "",
+  "name": "chainlink-ccv-staging-13",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Chainlink CCV Staging 13",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "9a8d7e70c7d357a0c2c3394b9043aa356adc7ecd9662576003f8c7c988e8f4ae"
+   }
+  ]
+ },
+ {
+  "id": "temp-chainlink-ccv-staging-14",
+  "website": "",
+  "name": "chainlink-ccv-staging-14",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Chainlink CCV Staging 14",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "876d08ac910a055da004e7d873c50087b43fc060309c20dc14d8d83507f037eb"
+   }
+  ]
+ },
+ {
+  "id": "temp-chainlink-ccv-staging-15",
+  "website": "",
+  "name": "chainlink-ccv-staging-15",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Chainlink CCV Staging 15",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "3f997dbe0c991051a9a05cb3e97942709a730a94772f8fb8581e41edc7627d01"
+   }
+  ]
+ },
+ {
+  "id": "temp-chainlink-ccv-staging-2",
+  "website": "",
+  "name": "chainlink-ccv-staging-2",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Chainlink CCV Staging 2",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "dd6ab1c8ce230765df2a395f5c2f464e4be6c205116ab9cc2f8ec1bd11ea50d4"
+   }
+  ]
+ },
+ {
+  "id": "temp-chainlink-ccv-staging-3",
+  "website": "",
+  "name": "chainlink-ccv-staging-3",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Chainlink CCV Staging 3",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "9923d43763f9447b91f0d65cfead6c9ec3176a0109912d6667193f5441739d58"
+   }
+  ]
+ },
+ {
+  "id": "temp-chainlink-ccv-staging-4",
+  "website": "",
+  "name": "chainlink-ccv-staging-4",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Chainlink CCV Staging 4",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "fa32246f1c9dd10c7ddf62ee2e0aa2e8e845adc6ea2f150cd19e6b6c6e6cc168"
+   }
+  ]
+ },
+ {
+  "id": "temp-chainlink-ccv-staging-5",
+  "website": "",
+  "name": "chainlink-ccv-staging-5",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Chainlink CCV Staging 5",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "e1208ef0bd5d8ccadbe4c644050bf6c48275154653ffada919505ba4e15b11ac"
+   }
+  ]
+ },
+ {
+  "id": "temp-chainlink-ccv-staging-6",
+  "website": "",
+  "name": "chainlink-ccv-staging-6",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Chainlink CCV Staging 6",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "2d27db31c5a0c4a245ef76ba218b66dc54e4a47f9bb5cef6261aad72c64ed524"
+   }
+  ]
+ },
+ {
+  "id": "temp-chainlink-ccv-staging-7",
+  "website": "",
+  "name": "chainlink-ccv-staging-7",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Chainlink CCV Staging 7",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "8b5cfaed505c09a12f87fc615b1578ba9f8513af0b350a1dad62cbb5c584f6b5"
+   }
+  ]
+ },
+ {
+  "id": "temp-chainlink-ccv-staging-8",
+  "website": "",
+  "name": "chainlink-ccv-staging-8",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Chainlink CCV Staging 8",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "d3a16453e24705c70ab7e61eb784eca29e48a63992ac7e37d812ca85049785c6"
+   }
+  ]
+ },
+ {
+  "id": "temp-chainlink-ccv-staging-9",
+  "website": "",
+  "name": "chainlink-ccv-staging-9",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "Chainlink CCV Staging 9",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "5eedbd4ae5046dcc547161d397880e85552284432cc9e9233616807f8ef7b971"
+   }
+  ]
+ }
+]
