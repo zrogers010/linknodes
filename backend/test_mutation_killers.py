@@ -41,11 +41,13 @@ def test_nodes_files_exist():
     # Create temp directories for test
     with tempfile.TemporaryDirectory() as tmp_dir:
         tmp_path = Path(tmp_dir)
-        staged_dir = tmp_path / "staged"
+        mainnet_staged = tmp_path / "mainnet_staged"
+        testnet_staged = tmp_path / "testnet_staged"
         dest_dir = tmp_path / "nodes"
-        staged_dir.mkdir()
+        mainnet_staged.mkdir()
+        testnet_staged.mkdir()
         
-        # Create staged nodes files (including testnet)
+        # Create staged nodes files
         mainnet_files = {
             "nodes-mainnet.json": [{"id": "op1", "name": "Operator 1"}],
             "nodes-matic-mainnet.json": [{"id": "op2", "name": "Operator 2"}],
@@ -55,13 +57,19 @@ def test_nodes_files_exist():
             "nodes-sepolia.json": [{"id": "op4", "name": "Operator 4"}],
             "nodes-avalanche-fuji-testnet.json": [{"id": "op5", "name": "Operator 5"}],
         }
-        all_files = {**mainnet_files, **testnet_files}
         
-        for filename, content in all_files.items():
-            (staged_dir / filename).write_text(json.dumps(content))
+        for filename, content in mainnet_files.items():
+            (mainnet_staged / filename).write_text(json.dumps(content))
         
-        # Call the real nodes writer
-        write_nodes(staged_dir, dest_dir)
+        for filename, content in testnet_files.items():
+            (testnet_staged / filename).write_text(json.dumps(content))
+        
+        # Call the real nodes writer (now takes both mainnet and testnet dirs)
+        write_nodes(mainnet_staged, testnet_staged, dest_dir)
+        
+        # Destination might be a symlink, resolve it
+        if dest_dir.is_symlink():
+            dest_dir = dest_dir.resolve()
         
         # Verify all mainnet files were copied
         for filename in mainnet_files.keys():
@@ -74,12 +82,13 @@ def test_nodes_files_exist():
         # Explicitly verify testnet files were copied (kills "skip testnet" mutant)
         for filename in testnet_files.keys():
             dest_file = dest_dir / filename
-            assert dest_file.exists(), f"Testnet file {filename} should be created"
-            assert dest_file.stat().st_size > 0, f"Testnet file {filename} should be non-empty"
+            assert dest_file.exists(), f"{filename} should be created (testnet)"
+            assert dest_file.stat().st_size > 0, f"{filename} should be non-empty (testnet)"
             content = json.loads(dest_file.read_text())
             assert len(content) > 0, f"Testnet file {filename} should have content"
         
-    print(f"✓ Nodes writer created {len(all_files)} files (including {len(testnet_files)} testnet)")
+    total_files = len(mainnet_files) + len(testnet_files)
+    print(f"✓ Nodes writer created {total_files} files (including {len(testnet_files)} testnet)")
 
 
 def test_testnet_failure_leaves_mainnet_unchanged():

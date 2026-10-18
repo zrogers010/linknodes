@@ -231,18 +231,26 @@ def compute_feed_status(category: str | None, shutdown_date_iso: str | None, utc
     
     Args:
         category: Feed category from RDD
-        shutdown_date_iso: Shutdown date in ISO YYYY-MM-DD format
+        shutdown_date_iso: Shutdown date in ISO YYYY-MM-DD format (must be valid)
         utc_now: Current UTC date for testing (format: YYYY-MM-DD). If None, uses today.
     
     Returns:
-        - "shut_down" if shutdown_date is in the past
+        - "shut_down" if shutdown_date is in the past OR malformed
         - "deprecating" if shutdown_date is today/future OR category is deprecating
         - "active" otherwise
     """
     if shutdown_date_iso:
         from datetime import datetime, timezone
+        import re
+        
         if utc_now is None:
             utc_now = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+        
+        # Validate ISO YYYY-MM-DD format
+        # Malformed dates are treated as hidden (fail closed)
+        if not re.match(r'^\d{4}-\d{2}-\d{2}$', shutdown_date_iso):
+            # Malformed date -> treat as immediately shut down (hidden)
+            return "shut_down"
         
         # Compare dates as strings (YYYY-MM-DD format sorts correctly)
         if shutdown_date_iso < utc_now:
@@ -357,45 +365,79 @@ def validate_source_data(feeds: list, nodes: list, network_label: str) -> None:
             )
 
 
-def write_nodes(staged_dir: Path, dest_dir: Path) -> None:
+def write_nodes(mainnet_staged_dir: Path, testnet_staged_dir: Path, dest_dir: Path) -> None:
     """Write staged nodes files to destination directory atomically.
     
-    Stages all files in a temp directory first, then swaps the entire directory.
-    The old set stays intact if any copy fails.
+    Combines mainnet and testnet files into one staging area, then uses symlink flip
+    for atomic swap. The old set stays intact until the new one is in place.
     
     Args:
-        staged_dir: Path to directory containing staged .json files
+        mainnet_staged_dir: Path to directory containing staged mainnet .json files
+        testnet_staged_dir: Path to directory containing staged testnet .json files  
         dest_dir: Path to destination nodes directory
     """
     import tempfile
+    import time
     
     dest_dir.mkdir(parents=True, exist_ok=True)
     
-    # Create temporary directory for atomic swap
+    # Create temporary directory for combined staging (mainnet + testnet)
     with tempfile.TemporaryDirectory(dir=dest_dir.parent) as tmpdir:
-        temp_dest = Path(tmpdir) / "nodes_staging"
-        temp_dest.mkdir()
+        temp_combined = Path(tmpdir) / "nodes_combined"
+        temp_combined.mkdir()
         
-        # Copy all files to temp directory first
-        for staged_file in staged_dir.glob("*.json"):
-            dest = temp_dest / staged_file.name
+        # Copy all mainnet files to combined staging
+        for staged_file in mainnet_staged_dir.glob("*.json"):
+            dest = temp_combined / staged_file.name
             shutil.copy2(staged_file, dest)
         
-        # Atomically swap: rename old dir out of the way, rename new dir in place, remove old
-        old_dir = dest_dir.parent / f"{dest_dir.name}.old"
+        # Copy all testnet files to combined staging  
+        for staged_file in testnet_staged_dir.glob("*.json"):
+            dest = temp_combined / staged_file.name
+            shutil.copy2(staged_file, dest)
         
-        # Remove any leftover .old directory from previous runs
-        if old_dir.exists():
-            shutil.rmtree(old_dir)
+        # Atomic swap using symlink
+        # Current structure: data/nodes -> actual directory
+        # New structure: data/nodes -> nodes.<timestamp>, atomically flipped
         
-        # Atomic swap
-        if dest_dir.exists():
-            dest_dir.rename(old_dir)
-        temp_dest.rename(dest_dir)
+        timestamp = str(int(time.time()))
+        new_target = dest_dir.parent / f"nodes.{timestamp}"
+        symlink_path = dest_dir.parent / "nodes"
         
-        # Clean up old directory
-        if old_dir.exists():
-            shutil.rmtree(old_dir)
+        # Rename combined staging to timestamped target
+        temp_combined.rename(new_target)
+        
+        # Atomic symlink swap
+        if symlink_path.is_symlink():
+            # Get old target before replacing symlink
+            try:
+                old_target = symlink_path.resolve()
+            except Exception:
+                old_target = None
+            
+            # Create new symlink pointing to new target
+            temp_symlink = dest_dir.parent / f"nodes.tmp.{timestamp}"
+            temp_symlink.symlink_to(new_target.name)
+            
+            # Atomic replace of symlink
+            temp_symlink.replace(symlink_path)
+            
+            # Clean up old target after successful swap
+            if old_target and old_target.exists() and old_target != new_target:
+                shutil.rmtree(old_target, ignore_errors=True)
+        else:
+            # First time: dest_dir exists as regular directory
+            # Move it to backup, create symlink
+            if dest_dir.exists() and not dest_dir.is_symlink():
+                old_backup = dest_dir.parent / f"nodes.old.{timestamp}"
+                dest_dir.rename(old_backup)
+            
+            # Create symlink
+            symlink_path.symlink_to(new_target.name)
+            
+            # Clean up old backup
+            if old_backup.exists():
+                shutil.rmtree(old_backup, ignore_errors=True)
 
 
 def link_svr_variants(feeds: dict[str, dict]) -> None:
@@ -608,10 +650,9 @@ def main() -> None:
         os.replace(tmp_mainnet, mainnet_path)
         os.replace(tmp_testnet, testnet_path)
         
-        # Write nodes files atomically
+        # Write nodes files atomically (combined mainnet + testnet in single swap)
         nodes_dir = backend_dir / "data" / "nodes"
-        write_nodes(mainnet_temp_dir, nodes_dir)
-        write_nodes(testnet_temp_dir, nodes_dir)
+        write_nodes(mainnet_temp_dir, testnet_temp_dir, nodes_dir)
         
         print(f"✓ Wrote {mainnet_path.name}: {mainnet_total} feeds across {len(MAINNET_CHAINS)} chains "
               f"({mainnet_path.stat().st_size / 1024:.0f} KB)")
