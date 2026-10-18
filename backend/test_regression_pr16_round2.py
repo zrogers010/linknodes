@@ -521,6 +521,7 @@ def test_build_registry_main_preserves_all_nodes_files(tmp_path):
         # Return minimal valid feed
         return httpx.Response(200, json=[{
             "path": "test-feed",
+            "name": "Test Feed",
             "proxyAddress": "0x1234567890123456789012345678901234567890",
             "contractAddress": "0x0987654321098765432109876543210987654321",
             "decimals": 8,
@@ -854,6 +855,7 @@ def test_registry_rebuild_keeps_generated_at_when_unchanged(tmp_path):
             return httpx.Response(200, json=[])
         return httpx.Response(200, json=[{
             "path": "test-feed",
+            "name": "Test Feed",
             "proxyAddress": "0x1234567890123456789012345678901234567890",
             "contractAddress": "0x0987654321098765432109876543210987654321",
             "decimals": 8,
@@ -914,6 +916,7 @@ def test_registry_rebuild_updates_generated_at_when_changed(tmp_path):
             return httpx.Response(200, json=[])
         return httpx.Response(200, json=[{
             "path": "test-feed",
+            "name": "Test Feed",
             "proxyAddress": "0x1234567890123456789012345678901234567890",
             "contractAddress": "0x0987654321098765432109876543210987654321",
             "decimals": 8,
@@ -941,6 +944,7 @@ def test_registry_rebuild_updates_generated_at_when_changed(tmp_path):
             return httpx.Response(200, json=[])
         return httpx.Response(200, json=[{
             "path": "test-feed",
+            "name": "Test Feed",
             "proxyAddress": "0x1234567890123456789012345678901234567890",
             "contractAddress": "0x0987654321098765432109876543210987654321",
             "decimals": 8,
