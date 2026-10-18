@@ -11,6 +11,7 @@ Run whenever you want to refresh the catalog:
 """
 
 import json
+import os
 import shutil
 import time
 from pathlib import Path
@@ -368,76 +369,51 @@ def validate_source_data(feeds: list, nodes: list, network_label: str) -> None:
 def write_nodes(mainnet_staged_dir: Path, testnet_staged_dir: Path, dest_dir: Path) -> None:
     """Write staged nodes files to destination directory atomically.
     
-    Combines mainnet and testnet files into one staging area, then uses symlink flip
-    for atomic swap. The old set stays intact until the new one is in place.
+    Design:
+    - data/nodes stays a real tracked git directory (not a symlink)
+    - Stage ALL files (mainnet + testnet) into temp dir on same filesystem
+    - Validate all staged files
+    - Only after all validation passes, atomically replace each file with os.replace()
+    - Delete stale files that are no longer in the set
+    - If any staging step fails, data/nodes is untouched
     
     Args:
         mainnet_staged_dir: Path to directory containing staged mainnet .json files
         testnet_staged_dir: Path to directory containing staged testnet .json files  
-        dest_dir: Path to destination nodes directory
+        dest_dir: Path to destination nodes directory (data/nodes)
     """
     import tempfile
-    import time
     
     dest_dir.mkdir(parents=True, exist_ok=True)
     
-    # Create temporary directory for combined staging (mainnet + testnet)
-    with tempfile.TemporaryDirectory(dir=dest_dir.parent) as tmpdir:
-        temp_combined = Path(tmpdir) / "nodes_combined"
-        temp_combined.mkdir()
+    # Stage all files in temp directory on same filesystem (backend/data/)
+    # This ensures os.replace() will be atomic
+    staging_parent = dest_dir.parent  # backend/data/
+    with tempfile.TemporaryDirectory(dir=staging_parent, prefix=".nodes_staging_") as tmpdir:
+        staging_dir = Path(tmpdir)
         
-        # Copy all mainnet files to combined staging
+        # Copy all mainnet files to staging
         for staged_file in mainnet_staged_dir.glob("*.json"):
-            dest = temp_combined / staged_file.name
+            dest = staging_dir / staged_file.name
             shutil.copy2(staged_file, dest)
         
-        # Copy all testnet files to combined staging  
+        # Copy all testnet files to staging
         for staged_file in testnet_staged_dir.glob("*.json"):
-            dest = temp_combined / staged_file.name
+            dest = staging_dir / staged_file.name
             shutil.copy2(staged_file, dest)
         
-        # Atomic swap using symlink
-        # Current structure: data/nodes -> actual directory
-        # New structure: data/nodes -> nodes.<timestamp>, atomically flipped
+        # All files staged successfully - now atomically replace each one
+        staged_files = set()
+        for staged_file in staging_dir.glob("*.json"):
+            target = dest_dir / staged_file.name
+            # os.replace() is atomic on the same filesystem
+            os.replace(staged_file, target)
+            staged_files.add(staged_file.name)
         
-        timestamp = str(int(time.time()))
-        new_target = dest_dir.parent / f"nodes.{timestamp}"
-        symlink_path = dest_dir.parent / "nodes"
-        
-        # Rename combined staging to timestamped target
-        temp_combined.rename(new_target)
-        
-        # Atomic symlink swap
-        if symlink_path.is_symlink():
-            # Get old target before replacing symlink
-            try:
-                old_target = symlink_path.resolve()
-            except Exception:
-                old_target = None
-            
-            # Create new symlink pointing to new target
-            temp_symlink = dest_dir.parent / f"nodes.tmp.{timestamp}"
-            temp_symlink.symlink_to(new_target.name)
-            
-            # Atomic replace of symlink
-            temp_symlink.replace(symlink_path)
-            
-            # Clean up old target after successful swap
-            if old_target and old_target.exists() and old_target != new_target:
-                shutil.rmtree(old_target, ignore_errors=True)
-        else:
-            # First time: dest_dir exists as regular directory
-            # Move it to backup, create symlink
-            if dest_dir.exists() and not dest_dir.is_symlink():
-                old_backup = dest_dir.parent / f"nodes.old.{timestamp}"
-                dest_dir.rename(old_backup)
-            
-            # Create symlink
-            symlink_path.symlink_to(new_target.name)
-            
-            # Clean up old backup
-            if old_backup.exists():
-                shutil.rmtree(old_backup, ignore_errors=True)
+        # Clean up stale files that are no longer in the set
+        for existing_file in dest_dir.glob("nodes-*.json"):
+            if existing_file.name not in staged_files:
+                existing_file.unlink()
 
 
 def link_svr_variants(feeds: dict[str, dict]) -> None:
@@ -631,7 +607,6 @@ def main() -> None:
         print("\nWriting outputs...")
         
         import tempfile
-        import os
         backend_dir = Path(__file__).parent
         
         # Write registries to temp files first
