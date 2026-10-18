@@ -11,12 +11,20 @@ const __dirname = path.dirname(__filename);
  * Check if a feed should be included in the sitemap.
  * Drops feeds with past shutdown dates (shut_down status).
  * Keeps active and deprecating feeds (future/today shutdown dates or no shutdown date).
+ * 
+ * Malformed dates (non-ISO YYYY-MM-DD format) are treated as immediate shutdown (hidden).
  */
 function isFeedVisible(feed) {
   const shutdownDate = feed.shutdown_date;
   if (!shutdownDate) {
     // No shutdown date => visible
     return true;
+  }
+  
+  // Validate strict ISO YYYY-MM-DD format
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(shutdownDate)) {
+    // Malformed date (e.g. 'garbage', 'TBD', '2026-6-3') => treat as immediate shutdown
+    return false;
   }
   
   // Get UTC today in YYYY-MM-DD format
