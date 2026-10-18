@@ -638,13 +638,16 @@ def test_compare_endpoint_filters_shut_down_feeds():
     
     try:
         # Inject a test feed with mixed visible/hidden networks
-        # Add to ethereum (visible) and arbitrum (we'll make hidden)
+        # Get a real feed to copy its structure
+        eth_feeds = main.REGISTRY_MAINNET["networks"]["ethereum"]["feeds"]
+        sample_feed = copy.deepcopy(list(eth_feeds.values())[0])
+        
+        # Modify to create test feed
         test_feed_meta = {
+            **sample_feed,
             "name": "Test Multi-Network Feed",
-            "category": "verified",
-            "feed_type": "crypto",
-            "decimals": 8,
-            "address": "0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419"
+            "path": "test-compare-feed",
+            "shutdown_date": None  # Will be set per network
         }
         
         # Add to ethereum (no shutdown - visible)
