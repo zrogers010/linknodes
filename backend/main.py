@@ -93,11 +93,18 @@ def is_feed_visible(feed_meta: dict) -> bool:
     - Feeds with past shutdown dates are hidden (status: shut_down)
     - Feeds with today/future shutdown dates or category=deprecating are visible (status: deprecating)
     - All other feeds are visible (status: active)
+    - Malformed shutdown dates (not strict ISO YYYY-MM-DD) are treated as immediate shutdown (hidden)
     """
     shutdown_date_str = feed_meta.get("shutdown_date")
     category = feed_meta.get("category", "unranked")
     
     if shutdown_date_str:
+        # Validate strict ISO YYYY-MM-DD format
+        import re
+        if not re.match(r'^\d{4}-\d{2}-\d{2}$', shutdown_date_str):
+            # Malformed date => treat as immediate shutdown => hidden
+            return False
+        
         # Recompute status at request time
         utc_now = get_current_time().strftime("%Y-%m-%d")
         
