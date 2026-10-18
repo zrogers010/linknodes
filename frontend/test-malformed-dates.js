@@ -1,58 +1,50 @@
 #!/usr/bin/env node
 
 /**
- * Test that frontend JS files properly validate ISO YYYY-MM-DD dates.
- * This test checks the source files contain the strict regex validation.
+ * Test that frontend JS files (generate-sitemap.js and prerender.js) properly
+ * exclude feeds with malformed shutdown dates.
+ * 
+ * Imports the real isFeedVisible functions and tests them.
  */
 
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import { isFeedVisible as isFeedVisible_generateSitemap } from './generate-sitemap.js';
+import { isFeedVisible as isFeedVisible_prerender } from './prerender.js';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-// Read the source files
-const sitemapPath = path.join(__dirname, 'generate-sitemap.js');
-const prerenderPath = path.join(__dirname, 'prerender.js');
-
-const sitemapContent = fs.readFileSync(sitemapPath, 'utf8');
-const prerenderContent = fs.readFileSync(prerenderPath, 'utf8');
+// Test cases
+const testFeeds = [
+  { name: "Valid future", shutdown_date: "2027-01-01", expected: true },
+  { name: "Valid past", shutdown_date: "2020-01-01", expected: false },
+  { name: "No date", shutdown_date: null, expected: true },
+  { name: "Malformed 'garbage'", shutdown_date: "garbage", expected: false },
+  { name: "Malformed 'TBD'", shutdown_date: "TBD", expected: false },
+  { name: "Malformed '2026-6-3'", shutdown_date: "2026-6-3", expected: false },
+  { name: "Valid today", shutdown_date: new Date().toISOString().split('T')[0], expected: true }
+];
 
 let failed = 0;
 
-// Check that both files have the strict ISO date validation
-console.log("Testing generate-sitemap.js has strict date validation...");
-if (sitemapContent.includes('/^\\d{4}-\\d{2}-\\d{2}$/')) {
-  console.log("✅ PASS: generate-sitemap.js has strict ISO YYYY-MM-DD regex");
-} else {
-  console.log("❌ FAIL: generate-sitemap.js missing strict ISO YYYY-MM-DD regex");
-  failed++;
+console.log("Testing generate-sitemap.js isFeedVisible function...");
+for (const test of testFeeds) {
+  const result = isFeedVisible_generateSitemap(test);
+  const pass = result === test.expected;
+  if (!pass) {
+    console.log(`❌ FAIL: ${test.name} - expected ${test.expected}, got ${result}`);
+    failed++;
+  } else {
+    console.log(`✅ PASS: ${test.name}`);
+  }
 }
 
-console.log("\nTesting prerender.js has strict date validation...");
-if (prerenderContent.includes('/^\\d{4}-\\d{2}-\\d{2}$/')) {
-  console.log("✅ PASS: prerender.js has strict ISO YYYY-MM-DD regex");
-} else {
-  console.log("❌ FAIL: prerender.js missing strict ISO YYYY-MM-DD regex");
-  failed++;
-}
-
-// Check that malformed dates are treated as hidden (return false)
-console.log("\nTesting generate-sitemap.js returns false for malformed dates...");
-if (sitemapContent.includes('return false') && sitemapContent.includes('Malformed date')) {
-  console.log("✅ PASS: generate-sitemap.js returns false for malformed dates");
-} else {
-  console.log("❌ FAIL: generate-sitemap.js doesn't return false for malformed dates");
-  failed++;
-}
-
-console.log("\nTesting prerender.js returns false for malformed dates...");
-if (prerenderContent.includes('return false') && prerenderContent.includes('Malformed date')) {
-  console.log("✅ PASS: prerender.js returns false for malformed dates");
-} else {
-  console.log("❌ FAIL: prerender.js doesn't return false for malformed dates");
-  failed++;
+console.log("\nTesting prerender.js isFeedVisible function...");
+for (const test of testFeeds) {
+  const result = isFeedVisible_prerender(test);
+  const pass = result === test.expected;
+  if (!pass) {
+    console.log(`❌ FAIL: ${test.name} - expected ${test.expected}, got ${result}`);
+    failed++;
+  } else {
+    console.log(`✅ PASS: ${test.name}`);
+  }
 }
 
 if (failed > 0) {

@@ -466,12 +466,12 @@ def test_build_registry_main_preserves_all_nodes_files():
         assert len(data) > 0, f"{f.name} must not be empty"
 
 
-def test_nodes_validation_non_200_fails_build():
+def test_nodes_validation_non_200_fails_build(tmp_path, monkeypatch):
     """
     Mutant: Nodes files with non-200 HTTP response become warn-only (don't fail build).
     Kill: Non-200 response must fail the build and leave outputs unchanged.
     
-    Runs build_registry.main() with mocked httpx that returns 404 for nodes URL.
+    Uses httpx.MockTransport to return 404 for nodes URL.
     Asserts main() raises and all output files are unchanged (sha256 comparison).
     """
     import httpx
@@ -479,64 +479,70 @@ def test_nodes_validation_non_200_fails_build():
     
     backend = Path(__file__).parent
     
-    # Snapshot all output files before: registries + all nodes
+    # Create temp output dir with existing files
+    output_dir = tmp_path / "backend"
+    output_dir.mkdir()
+    data_dir = output_dir / "data"
+    data_dir.mkdir()
+    nodes_dir = data_dir / "nodes"
+    nodes_dir.mkdir()
+    
+    # Copy existing files to temp
+    for f in [backend / "registry.json", backend / "registry_testnet.json"]:
+        if f.exists():
+            shutil.copy2(f, output_dir / f.name)
+    
+    if (backend / "data" / "nodes").exists():
+        for f in (backend / "data" / "nodes").glob("*.json"):
+            shutil.copy2(f, nodes_dir / f.name)
+    
+    # Snapshot all files before
     files_before = {}
-    for f in [backend / "registry.json", backend / "registry_testnet.json"]:
-        if f.exists():
-            files_before[f.name] = hashlib.sha256(f.read_bytes()).hexdigest()
+    for f in output_dir.glob("*.json"):
+        files_before[f.name] = hashlib.sha256(f.read_bytes()).hexdigest()
+    for f in nodes_dir.glob("*.json"):
+        files_before[f"nodes/{f.name}"] = hashlib.sha256(f.read_bytes()).hexdigest()
     
-    nodes_dir = backend / "data" / "nodes"
-    if nodes_dir.exists():
-        for f in nodes_dir.glob("*.json"):
-            files_before[f"nodes/{f.name}"] = hashlib.sha256(f.read_bytes()).hexdigest()
+    # Create mock transport that returns 404 for nodes URLs
+    def mock_handler(request: httpx.Request) -> httpx.Response:
+        if '/nodes-' in str(request.url):
+            # Return 404 for nodes files
+            return httpx.Response(404, text="Not Found")
+        # Return 200 with minimal valid data for feeds
+        return httpx.Response(200, json=[])
     
-    # Mock httpx.Client to return 404 for any nodes URL
-    original_client = httpx.Client
+    mock_client = httpx.Client(transport=httpx.MockTransport(mock_handler))
     
-    class MockClient:
-        def __init__(self, *args, **kwargs):
-            self.real_client = original_client(*args, **kwargs)
+    # Monkeypatch Path resolving to use temp dir
+    original_parent = Path(__file__).parent
+    def mock_file_parent():
+        return output_dir
+    
+    try:
+        # Attempt to build with mocked client
+        with pytest.raises(Exception):  # Should raise on 404
+            build_main(http_client=mock_client, output_dir=output_dir)
         
-        def __enter__(self):
-            return self
-        
-        def __exit__(self, *args):
-            self.real_client.__exit__(*args)
-        
-        def get(self, url, *args, **kwargs):
-            if '/nodes/' in url:
-                # Return 404 for nodes files
-                raise httpx.HTTPStatusError("404 Not Found", request=Mock(), response=Mock(status_code=404))
-            return self.real_client.get(url, *args, **kwargs)
-    
-    with patch('httpx.Client', MockClient):
-        try:
-            build_main()
-            pytest.fail("build_registry.main() should have raised on 404 nodes file")
-        except (SystemExit, httpx.HTTPStatusError, Exception):
-            pass  # Expected to fail
-    
-    # Snapshot all output files after
-    files_after = {}
-    for f in [backend / "registry.json", backend / "registry_testnet.json"]:
-        if f.exists():
+        # Snapshot all files after
+        files_after = {}
+        for f in output_dir.glob("*.json"):
             files_after[f.name] = hashlib.sha256(f.read_bytes()).hexdigest()
-    
-    if nodes_dir.exists():
         for f in nodes_dir.glob("*.json"):
             files_after[f"nodes/{f.name}"] = hashlib.sha256(f.read_bytes()).hexdigest()
-    
-    # All files must be unchanged (build must not partially write on error)
-    assert files_before == files_after, \
-        f"Output files changed despite build failure. Before: {files_before}, After: {files_after}"
+        
+        # All files must be unchanged
+        assert files_before == files_after, \
+            f"Output files changed despite build failure"
+    finally:
+        mock_client.close()
 
 
-def test_validation_call_not_removed():
+def test_validation_call_not_removed(tmp_path, monkeypatch):
     """
     Mutant: The validate_source_data call is removed entirely.
     Kill: Invalid source data must fail the build and leave outputs unchanged.
     
-    Runs build_registry.main() with mocked httpx that returns invalid JSON structure.
+    Uses httpx.MockTransport to return invalid JSON structure (missing required fields).
     Asserts main() raises and all output files are unchanged (sha256 comparison).
     """
     import httpx
@@ -544,60 +550,63 @@ def test_validation_call_not_removed():
     
     backend = Path(__file__).parent
     
-    # Snapshot all output files before
+    # Create temp output dir with existing files
+    output_dir = tmp_path / "backend"
+    output_dir.mkdir()
+    data_dir = output_dir / "data"
+    data_dir.mkdir()
+    nodes_dir = data_dir / "nodes"
+    nodes_dir.mkdir()
+    
+    # Copy existing files
+    for f in [backend / "registry.json", backend / "registry_testnet.json"]:
+        if f.exists():
+            shutil.copy2(f, output_dir / f.name)
+    
+    if (backend / "data" / "nodes").exists():
+        for f in (backend / "data" / "nodes").glob("*.json"):
+            shutil.copy2(f, nodes_dir / f.name)
+    
+    # Snapshot all files before
     files_before = {}
-    for f in [backend / "registry.json", backend / "registry_testnet.json"]:
-        if f.exists():
-            files_before[f.name] = hashlib.sha256(f.read_bytes()).hexdigest()
+    for f in output_dir.glob("*.json"):
+        files_before[f.name] = hashlib.sha256(f.read_bytes()).hexdigest()
+    for f in nodes_dir.glob("*.json"):
+        files_before[f"nodes/{f.name}"] = hashlib.sha256(f.read_bytes()).hexdigest()
     
-    nodes_dir = backend / "data" / "nodes"
-    if nodes_dir.exists():
-        for f in nodes_dir.glob("*.json"):
-            files_before[f"nodes/{f.name}"] = hashlib.sha256(f.read_bytes()).hexdigest()
+    # Create mock transport that returns invalid structure for feed URLs
+    def mock_handler(request: httpx.Request) -> httpx.Response:
+        if '/nodes-' in str(request.url):
+            # Return valid empty list for nodes
+            return httpx.Response(200, json=[])
+        # Return feeds that pass include() but fail validation (missing contractAddress)
+        return httpx.Response(200, json=[{
+            "path": "test-feed",
+            "proxyAddress": "0x1234567890123456789012345678901234567890",
+            "decimals": 8,
+            "heartbeat": 3600,
+            # Missing "contractAddress" - will fail validation
+        }])
     
-    # Mock httpx.Client to return invalid structure for RDD URLs
-    original_client = httpx.Client
+    mock_client = httpx.Client(transport=httpx.MockTransport(mock_handler))
     
-    class MockClient:
-        def __init__(self, *args, **kwargs):
-            self.real_client = original_client(*args, **kwargs)
+    try:
+        # Attempt to build - should fail validation
+        with pytest.raises(Exception):  # Should raise during validation
+            build_main(http_client=mock_client, output_dir=output_dir)
         
-        def __enter__(self):
-            return self
-        
-        def __exit__(self, *args):
-            self.real_client.__exit__(*args)
-        
-        def get(self, url, *args, **kwargs):
-            if 'reference-data-directory' in url and not '/nodes/' in url:
-                # Return invalid JSON structure (missing networks key)
-                mock_resp = Mock()
-                mock_resp.status_code = 200
-                mock_resp.json = lambda: {"invalid": "structure"}
-                mock_resp.raise_for_status = lambda: None
-                return mock_resp
-            return self.real_client.get(url, *args, **kwargs)
-    
-    with patch('httpx.Client', MockClient):
-        try:
-            build_main()
-            pytest.fail("build_registry.main() should have raised on invalid source data")
-        except (SystemExit, KeyError, Exception):
-            pass  # Expected to fail during validation
-    
-    # Snapshot all output files after
-    files_after = {}
-    for f in [backend / "registry.json", backend / "registry_testnet.json"]:
-        if f.exists():
+        # Snapshot all files after
+        files_after = {}
+        for f in output_dir.glob("*.json"):
             files_after[f.name] = hashlib.sha256(f.read_bytes()).hexdigest()
-    
-    if nodes_dir.exists():
         for f in nodes_dir.glob("*.json"):
             files_after[f"nodes/{f.name}"] = hashlib.sha256(f.read_bytes()).hexdigest()
-    
-    # All files must be unchanged (build must not partially write on error)
-    assert files_before == files_after, \
-        f"Output files changed despite validation failure. Before: {files_before}, After: {files_after}"
+        
+        # All files must be unchanged
+        assert files_before == files_after, \
+            f"Output files changed despite validation failure"
+    finally:
+        mock_client.close()
 
 
 def test_registry_endpoint_filters_shut_down_feeds():

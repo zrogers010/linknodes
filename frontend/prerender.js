@@ -47,13 +47,15 @@ function isFeedVisible(feed) {
 // Export for testing
 export { isFeedVisible };
 
-// Read mainnet registries from frontend/data/
-const feedsRegistry = JSON.parse(fs.readFileSync(path.join(__dirname, 'data/registry.json'), 'utf8'));
-const ccipRegistry = JSON.parse(fs.readFileSync(path.join(__dirname, 'data/ccip_registry.json'), 'utf8'));
+// Only run main code if executed directly (not imported)
+if (import.meta.url === `file://${process.argv[1]}`) {
+  // Read mainnet registries from frontend/data/
+  const feedsRegistry = JSON.parse(fs.readFileSync(path.join(__dirname, 'data/registry.json'), 'utf8'));
+  const ccipRegistry = JSON.parse(fs.readFileSync(path.join(__dirname, 'data/ccip_registry.json'), 'utf8'));
 
-// Read testnet registries from frontend/data/
-const feedsRegistryTestnet = JSON.parse(fs.readFileSync(path.join(__dirname, 'data/registry_testnet.json'), 'utf8'));
-const ccipRegistryTestnet = JSON.parse(fs.readFileSync(path.join(__dirname, 'data/ccip_registry_testnet.json'), 'utf8'));
+  // Read testnet registries from frontend/data/
+  const feedsRegistryTestnet = JSON.parse(fs.readFileSync(path.join(__dirname, 'data/registry_testnet.json'), 'utf8'));
+  const ccipRegistryTestnet = JSON.parse(fs.readFileSync(path.join(__dirname, 'data/ccip_registry_testnet.json'), 'utf8'));
 
 // Read the built index.html template
 const distPath = path.join(__dirname, 'dist');
@@ -354,10 +356,11 @@ const notFoundHtml = injectMetaTags(template, {
 fs.writeFileSync(path.join(distPath, '404.html'), notFoundHtml);
 fileCount++;
 
-console.log(`✅ Prerendered ${fileCount} HTML files`);
-console.log(`   - ${productPages.length} product pages`);
-console.log(`   - ${ccipLanes.length} CCIP lane pages`);
-console.log(`   - ${Object.keys(feedsRegistry.networks).length + 1} feed index pages`);
-console.log(`   - ${Object.values(feedsRegistry.networks).reduce((sum, n) => sum + Object.keys(n.feeds).length, 0)} individual feed pages`);
-console.log(`   - 1 operators page`);
-console.log(`   - 1 404 page`);
+  console.log(`✅ Prerendered ${fileCount} HTML files`);
+  console.log(`   - ${productPages.length} product pages`);
+  console.log(`   - ${ccipLanes.length} CCIP lane pages`);
+  console.log(`   - ${Object.keys(feedsRegistry.networks).length + 1} feed index pages`);
+  console.log(`   - ${Object.values(feedsRegistry.networks).reduce((sum, n) => sum + Object.keys(n.feeds).length, 0)} individual feed pages`);
+  console.log(`   - 1 operators page`);
+  console.log(`   - 1 404 page`);
+}

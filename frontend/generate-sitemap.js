@@ -42,12 +42,14 @@ function isFeedVisible(feed) {
 // Export for testing
 export { isFeedVisible };
 
-// Read mainnet registries from frontend/data/
-const ccipRegistryPath = path.join(__dirname, 'data/ccip_registry.json');
-const ccipRegistry = JSON.parse(fs.readFileSync(ccipRegistryPath, 'utf8'));
+// Only run main code if executed directly (not imported)
+if (import.meta.url === `file://${process.argv[1]}`) {
+  // Read mainnet registries from frontend/data/
+  const ccipRegistryPath = path.join(__dirname, 'data/ccip_registry.json');
+  const ccipRegistry = JSON.parse(fs.readFileSync(ccipRegistryPath, 'utf8'));
 
-const feedsRegistryPath = path.join(__dirname, 'data/registry.json');
-const feedsRegistry = JSON.parse(fs.readFileSync(feedsRegistryPath, 'utf8'));
+  const feedsRegistryPath = path.join(__dirname, 'data/registry.json');
+  const feedsRegistry = JSON.parse(fs.readFileSync(feedsRegistryPath, 'utf8'));
 
 // Read testnet registries from frontend/data/
 const ccipRegistryTestnetPath = path.join(__dirname, 'data/ccip_registry_testnet.json');
@@ -178,9 +180,10 @@ ${feedPages.map(page => `  <url>
 </urlset>
 `;
 
-// Write sitemap
-const outputPath = path.join(__dirname, 'public/sitemap.xml');
-fs.writeFileSync(outputPath, sitemap);
-console.log(`Sitemap generated: ${outputPath}`);
-console.log(`Total URLs: ${lanes.length + feedPages.length + 8}`);
+  // Write sitemap
+  const outputPath = path.join(__dirname, 'public/sitemap.xml');
+  fs.writeFileSync(outputPath, sitemap);
+  console.log(`Sitemap generated: ${outputPath}`);
+  console.log(`Total URLs: ${lanes.length + feedPages.length + 8}`);
+}
 

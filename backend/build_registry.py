@@ -504,7 +504,7 @@ def link_svr_variants(feeds: dict[str, dict]) -> None:
                 print(f"    ⚠ Ambiguous SVR match for {slug}: {len(matching_candidates)} candidates")
 
 
-def build_registry(chains: dict, environment: str) -> dict:
+def build_registry(chains: dict, environment: str, http_client=None) -> dict:
     """Build registry for a specific environment (mainnet or testnet)."""
     # Check if we have an existing registry to preserve generated_at
     backend_dir = Path(__file__).parent
@@ -534,7 +534,16 @@ def build_registry(chains: dict, environment: str) -> dict:
     temp_dir = Path(tempfile.mkdtemp(prefix="registry_build_"))
 
     try:
-        with httpx.Client(timeout=30) as client:
+        # Use provided client or create default one
+        if http_client is None:
+            client_ctx = httpx.Client(timeout=30)
+            client = client_ctx.__enter__()
+            should_close = True
+        else:
+            client = http_client
+            should_close = False
+        
+        try:
             for key, (rdd_file, label, chain_id, explorer, rpcs) in chains.items():
                 print(f"{label:<25} ", end="", flush=True)
                 
@@ -585,6 +594,9 @@ def build_registry(chains: dict, environment: str) -> dict:
                 except Exception as e:
                     print(f"ERROR: {e}")
                     raise
+        finally:
+            if should_close:
+                client_ctx.__exit__(None, None, None)
         
         # All validations passed - return registry and staged nodes directory
         # (Nodes will be written atomically in main() after all builds succeed)
@@ -596,7 +608,13 @@ def build_registry(chains: dict, environment: str) -> dict:
         raise
 
 
-def main() -> None:
+def main(http_client=None, output_dir=None) -> None:
+    """Build and write registries.
+    
+    Args:
+        http_client: Optional httpx.Client for testing
+        output_dir: Optional output directory for testing (defaults to backend/)
+    """
     print("=" * 70)
     print("Building Data Feeds Registries")
     print("=" * 70)
@@ -608,19 +626,19 @@ def main() -> None:
         # Build both registries first (validate everything before writing)
         print("\nMAINNET:")
         print("-" * 70)
-        mainnet_registry, mainnet_total, mainnet_temp_dir = build_registry(MAINNET_CHAINS, "mainnet")
+        mainnet_registry, mainnet_total, mainnet_temp_dir = build_registry(MAINNET_CHAINS, "mainnet", http_client)
         print(f"✓ Built mainnet: {mainnet_total} feeds across {len(MAINNET_CHAINS)} chains")
         
         print("\nTESTNET:")
         print("-" * 70)
-        testnet_registry, testnet_total, testnet_temp_dir = build_registry(TESTNET_CHAINS, "testnet")
+        testnet_registry, testnet_total, testnet_temp_dir = build_registry(TESTNET_CHAINS, "testnet", http_client)
         print(f"✓ Built testnet: {testnet_total} feeds across {len(TESTNET_CHAINS)} chains")
         
         # All builds succeeded - write outputs atomically
         print("\nWriting outputs...")
         
         import tempfile
-        backend_dir = Path(__file__).parent
+        backend_dir = output_dir or Path(__file__).parent
         
         # Write registries to temp files first
         with tempfile.NamedTemporaryFile(mode='w', dir=backend_dir, delete=False, suffix='.tmp') as tmp:
