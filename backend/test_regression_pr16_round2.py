@@ -441,29 +441,110 @@ def test_atomic_nodes_write_staging_failure_leaves_dest_untouched():
             f"Files changed during staging failure. Before: {snapshot_before}, After: {snapshot_after}"
 
 
-def test_build_registry_main_preserves_all_nodes_files():
+def test_atomic_nodes_write_staging_in_data_parent():
+    """
+    Mutant: Staging dir moved outside data/ (e.g. to /tmp).
+    Kill: Verify staging dir is created under dest_dir.parent (backend/data/).
+    
+    Spies on tempfile.TemporaryDirectory to verify the staging dir location.
+    Must fail if staging moves to /tmp or elsewhere.
+    """
+    from build_registry import write_nodes
+    
+    with tempfile.TemporaryDirectory() as tmpdir:
+        tmpdir = Path(tmpdir)
+        
+        # Set up staged directories
+        mainnet_staged = tmpdir / "mainnet_staged"
+        mainnet_staged.mkdir()
+        (mainnet_staged / "nodes-main1.json").write_text(json.dumps({"main": 1}))
+        
+        testnet_staged = tmpdir / "testnet_staged"
+        testnet_staged.mkdir()
+        (testnet_staged / "nodes-test1.json").write_text(json.dumps({"test": 1}))
+        
+        # Set up destination
+        data_dir = tmpdir / "data"
+        data_dir.mkdir()
+        dest_dir = data_dir / "nodes"
+        dest_dir.mkdir()
+        
+        # Spy on tempfile.TemporaryDirectory to capture staging dir location
+        staging_dirs = []
+        original_tempdir = tempfile.TemporaryDirectory
+        
+        class SpyTemporaryDirectory(original_tempdir):
+            def __init__(self, *args, **kwargs):
+                super().__init__(*args, **kwargs)
+                staging_dirs.append(Path(self.name))
+        
+        with patch('tempfile.TemporaryDirectory', SpyTemporaryDirectory):
+            write_nodes(mainnet_staged, testnet_staged, dest_dir)
+        
+        # Verify staging dir was created under dest_dir.parent (data/)
+        assert len(staging_dirs) > 0, "No staging directory was created"
+        
+        staging_dir = staging_dirs[0]
+        # Staging dir should be under data/, not /tmp or elsewhere
+        # Check that staging dir starts with the data_dir path
+        assert str(staging_dir).startswith(str(data_dir)), \
+            f"Staging dir {staging_dir} should be under {data_dir}, not elsewhere"
+
+
+def test_build_registry_main_preserves_all_nodes_files(tmp_path):
     """
     Mutant: write_nodes called twice (once per network) deletes all 13 mainnet files.
-    Kill: After main() completes, all 20 nodes files (13 mainnet + 7 testnet) must exist with expected content.
+    Kill: After main() with MockTransport serving 13 mainnet + 7 testnet, all 20 files exist.
     
-    Verifies committed files exist - the real test is test_atomic_nodes_write_all_20_files_exist.
-    Must fail if write_nodes is called once per network set.
+    Runs main() with mocked data into tmp output dir, verifies all 20 nodes files with served content.
+    Must fail when write_nodes is called once per network set.
     """
-    backend = Path(__file__).parent
-    nodes_dir = backend / "data" / "nodes"
+    import httpx
+    from build_registry import main as build_main, MAINNET_CHAINS, TESTNET_CHAINS
     
-    # After any build_registry.main() run, all 20 nodes files must exist
-    files = list(nodes_dir.glob('*.json'))
+    # Create output dir
+    output_dir = tmp_path / "backend"
+    output_dir.mkdir()
+    (output_dir / "data").mkdir()
+    (output_dir / "data" / "nodes").mkdir()
+    
+    # Track which nodes files were requested to verify correct behavior
+    mainnet_chains_count = len(MAINNET_CHAINS)
+    testnet_chains_count = len(TESTNET_CHAINS)
+    
+    # Mock transport serving minimal valid feeds + nodes for all chains
+    def mock_handler(request: httpx.Request) -> httpx.Response:
+        url_str = str(request.url)
+        if '/nodes-' in url_str:
+            # Return valid empty nodes list
+            return httpx.Response(200, json=[])
+        # Return minimal valid feed
+        return httpx.Response(200, json=[{
+            "path": "test-feed",
+            "proxyAddress": "0x1234567890123456789012345678901234567890",
+            "contractAddress": "0x0987654321098765432109876543210987654321",
+            "decimals": 8,
+            "heartbeat": 3600,
+        }])
+    
+    mock_client = httpx.Client(transport=httpx.MockTransport(mock_handler))
+    
+    try:
+        build_main(http_client=mock_client, output_dir=output_dir)
+    finally:
+        mock_client.close()
+    
+    # Verify all 20 nodes files exist (13 mainnet + 7 testnet)
+    nodes_dir = output_dir / "data" / "nodes"
+    files = list(nodes_dir.glob("*.json"))
     count = len(files)
     
-    # We expect 20 nodes files (13 mainnet + 7 testnet)
     assert count == 20, f"Expected 20 nodes files, got {count}. Files: {[f.name for f in files]}"
     
-    # Verify content: each file must be valid JSON with expected structure (list of nodes)
+    # Verify each file is valid JSON with expected structure (list of nodes)
     for f in files:
         data = json.loads(f.read_text())
         assert isinstance(data, list), f"{f.name} must be a list of nodes"
-        assert len(data) > 0, f"{f.name} must not be empty"
 
 
 def test_nodes_validation_non_200_fails_build(tmp_path, monkeypatch):
@@ -591,8 +672,8 @@ def test_validation_call_not_removed(tmp_path, monkeypatch):
     mock_client = httpx.Client(transport=httpx.MockTransport(mock_handler))
     
     try:
-        # Attempt to build - should fail validation
-        with pytest.raises(Exception):  # Should raise during validation
+        # Attempt to build - should fail validation with specific error
+        with pytest.raises(ValueError, match="VALIDATION FAILED.*contractAddress"):
             build_main(http_client=mock_client, output_dir=output_dir)
         
         # Snapshot all files after
@@ -751,25 +832,133 @@ def test_svr_matching_prevents_false_lbtc_btc_link():
             f"SVR feed base_path should not be lbtc-btc, got {base_path}"
 
 
-def test_registry_rebuild_is_deterministic():
+def test_registry_rebuild_keeps_generated_at_when_unchanged(tmp_path):
     """
-    Mutant: Registry rebuilds with identical source data change generated_at or other fields.
-    Kill: Two back-to-back rebuilds produce byte-identical outputs.
+    Mutant: generated_at freezes (never updates even when content changes).
+    Kill: Same content keeps generated_at; changed content updates it.
     
-    This test would run build_registry.main() twice and compare outputs,
-    but since main() makes live HTTP requests which may change, we document
-    the requirement that generated_at must be deterministic.
-    
-    Real verification: `git status --porcelain` after rebuild should be empty.
+    First build with MockTransport, second build with identical data, verify generated_at unchanged.
     """
-    backend = Path(__file__).parent
+    import httpx
+    from build_registry import main as build_main
     
-    # After a rebuild with unchanged source, registries and nodes should be unchanged
-    # This is verified by: python build_registry.py; git status --porcelain backend/
-    # The test documents the requirement
+    # Create output dir
+    output_dir = tmp_path / "backend"
+    output_dir.mkdir()
+    (output_dir / "data").mkdir()
+    (output_dir / "data" / "nodes").mkdir()
     
-    # Verify nodes files are stable (count)
-    nodes_dir = backend / "data" / "nodes"
-    if nodes_dir.exists():
-        files = list(nodes_dir.glob("*.json"))
-        assert len(files) == 20, f"Expected 20 nodes files, got {len(files)}"
+    # Mock transport with consistent data
+    def mock_handler(request: httpx.Request) -> httpx.Response:
+        if '/nodes-' in str(request.url):
+            return httpx.Response(200, json=[])
+        return httpx.Response(200, json=[{
+            "path": "test-feed",
+            "proxyAddress": "0x1234567890123456789012345678901234567890",
+            "contractAddress": "0x0987654321098765432109876543210987654321",
+            "decimals": 8,
+            "heartbeat": 3600,
+        }])
+    
+    mock_client = httpx.Client(transport=httpx.MockTransport(mock_handler))
+    
+    try:
+        # First build
+        build_main(http_client=mock_client, output_dir=output_dir)
+        
+        # Read generated_at from first build
+        with open(output_dir / "registry.json") as f:
+            first_registry = json.load(f)
+        first_generated_at = first_registry["generated_at"]
+        
+        # Second build with identical data
+        build_main(http_client=mock_client, output_dir=output_dir)
+        
+        # Read generated_at from second build
+        with open(output_dir / "registry.json") as f:
+            second_registry = json.load(f)
+        second_generated_at = second_registry["generated_at"]
+        
+        # generated_at should be unchanged (content identical)
+        assert first_generated_at == second_generated_at, \
+            f"generated_at changed despite identical content: {first_generated_at} -> {second_generated_at}"
+        
+        # Verify files are byte-identical
+        first_bytes = json.dumps(first_registry, indent=1)
+        second_bytes = json.dumps(second_registry, indent=1)
+        assert first_bytes == second_bytes, "Registry content should be byte-identical"
+    finally:
+        mock_client.close()
+
+
+def test_registry_rebuild_updates_generated_at_when_changed(tmp_path):
+    """
+    Mutant: generated_at freezes (never updates even when content changes).
+    Kill: Changed content updates generated_at.
+    
+    First build, second build with different heartbeat, verify generated_at updated.
+    """
+    import httpx
+    from build_registry import main as build_main
+    import time
+    
+    # Create output dir
+    output_dir = tmp_path / "backend"
+    output_dir.mkdir()
+    (output_dir / "data").mkdir()
+    (output_dir / "data" / "nodes").mkdir()
+    
+    # First build with heartbeat 3600
+    def mock_handler_1(request: httpx.Request) -> httpx.Response:
+        if '/nodes-' in str(request.url):
+            return httpx.Response(200, json=[])
+        return httpx.Response(200, json=[{
+            "path": "test-feed",
+            "proxyAddress": "0x1234567890123456789012345678901234567890",
+            "contractAddress": "0x0987654321098765432109876543210987654321",
+            "decimals": 8,
+            "heartbeat": 3600,
+        }])
+    
+    mock_client_1 = httpx.Client(transport=httpx.MockTransport(mock_handler_1))
+    
+    try:
+        build_main(http_client=mock_client_1, output_dir=output_dir)
+    finally:
+        mock_client_1.close()
+    
+    # Read generated_at from first build
+    with open(output_dir / "registry.json") as f:
+        first_registry = json.load(f)
+    first_generated_at = first_registry["generated_at"]
+    
+    # Wait to ensure time.time() would return different value
+    time.sleep(1)
+    
+    # Second build with different heartbeat
+    def mock_handler_2(request: httpx.Request) -> httpx.Response:
+        if '/nodes-' in str(request.url):
+            return httpx.Response(200, json=[])
+        return httpx.Response(200, json=[{
+            "path": "test-feed",
+            "proxyAddress": "0x1234567890123456789012345678901234567890",
+            "contractAddress": "0x0987654321098765432109876543210987654321",
+            "decimals": 8,
+            "heartbeat": 3601,  # Changed
+        }])
+    
+    mock_client_2 = httpx.Client(transport=httpx.MockTransport(mock_handler_2))
+    
+    try:
+        build_main(http_client=mock_client_2, output_dir=output_dir)
+    finally:
+        mock_client_2.close()
+    
+    # Read generated_at from second build
+    with open(output_dir / "registry.json") as f:
+        second_registry = json.load(f)
+    second_generated_at = second_registry["generated_at"]
+    
+    # generated_at should be updated (content changed)
+    assert second_generated_at > first_generated_at, \
+        f"generated_at should update when content changes: {first_generated_at} -> {second_generated_at}"

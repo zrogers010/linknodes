@@ -48,7 +48,10 @@ function isFeedVisible(feed) {
 export { isFeedVisible };
 
 // Only run main code if executed directly (not imported)
-if (import.meta.url === `file://${process.argv[1]}`) {
+import { pathToFileURL } from 'url';
+const isDirectExecution = import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href;
+
+if (isDirectExecution) {
   // Read mainnet registries from frontend/data/
   const feedsRegistry = JSON.parse(fs.readFileSync(path.join(__dirname, 'data/registry.json'), 'utf8'));
   const ccipRegistry = JSON.parse(fs.readFileSync(path.join(__dirname, 'data/ccip_registry.json'), 'utf8'));
@@ -360,7 +363,12 @@ fileCount++;
   console.log(`   - ${productPages.length} product pages`);
   console.log(`   - ${ccipLanes.length} CCIP lane pages`);
   console.log(`   - ${Object.keys(feedsRegistry.networks).length + 1} feed index pages`);
-  console.log(`   - ${Object.values(feedsRegistry.networks).reduce((sum, n) => sum + Object.keys(n.feeds).length, 0)} individual feed pages`);
+  // Count filtered feeds (mainnet + testnet)
+  const mainnetFilteredCount = Object.values(feedsRegistry.networks).reduce((sum, n) => 
+    sum + Object.values(n.feeds).filter(isFeedVisible).length, 0);
+  const testnetFilteredCount = Object.values(feedsRegistryTestnet.networks).reduce((sum, n) => 
+    sum + Object.values(n.feeds).filter(isFeedVisible).length, 0);
+  console.log(`   - ${mainnetFilteredCount + testnetFilteredCount} individual feed pages`);
   console.log(`   - 1 operators page`);
   console.log(`   - 1 404 page`);
 }

@@ -43,7 +43,10 @@ function isFeedVisible(feed) {
 export { isFeedVisible };
 
 // Only run main code if executed directly (not imported)
-if (import.meta.url === `file://${process.argv[1]}`) {
+import { pathToFileURL } from 'url';
+const isDirectExecution = import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href;
+
+if (isDirectExecution) {
   // Read mainnet registries from frontend/data/
   const ccipRegistryPath = path.join(__dirname, 'data/ccip_registry.json');
   const ccipRegistry = JSON.parse(fs.readFileSync(ccipRegistryPath, 'utf8'));
