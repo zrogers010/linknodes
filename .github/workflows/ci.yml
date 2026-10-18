@@ -48,6 +48,24 @@ jobs:
         run: |
           pkill -f "uvicorn main:app" || true
 
+  frontend-tests:
+    name: Frontend Tests
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      
+      - name: Test malformed date handling
+        run: |
+          cd frontend
+          node test-malformed-dates.js
+
   validate-ccip:
     name: Validate CCIP Registry
     runs-on: ubuntu-latest

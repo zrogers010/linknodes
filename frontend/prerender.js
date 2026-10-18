@@ -44,6 +44,9 @@ function isFeedVisible(feed) {
   return true;
 }
 
+// Export for testing
+export { isFeedVisible };
+
 // Read mainnet registries from frontend/data/
 const feedsRegistry = JSON.parse(fs.readFileSync(path.join(__dirname, 'data/registry.json'), 'utf8'));
 const ccipRegistry = JSON.parse(fs.readFileSync(path.join(__dirname, 'data/ccip_registry.json'), 'utf8'));

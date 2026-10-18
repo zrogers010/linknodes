@@ -5,48 +5,8 @@
  * exclude feeds with malformed shutdown dates.
  */
 
-// Test the isFeedVisible function logic
-function isFeedVisible_generateSitemap(feed) {
-  const shutdownDate = feed.shutdown_date;
-  if (!shutdownDate) {
-    return true;
-  }
-  
-  // Validate strict ISO YYYY-MM-DD format
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(shutdownDate)) {
-    // Malformed date => treat as immediate shutdown
-    return false;
-  }
-  
-  const utcToday = new Date().toISOString().split('T')[0];
-  
-  if (shutdownDate < utcToday) {
-    return false;
-  }
-  
-  return true;
-}
-
-function isFeedVisible_prerender(feed) {
-  const shutdownDate = feed.shutdown_date;
-  if (!shutdownDate) {
-    return true;
-  }
-  
-  // Validate strict ISO YYYY-MM-DD format
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(shutdownDate)) {
-    // Malformed date => treat as immediate shutdown
-    return false;
-  }
-  
-  const utcToday = new Date().toISOString().split('T')[0];
-  
-  if (shutdownDate < utcToday) {
-    return false;
-  }
-  
-  return true;
-}
+import { isFeedVisible as isFeedVisible_generateSitemap } from './generate-sitemap.js';
+import { isFeedVisible as isFeedVisible_prerender } from './prerender.js';
 
 // Test cases
 const testFeeds = [
@@ -61,7 +21,7 @@ const testFeeds = [
 
 let failed = 0;
 
-console.log("Testing generate-sitemap.js isFeedVisible logic...");
+console.log("Testing generate-sitemap.js isFeedVisible function...");
 for (const test of testFeeds) {
   const result = isFeedVisible_generateSitemap(test);
   const pass = result === test.expected;
@@ -73,7 +33,7 @@ for (const test of testFeeds) {
   }
 }
 
-console.log("\nTesting prerender.js isFeedVisible logic...");
+console.log("\nTesting prerender.js isFeedVisible function...");
 for (const test of testFeeds) {
   const result = isFeedVisible_prerender(test);
   const pass = result === test.expected;

@@ -506,11 +506,24 @@ def link_svr_variants(feeds: dict[str, dict]) -> None:
 
 def build_registry(chains: dict, environment: str) -> dict:
     """Build registry for a specific environment (mainnet or testnet)."""
+    # Check if we have an existing registry to preserve generated_at
+    backend_dir = Path(__file__).parent
+    existing_path = backend_dir / ("registry.json" if environment == "mainnet" else "registry_testnet.json")
+    existing_generated_at = None
+    
+    if existing_path.exists():
+        try:
+            with open(existing_path) as f:
+                existing_data = json.load(f)
+                existing_generated_at = existing_data.get("generated_at")
+        except Exception:
+            pass
+    
     registry: dict = {
         "version": "3.0.0",
         "environment": environment,
         "source": "chainlink-reference-data-directory",
-        "generated_at": int(time.time()),
+        "generated_at": existing_generated_at or int(time.time()),  # Keep old if exists
         "networks": {},
     }
     total = 0
