@@ -393,14 +393,39 @@ def build_operators_dataset(feed_operators: dict, nodes_dir: Path, overrides: di
         print(f"\n{e}\n")
         raise
     
-    return {
-        "generated_at": datetime.now(timezone.utc).isoformat(),
+    # Read existing operators.json to check if content changed
+    existing_data = None
+    existing_generated_at = None
+    
+    if OPERATORS_OUT.exists():
+        try:
+            existing_data = json.loads(OPERATORS_OUT.read_text())
+            existing_generated_at = existing_data.get("generated_at")
+        except (json.JSONDecodeError, IOError):
+            pass
+    
+    # Start with existing generated_at (will update if content changed)
+    new_dataset = {
+        "generated_at": existing_generated_at or datetime.now(timezone.utc).isoformat(),
         "sources": {
             "rdd": True,
             "transmitters": True
         },
         "operators": operators
     }
+    
+    # Check if content changed - update generated_at if it did
+    if existing_data is not None and existing_generated_at is not None:
+        # Compare new dataset (with old generated_at) to existing
+        # Serialize both and compare
+        new_serialized = json.dumps(new_dataset, indent=1, sort_keys=True)
+        existing_serialized = json.dumps(existing_data, indent=1, sort_keys=True)
+        
+        if new_serialized != existing_serialized:
+            # Content changed - update generated_at
+            new_dataset["generated_at"] = datetime.now(timezone.utc).isoformat()
+    
+    return new_dataset
 
 
 def update_registry_with_counts(registry_path: Path, feed_operators: dict) -> None:
