@@ -618,11 +618,22 @@ def build_registry(chains: dict, environment: str, http_client=None, output_dir=
         # Check if content changed - update generated_at if it did
         if existing_data is not None and existing_generated_at is not None:
             # Compare new registry (with old generated_at) to existing
-            # If byte-identical, keep old generated_at; otherwise update it
-            new_with_old_time = json.dumps(registry, indent=1)
-            existing_serialized = json.dumps(existing_data, indent=1)
+            # Normalize for comparison: ignore fields added by later stages (build_operators)
+            def normalize_for_comparison(data):
+                """Remove fields added by downstream stages (e.g. operator_count from build_operators)."""
+                normalized = json.loads(json.dumps(data))  # Deep copy
+                for network_key in normalized.get("networks", {}).values():
+                    # Remove operator_count added by build_operators
+                    network_key.pop("operator_count", None)
+                return normalized
             
-            if new_with_old_time != existing_serialized:
+            new_normalized = normalize_for_comparison(registry)
+            existing_normalized = normalize_for_comparison(existing_data)
+            
+            new_serialized = json.dumps(new_normalized, indent=1)
+            existing_serialized = json.dumps(existing_normalized, indent=1)
+            
+            if new_serialized != existing_serialized:
                 # Content changed - update generated_at
                 registry["generated_at"] = int(time.time())
         

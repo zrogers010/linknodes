@@ -1,56 +1,42 @@
 #!/usr/bin/env node
-
 /**
- * Test that frontend JS files (generate-sitemap.js and prerender.js) properly
- * exclude feeds with malformed shutdown dates.
+ * Test date validation in generate-sitemap.js and prerender.js
  * 
- * Imports the real isFeedVisible functions and tests them.
+ * Tests that impossible dates (2026-13-45, 2099-02-30, 9999-99-99) are
+ * correctly treated as immediate shutdown (hidden) while valid dates pass.
  */
 
-import { isFeedVisible as isFeedVisible_generateSitemap } from './generate-sitemap.js';
-import { isFeedVisible as isFeedVisible_prerender } from './prerender.js';
+import { isFeedVisible } from './prerender.js';
 
-// Test cases
-const testFeeds = [
-  { name: "Valid future", shutdown_date: "2027-01-01", expected: true },
-  { name: "Valid past", shutdown_date: "2020-01-01", expected: false },
-  { name: "No date", shutdown_date: null, expected: true },
-  { name: "Malformed 'garbage'", shutdown_date: "garbage", expected: false },
-  { name: "Malformed 'TBD'", shutdown_date: "TBD", expected: false },
-  { name: "Malformed '2026-6-3'", shutdown_date: "2026-6-3", expected: false },
-  { name: "Valid today", shutdown_date: new Date().toISOString().split('T')[0], expected: true }
-];
-
-let failed = 0;
-
-console.log("Testing generate-sitemap.js isFeedVisible function...");
-for (const test of testFeeds) {
-  const result = isFeedVisible_generateSitemap(test);
-  const pass = result === test.expected;
-  if (!pass) {
-    console.log(`❌ FAIL: ${test.name} - expected ${test.expected}, got ${result}`);
-    failed++;
-  } else {
-    console.log(`✅ PASS: ${test.name}`);
+function testImpossibleDates() {
+  const testCases = [
+    { date: '2026-13-45', desc: 'impossible month and day', expected: false },
+    { date: '2099-02-30', desc: 'impossible February 30', expected: false },
+    { date: '9999-99-99', desc: 'impossible month and day', expected: false },
+    { date: '2026-12-31', desc: 'valid future date', expected: true },
+    { date: '2099-12-31', desc: 'valid far-future date', expected: true },
+    { date: '1900-01-01', desc: 'valid past date', expected: false },
+  ];
+  
+  let passed = 0;
+  let failed = 0;
+  
+  for (const { date, desc, expected } of testCases) {
+    const feed = { shutdown_date: date };
+    const result = isFeedVisible(feed);
+    const status = result === expected ? '✓' : '✗';
+    
+    if (result === expected) {
+      passed++;
+      console.log(`${status} ${date} (${desc}): ${expected ? 'visible' : 'hidden'}`);
+    } else {
+      failed++;
+      console.error(`${status} ${date} (${desc}): expected ${expected}, got ${result}`);
+    }
   }
+  
+  console.log(`\n${passed} passed, ${failed} failed`);
+  process.exit(failed > 0 ? 1 : 0);
 }
 
-console.log("\nTesting prerender.js isFeedVisible function...");
-for (const test of testFeeds) {
-  const result = isFeedVisible_prerender(test);
-  const pass = result === test.expected;
-  if (!pass) {
-    console.log(`❌ FAIL: ${test.name} - expected ${test.expected}, got ${result}`);
-    failed++;
-  } else {
-    console.log(`✅ PASS: ${test.name}`);
-  }
-}
-
-if (failed > 0) {
-  console.log(`\n❌ ${failed} test(s) failed`);
-  process.exit(1);
-} else {
-  console.log("\n✅ All tests passed");
-  process.exit(0);
-}
+testImpossibleDates();

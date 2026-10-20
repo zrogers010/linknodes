@@ -51,7 +51,14 @@ def test_parse_shutdown_date():
     
     # Test invalid dates raise ValueError (fail closed)
     print("Testing invalid dates (should raise ValueError):")
-    invalid_cases = ["invalid date", "13th Month 2026", "not a date"]
+    invalid_cases = [
+        "invalid date",
+        "13th Month 2026",
+        "not a date",
+        "2026-13-45",  # Impossible month and day
+        "2099-02-30",  # Impossible Feb 30
+        "9999-99-99",  # Impossible month and day
+    ]
     for invalid_input in invalid_cases:
         try:
             result = parse_shutdown_date(invalid_input)
