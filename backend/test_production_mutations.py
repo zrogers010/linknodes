@@ -19,57 +19,106 @@ import pytest
 
 def test_feed_count_check_in_build_registry():
     """
-    Test that build_registry.main() calls check_feed_count_change() and fails
-    when a feed count drops significantly.
+    Test that build_registry.main() calls check_feed_count_change() with the
+    previously committed registry and fails when feed count drops >20%.
     
     Kills mutants:
     - feed-count call site removed
-    - loop never checks
-    
-    Note: This is a smoke test. Full integration testing with mocked HTTP
-    responses would require extensive setup. The check function itself is
-    tested in test_refresh_checks.py.
+    - check always passes
+    - uses new count instead of old
     """
-    # Verify that check_feed_count_change is actually imported/used in build_registry
-    import build_registry
-    import inspect
+    import httpx
+    from build_registry import main as build_main, MAINNET_CHAINS
     
-    source = inspect.getsource(build_registry)
-    assert "check_feed_count_change" in source, \
-        "build_registry.py should call check_feed_count_change()"
-    assert "from refresh_checks import" in source, \
-        "build_registry.py should import from refresh_checks"
+    with tempfile.TemporaryDirectory() as tmpdir:
+        tmpdir = Path(tmpdir)
+        output_dir = tmpdir / "backend"
+        output_dir.mkdir()
+        (output_dir / "data").mkdir()
+        (output_dir / "data" / "nodes").mkdir()
+        
+        # Create existing registry with 252 ethereum feeds
+        existing_registry = {
+            "version": "3.0.0",
+            "environment": "mainnet",
+            "source": "chainlink-reference-data-directory",
+            "generated_at": 1700000000,
+            "networks": {
+                "ethereum": {
+                    "chain_id": 1,
+                    "label": "Ethereum",
+                    "rpc_urls": ["https://eth.llamarpc.com"],
+                    "feed_count": 252,
+                    "feeds": {}
+                }
+            }
+        }
+        (output_dir / "registry.json").write_text(json.dumps(existing_registry, indent=1))
+        
+        # Mock transport that returns 0 feeds (100% drop)
+        def mock_handler(request: httpx.Request) -> httpx.Response:
+            if '/nodes-' in str(request.url):
+                return httpx.Response(200, json=[])
+            # Return empty feeds list (252 -> 0 feeds)
+            return httpx.Response(200, json=[])
+        
+        mock_client = httpx.Client(transport=httpx.MockTransport(mock_handler))
+        
+        try:
+            # Should raise ValueError from check_feed_count_change
+            with pytest.raises(ValueError, match="Feed count changed.*252.*0.*20%"):
+                build_main(http_client=mock_client, output_dir=output_dir)
+        finally:
+            mock_client.close()
 
 
 def test_rpc_failure_check_in_crawl_transmitters():
     """
     Test that crawl_transmitters() calls check_rpc_failure_rate() and fails
-    when RPC failure rate exceeds threshold (>30%).
+    when RPC failure rate exceeds 30% (failed feeds / attempted feeds).
     
     Kills mutants:
     - RPC check call removed
-    - failed batch counted as 0
-    - threshold 30->100
+    - check always passes
+    - denominator wrong (uses transmitters instead of feeds)
     """
     import build_operators
+    from build_operators import REGISTRY_PATH
     
     # Load real registry
-    registry_path = Path(__file__).parent / "registry.json"
-    registry = json.loads(registry_path.read_text())
+    registry = json.loads(REGISTRY_PATH.read_text())
+    
+    # Count attempted feeds (feeds with aggregators)
+    total_attempted_feeds = sum(
+        len([f for f in network_data["feeds"].values() if f.get("aggregator")])
+        for network_data in registry["networks"].values()
+    )
     
     # Create minimal address index and hidden addresses
     address_index = {}
     hidden_addresses = set()
     overrides = {"hidden_patterns": []}
     
-    # Mock httpx.Client to fail all requests (100% failure rate)
+    # Mock httpx.Client to fail 41% of requests
+    # We need at least 41% of attempted feeds to fail
+    fail_count = int(total_attempted_feeds * 0.41) + 1
+    call_count = [0]
+    
     with patch.object(build_operators, 'httpx') as mock_httpx:
         mock_client = Mock()
-        mock_client.post.side_effect = Exception("RPC failure")
+        
+        def mock_post(*args, **kwargs):
+            call_count[0] += 1
+            if call_count[0] <= fail_count:
+                raise Exception("RPC failure")
+            # Return success for remaining
+            return Mock(status_code=200, json=Mock(return_value=[]))
+        
+        mock_client.post = mock_post
         mock_httpx.Client.return_value.__enter__.return_value = mock_client
         
         # Should raise ValueError from check_rpc_failure_rate
-        with pytest.raises(ValueError, match="RPC failure rate"):
+        with pytest.raises(ValueError, match="RPC failure rate.*30%"):
             build_operators.crawl_transmitters(registry, address_index, hidden_addresses, overrides)
 
 
