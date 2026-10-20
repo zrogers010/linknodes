@@ -628,29 +628,31 @@ def build_registry(chains: dict, environment: str, http_client=None, output_dir=
         
         # Check feed counts vs previously committed registry (from git)
         # This catches major data loss or API changes
-        import subprocess
-        try:
-            result = subprocess.run(
-                ["git", "show", f"HEAD:backend/registry{'_testnet' if environment == 'testnet' else ''}.json"],
-                capture_output=True,
-                text=True,
-                cwd=Path(__file__).parent.parent,
-                timeout=5
-            )
-            if result.returncode == 0:
-                committed_registry = json.loads(result.stdout)
-                for network_key in registry["networks"].keys():
-                    new_count = registry["networks"][network_key]["feed_count"]
-                    old_count = committed_registry.get("networks", {}).get(network_key, {}).get("feed_count", 0)
-                    if old_count > 0:  # Only check if network existed before
-                        try:
-                            check_feed_count_change(network_key, old_count, new_count, max_change_pct=20.0)
-                        except ValueError as e:
-                            print(f"\n{e}\n")
-                            raise
-        except (subprocess.TimeoutExpired, subprocess.CalledProcessError, json.JSONDecodeError, FileNotFoundError):
-            # Git not available, or no committed version, or parse error - skip check
-            pass
+        # Only run this check in production (output_dir is None)
+        if output_dir is None:
+            import subprocess
+            try:
+                result = subprocess.run(
+                    ["git", "show", f"HEAD:backend/registry{'_testnet' if environment == 'testnet' else ''}.json"],
+                    capture_output=True,
+                    text=True,
+                    cwd=Path(__file__).parent.parent,
+                    timeout=5
+                )
+                if result.returncode == 0:
+                    committed_registry = json.loads(result.stdout)
+                    for network_key in registry["networks"].keys():
+                        new_count = registry["networks"][network_key]["feed_count"]
+                        old_count = committed_registry.get("networks", {}).get(network_key, {}).get("feed_count", 0)
+                        if old_count > 0:  # Only check if network existed before
+                            try:
+                                check_feed_count_change(network_key, old_count, new_count, max_change_pct=20.0)
+                            except ValueError as e:
+                                print(f"\n{e}\n")
+                                raise
+            except (subprocess.TimeoutExpired, subprocess.CalledProcessError, json.JSONDecodeError, FileNotFoundError):
+                # Git not available, or no committed version, or parse error - skip check
+                pass
         
         # All validations passed - return registry and staged nodes directory
         # (Nodes will be written atomically in main() after all builds succeed)
