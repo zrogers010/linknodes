@@ -92,28 +92,28 @@ def test_rpc_failure_rate_check_fails_on_41_percent():
         for net in registry["networks"].values()
     )
     
-    # Mock to fail 41% of calls
-    fail_count = int(total_attempted * 0.41)
-    call_count = [0]
+    # We want 41% to fail. Track successful feeds processed.
+    feeds_to_succeed = int(total_attempted * 0.59)  # 59% succeed
+    successful_feeds = [0]
     
     def mock_post(*args, **kwargs):
         batch_size = len(kwargs.get("json", []))
-        responses = []
         
-        for i in range(batch_size):
-            call_count[0] += 1
-            if call_count[0] <= fail_count:
-                # Simulate failure by raising exception
-                raise Exception("RPC failure")
-            else:
-                # Return properly shaped empty result for successful calls
+        # If we haven't succeeded enough yet, fail this batch entirely
+        if successful_feeds[0] < feeds_to_succeed:
+            # This batch succeeds
+            successful_feeds[0] += batch_size
+            responses = []
+            for i in range(batch_size):
                 responses.append({
                     "id": i,
                     "jsonrpc": "2.0",
                     "result": "0x00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000000"
                 })
-        
-        return Mock(status_code=200, json=Mock(return_value=responses))
+            return Mock(status_code=200, json=Mock(return_value=responses))
+        else:
+            # Remaining batches fail
+            raise Exception("RPC failure")
     
     mock_client = Mock()
     mock_client.post = mock_post
@@ -152,28 +152,27 @@ def test_rpc_failure_rate_check_passes_below_threshold():
         for net in registry["networks"].values()
     )
     
-    # Mock to fail only ~1% of calls (well below 30% threshold)
-    fail_count = max(1, int(total_attempted * 0.01))
-    call_count = [0]
+    # We want only ~1% to fail (99% succeed)
+    feeds_to_succeed = int(total_attempted * 0.99)
+    successful_feeds = [0]
     
     def mock_post(*args, **kwargs):
         batch_size = len(kwargs.get("json", []))
-        responses = []
         
-        for i in range(batch_size):
-            call_count[0] += 1
-            if call_count[0] <= fail_count:
-                # Simulate failure
-                raise Exception("RPC failure")
-            else:
-                # Return properly shaped empty result
+        if successful_feeds[0] < feeds_to_succeed:
+            # This batch succeeds
+            successful_feeds[0] += batch_size
+            responses = []
+            for i in range(batch_size):
                 responses.append({
                     "id": i,
                     "jsonrpc": "2.0",
                     "result": "0x00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000000"
                 })
-        
-        return Mock(status_code=200, json=Mock(return_value=responses))
+            return Mock(status_code=200, json=Mock(return_value=responses))
+        else:
+            # Remaining batches fail
+            raise Exception("RPC failure")
     
     mock_client = Mock()
     mock_client.post = mock_post
@@ -295,18 +294,18 @@ def test_check_rdd_response_codes_collects_all_failures():
     Kills mutants:
     - check_rdd_response_codes call removed
     - check only validates first URL
-    - check ignores CCIP URLs
+    - check ignores nodes URLs
     """
     from build_registry import build_registry, MAINNET_CHAINS
-    from refresh_checks import check_rdd_response_codes
+    import refresh_checks
     
     # Mock check_rdd_response_codes to capture what it receives
     captured_responses = []
+    original_check = refresh_checks.check_rdd_response_codes
     
     def mock_check(responses):
         captured_responses.append(responses)
         # Call original to ensure real validation
-        from refresh_checks import check_rdd_response_codes as original_check
         original_check(responses)
     
     # Mock transport: return 200 for everything
@@ -322,7 +321,7 @@ def test_check_rdd_response_codes_collects_all_failures():
             (output_dir / "data").mkdir()
             (output_dir / "data" / "nodes").mkdir()
             
-            with patch('build_registry.check_rdd_response_codes', side_effect=mock_check):
+            with patch.object(refresh_checks, 'check_rdd_response_codes', side_effect=mock_check):
                 registry, total, temp_dir = build_registry(
                     MAINNET_CHAINS,
                     "mainnet",

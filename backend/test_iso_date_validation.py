@@ -6,7 +6,7 @@ like 2026-13-45, 2099-02-30, 9999-99-99, and '2026-6-3'.
 """
 
 import pytest
-from datetime import date, datetime
+from datetime import date, datetime, timezone
 from pathlib import Path
 import sys
 
@@ -28,7 +28,7 @@ def test_impossible_dates_in_build_registry():
     status = compute_feed_status("active", "2026-12-31", "2026-10-20")
     assert status == "deprecating"
     
-    # Impossible dates should raise ValueError (fail closed)
+    # Impossible dates should be treated as shut_down (fail closed)
     impossible_dates = [
         "2026-13-45",  # Month 13, day 45
         "2099-02-30",  # Feb 30
@@ -37,8 +37,9 @@ def test_impossible_dates_in_build_registry():
     ]
     
     for bad_date in impossible_dates:
-        with pytest.raises(ValueError, match="Invalid ISO date"):
-            compute_feed_status("active", bad_date, "2026-10-20")
+        # Should return shut_down (hidden), not raise
+        status = compute_feed_status("active", bad_date, "2026-10-20")
+        assert status == "shut_down", f"Expected shut_down for {bad_date}, got {status}"
 
 
 def test_impossible_dates_in_main_py():
@@ -52,8 +53,9 @@ def test_impossible_dates_in_main_py():
     """
     from main import is_feed_visible, set_test_clock
     
-    # Set test clock to a known date
-    set_test_clock("2026-10-20")
+    # Set test clock to a known date (datetime object)
+    test_date = datetime(2026, 10, 20, tzinfo=timezone.utc)
+    set_test_clock(test_date)
     
     # Valid future date should be visible (deprecating)
     feed_valid = {"shutdown_date": "2026-12-31"}
