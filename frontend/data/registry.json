@@ -2,7 +2,7 @@
  "version": "3.0.0",
  "environment": "mainnet",
  "source": "chainlink-reference-data-directory",
- "generated_at": 1792266829,
+ "generated_at": 1792470214,
  "networks": {
   "ethereum": {
    "label": "Ethereum",
@@ -1523,7 +1523,7 @@
      "por_source": null,
      "clic_product_name": "EIGEN/USD-RefPrice-DF-Ethereum-001",
      "shutdown_date": "2026-10-28",
-     "status": "shut_down",
+     "status": "deprecating",
      "base_path": null,
      "operator_count": 16
     },
@@ -29002,7 +29002,7 @@
     "https://bsc-dataseed.bnbchain.org",
     "https://bsc-rpc.publicnode.com"
    ],
-   "feed_count": 172,
+   "feed_count": 171,
    "feeds": {
     "1inch-usd": {
      "name": "1INCH / USD",
@@ -33349,33 +33349,6 @@
      "shutdown_date": null,
      "status": "active",
      "base_path": "xrp-usd",
-     "operator_count": 16
-    },
-    "xsolvbtc-nav": {
-     "name": "xSolvBTC NAV",
-     "path": "xsolvbtc-nav",
-     "address": "0x68ff0d4499c68Cf4471143930422ae8F17f6Cd58",
-     "aggregator": "0x61cfCa48C17dD57ddabf909e059979067738682F",
-     "contract_version": 6,
-     "svr_proxy": null,
-     "svr_label": null,
-     "decimals": 18,
-     "heartbeat": 86400,
-     "deviation_threshold_pct": 1e-07,
-     "category": "deprecating",
-     "feed_type": "Crypto",
-     "product_type": "NAVLink",
-     "base": "xSolvBTC",
-     "quote": null,
-     "asset_name": "Bitcoin (BTC)",
-     "market_hours": null,
-     "issuer": "Solv",
-     "por_auditor": "Solv",
-     "por_source": "Asset Issuer",
-     "clic_product_name": null,
-     "shutdown_date": "2026-09-30",
-     "status": "shut_down",
-     "base_path": null,
      "operator_count": 16
     },
     "xsolvbtc-solvbtc-exchange-rate-shared-svr": {

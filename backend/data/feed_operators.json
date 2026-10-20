@@ -40602,45 +40602,6 @@
     "newroad"
    ]
   },
-  "xsolvbtc-nav": {
-   "aggregator": "0x61cfCa48C17dD57ddabf909e059979067738682F",
-   "transmitters": [
-    "0x5b4813ee2d4366d73c89d7870afa82bf2fbb3e71",
-    "0xc7f79ea9c7ff17968eec60b4cc9880905cfdb2f4",
-    "0x9dfca5435036ad0069eca7c8e15b0c5c44548952",
-    "0x080f02795ba9003404aceaf102f14443647dbe08",
-    "0x8bdb5e089e9285037e6874d8f3160b5548611380",
-    "0x1877d26dabef3b5869aaa788ebfb39f1d6c477a0",
-    "0xaac815bcd3d1eceacfc51608c4eaf194eefd14f1",
-    "0x342682197497fc9b860e914636847f1a9ad8b037",
-    "0xd979873cfaf9a655f44006fe01b148f1abbc47cc",
-    "0x328e4bdcf3096c36d9cb2d989da6995b461140ac",
-    "0x7511839dffaf432a5dba567bc1aa77115efef882",
-    "0xc3bc83292fcc9c646e61f37126839449736d64fd",
-    "0xe0a047e8705ca7c08076975f8568f123e5d34c11",
-    "0xdb1a1c98f4a23c8c78b7b2c44cd9678ff286a0a1",
-    "0xa13814fe399ea85e0541b4fdd2b38efa149c8ee5",
-    "0xf72bb66e324b5188c6178c6401ee982fa30be096"
-   ],
-   "operators": [
-    "easy2stake",
-    "dextrac",
-    "newroad",
-    "blockdaemon",
-    "validationcloud",
-    "syncnode",
-    "galaxy",
-    "linkforest",
-    "linkriver",
-    "simplyvc",
-    "01node",
-    "inotel",
-    "piertwo",
-    "linkpool",
-    "chainlayer",
-    "fiews"
-   ]
-  },
   "xsolvbtc-solvbtc-exchange-rate-shared-svr": {
    "aggregator": "0xDDd5c6C8b9EF8106438Ddd3634D4892d906CF7D2",
    "transmitters": [

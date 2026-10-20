@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-17T23:26:40.903169+00:00",
+ "generated_at": "2026-10-20T04:25:14.780351+00:00",
  "sources": {
   "rdd": true,
   "transmitters": true
@@ -62,7 +62,7 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 1229,
+    "feeds": 1228,
     "networks": 13
    },
    "networks": [
@@ -80,7 +80,7 @@
     },
     {
      "network": "bnb",
-     "feeds": 149
+     "feeds": 148
     },
     {
      "network": "celo",
@@ -326,7 +326,7 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 1213,
+    "feeds": 1212,
     "networks": 12
    },
    "networks": [
@@ -344,7 +344,7 @@
     },
     {
      "network": "bnb",
-     "feeds": 158
+     "feeds": 157
     },
     {
      "network": "celo",
@@ -576,7 +576,7 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 1206,
+    "feeds": 1205,
     "networks": 12
    },
    "networks": [
@@ -594,7 +594,7 @@
     },
     {
      "network": "bnb",
-     "feeds": 142
+     "feeds": 141
     },
     {
      "network": "celo",
@@ -823,7 +823,7 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 1139,
+    "feeds": 1138,
     "networks": 11
    },
    "networks": [
@@ -841,7 +841,7 @@
     },
     {
      "network": "bnb",
-     "feeds": 143
+     "feeds": 142
     },
     {
      "network": "ethereum",
@@ -1112,7 +1112,7 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 962,
+    "feeds": 961,
     "networks": 9
    },
    "networks": [
@@ -1126,7 +1126,7 @@
     },
     {
      "network": "bnb",
-     "feeds": 107
+     "feeds": 106
     },
     {
      "network": "celo",
@@ -1309,7 +1309,7 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 913,
+    "feeds": 912,
     "networks": 7
    },
    "networks": [
@@ -1323,7 +1323,7 @@
     },
     {
      "network": "bnb",
-     "feeds": 156
+     "feeds": 155
     },
     {
      "network": "ethereum",
@@ -1514,7 +1514,7 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 884,
+    "feeds": 883,
     "networks": 7
    },
    "networks": [
@@ -1528,7 +1528,7 @@
     },
     {
      "network": "bnb",
-     "feeds": 156
+     "feeds": 155
     },
     {
      "network": "ethereum",
@@ -1693,7 +1693,7 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 837,
+    "feeds": 836,
     "networks": 10
    },
    "networks": [
@@ -1707,7 +1707,7 @@
     },
     {
      "network": "bnb",
-     "feeds": 84
+     "feeds": 83
     },
     {
      "network": "celo",
@@ -1900,7 +1900,7 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 811,
+    "feeds": 810,
     "networks": 10
    },
    "networks": [
@@ -1914,7 +1914,7 @@
     },
     {
      "network": "bnb",
-     "feeds": 114
+     "feeds": 113
     },
     {
      "network": "ethereum",
@@ -2133,7 +2133,7 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 774,
+    "feeds": 773,
     "networks": 9
    },
    "networks": [
@@ -2147,7 +2147,7 @@
     },
     {
      "network": "bnb",
-     "feeds": 94
+     "feeds": 93
     },
     {
      "network": "celo",
@@ -2336,7 +2336,7 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 772,
+    "feeds": 771,
     "networks": 7
    },
    "networks": [
@@ -2350,7 +2350,7 @@
     },
     {
      "network": "bnb",
-     "feeds": 164
+     "feeds": 163
     },
     {
      "network": "celo",
@@ -2712,7 +2712,7 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 618,
+    "feeds": 617,
     "networks": 7
    },
    "networks": [
@@ -2730,7 +2730,7 @@
     },
     {
      "network": "bnb",
-     "feeds": 148
+     "feeds": 147
     },
     {
      "network": "celo",
@@ -2880,7 +2880,7 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 552,
+    "feeds": 551,
     "networks": 5
    },
    "networks": [
@@ -2890,7 +2890,7 @@
     },
     {
      "network": "bnb",
-     "feeds": 143
+     "feeds": 142
     },
     {
      "network": "ethereum",
@@ -3147,7 +3147,7 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 479,
+    "feeds": 478,
     "networks": 5
    },
    "networks": [
@@ -3161,7 +3161,7 @@
     },
     {
      "network": "bnb",
-     "feeds": 131
+     "feeds": 130
     },
     {
      "network": "ethereum",
@@ -3395,7 +3395,7 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 390,
+    "feeds": 389,
     "networks": 6
    },
    "networks": [
@@ -3405,7 +3405,7 @@
     },
     {
      "network": "bnb",
-     "feeds": 94
+     "feeds": 93
     },
     {
      "network": "ethereum",
@@ -3643,13 +3643,13 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 344,
+    "feeds": 343,
     "networks": 4
    },
    "networks": [
     {
      "network": "bnb",
-     "feeds": 146
+     "feeds": 145
     },
     {
      "network": "celo",
