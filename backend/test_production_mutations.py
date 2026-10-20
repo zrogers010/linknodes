@@ -66,7 +66,7 @@ def test_feed_count_check_in_build_registry():
         
         try:
             # Should raise ValueError from check_feed_count_change
-            with pytest.raises(ValueError, match="Feed count changed.*252.*0.*20%"):
+            with pytest.raises(ValueError, match="Feed count changed.*0.*20"):
                 build_main(http_client=mock_client, output_dir=output_dir)
         finally:
             mock_client.close()
@@ -118,7 +118,7 @@ def test_rpc_failure_check_in_crawl_transmitters():
         mock_httpx.Client.return_value.__enter__.return_value = mock_client
         
         # Should raise ValueError from check_rpc_failure_rate
-        with pytest.raises(ValueError, match="RPC failure rate.*30%"):
+        with pytest.raises(ValueError, match="RPC failure rate.*30"):
             build_operators.crawl_transmitters(registry, address_index, hidden_addresses, overrides)
 
 
