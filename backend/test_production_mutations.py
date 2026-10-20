@@ -86,49 +86,83 @@ def test_rpc_failure_rate_check_fails_on_41_percent():
     
     address_index, hidden_addresses = build_operators.build_address_index(NODES_DIR, overrides)
     
-    # Count total attempted feeds
-    total_attempted = sum(
-        len([f for f in net["feeds"].values() if f.get("aggregator")])
-        for net in registry["networks"].values()
-    )
+    # Precompute fixed set of failing feed addresses (41% of all feeds)
+    all_feeds = []
+    for net in registry["networks"].values():
+        for path, feed in net["feeds"].items():
+            if feed.get("aggregator"):
+                all_feeds.append(feed["aggregator"].lower())
     
-    # We want 41% to fail. Track successful feeds processed.
-    feeds_to_succeed = int(total_attempted * 0.59)  # 59% succeed
-    successful_feeds = [0]
+    all_feeds_sorted = sorted(all_feeds)
+    fail_count = int(len(all_feeds_sorted) * 0.41)
+    failing_addresses = set(all_feeds_sorted[:fail_count])
     
-    def mock_post(*args, **kwargs):
-        batch_size = len(kwargs.get("json", []))
+    # Encode a single dummy transmitter address for successful feeds
+    success_result = "0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000010000000000000000000000001111111111111111111111111111111111111111"
+    
+    # Mock transport: decide per address from request payload
+    def mock_handler(request: httpx.Request) -> httpx.Response:
+        import json as json_module
+        payload = json_module.loads(request.content)
         
-        # If we haven't succeeded enough yet, fail this batch entirely
-        if successful_feeds[0] < feeds_to_succeed:
-            # This batch succeeds
-            successful_feeds[0] += batch_size
+        # Handle batch requests
+        if isinstance(payload, list):
             responses = []
-            for i in range(batch_size):
-                responses.append({
-                    "id": i,
-                    "jsonrpc": "2.0",
-                    "result": "0x00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000000"
-                })
-            return Mock(status_code=200, json=Mock(return_value=responses))
+            for call in payload:
+                to_address = call["params"][0]["to"].lower()
+                if to_address in failing_addresses:
+                    # This feed fails - return error
+                    responses.append({
+                        "id": call["id"],
+                        "jsonrpc": "2.0",
+                        "error": {"code": -32000, "message": "execution reverted"}
+                    })
+                else:
+                    # This feed succeeds - return 1 transmitter
+                    responses.append({
+                        "id": call["id"],
+                        "jsonrpc": "2.0",
+                        "result": success_result
+                    })
+            return httpx.Response(200, json=responses)
         else:
-            # Remaining batches fail
-            raise Exception("RPC failure")
+            # Single request (fallback)
+            to_address = payload["params"][0]["to"].lower()
+            if to_address in failing_addresses:
+                return httpx.Response(200, json={
+                    "id": payload["id"],
+                    "jsonrpc": "2.0",
+                    "error": {"code": -32000, "message": "execution reverted"}
+                })
+            else:
+                return httpx.Response(200, json={
+                    "id": payload["id"],
+                    "jsonrpc": "2.0",
+                    "result": success_result
+                })
     
-    mock_client = Mock()
-    mock_client.post = mock_post
-    mock_client.__enter__ = Mock(return_value=mock_client)
-    mock_client.__exit__ = Mock(return_value=None)
+    mock_client = httpx.Client(transport=httpx.MockTransport(mock_handler))
     
-    with patch.object(build_operators, 'httpx') as mock_httpx:
-        mock_httpx.Client.return_value = mock_client
+    try:
         with patch.object(build_operators, 'time') as mock_time:
             mock_time.time.return_value = 0
-            mock_time.sleep = Mock()
+            mock_time.sleep = Mock()  # Zero sleep
             
-            # Should raise ValueError with ~41% rate
-            with pytest.raises(ValueError, match=r"RPC failure rate (3[0-9]|4[0-9])\.\d+% exceeds 30"):
-                build_operators.crawl_transmitters(registry, address_index, hidden_addresses, overrides)
+            # Mock the mapping rate check to always pass (we're testing RPC failure rate)
+            with patch('refresh_checks.check_transmitter_mapping_rate'):
+                # Should raise ValueError with ~41% rate
+                with pytest.raises(ValueError) as exc_info:
+                    build_operators.crawl_transmitters(registry, address_index, hidden_addresses, overrides, http_client=mock_client)
+                
+                # Verify the reported rate is ~41% (allow 38-44%)
+                error_msg = str(exc_info.value)
+                import re
+                match = re.search(r'RPC failure rate ([\d.]+)%', error_msg)
+                assert match, f"Could not find failure rate in: {error_msg}"
+                rate = float(match.group(1))
+                assert 38 <= rate <= 44, f"Expected ~41% failure rate, got {rate}%"
+    finally:
+        mock_client.close()
 
 
 def test_rpc_failure_rate_check_passes_below_threshold():
@@ -146,48 +180,158 @@ def test_rpc_failure_rate_check_passes_below_threshold():
     
     address_index, hidden_addresses = build_operators.build_address_index(NODES_DIR, overrides)
     
-    # Count total attempted feeds
-    total_attempted = sum(
-        len([f for f in net["feeds"].values() if f.get("aggregator")])
-        for net in registry["networks"].values()
-    )
+    # Precompute fixed set of failing feed addresses (~1% of all feeds)
+    all_feeds = []
+    for net in registry["networks"].values():
+        for path, feed in net["feeds"].items():
+            if feed.get("aggregator"):
+                all_feeds.append(feed["aggregator"].lower())
     
-    # We want only ~1% to fail (99% succeed)
-    feeds_to_succeed = int(total_attempted * 0.99)
-    successful_feeds = [0]
+    all_feeds_sorted = sorted(all_feeds)
+    fail_count = max(1, int(len(all_feeds_sorted) * 0.01))
+    failing_addresses = set(all_feeds_sorted[:fail_count])
     
-    def mock_post(*args, **kwargs):
-        batch_size = len(kwargs.get("json", []))
+    success_result = "0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000010000000000000000000000001111111111111111111111111111111111111111"
+    
+    # Mock transport: decide per address
+    def mock_handler(request: httpx.Request) -> httpx.Response:
+        import json as json_module
+        payload = json_module.loads(request.content)
         
-        if successful_feeds[0] < feeds_to_succeed:
-            # This batch succeeds
-            successful_feeds[0] += batch_size
+        if isinstance(payload, list):
             responses = []
-            for i in range(batch_size):
-                responses.append({
-                    "id": i,
-                    "jsonrpc": "2.0",
-                    "result": "0x00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000000"
-                })
-            return Mock(status_code=200, json=Mock(return_value=responses))
+            for call in payload:
+                to_address = call["params"][0]["to"].lower()
+                if to_address in failing_addresses:
+                    responses.append({
+                        "id": call["id"],
+                        "jsonrpc": "2.0",
+                        "error": {"code": -32000, "message": "execution reverted"}
+                    })
+                else:
+                    responses.append({
+                        "id": call["id"],
+                        "jsonrpc": "2.0",
+                        "result": success_result
+                    })
+            return httpx.Response(200, json=responses)
         else:
-            # Remaining batches fail
-            raise Exception("RPC failure")
+            to_address = payload["params"][0]["to"].lower()
+            if to_address in failing_addresses:
+                return httpx.Response(200, json={
+                    "id": payload["id"],
+                    "jsonrpc": "2.0",
+                    "error": {"code": -32000, "message": "execution reverted"}
+                })
+            else:
+                return httpx.Response(200, json={
+                    "id": payload["id"],
+                    "jsonrpc": "2.0",
+                    "result": success_result
+                })
     
-    mock_client = Mock()
-    mock_client.post = mock_post
-    mock_client.__enter__ = Mock(return_value=mock_client)
-    mock_client.__exit__ = Mock(return_value=None)
+    mock_client = httpx.Client(transport=httpx.MockTransport(mock_handler))
     
-    with patch.object(build_operators, 'httpx') as mock_httpx:
-        mock_httpx.Client.return_value = mock_client
+    try:
         with patch.object(build_operators, 'time') as mock_time:
             mock_time.time.return_value = 0
             mock_time.sleep = Mock()
             
-            # Should NOT raise (1% < 30%)
-            feed_ops = build_operators.crawl_transmitters(registry, address_index, hidden_addresses, overrides)
-            assert feed_ops is not None
+            # Mock the mapping rate check to always pass
+            with patch('refresh_checks.check_transmitter_mapping_rate'):
+                # Should NOT raise (1% < 30%)
+                feed_ops = build_operators.crawl_transmitters(registry, address_index, hidden_addresses, overrides, http_client=mock_client)
+                assert feed_ops is not None
+    finally:
+        mock_client.close()
+
+
+def test_rpc_failure_rate_check_just_above_threshold():
+    """
+    Test that 31% RPC failure (just above 30% threshold) fails.
+    
+    Kills mutants:
+    - threshold 30->35/40/50 (would cause this test to pass incorrectly)
+    """
+    import build_operators
+    from build_operators import REGISTRY_PATH, NODES_DIR, OVERRIDES_PATH
+    
+    registry = json.loads(REGISTRY_PATH.read_text())
+    overrides = json.loads(OVERRIDES_PATH.read_text()) if OVERRIDES_PATH.exists() else {}
+    
+    address_index, hidden_addresses = build_operators.build_address_index(NODES_DIR, overrides)
+    
+    # Precompute 31% failing addresses
+    all_feeds = []
+    for net in registry["networks"].values():
+        for path, feed in net["feeds"].items():
+            if feed.get("aggregator"):
+                all_feeds.append(feed["aggregator"].lower())
+    
+    all_feeds_sorted = sorted(all_feeds)
+    fail_count = int(len(all_feeds_sorted) * 0.31)
+    failing_addresses = set(all_feeds_sorted[:fail_count])
+    
+    success_result = "0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000010000000000000000000000001111111111111111111111111111111111111111"
+    
+    def mock_handler(request: httpx.Request) -> httpx.Response:
+        import json as json_module
+        payload = json_module.loads(request.content)
+        
+        if isinstance(payload, list):
+            responses = []
+            for call in payload:
+                to_address = call["params"][0]["to"].lower()
+                if to_address in failing_addresses:
+                    responses.append({
+                        "id": call["id"],
+                        "jsonrpc": "2.0",
+                        "error": {"code": -32000, "message": "execution reverted"}
+                    })
+                else:
+                    responses.append({
+                        "id": call["id"],
+                        "jsonrpc": "2.0",
+                        "result": success_result
+                    })
+            return httpx.Response(200, json=responses)
+        else:
+            to_address = payload["params"][0]["to"].lower()
+            if to_address in failing_addresses:
+                return httpx.Response(200, json={
+                    "id": payload["id"],
+                    "jsonrpc": "2.0",
+                    "error": {"code": -32000, "message": "execution reverted"}
+                })
+            else:
+                return httpx.Response(200, json={
+                    "id": payload["id"],
+                    "jsonrpc": "2.0",
+                    "result": success_result
+                })
+    
+    mock_client = httpx.Client(transport=httpx.MockTransport(mock_handler))
+    
+    try:
+        with patch.object(build_operators, 'time') as mock_time:
+            mock_time.time.return_value = 0
+            mock_time.sleep = Mock()
+            
+            # Mock the mapping rate check to always pass
+            with patch('refresh_checks.check_transmitter_mapping_rate'):
+                # Should raise (31% > 30%)
+                with pytest.raises(ValueError) as exc_info:
+                    build_operators.crawl_transmitters(registry, address_index, hidden_addresses, overrides, http_client=mock_client)
+                
+                # Verify rate is ~31%
+                error_msg = str(exc_info.value)
+                import re
+                match = re.search(r'RPC failure rate ([\d.]+)%', error_msg)
+                assert match, f"Could not find failure rate in: {error_msg}"
+                rate = float(match.group(1))
+                assert 29 <= rate <= 33, f"Expected ~31% failure rate, got {rate}%"
+    finally:
+        mock_client.close()
 
 
 def test_mapping_rate_check_fails_below_98_percent():

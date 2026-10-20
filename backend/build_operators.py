@@ -108,14 +108,20 @@ def build_address_index(nodes_dir: Path, overrides: dict) -> tuple[dict[str, str
     return index, hidden_addresses
 
 
-def crawl_transmitters(registry: dict, address_index: dict, hidden_addresses: set[str], overrides: dict, max_retries: int = 3) -> dict:
+def crawl_transmitters(registry: dict, address_index: dict, hidden_addresses: set[str], overrides: dict, max_retries: int = 3, http_client=None) -> dict:
     """Crawl transmitters from all feed aggregators."""
     from refresh_checks import check_transmitter_mapping_rate, check_rpc_failure_rate
     
     feed_operators = {}
     stats = defaultdict(lambda: {"total": 0, "mapped": 0, "failed": 0, "hidden": 0})
     
-    client = httpx.Client(timeout=40)
+    if http_client is None:
+        client = httpx.Client(timeout=40)
+        should_close = True
+    else:
+        client = http_client
+        should_close = False
+    
     start_time = time.time()
     
     for network_key, network_data in registry["networks"].items():
@@ -245,6 +251,8 @@ def crawl_transmitters(registry: dict, address_index: dict, hidden_addresses: se
             check_transmitter_mapping_rate(network_key, s["mapped"], effective_total, threshold=98.0)
         except ValueError as e:
             print(f"\n{e}\n")
+            if should_close:
+                client.close()
             raise
     
     # Check overall RPC failure rate (failed feeds / attempted feeds)
@@ -252,7 +260,12 @@ def crawl_transmitters(registry: dict, address_index: dict, hidden_addresses: se
         check_rpc_failure_rate(total_failed_feeds, total_attempted_feeds, max_failure_pct=30.0)
     except ValueError as e:
         print(f"\n{e}\n")
+        if should_close:
+            client.close()
         raise
+    
+    if should_close:
+        client.close()
     
     return feed_operators
 
