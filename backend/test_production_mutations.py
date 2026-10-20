@@ -17,7 +17,7 @@ import pytest
 
 def test_feed_count_check_fails_on_100_percent_drop():
     """
-    Test that build_registry with 252->0 feed count fails.
+    Test that feed count check (via git HEAD comparison) detects 252->0 drop.
     
     Kills mutants:
     - feed-count call removed
@@ -25,7 +25,7 @@ def test_feed_count_check_fails_on_100_percent_drop():
     - wrong old/new order
     """
     import subprocess
-    from build_registry import main as build_main
+    from build_registry import build_registry
     
     # Simulate git HEAD having 252 feeds
     committed_registry = {
@@ -43,7 +43,6 @@ def test_feed_count_check_fails_on_100_percent_drop():
         cmd = args[0] if args else []
         if isinstance(cmd, list) and "git" in str(cmd) and "show" in str(cmd):
             return Mock(returncode=0, stdout=json.dumps(committed_registry))
-        # Git config calls should succeed
         return Mock(returncode=0, stdout="", stderr="")
     
     # Mock transport returning 0 feeds
@@ -53,11 +52,19 @@ def test_feed_count_check_fails_on_100_percent_drop():
     mock_client = httpx.Client(transport=httpx.MockTransport(mock_handler))
     
     try:
-        # Use production mode (output_dir=None) to trigger git-based checks
-        with patch('subprocess.run', side_effect=mock_run):
-            # Should raise ValueError from check_feed_count_change
-            with pytest.raises(ValueError, match="Feed count changed.*252.*0"):
-                build_main(http_client=mock_client, output_dir=None)
+        with tempfile.TemporaryDirectory() as tmpdir:
+            output_dir = Path(tmpdir) / "backend"
+            output_dir.mkdir()
+            (output_dir / "data").mkdir()
+            (output_dir / "data" / "nodes").mkdir()
+            
+            # Call build_registry with output_dir=None to trigger git-based check
+            # But it will try to write to real backend dir, so we mock the write
+            with patch('subprocess.run', side_effect=mock_run):
+                # Should raise ValueError from check_feed_count_change before any writes
+                with pytest.raises(ValueError, match="Feed count changed.*252.*0"):
+                    from build_registry import MAINNET_CHAINS
+                    build_registry(MAINNET_CHAINS, "mainnet", http_client=mock_client, output_dir=None)
     finally:
         mock_client.close()
 
@@ -85,17 +92,28 @@ def test_rpc_failure_rate_check_fails_on_41_percent():
         for net in registry["networks"].values()
     )
     
-    # Mock to fail 41% of batches
-    fail_count = int(total_attempted * 0.41) + 1
+    # Mock to fail 41% of calls
+    fail_count = int(total_attempted * 0.41)
     call_count = [0]
     
     def mock_post(*args, **kwargs):
-        call_count[0] += 1
-        # Each batch is 10 feeds, count by batches
-        batch_num = (call_count[0] - 1) // 1  # Simplified
-        if batch_num * 10 < fail_count:
-            raise Exception("RPC failure")
-        return Mock(status_code=200, json=Mock(return_value=[]))
+        batch_size = len(kwargs.get("json", []))
+        responses = []
+        
+        for i in range(batch_size):
+            call_count[0] += 1
+            if call_count[0] <= fail_count:
+                # Simulate failure by raising exception
+                raise Exception("RPC failure")
+            else:
+                # Return properly shaped empty result for successful calls
+                responses.append({
+                    "id": i,
+                    "jsonrpc": "2.0",
+                    "result": "0x00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000000"
+                })
+        
+        return Mock(status_code=200, json=Mock(return_value=responses))
     
     mock_client = Mock()
     mock_client.post = mock_post
@@ -106,11 +124,71 @@ def test_rpc_failure_rate_check_fails_on_41_percent():
         mock_httpx.Client.return_value = mock_client
         with patch.object(build_operators, 'time') as mock_time:
             mock_time.time.return_value = 0
-            mock_time.sleep = Mock()  # No-op for speed
+            mock_time.sleep = Mock()
             
-            # Should raise ValueError
-            with pytest.raises(ValueError, match="RPC failure rate.*30"):
+            # Should raise ValueError with ~41% rate
+            with pytest.raises(ValueError, match=r"RPC failure rate (3[0-9]|4[0-9])\.\d+% exceeds 30"):
                 build_operators.crawl_transmitters(registry, address_index, hidden_addresses, overrides)
+
+
+def test_rpc_failure_rate_check_passes_below_threshold():
+    """
+    Test that crawl_transmitters with <30% RPC failure passes.
+    
+    Kills mutants:
+    - threshold 30->50/99/100 (would cause this test to fail)
+    """
+    import build_operators
+    from build_operators import REGISTRY_PATH, NODES_DIR, OVERRIDES_PATH
+    
+    registry = json.loads(REGISTRY_PATH.read_text())
+    overrides = json.loads(OVERRIDES_PATH.read_text()) if OVERRIDES_PATH.exists() else {}
+    
+    address_index, hidden_addresses = build_operators.build_address_index(NODES_DIR, overrides)
+    
+    # Count total attempted feeds
+    total_attempted = sum(
+        len([f for f in net["feeds"].values() if f.get("aggregator")])
+        for net in registry["networks"].values()
+    )
+    
+    # Mock to fail only ~1% of calls (well below 30% threshold)
+    fail_count = max(1, int(total_attempted * 0.01))
+    call_count = [0]
+    
+    def mock_post(*args, **kwargs):
+        batch_size = len(kwargs.get("json", []))
+        responses = []
+        
+        for i in range(batch_size):
+            call_count[0] += 1
+            if call_count[0] <= fail_count:
+                # Simulate failure
+                raise Exception("RPC failure")
+            else:
+                # Return properly shaped empty result
+                responses.append({
+                    "id": i,
+                    "jsonrpc": "2.0",
+                    "result": "0x00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000000"
+                })
+        
+        return Mock(status_code=200, json=Mock(return_value=responses))
+    
+    mock_client = Mock()
+    mock_client.post = mock_post
+    mock_client.__enter__ = Mock(return_value=mock_client)
+    mock_client.__exit__ = Mock(return_value=None)
+    
+    with patch.object(build_operators, 'httpx') as mock_httpx:
+        mock_httpx.Client.return_value = mock_client
+        with patch.object(build_operators, 'time') as mock_time:
+            mock_time.time.return_value = 0
+            mock_time.sleep = Mock()
+            
+            # Should NOT raise (1% < 30%)
+            feed_ops = build_operators.crawl_transmitters(registry, address_index, hidden_addresses, overrides)
+            assert feed_ops is not None
 
 
 def test_mapping_rate_check_fails_below_98_percent():
@@ -183,7 +261,7 @@ def test_check_rdd_response_codes_fails_on_404():
     
     Kills mutants:
     - raise_for_status removed
-    - check_rdd_response_codes call removed
+    - check_rdd_response_codes call removed (still tested via raise_for_status)
     - check always passes
     """
     from build_registry import main as build_main
@@ -206,6 +284,61 @@ def test_check_rdd_response_codes_fails_on_404():
             # Should raise HTTPStatusError (raise_for_status catches 404)
             with pytest.raises(httpx.HTTPStatusError, match="404"):
                 build_main(http_client=mock_client, output_dir=output_dir)
+    finally:
+        mock_client.close()
+
+
+def test_check_rdd_response_codes_collects_all_failures():
+    """
+    Test that check_rdd_response_codes is called after all fetches and reports all non-200s.
+    
+    Kills mutants:
+    - check_rdd_response_codes call removed
+    - check only validates first URL
+    - check ignores CCIP URLs
+    """
+    from build_registry import build_registry, MAINNET_CHAINS
+    from refresh_checks import check_rdd_response_codes
+    
+    # Mock check_rdd_response_codes to capture what it receives
+    captured_responses = []
+    
+    def mock_check(responses):
+        captured_responses.append(responses)
+        # Call original to ensure real validation
+        from refresh_checks import check_rdd_response_codes as original_check
+        original_check(responses)
+    
+    # Mock transport: return 200 for everything
+    def mock_handler(request: httpx.Request) -> httpx.Response:
+        return httpx.Response(200, json=[])
+    
+    mock_client = httpx.Client(transport=httpx.MockTransport(mock_handler))
+    
+    try:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            output_dir = Path(tmpdir) / "backend"
+            output_dir.mkdir()
+            (output_dir / "data").mkdir()
+            (output_dir / "data" / "nodes").mkdir()
+            
+            with patch('build_registry.check_rdd_response_codes', side_effect=mock_check):
+                registry, total, temp_dir = build_registry(
+                    MAINNET_CHAINS,
+                    "mainnet",
+                    http_client=mock_client,
+                    output_dir=output_dir
+                )
+            
+            # Verify check_rdd_response_codes was called
+            assert len(captured_responses) > 0, "check_rdd_response_codes was never called"
+            
+            # Verify it received all feed + node URLs (13 mainnet chains × 2 = 26 URLs)
+            responses = captured_responses[0]
+            assert len(responses) >= 26, f"Expected at least 26 URLs, got {len(responses)}"
+            
+            # Verify all were 200
+            assert all(code == 200 for code in responses.values()), "Not all responses were 200"
     finally:
         mock_client.close()
 
@@ -258,6 +391,7 @@ def test_hidden_operators_excluded_from_mapping_rate():
     Kills mutants:
     - hidden not subtracted from total
     - hidden counted in mapped
+    - hidden not excluded from numerator
     """
     import build_operators
     
@@ -310,6 +444,60 @@ def test_hidden_operators_excluded_from_mapping_rate():
             # Should NOT raise (80/80 = 100% of public operators mapped)
             feed_ops = build_operators.crawl_transmitters(registry, address_index, hidden_addresses, overrides)
             assert feed_ops is not None
+            
+            # Verify hidden operators are NOT in the operators list
+            eth_feed = feed_ops["ethereum"]["eth-usd"]
+            assert len(eth_feed["operators"]) == 80, "Should only count public operators"
+            assert len(eth_feed["transmitters"]) == 100, "Should list all transmitters"
+
+
+def test_hidden_address_index_excludes_patterns():
+    """
+    Test that build_address_index correctly identifies and excludes hidden operators.
+    
+    Kills mutants:
+    - hidden_patterns not applied
+    - hidden addresses returned in public index
+    """
+    import build_operators
+    
+    with tempfile.TemporaryDirectory() as tmpdir:
+        nodes_dir = Path(tmpdir) / "nodes"
+        nodes_dir.mkdir()
+        
+        # Create nodes with mix of public and hidden operators
+        nodes = [
+            {
+                "id": "public-op-1",
+                "name": "Public Operator 1",
+                "nodeAddress": ["0x1111111111111111111111111111111111111111"]
+            },
+            {
+                "id": "cl-ocr-nav-test",  # Matches hidden pattern
+                "name": "Hidden Test Node",
+                "nodeAddress": ["0x2222222222222222222222222222222222222222"]
+            },
+            {
+                "id": "public-op-2",
+                "name": "Public Operator 2",
+                "nodeAddress": ["0x3333333333333333333333333333333333333333"]
+            }
+        ]
+        (nodes_dir / "nodes-mainnet.json").write_text(json.dumps(nodes))
+        
+        overrides = {"hidden_patterns": ["cl-ocr-nav-"]}
+        
+        address_index, hidden_addresses = build_operators.build_address_index(nodes_dir, overrides)
+        
+        # Public addresses should be in the index
+        assert "0x1111111111111111111111111111111111111111" in address_index
+        assert "0x3333333333333333333333333333333333333333" in address_index
+        
+        # Hidden address should NOT be in public index
+        assert "0x2222222222222222222222222222222222222222" not in address_index
+        
+        # Hidden address should be in hidden set
+        assert "0x2222222222222222222222222222222222222222" in hidden_addresses
 
 
 def test_case_insensitive_operator_matching():
@@ -457,7 +645,7 @@ def test_registry_json_deterministic_after_two_full_builds():
     
     Kills mutants:
     - generated_at always updated
-    - comparison includes downstream fields
+    - comparison includes downstream fields (operator_count at feed level)
     """
     import build_registry
     import build_operators
@@ -469,43 +657,72 @@ def test_registry_json_deterministic_after_two_full_builds():
         data_dir.mkdir()
         (data_dir / "nodes").mkdir()
         
-        # Mock transport returning empty feeds
+        # Create minimal nodes file
+        nodes = [{
+            "id": "testop",
+            "name": "Test Operator",
+            "nodeAddress": ["0x1111111111111111111111111111111111111111"]
+        }]
+        (data_dir / "nodes" / "nodes-mainnet.json").write_text(json.dumps(nodes))
+        
+        # Mock transport returning one real feed
+        feed_data = {
+            "path": "eth-usd",
+            "name": "ETH / USD",
+            "proxyAddress": "0x" + "a" * 40,
+            "contractAddress": "0x" + "b" * 40,
+            "decimals": 8,
+            "heartbeat": 3600,
+        }
+        
         def mock_handler(request: httpx.Request) -> httpx.Response:
-            return httpx.Response(200, json=[])
+            if 'nodes-' in str(request.url):
+                return httpx.Response(200, json=nodes)
+            return httpx.Response(200, json=[feed_data])
         
         mock_client = httpx.Client(transport=httpx.MockTransport(mock_handler))
         
         try:
-            # First build cycle
+            # First build cycle: build_registry
             build_registry.main(http_client=mock_client, output_dir=output_dir)
-            # build_operators would normally add operator_count, simulate it
             registry_path = output_dir / "registry.json"
+            
+            # Simulate build_operators adding operator_count to each feed
             r1 = json.loads(registry_path.read_text())
             for net in r1["networks"].values():
-                net["operator_count"] = 0
+                for feed in net["feeds"].values():
+                    feed["operator_count"] = 1  # Feed-level operator_count
             registry_path.write_text(json.dumps(r1, indent=1) + "\n")
+            first_generated_at = r1["generated_at"]
             
-            # Second build cycle
+            # Second build cycle: build_registry should preserve generated_at
             build_registry.main(http_client=mock_client, output_dir=output_dir)
             r2 = json.loads(registry_path.read_text())
+            
+            # Simulate build_operators adding operator_count again
             for net in r2["networks"].values():
-                net["operator_count"] = 0
+                for feed in net["feeds"].values():
+                    feed["operator_count"] = 1
             registry_path.write_text(json.dumps(r2, indent=1) + "\n")
+            second_generated_at = r2["generated_at"]
             
-            # Compare
-            r1_bytes = registry_path.read_bytes()
-            
-            # Third cycle to verify still stable
+            # Third cycle to verify stability
             build_registry.main(http_client=mock_client, output_dir=output_dir)
             r3 = json.loads(registry_path.read_text())
             for net in r3["networks"].values():
-                net["operator_count"] = 0
+                for feed in net["feeds"].values():
+                    feed["operator_count"] = 1
             registry_path.write_text(json.dumps(r3, indent=1) + "\n")
+            third_generated_at = r3["generated_at"]
             
-            r2_bytes = registry_path.read_bytes()
+            # All three should have same generated_at (no content change)
+            assert first_generated_at == second_generated_at == third_generated_at, \
+                f"generated_at changed: {first_generated_at} -> {second_generated_at} -> {third_generated_at}"
             
-            # Should be byte-identical (same generated_at)
-            assert r1 == r2 == r3, "Registry changed between builds with no upstream changes"
-            assert r1_bytes == r2_bytes, "Registry file not byte-identical"
+            # Files should be byte-identical
+            r1_bytes = json.dumps(r1, indent=1) + "\n"
+            r2_bytes = json.dumps(r2, indent=1) + "\n"
+            r3_bytes = json.dumps(r3, indent=1) + "\n"
+            assert r1_bytes == r2_bytes == r3_bytes, "Registry file not byte-identical"
         finally:
             mock_client.close()

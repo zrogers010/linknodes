@@ -622,9 +622,12 @@ def build_registry(chains: dict, environment: str, http_client=None, output_dir=
             def normalize_for_comparison(data):
                 """Remove fields added by downstream stages (e.g. operator_count from build_operators)."""
                 normalized = json.loads(json.dumps(data))  # Deep copy
-                for network_key in normalized.get("networks", {}).values():
-                    # Remove operator_count added by build_operators
-                    network_key.pop("operator_count", None)
+                for network in normalized.get("networks", {}).values():
+                    # Remove operator_count added by build_operators at network level
+                    network.pop("operator_count", None)
+                    # Remove operator_count added by build_operators at feed level (1442 feeds)
+                    for feed in network.get("feeds", {}).values():
+                        feed.pop("operator_count", None)
                 return normalized
             
             new_normalized = normalize_for_comparison(registry)
