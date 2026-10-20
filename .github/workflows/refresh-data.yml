@@ -1,0 +1,105 @@
+name: Refresh Data
+
+on:
+  schedule:
+    - cron: '17 13 * * *'  # Daily at 13:17 UTC (06:17 PDT / 05:17 PST)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      
+      - name: Get current date
+        id: date
+        run: echo "date=$(date -u +%F)" >> $GITHUB_OUTPUT
+      
+      - name: Install Python dependencies
+        run: |
+          cd backend
+          pip install -r requirements.txt
+          pip install pytest
+      
+      - name: Install frontend dependencies
+        run: |
+          cd frontend
+          npm ci
+      
+      - name: Run data builders
+        id: build
+        run: |
+          cd backend
+          python3 build_registry.py
+          python3 build_operators.py
+          python3 build_ccip_registry.py
+      
+      - name: Sync frontend registry data
+        run: |
+          cd frontend
+          node sync-registry-data.js
+      
+      - name: Run shape validation tests
+        run: |
+          cd backend
+          python3 -m pytest test_shape_validation.py test_refresh_checks.py test_operators.py -v
+      
+      - name: Check for changes
+        id: check_changes
+        run: |
+          cd backend
+          if python3 check_data_changes.py; then
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Generate diff summary
+        if: steps.check_changes.outputs.has_changes == 'true'
+        id: diff_summary
+        run: |
+          cd backend
+          python3 generate_refresh_diff.py > /tmp/diff_summary.md
+          echo "DIFF_SUMMARY<<EOF" >> $GITHUB_OUTPUT
+          cat /tmp/diff_summary.md >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+      
+      - name: Create or update refresh PR
+        if: steps.check_changes.outputs.has_changes == 'true'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: 'Data refresh ${{ steps.date.outputs.date }}'
+          branch: data/refresh-${{ steps.date.outputs.date }}
+          delete-branch: true
+          title: 'Data refresh ${{ steps.date.outputs.date }}'
+          body: |
+            Automated data refresh from reference-data-directory and on-chain sources.
+            
+            ${{ steps.diff_summary.outputs.DIFF_SUMMARY }}
+            
+            **Review checklist:**
+            - [ ] Mapping rates look reasonable
+            - [ ] No unexpected operator changes
+            - [ ] Feed count changes are expected
+            
+            **Setup note:** Ensure "Allow GitHub Actions to create and approve pull requests" is enabled in repository settings, or use a PAT/App token (GITHUB_TOKEN PRs don't trigger CI by default).
+            
+            This PR was automatically created by the refresh-data workflow.
+          draft: false
+          labels: data-refresh

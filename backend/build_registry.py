@@ -241,16 +241,22 @@ def compute_feed_status(category: str | None, shutdown_date_iso: str | None, utc
         - "active" otherwise
     """
     if shutdown_date_iso:
-        from datetime import datetime, timezone
+        from datetime import datetime, timezone, date
         import re
         
         if utc_now is None:
             utc_now = datetime.now(timezone.utc).strftime("%Y-%m-%d")
         
-        # Validate ISO YYYY-MM-DD format
+        # Validate strict ISO YYYY-MM-DD format and parseable as date
         # Malformed dates are treated as hidden (fail closed)
-        if not re.match(r'^\d{4}-\d{2}-\d{2}$', shutdown_date_iso):
-            # Malformed date -> treat as immediately shut down (hidden)
+        if not re.fullmatch(r'\d{4}-\d{2}-\d{2}', shutdown_date_iso):
+            # Malformed format -> treat as immediately shut down (hidden)
+            return "shut_down"
+        
+        try:
+            date.fromisoformat(shutdown_date_iso)
+        except ValueError:
+            # Invalid date (e.g. 2026-13-45) -> treat as immediately shut down (hidden)
             return "shut_down"
         
         # Compare dates as strings (YYYY-MM-DD format sorts correctly)
@@ -506,6 +512,8 @@ def link_svr_variants(feeds: dict[str, dict]) -> None:
 
 def build_registry(chains: dict, environment: str, http_client=None, output_dir=None) -> dict:
     """Build registry for a specific environment (mainnet or testnet)."""
+    from refresh_checks import check_rdd_response_codes, check_feed_count_change
+    
     # Determine output directory
     backend_dir = output_dir or Path(__file__).parent
     existing_path = backend_dir / ("registry.json" if environment == "mainnet" else "registry_testnet.json")
@@ -531,6 +539,9 @@ def build_registry(chains: dict, environment: str, http_client=None, output_dir=
         "networks": {},
     }
     total = 0
+    
+    # Track all HTTP responses for validation
+    http_responses = {}
     
     # Stage downloaded data in temp directory before committing
     import tempfile
@@ -558,11 +569,13 @@ def build_registry(chains: dict, environment: str, http_client=None, output_dir=
                 
                 try:
                     resp = client.get(f"{RDD_BASE}/{rdd_file}.json")
+                    http_responses[f"{RDD_BASE}/{rdd_file}.json"] = resp.status_code
                     resp.raise_for_status()
                     raw = resp.json()
                     
                     nodes_file = rdd_file.replace("feeds-", "nodes-")
                     nodes_resp = client.get(f"{RDD_BASE}/{nodes_file}.json")
+                    http_responses[f"{RDD_BASE}/{nodes_file}.json"] = nodes_resp.status_code
                     nodes_resp.raise_for_status()
                     nodes = nodes_resp.json()
                     
@@ -605,16 +618,66 @@ def build_registry(chains: dict, environment: str, http_client=None, output_dir=
         # Check if content changed - update generated_at if it did
         if existing_data is not None and existing_generated_at is not None:
             # Compare new registry (with old generated_at) to existing
-            # If byte-identical, keep old generated_at; otherwise update it
-            new_with_old_time = json.dumps(registry, indent=1)
-            existing_serialized = json.dumps(existing_data, indent=1)
+            # Normalize for comparison: ignore fields added by later stages (build_operators)
+            def normalize_for_comparison(data):
+                """Remove fields added by downstream stages (e.g. operator_count from build_operators)."""
+                normalized = json.loads(json.dumps(data))  # Deep copy
+                for network in normalized.get("networks", {}).values():
+                    # Remove operator_count added by build_operators at network level
+                    network.pop("operator_count", None)
+                    # Remove operator_count added by build_operators at feed level (1442 feeds)
+                    for feed in network.get("feeds", {}).values():
+                        feed.pop("operator_count", None)
+                return normalized
             
-            if new_with_old_time != existing_serialized:
+            new_normalized = normalize_for_comparison(registry)
+            existing_normalized = normalize_for_comparison(existing_data)
+            
+            new_serialized = json.dumps(new_normalized, indent=1)
+            existing_serialized = json.dumps(existing_normalized, indent=1)
+            
+            if new_serialized != existing_serialized:
                 # Content changed - update generated_at
                 registry["generated_at"] = int(time.time())
         
+        # Check feed counts vs previously committed registry (from git)
+        # This catches major data loss or API changes
+        # Only run this check in production (output_dir is None)
+        if output_dir is None:
+            import subprocess
+            try:
+                result = subprocess.run(
+                    ["git", "show", f"HEAD:backend/registry{'_testnet' if environment == 'testnet' else ''}.json"],
+                    capture_output=True,
+                    text=True,
+                    cwd=Path(__file__).parent.parent,
+                    timeout=5
+                )
+                if result.returncode == 0:
+                    committed_registry = json.loads(result.stdout)
+                    for network_key in registry["networks"].keys():
+                        new_count = registry["networks"][network_key]["feed_count"]
+                        old_count = committed_registry.get("networks", {}).get(network_key, {}).get("feed_count", 0)
+                        if old_count > 0:  # Only check if network existed before
+                            try:
+                                check_feed_count_change(network_key, old_count, new_count, max_change_pct=20.0)
+                            except ValueError as e:
+                                print(f"\n{e}\n")
+                                raise
+            except (subprocess.TimeoutExpired, subprocess.CalledProcessError, json.JSONDecodeError, FileNotFoundError):
+                # Git not available, or no committed version, or parse error - skip check
+                pass
+        
         # All validations passed - return registry and staged nodes directory
         # (Nodes will be written atomically in main() after all builds succeed)
+        
+        # Run refresh checks
+        try:
+            check_rdd_response_codes(http_responses)
+        except ValueError as e:
+            print(f"\n{e}\n")
+            raise
+        
         return registry, total, temp_dir
     
     except Exception:

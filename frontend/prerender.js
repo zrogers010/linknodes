@@ -17,7 +17,7 @@ const __dirname = path.dirname(__filename);
  * Drops feeds with past shutdown dates (shut_down status).
  * Keeps active and deprecating feeds (future/today shutdown dates or no shutdown date).
  * 
- * Malformed dates (non-ISO YYYY-MM-DD format) are treated as immediate shutdown (hidden).
+ * Malformed dates (non-ISO YYYY-MM-DD format or impossible dates) are treated as immediate shutdown (hidden).
  */
 function isFeedVisible(feed) {
   const shutdownDate = feed.shutdown_date;
@@ -28,7 +28,23 @@ function isFeedVisible(feed) {
   
   // Validate strict ISO YYYY-MM-DD format
   if (!/^\d{4}-\d{2}-\d{2}$/.test(shutdownDate)) {
-    // Malformed date (e.g. 'garbage', 'TBD', '2026-6-3') => treat as immediate shutdown
+    // Malformed format => treat as immediate shutdown
+    return false;
+  }
+  
+  // Validate date is actually possible (not 2026-13-45, 2099-02-30, etc)
+  const parts = shutdownDate.split('-');
+  const year = parseInt(parts[0], 10);
+  const month = parseInt(parts[1], 10);
+  const day = parseInt(parts[2], 10);
+  
+  // Check via Date.UTC and verify round-trip
+  const timestamp = Date.UTC(year, month - 1, day);
+  const testDate = new Date(timestamp);
+  if (testDate.getUTCFullYear() !== year ||
+      testDate.getUTCMonth() !== month - 1 ||
+      testDate.getUTCDate() !== day) {
+    // Impossible date (e.g. 2026-13-45, 2099-02-30, 9999-99-99) => treat as immediate shutdown
     return false;
   }
   

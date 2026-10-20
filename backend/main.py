@@ -99,10 +99,18 @@ def is_feed_visible(feed_meta: dict) -> bool:
     category = feed_meta.get("category", "unranked")
     
     if shutdown_date_str:
-        # Validate strict ISO YYYY-MM-DD format
+        # Validate strict ISO YYYY-MM-DD format and parseable as date
         import re
-        if not re.match(r'^\d{4}-\d{2}-\d{2}$', shutdown_date_str):
-            # Malformed date => treat as immediate shutdown => hidden
+        from datetime import date
+        
+        if not re.fullmatch(r'\d{4}-\d{2}-\d{2}', shutdown_date_str):
+            # Malformed format => treat as immediate shutdown => hidden
+            return False
+        
+        try:
+            date.fromisoformat(shutdown_date_str)
+        except ValueError:
+            # Invalid date => treat as immediate shutdown => hidden
             return False
         
         # Recompute status at request time
