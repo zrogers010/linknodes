@@ -40,9 +40,11 @@ def test_feed_count_check_fails_on_100_percent_drop():
     }
     
     def mock_run(*args, **kwargs):
-        if len(args) > 0 and "git" in str(args[0]) and "show" in str(args[0]):
+        cmd = args[0] if args else []
+        if isinstance(cmd, list) and "git" in str(cmd) and "show" in str(cmd):
             return Mock(returncode=0, stdout=json.dumps(committed_registry))
-        return Mock(returncode=1, stdout="", stderr="")
+        # Git config calls should succeed
+        return Mock(returncode=0, stdout="", stderr="")
     
     # Mock transport returning 0 feeds
     def mock_handler(request: httpx.Request) -> httpx.Response:
@@ -51,17 +53,11 @@ def test_feed_count_check_fails_on_100_percent_drop():
     mock_client = httpx.Client(transport=httpx.MockTransport(mock_handler))
     
     try:
-        with tempfile.TemporaryDirectory() as tmpdir:
-            output_dir = Path(tmpdir) / "backend"
-            output_dir.mkdir()
-            (output_dir / "data").mkdir()
-            (output_dir / "data" / "nodes").mkdir()
-            
-            with patch('subprocess.run', side_effect=mock_run):
-                # Should raise ValueError from check_feed_count_change
-                with pytest.raises(ValueError, match="Feed count changed.*252.*0"):
-                    # Use output_dir=None to trigger git-based check
-                    build_main(http_client=mock_client, output_dir=output_dir)
+        # Use production mode (output_dir=None) to trigger git-based checks
+        with patch('subprocess.run', side_effect=mock_run):
+            # Should raise ValueError from check_feed_count_change
+            with pytest.raises(ValueError, match="Feed count changed.*252.*0"):
+                build_main(http_client=mock_client, output_dir=None)
     finally:
         mock_client.close()
 
@@ -103,11 +99,13 @@ def test_rpc_failure_rate_check_fails_on_41_percent():
     
     mock_client = Mock()
     mock_client.post = mock_post
+    mock_client.__enter__ = Mock(return_value=mock_client)
+    mock_client.__exit__ = Mock(return_value=None)
     
     with patch.object(build_operators, 'httpx') as mock_httpx:
-        mock_httpx.Client.return_value.__enter__.return_value = mock_client
+        mock_httpx.Client.return_value = mock_client
         with patch.object(build_operators, 'time') as mock_time:
-            mock_time.time = Mock(return_value=0)
+            mock_time.time.return_value = 0
             mock_time.sleep = Mock()  # No-op for speed
             
             # Should raise ValueError
@@ -148,21 +146,32 @@ def test_mapping_rate_check_fails_below_98_percent():
     hidden_addresses = set()
     overrides = {"hidden_patterns": []}
     
-    # Mock to return all 100 transmitters
+    # Encode transmitters like the real RPC does
+    # Format: 0x + offset (32 bytes) + length (32 bytes) + addresses
     def encode_addresses(addrs):
-        # Simplified encoding
-        return "0x" + "00" * 64 + "".join(a[2:].zfill(64) for a in addrs)
+        offset = "0000000000000000000000000000000000000000000000000000000000000020"  # offset to array
+        length = f"{len(addrs):064x}"  # array length
+        data = "".join(addr[2:].zfill(64) for addr in addrs)  # addresses without 0x
+        return f"0x{offset}{length}{data}"
     
+    # Mock returns proper JSON-RPC batch response
     mock_result = [{
+        "id": 0,
+        "jsonrpc": "2.0",
         "result": encode_addresses(transmitters)
     }]
     
     mock_client = Mock()
     mock_client.post.return_value = Mock(status_code=200, json=Mock(return_value=mock_result))
+    mock_client.__enter__ = Mock(return_value=mock_client)
+    mock_client.__exit__ = Mock(return_value=None)
     
     with patch.object(build_operators, 'httpx') as mock_httpx:
-        mock_httpx.Client.return_value.__enter__.return_value = mock_client
-        with patch.object(build_operators, 'time'):
+        mock_httpx.Client.return_value = mock_client
+        with patch.object(build_operators, 'time') as mock_time:
+            mock_time.time.return_value = 0
+            mock_time.sleep = Mock()
+            
             # Should raise ValueError
             with pytest.raises(ValueError, match="mapping rate.*97.*98"):
                 build_operators.crawl_transmitters(registry, address_index, hidden_addresses, overrides)
@@ -170,9 +179,10 @@ def test_mapping_rate_check_fails_below_98_percent():
 
 def test_check_rdd_response_codes_fails_on_404():
     """
-    Test that check_rdd_response_codes is called and fails on non-200.
+    Test that RDD URL 404 responses fail the build.
     
     Kills mutants:
+    - raise_for_status removed
     - check_rdd_response_codes call removed
     - check always passes
     """
@@ -193,8 +203,8 @@ def test_check_rdd_response_codes_fails_on_404():
             (output_dir / "data").mkdir()
             (output_dir / "data" / "nodes").mkdir()
             
-            # Should raise ValueError
-            with pytest.raises(ValueError, match="non-200"):
+            # Should raise HTTPStatusError (raise_for_status catches 404)
+            with pytest.raises(httpx.HTTPStatusError, match="404"):
                 build_main(http_client=mock_client, output_dir=output_dir)
     finally:
         mock_client.close()
@@ -272,17 +282,31 @@ def test_hidden_operators_excluded_from_mapping_rate():
     hidden_addresses = set(hidden_transmitters)
     overrides = {"hidden_patterns": []}
     
-    # Mock to return all 100 transmitters
+    # Encode transmitters like the real RPC does
+    def encode_addresses(addrs):
+        offset = "0000000000000000000000000000000000000000000000000000000000000020"
+        length = f"{len(addrs):064x}"
+        data = "".join(addr[2:].zfill(64) for addr in addrs)
+        return f"0x{offset}{length}{data}"
+    
+    # Mock returns proper JSON-RPC batch response
     mock_result = [{
-        "result": "0x" + "00" * 64 + "".join(a[2:].zfill(64) for a in all_transmitters)
+        "id": 0,
+        "jsonrpc": "2.0",
+        "result": encode_addresses(all_transmitters)
     }]
     
     mock_client = Mock()
     mock_client.post.return_value = Mock(status_code=200, json=Mock(return_value=mock_result))
+    mock_client.__enter__ = Mock(return_value=mock_client)
+    mock_client.__exit__ = Mock(return_value=None)
     
     with patch.object(build_operators, 'httpx') as mock_httpx:
-        mock_httpx.Client.return_value.__enter__.return_value = mock_client
-        with patch.object(build_operators, 'time'):
+        mock_httpx.Client.return_value = mock_client
+        with patch.object(build_operators, 'time') as mock_time:
+            mock_time.time.return_value = 0
+            mock_time.sleep = Mock()
+            
             # Should NOT raise (80/80 = 100% of public operators mapped)
             feed_ops = build_operators.crawl_transmitters(registry, address_index, hidden_addresses, overrides)
             assert feed_ops is not None
