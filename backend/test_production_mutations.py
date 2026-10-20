@@ -334,6 +334,173 @@ def test_rpc_failure_rate_check_just_above_threshold():
         mock_client.close()
 
 
+def test_rpc_failure_rate_check_exactly_at_threshold():
+    """
+    Test that exactly 30% RPC failure passes (boundary case).
+    
+    Kills mutants:
+    - threshold check > changed to >= (would cause this to fail)
+    """
+    import build_operators
+    from build_operators import REGISTRY_PATH, NODES_DIR, OVERRIDES_PATH
+    
+    registry = json.loads(REGISTRY_PATH.read_text())
+    overrides = json.loads(OVERRIDES_PATH.read_text()) if OVERRIDES_PATH.exists() else {}
+    
+    address_index, hidden_addresses = build_operators.build_address_index(NODES_DIR, overrides)
+    
+    # Precompute exactly 30% failing addresses
+    all_feeds = []
+    for net in registry["networks"].values():
+        for path, feed in net["feeds"].items():
+            if feed.get("aggregator"):
+                all_feeds.append(feed["aggregator"].lower())
+    
+    all_feeds_sorted = sorted(all_feeds)
+    fail_count = int(len(all_feeds_sorted) * 0.30)
+    failing_addresses = set(all_feeds_sorted[:fail_count])
+    
+    success_result = "0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000010000000000000000000000001111111111111111111111111111111111111111"
+    
+    def mock_handler(request: httpx.Request) -> httpx.Response:
+        import json as json_module
+        payload = json_module.loads(request.content)
+        
+        if isinstance(payload, list):
+            responses = []
+            for call in payload:
+                to_address = call["params"][0]["to"].lower()
+                if to_address in failing_addresses:
+                    responses.append({
+                        "id": call["id"],
+                        "jsonrpc": "2.0",
+                        "error": {"code": -32000, "message": "execution reverted"}
+                    })
+                else:
+                    responses.append({
+                        "id": call["id"],
+                        "jsonrpc": "2.0",
+                        "result": success_result
+                    })
+            return httpx.Response(200, json=responses)
+        else:
+            to_address = payload["params"][0]["to"].lower()
+            if to_address in failing_addresses:
+                return httpx.Response(200, json={
+                    "id": payload["id"],
+                    "jsonrpc": "2.0",
+                    "error": {"code": -32000, "message": "execution reverted"}
+                })
+            else:
+                return httpx.Response(200, json={
+                    "id": payload["id"],
+                    "jsonrpc": "2.0",
+                    "result": success_result
+                })
+    
+    mock_client = httpx.Client(transport=httpx.MockTransport(mock_handler))
+    
+    try:
+        with patch.object(build_operators, 'time') as mock_time:
+            mock_time.time.return_value = 0
+            mock_time.sleep = Mock()
+            
+            # Mock the mapping rate check to always pass
+            with patch('refresh_checks.check_transmitter_mapping_rate'):
+                # Should NOT raise (30% == threshold, not >)
+                feed_ops = build_operators.crawl_transmitters(registry, address_index, hidden_addresses, overrides, http_client=mock_client)
+                assert feed_ops is not None
+    finally:
+        mock_client.close()
+
+
+def test_rpc_failure_whole_batch_fails():
+    """
+    Test that whole-batch HTTP failures (non-200 status) are counted correctly.
+    
+    Kills mutants:
+    - batch counted as 1 failure instead of batch_size failures
+    - batch failures not counted
+    """
+    import build_operators
+    from build_operators import REGISTRY_PATH, NODES_DIR, OVERRIDES_PATH
+    
+    registry = json.loads(REGISTRY_PATH.read_text())
+    overrides = json.loads(OVERRIDES_PATH.read_text()) if OVERRIDES_PATH.exists() else {}
+    
+    address_index, hidden_addresses = build_operators.build_address_index(NODES_DIR, overrides)
+    
+    # Precompute exactly 40% of feed aggregators to fail
+    all_feed_aggregators = []
+    for net in registry["networks"].values():
+        for path, feed in net["feeds"].items():
+            if feed.get("aggregator"):
+                all_feed_aggregators.append(feed["aggregator"].lower())
+    
+    fail_count = int(len(all_feed_aggregators) * 0.40)
+    failing_aggregators = set(sorted(all_feed_aggregators)[:fail_count])
+    
+    success_result = "0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000010000000000000000000000001111111111111111111111111111111111111111"
+    
+    def mock_handler(request: httpx.Request) -> httpx.Response:
+        import json as json_module
+        payload = json_module.loads(request.content)
+        
+        # Check if this batch contains any failing aggregators
+        if isinstance(payload, list):
+            # Check the first call's "to" address
+            first_to = payload[0]["params"][0]["to"].lower()
+            if first_to in failing_aggregators:
+                # Whole batch fails at HTTP level
+                return httpx.Response(500, text="Internal Server Error")
+            else:
+                # Batch succeeds
+                responses = []
+                for call in payload:
+                    responses.append({
+                        "id": call["id"],
+                        "jsonrpc": "2.0",
+                        "result": success_result
+                    })
+                return httpx.Response(200, json=responses)
+        else:
+            # Single request
+            to_address = payload["params"][0]["to"].lower()
+            if to_address in failing_aggregators:
+                return httpx.Response(500, text="Internal Server Error")
+            else:
+                return httpx.Response(200, json={
+                    "id": payload["id"],
+                    "jsonrpc": "2.0",
+                    "result": success_result
+                })
+    
+    mock_client = httpx.Client(transport=httpx.MockTransport(mock_handler))
+    
+    try:
+        with patch.object(build_operators, 'time') as mock_time:
+            mock_time.time.return_value = 0
+            mock_time.sleep = Mock()
+            
+            # Mock the mapping rate check to always pass
+            with patch('refresh_checks.check_transmitter_mapping_rate'):
+                # Should raise (40% > 30%)
+                try:
+                    result = build_operators.crawl_transmitters(registry, address_index, hidden_addresses, overrides, http_client=mock_client)
+                    # If we get here, no exception was raised - test should fail
+                    pytest.fail(f"Expected ValueError from check_rpc_failure_rate but got result with {len(result)} networks, total_feeds={total_feeds}, fail_count={fail_count}")
+                except ValueError as e:
+                    # This is expected
+                    error_msg = str(e)
+                    import re
+                    match = re.search(r'RPC failure rate ([\d.]+)%', error_msg)
+                    assert match, f"Could not find failure rate in: {error_msg}"
+                    rate = float(match.group(1))
+                    assert 37 <= rate <= 43, f"Expected ~40% failure rate, got {rate}%"
+    finally:
+        mock_client.close()
+
+
 def test_mapping_rate_check_fails_below_98_percent():
     """
     Test that crawl_transmitters with <98% mapping rate fails.
@@ -789,6 +956,7 @@ def test_registry_json_deterministic_after_two_full_builds():
     Kills mutants:
     - generated_at always updated
     - comparison includes downstream fields (operator_count at feed level)
+    - feed-level operator_count pop removed
     """
     import build_registry
     import build_operators
@@ -825,47 +993,56 @@ def test_registry_json_deterministic_after_two_full_builds():
         
         mock_client = httpx.Client(transport=httpx.MockTransport(mock_handler))
         
+        # Patch time.time to return strictly increasing values
+        # This ensures determinism test fails even when builds are fast
+        current_time = [1000000]
+        
+        def mock_time():
+            current_time[0] += 10  # Advance by 10 seconds each call
+            return current_time[0]
+        
         try:
-            # First build cycle: build_registry
-            build_registry.main(http_client=mock_client, output_dir=output_dir)
-            registry_path = output_dir / "registry.json"
-            
-            # Simulate build_operators adding operator_count to each feed
-            r1 = json.loads(registry_path.read_text())
-            for net in r1["networks"].values():
-                for feed in net["feeds"].values():
-                    feed["operator_count"] = 1  # Feed-level operator_count
-            registry_path.write_text(json.dumps(r1, indent=1) + "\n")
-            first_generated_at = r1["generated_at"]
-            
-            # Second build cycle: build_registry should preserve generated_at
-            build_registry.main(http_client=mock_client, output_dir=output_dir)
-            r2 = json.loads(registry_path.read_text())
-            
-            # Simulate build_operators adding operator_count again
-            for net in r2["networks"].values():
-                for feed in net["feeds"].values():
-                    feed["operator_count"] = 1
-            registry_path.write_text(json.dumps(r2, indent=1) + "\n")
-            second_generated_at = r2["generated_at"]
-            
-            # Third cycle to verify stability
-            build_registry.main(http_client=mock_client, output_dir=output_dir)
-            r3 = json.loads(registry_path.read_text())
-            for net in r3["networks"].values():
-                for feed in net["feeds"].values():
-                    feed["operator_count"] = 1
-            registry_path.write_text(json.dumps(r3, indent=1) + "\n")
-            third_generated_at = r3["generated_at"]
-            
-            # All three should have same generated_at (no content change)
-            assert first_generated_at == second_generated_at == third_generated_at, \
-                f"generated_at changed: {first_generated_at} -> {second_generated_at} -> {third_generated_at}"
-            
-            # Files should be byte-identical
-            r1_bytes = json.dumps(r1, indent=1) + "\n"
-            r2_bytes = json.dumps(r2, indent=1) + "\n"
-            r3_bytes = json.dumps(r3, indent=1) + "\n"
-            assert r1_bytes == r2_bytes == r3_bytes, "Registry file not byte-identical"
+            with patch('time.time', side_effect=mock_time):
+                # First build cycle: build_registry
+                build_registry.main(http_client=mock_client, output_dir=output_dir)
+                registry_path = output_dir / "registry.json"
+                
+                # Simulate build_operators adding operator_count to each feed
+                r1 = json.loads(registry_path.read_text())
+                for net in r1["networks"].values():
+                    for feed in net["feeds"].values():
+                        feed["operator_count"] = 1  # Feed-level operator_count
+                registry_path.write_text(json.dumps(r1, indent=1) + "\n")
+                first_generated_at = r1["generated_at"]
+                
+                # Second build cycle: build_registry should preserve generated_at
+                build_registry.main(http_client=mock_client, output_dir=output_dir)
+                r2 = json.loads(registry_path.read_text())
+                
+                # Simulate build_operators adding operator_count again
+                for net in r2["networks"].values():
+                    for feed in net["feeds"].values():
+                        feed["operator_count"] = 1
+                registry_path.write_text(json.dumps(r2, indent=1) + "\n")
+                second_generated_at = r2["generated_at"]
+                
+                # Third cycle to verify stability
+                build_registry.main(http_client=mock_client, output_dir=output_dir)
+                r3 = json.loads(registry_path.read_text())
+                for net in r3["networks"].values():
+                    for feed in net["feeds"].values():
+                        feed["operator_count"] = 1
+                registry_path.write_text(json.dumps(r3, indent=1) + "\n")
+                third_generated_at = r3["generated_at"]
+                
+                # All three should have same generated_at (no content change)
+                assert first_generated_at == second_generated_at == third_generated_at, \
+                    f"generated_at changed: {first_generated_at} -> {second_generated_at} -> {third_generated_at}"
+                
+                # Files should be byte-identical
+                r1_bytes = json.dumps(r1, indent=1) + "\n"
+                r2_bytes = json.dumps(r2, indent=1) + "\n"
+                r3_bytes = json.dumps(r3, indent=1) + "\n"
+                assert r1_bytes == r2_bytes == r3_bytes, "Registry file not byte-identical"
         finally:
             mock_client.close()

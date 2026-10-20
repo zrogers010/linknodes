@@ -34,6 +34,7 @@ def test_impossible_dates_in_build_registry():
         "2099-02-30",  # Feb 30
         "9999-99-99",  # Month 99, day 99
         "2026-6-3",    # Single-digit month/day (not ISO)
+        "20261231",    # Compact ISO (Python accepts but fullmatch should reject)
     ]
     
     for bad_date in impossible_dates:
@@ -71,6 +72,7 @@ def test_impossible_dates_in_main_py():
         "2099-02-30",  # Feb 30
         "9999-99-99",  # Month 99, day 99
         "2026-6-3",    # Single-digit month/day (not ISO)
+        "20261231",    # Compact ISO (Python accepts but fullmatch should reject)
     ]
     
     for bad_date in impossible_dates:
