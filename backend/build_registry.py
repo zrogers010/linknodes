@@ -241,16 +241,22 @@ def compute_feed_status(category: str | None, shutdown_date_iso: str | None, utc
         - "active" otherwise
     """
     if shutdown_date_iso:
-        from datetime import datetime, timezone
+        from datetime import datetime, timezone, date
         import re
         
         if utc_now is None:
             utc_now = datetime.now(timezone.utc).strftime("%Y-%m-%d")
         
-        # Validate ISO YYYY-MM-DD format
+        # Validate strict ISO YYYY-MM-DD format and parseable as date
         # Malformed dates are treated as hidden (fail closed)
-        if not re.match(r'^\d{4}-\d{2}-\d{2}$', shutdown_date_iso):
-            # Malformed date -> treat as immediately shut down (hidden)
+        if not re.fullmatch(r'\d{4}-\d{2}-\d{2}', shutdown_date_iso):
+            # Malformed format -> treat as immediately shut down (hidden)
+            return "shut_down"
+        
+        try:
+            date.fromisoformat(shutdown_date_iso)
+        except ValueError:
+            # Invalid date (e.g. 2026-13-45) -> treat as immediately shut down (hidden)
             return "shut_down"
         
         # Compare dates as strings (YYYY-MM-DD format sorts correctly)
