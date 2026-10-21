@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-20T04:25:14.780351+00:00",
+ "generated_at": "2026-10-21T13:29:32.089241+00:00",
  "sources": {
   "rdd": true,
   "transmitters": true
@@ -62,7 +62,7 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 1228,
+    "feeds": 1229,
     "networks": 13
    },
    "networks": [
@@ -104,7 +104,7 @@
     },
     {
      "network": "polygon",
-     "feeds": 114
+     "feeds": 115
     },
     {
      "network": "scroll",
@@ -326,7 +326,7 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 1212,
+    "feeds": 1213,
     "networks": 12
    },
    "networks": [
@@ -368,7 +368,7 @@
     },
     {
      "network": "polygon",
-     "feeds": 114
+     "feeds": 115
     },
     {
      "network": "scroll",
@@ -576,7 +576,7 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 1205,
+    "feeds": 1206,
     "networks": 12
    },
    "networks": [
@@ -618,7 +618,7 @@
     },
     {
      "network": "polygon",
-     "feeds": 113
+     "feeds": 114
     },
     {
      "network": "scroll",
@@ -823,7 +823,7 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 1138,
+    "feeds": 1139,
     "networks": 11
    },
    "networks": [
@@ -857,7 +857,7 @@
     },
     {
      "network": "polygon",
-     "feeds": 115
+     "feeds": 116
     },
     {
      "network": "scroll",
@@ -1112,7 +1112,7 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 961,
+    "feeds": 962,
     "networks": 9
    },
    "networks": [
@@ -1146,7 +1146,7 @@
     },
     {
      "network": "polygon",
-     "feeds": 119
+     "feeds": 120
     },
     {
      "network": "sonic",
@@ -1309,7 +1309,7 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 912,
+    "feeds": 913,
     "networks": 7
    },
    "networks": [
@@ -1339,7 +1339,7 @@
     },
     {
      "network": "polygon",
-     "feeds": 117
+     "feeds": 118
     }
    ],
    "addresses": [
@@ -1514,7 +1514,7 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 883,
+    "feeds": 884,
     "networks": 7
    },
    "networks": [
@@ -1544,7 +1544,7 @@
     },
     {
      "network": "polygon",
-     "feeds": 117
+     "feeds": 118
     }
    ],
    "addresses": [
@@ -1693,7 +1693,7 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 836,
+    "feeds": 837,
     "networks": 10
    },
    "networks": [
@@ -1727,7 +1727,7 @@
     },
     {
      "network": "polygon",
-     "feeds": 115
+     "feeds": 116
     },
     {
      "network": "scroll",
@@ -1900,7 +1900,7 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 810,
+    "feeds": 811,
     "networks": 10
    },
    "networks": [
@@ -1934,7 +1934,7 @@
     },
     {
      "network": "polygon",
-     "feeds": 115
+     "feeds": 116
     },
     {
      "network": "scroll",
@@ -2133,7 +2133,7 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 773,
+    "feeds": 774,
     "networks": 9
    },
    "networks": [
@@ -2163,7 +2163,7 @@
     },
     {
      "network": "polygon",
-     "feeds": 118
+     "feeds": 119
     },
     {
      "network": "scroll",
@@ -2336,7 +2336,7 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 771,
+    "feeds": 772,
     "networks": 7
    },
    "networks": [
@@ -2362,7 +2362,7 @@
     },
     {
      "network": "polygon",
-     "feeds": 116
+     "feeds": 117
     },
     {
      "network": "scroll",
@@ -2509,7 +2509,7 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 762,
+    "feeds": 763,
     "networks": 8
    },
    "networks": [
@@ -2539,7 +2539,7 @@
     },
     {
      "network": "polygon",
-     "feeds": 118
+     "feeds": 119
     },
     {
      "network": "scroll",
@@ -3009,7 +3009,7 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 531,
+    "feeds": 532,
     "networks": 6
    },
    "networks": [
@@ -3027,7 +3027,7 @@
     },
     {
      "network": "polygon",
-     "feeds": 56
+     "feeds": 57
     },
     {
      "network": "scroll",
@@ -3395,7 +3395,7 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 389,
+    "feeds": 390,
     "networks": 6
    },
    "networks": [
@@ -3417,7 +3417,7 @@
     },
     {
      "network": "polygon",
-     "feeds": 119
+     "feeds": 120
     },
     {
      "network": "sonic",
@@ -4360,7 +4360,7 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 169,
+    "feeds": 170,
     "networks": 2
    },
    "networks": [
@@ -4370,7 +4370,7 @@
     },
     {
      "network": "polygon",
-     "feeds": 114
+     "feeds": 115
     }
    ],
    "addresses": [
@@ -4719,7 +4719,7 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 98,
+    "feeds": 99,
     "networks": 2
    },
    "networks": [
@@ -4729,7 +4729,7 @@
     },
     {
      "network": "polygon",
-     "feeds": 40
+     "feeds": 41
     }
    ],
    "addresses": [

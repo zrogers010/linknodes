@@ -1,8 +1,9 @@
 {
   "version": "2.0.0",
+  "environment": "mainnet",
   "source": "chainlink-ccip-api",
   "source_url": "https://docs.chain.link/api/ccip/v1/chains?environment=mainnet",
-  "generated_at": 1791520140,
+  "generated_at": 1792589372,
   "description": "CCIP router addresses and chain selectors from Chainlink's official mainnet API",
   "networks": {
     "ethereum": {
@@ -16,6 +17,7 @@
       "router": "0x80226fc0Ee2b096224EeAc085Bb9a8cba1146f7D",
       "rmn_proxy": "0x411dE17f12D1A34ecC7F45f49844626267c75e81",
       "native_fee_token": "ETH",
+      "link_token": null,
       "supports": [
         "arbitrum",
         "avalanche",
@@ -36,6 +38,7 @@
       "router": "0x141fa059441E0ca23ce184B6A78bafD2A517DdE8",
       "rmn_proxy": "0xC311a21e6fEf769344EB1515588B9d535662a145",
       "native_fee_token": "ETH",
+      "link_token": null,
       "supports": [
         "avalanche",
         "base",
@@ -56,6 +59,7 @@
       "router": "0xF4c7E640EdA248ef95972845a62bdC74237805dB",
       "rmn_proxy": "0xcBD48A8eB077381c3c4Eb36b402d7283aB2b11Bc",
       "native_fee_token": "AVAX",
+      "link_token": null,
       "supports": [
         "arbitrum",
         "base",
@@ -76,6 +80,7 @@
       "router": "0x881e3A65B4d4a04dD529061dd0071cf975F58bCD",
       "rmn_proxy": "0xC842c69d54F83170C42C4d556B4F6B2ca53Dd3E8",
       "native_fee_token": "ETH",
+      "link_token": null,
       "supports": [
         "arbitrum",
         "avalanche",
@@ -96,6 +101,7 @@
       "router": "0x34B03Cb9086d7D758AC55af71584F81A598759FE",
       "rmn_proxy": "0x9e09697842194f77d315E0907F1Bda77922e8f84",
       "native_fee_token": "BNB",
+      "link_token": null,
       "supports": [
         "arbitrum",
         "avalanche",
@@ -116,6 +122,7 @@
       "router": "0x3206695CaE29952f4b0c22a169725a865bc8Ce0f",
       "rmn_proxy": "0x55b3FCa23EdDd28b1f5B4a3C7975f63EFd2d06CE",
       "native_fee_token": "ETH",
+      "link_token": null,
       "supports": [
         "arbitrum",
         "avalanche",
@@ -136,6 +143,7 @@
       "router": "0x849c5ED5a80F5B408Dd4969b78c2C8fdf0565Bfe",
       "rmn_proxy": "0xf1ceAa46D8d13Cac9fC38aaEF3d3d14754C5A9c2",
       "native_fee_token": "POL",
+      "link_token": null,
       "supports": [
         "arbitrum",
         "avalanche",
@@ -156,6 +164,7 @@
       "router": "0x7798b795Fde864f4Cd1b124a38Ba9619B7F8A442",
       "rmn_proxy": "0x2375959c6571AC7a83c164C6FCcbd09E7782773d",
       "native_fee_token": "LINK",
+      "link_token": null,
       "supports": [
         "arbitrum",
         "ethereum"
@@ -172,6 +181,7 @@
       "router": "0x748Fd769d81F5D94752bf8B0875E9301d0ba71bB",
       "rmn_proxy": "0x2aBB46A2D32220b8801CE96CAbC32dd2dA7b7B20",
       "native_fee_token": "ETH",
+      "link_token": null,
       "supports": [
         "arbitrum",
         "base",
