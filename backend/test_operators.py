@@ -313,3 +313,109 @@ def test_no_hidden_addresses_in_feed_operators():
     
     assert not violations, \
         f"Found {len(violations)} hidden addresses in feed_operators.json:\n" + "\n".join(violations[:10])
+
+
+def test_crawl_transmitters_filters_hidden_addresses():
+    """
+    Test that crawl_transmitters() filters hidden addresses from transmitters list.
+    
+    Kills mutants:
+    - public_transmitters list not created
+    - transmitters not replaced with public_transmitters
+    - hidden address filtering logic removed
+    """
+    import build_operators
+    import httpx
+    from unittest.mock import Mock, patch
+    
+    registry = {
+        "networks": {
+            "ethereum": {
+                "label": "Ethereum",
+                "feeds": {
+                    "eth-usd": {"aggregator": "0xAAA"}
+                },
+                "rpc_urls": ["http://localhost"]
+            }
+        }
+    }
+    
+    # 2 public addresses, 1 hidden
+    public_addrs = ["0x1111111111111111111111111111111111111111", "0x2222222222222222222222222222222222222222"]
+    hidden_addr = "0x3333333333333333333333333333333333333333"
+    all_addrs = public_addrs + [hidden_addr]
+    
+    address_index = {addr.lower(): f"op{i}" for i, addr in enumerate(public_addrs)}
+    hidden_addresses = {hidden_addr.lower()}
+    overrides = {}
+    
+    # Encode RPC response with all 3 addresses
+    def encode_addresses(addrs):
+        offset = "0000000000000000000000000000000000000000000000000000000000000020"
+        length = f"{len(addrs):064x}"
+        data = "".join(addr[2:].zfill(64) for addr in addrs)
+        return f"0x{offset}{length}{data}"
+    
+    mock_result = [{
+        "id": 0,
+        "jsonrpc": "2.0",
+        "result": encode_addresses(all_addrs)
+    }]
+    
+    mock_response = Mock(status_code=200)
+    mock_response.json.return_value = mock_result
+    
+    mock_client = Mock()
+    mock_client.post.return_value = mock_response
+    
+    with patch.object(build_operators, 'time') as mock_time:
+        mock_time.time.return_value = 0
+        mock_time.sleep = Mock()
+        
+        feed_ops = build_operators.crawl_transmitters(
+            registry, address_index, hidden_addresses, overrides, http_client=mock_client
+        )
+    
+    # Verify hidden address is NOT in transmitters list
+    eth_feed = feed_ops["ethereum"]["eth-usd"]
+    assert len(eth_feed["transmitters"]) == 2, "Should only have 2 public transmitters"
+    assert hidden_addr not in eth_feed["transmitters"], "Hidden address should be filtered out"
+    assert all(addr in eth_feed["transmitters"] for addr in public_addrs), "Public addresses should be present"
+
+
+def test_build_operators_main_fails_on_hidden_transmitter_leak():
+    """
+    Test that build_operators.main() returns 1 when check_no_hidden_transmitters fails.
+    
+    Kills mutants:
+    - check_no_hidden_transmitters call removed
+    - exception not caught properly
+    - return 1 changed to return 0
+    """
+    import build_operators
+    from unittest.mock import patch, Mock
+    
+    # Patch crawl_transmitters to return data with a hidden address
+    def mock_crawl(*args, **kwargs):
+        return {
+            "ethereum": {
+                "eth-usd": {
+                    "aggregator": "0xaaa",
+                    "transmitters": ["0x9999999999999999999999999999999999999999"],  # Hidden
+                    "operators": []
+                }
+            }
+        }
+    
+    # Patch build_address_index to provide the hidden address
+    def mock_build_index(*args, **kwargs):
+        return {}, {"0x9999999999999999999999999999999999999999"}
+    
+    with patch.object(build_operators, 'crawl_transmitters', side_effect=mock_crawl), \
+         patch.object(build_operators, 'build_address_index', side_effect=mock_build_index), \
+         patch.object(build_operators, 'build_operators_dataset', return_value={"operators": []}), \
+         patch.object(build_operators, 'update_registry_with_counts'):
+        
+        # main() should return 1 (error) when hidden transmitter detected
+        exit_code = build_operators.main()
+        assert exit_code == 1, "main() should return 1 when hidden transmitter leak detected"

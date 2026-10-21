@@ -15,6 +15,7 @@ from refresh_checks import (
     check_feed_count_change,
     check_rpc_failure_rate,
     check_hidden_operators,
+    check_no_hidden_transmitters,
 )
 
 
@@ -121,6 +122,50 @@ def test_check_hidden_operators_fails_on_name_match():
     
     assert "some-id" in str(excinfo.value)
     assert "Chainlink Internal" in str(excinfo.value)
+
+
+def test_check_no_hidden_transmitters_passes_with_clean_feeds():
+    """Test passes when no feeds contain hidden transmitter addresses."""
+    feed_operators = {
+        "ethereum": {
+            "eth-usd": {
+                "aggregator": "0xaaa",
+                "transmitters": ["0x1111111111111111111111111111111111111111"],
+                "operators": ["linkpool"]
+            }
+        }
+    }
+    hidden_addresses = {"0x2222222222222222222222222222222222222222"}
+    check_no_hidden_transmitters(feed_operators, hidden_addresses)
+
+
+def test_check_no_hidden_transmitters_fails_with_hidden_address():
+    """Test fails when a feed contains a hidden transmitter address.
+    
+    Kills mutants:
+    - check_no_hidden_transmitters not called
+    - check_no_hidden_transmitters always passes
+    - hidden address filtering removed from crawl_transmitters
+    """
+    feed_operators = {
+        "ethereum": {
+            "eth-usd": {
+                "aggregator": "0xaaa",
+                "transmitters": [
+                    "0x1111111111111111111111111111111111111111",
+                    "0x2222222222222222222222222222222222222222"  # Hidden
+                ],
+                "operators": ["linkpool"]
+            }
+        }
+    }
+    hidden_addresses = {"0x2222222222222222222222222222222222222222"}
+    
+    with pytest.raises(ValueError) as excinfo:
+        check_no_hidden_transmitters(feed_operators, hidden_addresses)
+    
+    assert "ethereum/eth-usd" in str(excinfo.value)
+    assert "0x2222222222222222222222222222222222222222" in str(excinfo.value).lower()
 
 
 if __name__ == "__main__":

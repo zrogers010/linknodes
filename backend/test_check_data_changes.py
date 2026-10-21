@@ -5,6 +5,7 @@ Tests for check_data_changes.py exit codes
 import subprocess
 import tempfile
 import json
+import shutil
 from pathlib import Path
 
 
@@ -43,34 +44,75 @@ def test_check_data_changes_exits_0_on_changes():
     """
     backend = Path(__file__).parent
     
-    # Modify registry.json to introduce a change
+    # Create a temporary registry file with a change
     registry_path = backend / "registry.json"
-    original_content = registry_path.read_text()
     
-    try:
-        # Add a temporary field to force a change
-        registry = json.loads(original_content)
-        registry["_test_change"] = "temporary"
-        registry_path.write_text(json.dumps(registry, indent=1))
-        
-        # Run check
-        result = subprocess.run(
-            ["python3", "check_data_changes.py"],
-            cwd=backend,
-            capture_output=True,
-            text=True
-        )
-        
-        # Should exit with code 0 for changes detected
-        assert result.returncode == 0, \
-            f"Expected exit code 0 for changes, got {result.returncode}"
-        
-        assert "has_changes=true" in result.stdout, \
-            f"Expected 'has_changes=true' in output, got: {result.stdout}"
+    # Check if tree is dirty (don't mutate if user has uncommitted changes)
+    git_status = subprocess.run(
+        ["git", "status", "--porcelain", str(registry_path.relative_to(backend.parent))],
+        cwd=backend.parent,
+        capture_output=True,
+        text=True
+    )
     
-    finally:
-        # Restore original
-        registry_path.write_text(original_content)
+    if git_status.stdout.strip():
+        # Tree is dirty, use a temp copy approach
+        with tempfile.TemporaryDirectory() as tmpdir:
+            # Copy backend directory structure
+            tmp_backend = Path(tmpdir) / "backend"
+            tmp_backend.mkdir()
+            
+            # Copy only the files needed for the test
+            for fname in ["check_data_changes.py", "registry.json"]:
+                shutil.copy(backend / fname, tmp_backend / fname)
+            
+            # Initialize git repo in tmpdir
+            subprocess.run(["git", "init"], cwd=tmpdir, capture_output=True)
+            subprocess.run(["git", "add", "."], cwd=tmpdir, capture_output=True)
+            subprocess.run(["git", "config", "user.name", "Test"], cwd=tmpdir, capture_output=True)
+            subprocess.run(["git", "config", "user.email", "test@test.com"], cwd=tmpdir, capture_output=True)
+            subprocess.run(["git", "commit", "-m", "init"], cwd=tmpdir, capture_output=True)
+            
+            # Modify the file
+            tmp_registry = tmp_backend / "registry.json"
+            registry = json.loads(tmp_registry.read_text())
+            registry["_test_change"] = "temporary"
+            tmp_registry.write_text(json.dumps(registry, indent=1))
+            
+            # Run check in tmpdir
+            result = subprocess.run(
+                ["python3", "check_data_changes.py"],
+                cwd=tmp_backend,
+                capture_output=True,
+                text=True
+            )
+    else:
+        # Tree is clean, safe to mutate temporarily
+        original_content = registry_path.read_text()
+        
+        try:
+            # Add a temporary field to force a change
+            registry = json.loads(original_content)
+            registry["_test_change"] = "temporary"
+            registry_path.write_text(json.dumps(registry, indent=1))
+            
+            # Run check
+            result = subprocess.run(
+                ["python3", "check_data_changes.py"],
+                cwd=backend,
+                capture_output=True,
+                text=True
+            )
+        finally:
+            # Restore original
+            registry_path.write_text(original_content)
+    
+    # Should exit with code 0 for changes detected
+    assert result.returncode == 0, \
+        f"Expected exit code 0 for changes, got {result.returncode}"
+    
+    assert "has_changes=true" in result.stdout, \
+        f"Expected 'has_changes=true' in output, got: {result.stdout}"
 
 
 def test_check_data_changes_exits_error_on_invalid_json():
@@ -84,7 +126,7 @@ def test_check_data_changes_exits_error_on_invalid_json():
     """
     backend = Path(__file__).parent
     
-    # Create a temporary invalid file
+    # Use registry_testnet.json as test target
     temp_file = backend / "registry_testnet.json"
     original_content = None
     

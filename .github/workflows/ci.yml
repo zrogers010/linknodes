@@ -28,7 +28,7 @@ jobs:
       - name: Run unit tests
         run: |
           cd backend
-          pytest test_shape_validation.py test_svr_matching.py test_shutdown.py test_mutation_killers.py test_request_time_status.py test_regression_pr16_round2.py test_refresh_checks.py test_operators.py test_production_mutations.py test_iso_date_validation.py -v
+          pytest test_shape_validation.py test_svr_matching.py test_shutdown.py test_mutation_killers.py test_request_time_status.py test_regression_pr16_round2.py test_refresh_checks.py test_operators.py test_production_mutations.py test_iso_date_validation.py test_check_data_changes.py -v
       
       - name: Start backend server
         run: |
