@@ -758,7 +758,7 @@ def test_hidden_operators_excluded_from_mapping_rate():
             # Verify hidden operators are NOT in the operators list
             eth_feed = feed_ops["ethereum"]["eth-usd"]
             assert len(eth_feed["operators"]) == 80, "Should only count public operators"
-            assert len(eth_feed["transmitters"]) == 100, "Should list all transmitters"
+            assert len(eth_feed["transmitters"]) == 80, "Should only list public transmitters (hidden filtered)"
 
 
 def test_hidden_address_index_excludes_patterns():
