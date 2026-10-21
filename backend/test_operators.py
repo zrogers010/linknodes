@@ -276,3 +276,40 @@ def test_feed_operators_use_lowercase_slugs():
             for op_slug in feed_data.get("operators", []):
                 assert op_slug == op_slug.lower(), \
                     f"Feed operator slug {op_slug} is not lowercase"
+
+
+def test_no_hidden_addresses_in_feed_operators():
+    """
+    Test that feed_operators.json contains no hidden transmitter addresses.
+    
+    Kills mutants:
+    - hidden address filter removed from transmitters list
+    - public_transmitters not used
+    """
+    backend = Path(__file__).parent
+    
+    feed_operators_path = backend / "data" / "feed_operators.json"
+    overrides_path = backend / "data" / "operator_overrides.json"
+    nodes_dir = backend / "data" / "nodes"
+    
+    if not feed_operators_path.exists():
+        pytest.skip("feed_operators.json not built yet")
+    
+    feed_operators = json.loads(feed_operators_path.read_text())
+    
+    # Build hidden_addresses set using same logic as build_operators.py
+    import build_operators
+    overrides = json.loads(overrides_path.read_text()) if overrides_path.exists() else {}
+    _, hidden_addresses = build_operators.build_address_index(nodes_dir, overrides)
+    
+    # Check no hidden addresses in transmitters
+    violations = []
+    for network_key, feeds in feed_operators.items():
+        for feed_path, feed_data in feeds.items():
+            transmitters = feed_data.get("transmitters", [])
+            for addr in transmitters:
+                if addr.lower() in hidden_addresses:
+                    violations.append(f"{network_key}/{feed_path}: {addr}")
+    
+    assert not violations, \
+        f"Found {len(violations)} hidden addresses in feed_operators.json:\n" + "\n".join(violations[:10])
