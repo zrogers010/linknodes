@@ -123,3 +123,29 @@ def check_hidden_operators(operators: list, hidden_patterns: list) -> None:
             f"❌ REFRESH CHECK FAILED: {len(violations)} public operator(s) match hidden patterns:\n" +
             "\n".join(f"  {v}" for v in violations[:10])
         )
+
+
+def check_no_hidden_transmitters(feed_operators: dict, hidden_addresses: set) -> None:
+    """Check that feed_operators.json contains no hidden transmitter addresses.
+    
+    Args:
+        feed_operators: Dict with per-network feed operator data
+        hidden_addresses: Set of hidden transmitter addresses (lowercase)
+        
+    Raises:
+        ValueError: If any feed contains a hidden transmitter address
+    """
+    violations = []
+    
+    for network_key, feeds in feed_operators.items():
+        for feed_path, feed_data in feeds.items():
+            transmitters = feed_data.get("transmitters", [])
+            for addr in transmitters:
+                if addr.lower() in hidden_addresses:
+                    violations.append(f"{network_key}/{feed_path}: {addr}")
+    
+    if violations:
+        raise ValueError(
+            f"❌ REFRESH CHECK FAILED: {len(violations)} feed(s) contain hidden transmitter addresses:\n" +
+            "\n".join(f"  {v}" for v in violations[:10])
+        )

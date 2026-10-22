@@ -2,12 +2,19 @@
 """
 Check for meaningful data changes (ignoring timestamps).
 
-Returns exit code 0 if there are changes, 1 if no changes.
+Exit codes:
+- 0: Changes detected
+- 10: No changes detected
+- 1 (or other): Error/failure
 """
 
 import json
 import sys
 from pathlib import Path
+
+EXIT_CHANGES = 0
+EXIT_NO_CHANGES = 10
+EXIT_ERROR = 1
 
 
 def strip_timestamps(data):
@@ -53,8 +60,8 @@ def main():
             current_stripped = strip_timestamps(current)
         except Exception as e:
             # Treat parse errors as failures, not "no changes"
-            print(f"ERROR: Failed to parse {file_path.name}: {e}")
-            raise
+            print(f"ERROR: Failed to parse {file_path.name}: {e}", file=sys.stderr)
+            return EXIT_ERROR
         
         # Get committed version
         import subprocess
@@ -77,15 +84,15 @@ def main():
                 print(f"New file: {file_path.name}")
                 has_changes = True
         except Exception as e:
-            print(f"Error checking {file_path.name}: {e}")
-            has_changes = True
+            print(f"Error checking {file_path.name}: {e}", file=sys.stderr)
+            return EXIT_ERROR
     
     if has_changes:
         print("has_changes=true")
-        return 0  # Changes found
+        return EXIT_CHANGES
     else:
         print("has_changes=false")
-        return 1  # No changes
+        return EXIT_NO_CHANGES
 
 
 if __name__ == "__main__":

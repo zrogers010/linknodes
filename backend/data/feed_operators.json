@@ -2771,18 +2771,7 @@
   },
   "eutbl-nav": {
    "aggregator": "0xdaA1c6511Aa051e9e83Dd7Ac2D65d5E41D1f6b98",
-   "transmitters": [
-    "0x3c9864feeb4165039049688cb867cf69e8f6016c",
-    "0xeeae57f4ee70b40ed8d53ac49d7ea22017ece2ef",
-    "0x6075a4e2fb70b21d2ea70c91e7616a454939cc93",
-    "0x696df550b6ab3974b9d2f42a256c30f1b6a337bd",
-    "0xd8fbf65fa847476973f866e3456830cbad5d1348",
-    "0x69fb30b94e686e88e2ffe52bd507133b390a60b8",
-    "0xcdc63290d95e5ee87782d70ec65eb1f0df85307d",
-    "0xafc2108a6bf96387e9f8328b9b288ec25f887567",
-    "0x2bb7ab46e037255271ffaba1e12b368d8776fef4",
-    "0xe131b409ab2188774838b89542ed0ccdfdc4af41"
-   ],
+   "transmitters": [],
    "operators": []
   },
   "ezeth-eth": {
@@ -9765,18 +9754,7 @@
   },
   "ustbl-nav": {
    "aggregator": "0xC1C24f0f2103F5899b7AB415A1930E519B7D3423",
-   "transmitters": [
-    "0x3c9864feeb4165039049688cb867cf69e8f6016c",
-    "0xeeae57f4ee70b40ed8d53ac49d7ea22017ece2ef",
-    "0x6075a4e2fb70b21d2ea70c91e7616a454939cc93",
-    "0x696df550b6ab3974b9d2f42a256c30f1b6a337bd",
-    "0xd8fbf65fa847476973f866e3456830cbad5d1348",
-    "0x69fb30b94e686e88e2ffe52bd507133b390a60b8",
-    "0xcdc63290d95e5ee87782d70ec65eb1f0df85307d",
-    "0xafc2108a6bf96387e9f8328b9b288ec25f887567",
-    "0x2bb7ab46e037255271ffaba1e12b368d8776fef4",
-    "0xe131b409ab2188774838b89542ed0ccdfdc4af41"
-   ],
+   "transmitters": [],
    "operators": []
   },
   "wbtc-btc": {

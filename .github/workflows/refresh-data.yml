@@ -63,10 +63,17 @@ jobs:
         id: check_changes
         run: |
           cd backend
-          if python3 check_data_changes.py; then
+          set +e
+          python3 check_data_changes.py
+          rc=$?
+          set -e
+          if [ $rc -eq 0 ]; then
             echo "has_changes=true" >> $GITHUB_OUTPUT
-          else
+          elif [ $rc -eq 10 ]; then
             echo "has_changes=false" >> $GITHUB_OUTPUT
+          else
+            echo "Error: check_data_changes.py failed with exit code $rc"
+            exit $rc
           fi
       
       - name: Generate diff summary

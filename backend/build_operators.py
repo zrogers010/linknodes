@@ -201,18 +201,21 @@ def crawl_transmitters(registry: dict, address_index: dict, hidden_addresses: se
                 if transmitters:
                     # Map transmitters: hidden addresses to None, public addresses to operator IDs
                     mapped_ops = []
+                    public_transmitters = []
                     hidden_count = 0
                     
                     for addr in transmitters:
                         addr_lower = addr.lower()
                         if addr_lower in hidden_addresses:
                             hidden_count += 1
-                        elif addr_lower in address_index:
-                            mapped_ops.append(address_index[addr_lower].lower())
+                        else:
+                            public_transmitters.append(addr)
+                            if addr_lower in address_index:
+                                mapped_ops.append(address_index[addr_lower].lower())
                     
                     feed_operators[network_key][path] = {
                         "aggregator": feed["aggregator"],
-                        "transmitters": transmitters,
+                        "transmitters": public_transmitters,
                         "operators": mapped_ops  # Lowercase slugs matching operators.json
                     }
                     
@@ -477,6 +480,14 @@ def main():
     
     print(f"\nCrawling transmitters from {sum(len(n['feeds']) for n in registry['networks'].values())} feeds...")
     feed_operators = crawl_transmitters(registry, address_index, hidden_addresses, overrides)
+    
+    # Verify no hidden addresses leaked into feed_operators
+    from refresh_checks import check_no_hidden_transmitters
+    try:
+        check_no_hidden_transmitters(feed_operators, hidden_addresses)
+    except ValueError as e:
+        print(f"\n{e}\n")
+        return 1
     
     print(f"\nBuilding operators dataset...")
     operators = build_operators_dataset(feed_operators, NODES_DIR, overrides, registry)
