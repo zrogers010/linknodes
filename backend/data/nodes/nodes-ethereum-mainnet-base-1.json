@@ -64,39 +64,6 @@
   "forwarderAddress": "0x53e4CC064aeB70c62a5f9259c5AB9717CCAD4FD5"
  },
  {
-  "id": "clcp-ocr-auto-base-mainnet-nodes-0",
-  "website": "",
-  "name": "Base Mainnet Public OCR2 Node 0",
-  "status": "active",
-  "nodeAddress": [
-   "0x0DDA2097f1EB713E67B0466408e5e452168bE074"
-  ],
-  "oracleAddress": "0x0000000000000000000000000000000000000000",
-  "csaKeys": [
-   {
-    "nodeName": "Base Mainnet Public OCR2 Node 0",
-    "nodeAddress": "0x0DDA2097f1EB713E67B0466408e5e452168bE074",
-    "publicKey": "84719078686cebcecd30d394181b13cc17e5b70b434bd89c8dba6d6a342ba33d"
-   }
-  ],
-  "payeeAddress": "0x4467e3b8F39CFe3E08883f442bF7c78018D1dF79",
-  "peerId": [
-   "12D3KooWALvkw9kpqDJ48XvobP1UZURR4eLW6NHeMJL4m8NiRrq1"
-  ],
-  "ocr2Id": [
-   "4b08ed89dbeb65be38f46a3f7b8b99fe140a610d34a456914ef3139dbd11c0be"
-  ],
-  "ocr2ConfigPublicKey": [
-   "ocr2cfg_evm_f56bd2f8d64b0bec193ef0c6d695d1b3a76a68ffd39c8e7becccf96cc7bd3055"
-  ],
-  "ocr2OffchainPublicKey": [
-   "ocr2off_evm_2a9a30685f070e4b1bf9bb19d9139d757ffca08c602e9d62baebebc4022464dc"
-  ],
-  "ocr2OnchainPublicKey": [
-   "ocr2on_evm_2532e5c276b70df2b85403cc3354306c73050bd6"
-  ]
- },
- {
   "id": "dexTrac",
   "website": "",
   "name": "dexTrac",

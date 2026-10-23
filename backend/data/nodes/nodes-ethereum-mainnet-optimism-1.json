@@ -93,39 +93,6 @@
   "forwarderAddress": "0xc9Abfc8a68D547F8fd94f2FBD7A836d6B704de8d"
  },
  {
-  "id": "clcp-ocr-auto-opti-mainnet-nodes-1",
-  "website": "",
-  "name": "Optimism Mainnet Public OCR2 Node 1",
-  "status": "active",
-  "nodeAddress": [
-   "0xAA940d5429921baE0934734839B8Fd56fbC0a884"
-  ],
-  "oracleAddress": "0x0000000000000000000000000000000000000000",
-  "csaKeys": [
-   {
-    "nodeName": "Optimism Mainnet Public OCR2 Node 1",
-    "nodeAddress": "0xAA940d5429921baE0934734839B8Fd56fbC0a884",
-    "publicKey": "f68e5f364b1a4175f4ee34f0c1a25855af26fed84ce0db0ab0df90d4864384a9"
-   }
-  ],
-  "payeeAddress": "0x8fA510072009E71CfD447169AB5A84cAc394f58A",
-  "peerId": [
-   "12D3KooWEuaeXPbx7MCNCwsPBwdnZP5GzDSKXavCo8HSHucpEd5d"
-  ],
-  "ocr2Id": [
-   "b8d1a21afa7d95b680dc07a3bcdb2ea8be2c4e1ccc056c8ad939e7f233a25e9a"
-  ],
-  "ocr2ConfigPublicKey": [
-   "ocr2cfg_evm_dab489309707480c799954c19d5311ba42c64ae2a50a7e4b2984afb418c13b60"
-  ],
-  "ocr2OffchainPublicKey": [
-   "ocr2off_evm_cfd5867a5b80548dc1a4e491987fa0a145e93e5981e62472bef318121f8bce2e"
-  ],
-  "ocr2OnchainPublicKey": [
-   "ocr2on_evm_024e742d19331f7508c0ecdde8f74dc6ace89cc7"
-  ]
- },
- {
   "id": "dexTrac",
   "website": "https://dex.trace.link",
   "name": "DexTrac",
