@@ -124,39 +124,6 @@
   "forwarderAddress": "0x5d8C90C9ddFBAAFF9a474e0523806E493c563bfa"
  },
  {
-  "id": "clcp-ocr-auto-ava-mainnet-nodes-1",
-  "website": "",
-  "name": "Avalanche Mainnet Public OCR2 Node 1",
-  "status": "active",
-  "nodeAddress": [
-   "0xADc015226e55dCf86A094d56d5040abCB821EBD5"
-  ],
-  "oracleAddress": "0x0000000000000000000000000000000000000000",
-  "csaKeys": [
-   {
-    "nodeName": "Avalanche Mainnet Public OCR2 Node 1",
-    "nodeAddress": "0xADc015226e55dCf86A094d56d5040abCB821EBD5",
-    "publicKey": "c8db2a20556161cec8d1b798874295d3f4c82acf3028a8aca540dc96a56867f4"
-   }
-  ],
-  "payeeAddress": "0x8fA510072009E71CfD447169AB5A84cAc394f58A",
-  "peerId": [
-   "12D3KooWHbKGnsdyDDUqTiYNr1g2WNZ3RA3UJndcn9P8KrxjPoLG"
-  ],
-  "ocr2Id": [
-   "e89fe5cd25a99cf7312f36d5f08ee07737c2d2f537dd29c7c73da94c2f086d25"
-  ],
-  "ocr2ConfigPublicKey": [
-   "ocr2cfg_evm_0bb934b84bc8274d988f73481d34968af77da55fb3e237e686ee5183d6a2f210"
-  ],
-  "ocr2OffchainPublicKey": [
-   "ocr2off_evm_8b7c8e11a5c2864154d59b98fd9dc05ab3978143a4d66c26fe5d7b711c4dfdcc"
-  ],
-  "ocr2OnchainPublicKey": [
-   "ocr2on_evm_b7a98ce9f928c02220e37efc996c826447c8f26f"
-  ]
- },
- {
   "id": "dexTrac",
   "website": "http://dex.trace.link",
   "name": "DexTrac",
