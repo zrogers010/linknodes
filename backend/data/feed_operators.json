@@ -1137,33 +1137,6 @@
     "01node"
    ]
   },
-  "btcy-nav": {
-   "aggregator": "0xe902CD939A0605001257a5719B4d6D5478B490b4",
-   "transmitters": [
-    "0x585b3e95eedd03af221f724557d03384864da3ca",
-    "0x7b740d24396b09f992b655a590139d7fbb5c73c8",
-    "0x30d872350fe74f47c85847d6784b42f9b0816f04",
-    "0xe9dcbacc91db0e37562a8455c80d0734d7cf3bd1",
-    "0x1d5804ae896c64ecc88e15379061ce6230f11895",
-    "0xc917e3bf6c211b326ffd4ed13e7d9a67682095ca",
-    "0x5ea7eae0ebc1f4256806c8bf234f672d410fc988",
-    "0xd8d2297bdf4a84569bcec83c92a81549be9c51e6",
-    "0x0613a20e394593c2aeb627760e6d6fb816d77fbb",
-    "0x65a43936d7e1295cca6f30f6a0b25fe49cab32c8"
-   ],
-   "operators": [
-    "01node",
-    "dextrac",
-    "galaxy",
-    "linkforest",
-    "linkpool",
-    "linkriver",
-    "newroad",
-    "simplyvc",
-    "syncnode",
-    "validationcloud"
-   ]
-  },
   "c1usd-por": {
    "aggregator": "0xaF452c2EA72b6E08AB64a67133a13C4ED35343eb",
    "transmitters": [
@@ -13605,33 +13578,6 @@
     "snzpool",
     "piertwo",
     "northwestnodes",
-    "vulcan"
-   ]
-  },
-  "mln-usd": {
-   "aggregator": "0x09542AC90FA6AF73922fbBD6FB1F713B6D8b7dFb",
-   "transmitters": [
-    "0x9cd5b3e0777b3c85803e6c54c48f905315b9bbe6",
-    "0x9aa888f5acdc6ac3dfb84103b798722396f7ceee",
-    "0x0e3786ed9f1ff2c4c79489cc4bce900d8a5ceaf0",
-    "0xcd96e5a8ab6536394f87b746030bc82c529cbb66",
-    "0x402a0a65ff8cb155288d96e5b791885043695317",
-    "0x1b8e3f415dd41ef5958243dc9f88d40a56f5db98",
-    "0x149371c224dc4c5d96d592093d8670114a737c80",
-    "0x940ddd8918d28a9678471a9c3813975ad70314d8",
-    "0xe6004a0cf3897d4659a1c01162c5eb0b41e6051d",
-    "0x84b4d5471c8e6c1bd0a48d9b06ba8fc05d29f1e2"
-   ],
-   "operators": [
-    "chainlayer",
-    "dextrac",
-    "frameworkventures",
-    "linkforest",
-    "linkpool",
-    "matrixedlink",
-    "northwestnodes",
-    "piertwo",
-    "snzpool",
     "vulcan"
    ]
   },
