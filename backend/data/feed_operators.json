@@ -19222,33 +19222,6 @@
     "syncnode"
    ]
   },
-  "mavia-usd": {
-   "aggregator": "0x4d252e67e643566C5b2B79Eb3FE42007be483fC7",
-   "transmitters": [
-    "0x92467ba6573b264c61eb9294adfe3969c46b135a",
-    "0x53e4cc064aeb70c62a5f9259c5ab9717ccad4fd5",
-    "0xa916996a8ff9ca7bbddb597c5e7ea0e9d473c16f",
-    "0x1961b25137863c5a84f1cc68cba3e6ff43e8d77a",
-    "0x5e4666a8b9e9493df49a875762c5a92a063a790d",
-    "0x5d0c60e67d60a12a614376a747542c0a4c805fa1",
-    "0x79fc1d9e8a7425adc44183bf8e1efbcbf752de48",
-    "0x1ba0c1192d11a192c092fe23b874623278b8fb5f",
-    "0xe0b627e26b86b664ee4e3adcd6ceb8b8f59a84f8",
-    "0xb2777b58f50388a9acf264023722c83be025dc1d"
-   ],
-   "operators": [
-    "01node",
-    "chainlayer",
-    "galaxy",
-    "dextrac",
-    "fiews",
-    "linkpool",
-    "matrixedlink",
-    "piertwo",
-    "snzpool",
-    "syncnode"
-   ]
-  },
   "mew-usd": {
    "aggregator": "0xA678Cb16980289f2F0053176DBF5a7Fb16E37052",
    "transmitters": [
@@ -27970,6 +27943,45 @@
     "01node"
    ]
   },
+  "eurr-por": {
+   "aggregator": "0x9cDBEB726732643E199968494C7066315C9ab1Fe",
+   "transmitters": [
+    "0xc3a80ca6d79137f79393f4478c40a09270ae4b61",
+    "0x2ddbfc05d324d4f424e451aa66069b995836333d",
+    "0xdcdf1e4726731e75aa0ae7c47fd01209760c7a62",
+    "0xda77ba7e291084d2222f33d6a8dd8167d21dc2cc",
+    "0xf5bf6c43c3d90139860867a0e1bbbeb528e72120",
+    "0x0a2d3933315c79c29cee4e102c72ee67b140fd3f",
+    "0x66896306b18117f4e04573d2210a49edd80513b1",
+    "0x43b5ed824b75c03a3b975e489a1bd3177cd10074",
+    "0x78c7933ee38fe8b204199cf0df0e8a1cc0a7ed30",
+    "0x9a2f128eb33f90514bfb5094604faa43d251c06e",
+    "0xbf0a635231ff145b1da57961e48f7490fe6b2df5",
+    "0xb37e254a5c0ae7eb0a479b15ad86df566802d20c",
+    "0xb8c371fe8c366ed9f627932c7b9f369957b45051",
+    "0xc08c942015d149da17c1ef15128f3ca49eebe809",
+    "0x97730d7bdb2260223a4bac7d72ee67ffe8840433",
+    "0x488851e2975ac274f3ff85f51e64a6bf9ec52478"
+   ],
+   "operators": [
+    "01node",
+    "bharvest",
+    "chainlayer",
+    "dextrac",
+    "fiews",
+    "galaxy",
+    "inotel",
+    "linkforest",
+    "linkpool",
+    "linkriver",
+    "matrixedlink",
+    "newroad",
+    "piertwo",
+    "simplyvc",
+    "snzpool",
+    "stakingfacilities"
+   ]
+  },
   "fil-usd": {
    "aggregator": "0x33b1B015bC2099614e0e77609d9754304d2D8E60",
    "transmitters": [
@@ -32673,6 +32685,33 @@
     "vodafone"
    ]
   },
+  "pst-usdc-exchange-rate": {
+   "aggregator": "0x60D8d49FeCb08E1b08396F315F2BD8Ba4768c20f",
+   "transmitters": [
+    "0xadc5571e3b5fcc62c122f6b2255db155f9bce936",
+    "0x5d8c90c9ddfbaaff9a474e0523806e493c563bfa",
+    "0xdc0063a40cec653a0495e32d51023b90fff7f5ec",
+    "0x3af1411201c78a7348eecfc1e3868a3e280b5693",
+    "0x33d7f4adbb4dca1bf1f96469c4246411293387f3",
+    "0x634b436e6c7660bf7ac54b08e7a6783ef0140250",
+    "0x9784fc61c8bb79e0b3136441578b6fae2aac7f33",
+    "0xe2dc74af81f6d8886607a99bcbb463a842519702",
+    "0xd1da91dcc4ae9d304dd0f3904afa73d60321f691",
+    "0x9ba41e98d698cde12e22d342381a2e7fb1edf752"
+   ],
+   "operators": [
+    "01node",
+    "chainlayer",
+    "dextrac",
+    "inotel",
+    "linkforest",
+    "linkpool",
+    "linkriver",
+    "simplyvc",
+    "syncnode",
+    "validationcloud"
+   ]
+  },
   "qi-usd": {
    "aggregator": "0x25E112615Cc5A81536273d6Cb0e62c638f0A2D4c",
    "transmitters": [
@@ -34225,33 +34264,6 @@
     "linkpool",
     "linkriver",
     "simplyvc"
-   ]
-  },
-  "xsolvbtc-nav": {
-   "aggregator": "0xF4D6Ed96A78EB7e78B77D47cfD288C2468024D3B",
-   "transmitters": [
-    "0xd1da91dcc4ae9d304dd0f3904afa73d60321f691",
-    "0x9ba41e98d698cde12e22d342381a2e7fb1edf752",
-    "0x33d7f4adbb4dca1bf1f96469c4246411293387f3",
-    "0x9784fc61c8bb79e0b3136441578b6fae2aac7f33",
-    "0xe2dc74af81f6d8886607a99bcbb463a842519702",
-    "0x3af1411201c78a7348eecfc1e3868a3e280b5693",
-    "0xdc0063a40cec653a0495e32d51023b90fff7f5ec",
-    "0x634b436e6c7660bf7ac54b08e7a6783ef0140250",
-    "0x5d8c90c9ddfbaaff9a474e0523806e493c563bfa",
-    "0xadc5571e3b5fcc62c122f6b2255db155f9bce936"
-   ],
-   "operators": [
-    "syncnode",
-    "validationcloud",
-    "linkforest",
-    "linkriver",
-    "simplyvc",
-    "inotel",
-    "dextrac",
-    "linkpool",
-    "chainlayer",
-    "01node"
    ]
   },
   "ybtc-btc-exchange-rate": {
