@@ -1137,33 +1137,6 @@
     "01node"
    ]
   },
-  "btcy-nav": {
-   "aggregator": "0xe902CD939A0605001257a5719B4d6D5478B490b4",
-   "transmitters": [
-    "0x585b3e95eedd03af221f724557d03384864da3ca",
-    "0x7b740d24396b09f992b655a590139d7fbb5c73c8",
-    "0x30d872350fe74f47c85847d6784b42f9b0816f04",
-    "0xe9dcbacc91db0e37562a8455c80d0734d7cf3bd1",
-    "0x1d5804ae896c64ecc88e15379061ce6230f11895",
-    "0xc917e3bf6c211b326ffd4ed13e7d9a67682095ca",
-    "0x5ea7eae0ebc1f4256806c8bf234f672d410fc988",
-    "0xd8d2297bdf4a84569bcec83c92a81549be9c51e6",
-    "0x0613a20e394593c2aeb627760e6d6fb816d77fbb",
-    "0x65a43936d7e1295cca6f30f6a0b25fe49cab32c8"
-   ],
-   "operators": [
-    "01node",
-    "dextrac",
-    "galaxy",
-    "linkforest",
-    "linkpool",
-    "linkriver",
-    "newroad",
-    "simplyvc",
-    "syncnode",
-    "validationcloud"
-   ]
-  },
   "c1usd-por": {
    "aggregator": "0xaF452c2EA72b6E08AB64a67133a13C4ED35343eb",
    "transmitters": [
@@ -13605,33 +13578,6 @@
     "snzpool",
     "piertwo",
     "northwestnodes",
-    "vulcan"
-   ]
-  },
-  "mln-usd": {
-   "aggregator": "0x09542AC90FA6AF73922fbBD6FB1F713B6D8b7dFb",
-   "transmitters": [
-    "0x9cd5b3e0777b3c85803e6c54c48f905315b9bbe6",
-    "0x9aa888f5acdc6ac3dfb84103b798722396f7ceee",
-    "0x0e3786ed9f1ff2c4c79489cc4bce900d8a5ceaf0",
-    "0xcd96e5a8ab6536394f87b746030bc82c529cbb66",
-    "0x402a0a65ff8cb155288d96e5b791885043695317",
-    "0x1b8e3f415dd41ef5958243dc9f88d40a56f5db98",
-    "0x149371c224dc4c5d96d592093d8670114a737c80",
-    "0x940ddd8918d28a9678471a9c3813975ad70314d8",
-    "0xe6004a0cf3897d4659a1c01162c5eb0b41e6051d",
-    "0x84b4d5471c8e6c1bd0a48d9b06ba8fc05d29f1e2"
-   ],
-   "operators": [
-    "chainlayer",
-    "dextrac",
-    "frameworkventures",
-    "linkforest",
-    "linkpool",
-    "matrixedlink",
-    "northwestnodes",
-    "piertwo",
-    "snzpool",
     "vulcan"
    ]
   },
@@ -39953,45 +39899,6 @@
     "piertwo"
    ]
   },
-  "usr-usd": {
-   "aggregator": "0x91d5fFD8e7060a137925ceD9ad80Dd1979254107",
-   "transmitters": [
-    "0x328e4bdcf3096c36d9cb2d989da6995b461140ac",
-    "0x42b950f1cf4855a54f6d0bd6981687eb4d5d6a18",
-    "0x3a642243e38bea40322aa9a7e59c26aa27cc6f8d",
-    "0x2c14565cddc53f3a60d27e8c345809a31d934642",
-    "0x5b4813ee2d4366d73c89d7870afa82bf2fbb3e71",
-    "0xf87c2e9f08c04f805d15c5e90273227639151860",
-    "0xdb1a1c98f4a23c8c78b7b2c44cd9678ff286a0a1",
-    "0x9dfca5435036ad0069eca7c8e15b0c5c44548952",
-    "0x8bdb5e089e9285037e6874d8f3160b5548611380",
-    "0x1877d26dabef3b5869aaa788ebfb39f1d6c477a0",
-    "0x080f02795ba9003404aceaf102f14443647dbe08",
-    "0xaac815bcd3d1eceacfc51608c4eaf194eefd14f1",
-    "0x342682197497fc9b860e914636847f1a9ad8b037",
-    "0xd979873cfaf9a655f44006fe01b148f1abbc47cc",
-    "0x5d6173e05c3af359dbb13ee12af726e34aaedad2",
-    "0x7511839dffaf432a5dba567bc1aa77115efef882"
-   ],
-   "operators": [
-    "simplyvc",
-    "onchaintech",
-    "tiingo",
-    "shultzpro",
-    "easy2stake",
-    "frameworkventures",
-    "linkpool",
-    "newroad",
-    "validationcloud",
-    "syncnode",
-    "blockdaemon",
-    "galaxy",
-    "linkforest",
-    "linkriver",
-    "snzpool",
-    "01node"
-   ]
-  },
   "vai-usd": {
    "aggregator": "0x9D5763ca9a0BeC8bfC11603F37edA91Edca0CF2c",
    "transmitters": [
@@ -45261,33 +45168,6 @@
     "p2porg",
     "piertwo",
     "deepbase",
-    "syncnode"
-   ]
-  },
-  "ussd-usd": {
-   "aggregator": "0x0F928BC2f45c43E8885d2365Bd75fb132E6C1165",
-   "transmitters": [
-    "0x5e9f336f12edacb7b8120abd3bd7f6d7f2409d64",
-    "0xd9ec021fcca2aa271d8cd106640df0286a5d56db",
-    "0xddf12d19396a6638007b5f235f045c43de35144e",
-    "0xf2ab88678d19e8c7d3d621177a901f7d476ad92b",
-    "0xea4edc7db905bd59d58d9df13c75bcb29553c38c",
-    "0x080f762dc5e50dcf7fe08e2fbd4fc2be36be253f",
-    "0x23055f7099c8daa1a66574087d1ef9fb07f89b1b",
-    "0x88d05fa6a7de0386293d57f1617864afc54cf968",
-    "0x01d4a766da7dc74d39be989bafb44cbc3667b368",
-    "0x238c875b655ddf40b7017956fb2d2e35d1fa6266"
-   ],
-   "operators": [
-    "chainlayer",
-    "deepbase",
-    "dextrac",
-    "fiews",
-    "kytzu",
-    "linkpool",
-    "newroad",
-    "p2porg",
-    "piertwo",
     "syncnode"
    ]
   },
