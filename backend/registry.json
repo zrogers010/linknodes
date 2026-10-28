@@ -2,7 +2,7 @@
  "version": "3.0.0",
  "environment": "mainnet",
  "source": "chainlink-reference-data-directory",
- "generated_at": 1792855043,
+ "generated_at": 1793193706,
  "networks": {
   "ethereum": {
    "label": "Ethereum",
@@ -13,7 +13,7 @@
     "https://eth.llamarpc.com",
     "https://rpc.ankr.com/eth"
    ],
-   "feed_count": 265,
+   "feed_count": 264,
    "feeds": {
     "1inch-eth": {
      "name": "1INCH / ETH",
@@ -743,33 +743,6 @@
      "status": "active",
      "base_path": "btc-usd",
      "operator_count": 31
-    },
-    "btcy-nav": {
-     "name": "BTCY NAV",
-     "path": "btcy-nav",
-     "address": "0x5a33E6CB085E2DdD0df558c0D7d71a27be6b9131",
-     "aggregator": "0xe902CD939A0605001257a5719B4d6D5478B490b4",
-     "contract_version": 6,
-     "svr_proxy": null,
-     "svr_label": null,
-     "decimals": 18,
-     "heartbeat": 86400,
-     "deviation_threshold_pct": 0.5,
-     "category": "deprecating",
-     "feed_type": "Index fund",
-     "product_type": "NAVLink",
-     "base": "BTCY",
-     "quote": null,
-     "asset_name": "AARC BTCY",
-     "market_hours": null,
-     "issuer": "AARC",
-     "por_auditor": "Accountable",
-     "por_source": "Third-Party",
-     "clic_product_name": null,
-     "shutdown_date": "2026-09-30",
-     "status": "shut_down",
-     "base_path": null,
-     "operator_count": 10
     },
     "c1usd-por": {
      "name": "C1USD Reserves",
@@ -7180,7 +7153,7 @@
     "https://arb1.arbitrum.io/rpc",
     "https://arbitrum-one-rpc.publicnode.com"
    ],
-   "feed_count": 252,
+   "feed_count": 251,
    "feeds": {
     "0g-usd": {
      "name": "0G / USD",
@@ -10527,33 +10500,6 @@
      "clic_product_name": "MKR/USD-RefPrice-DF-Arbitrum-001",
      "shutdown_date": null,
      "status": "active",
-     "base_path": null,
-     "operator_count": 10
-    },
-    "mln-usd": {
-     "name": "MLN / USD",
-     "path": "mln-usd",
-     "address": "0xD07de6e37A011CCAfD375d7eb130205E0fa24d69",
-     "aggregator": "0x09542AC90FA6AF73922fbBD6FB1F713B6D8b7dFb",
-     "contract_version": 6,
-     "svr_proxy": null,
-     "svr_label": null,
-     "decimals": 8,
-     "heartbeat": 86400,
-     "deviation_threshold_pct": 0.5,
-     "category": "deprecating",
-     "feed_type": "Crypto",
-     "product_type": "Price",
-     "base": "MLN",
-     "quote": "USD",
-     "asset_name": "Enzyme",
-     "market_hours": "Crypto",
-     "issuer": null,
-     "por_auditor": null,
-     "por_source": null,
-     "clic_product_name": "MLN/USD-RefPrice-DF-Arbitrum-001",
-     "shutdown_date": "2026-09-30",
-     "status": "shut_down",
      "base_path": null,
      "operator_count": 10
     },
@@ -29002,7 +28948,7 @@
     "https://bsc-dataseed.bnbchain.org",
     "https://bsc-rpc.publicnode.com"
    ],
-   "feed_count": 171,
+   "feed_count": 170,
    "feeds": {
     "1inch-usd": {
      "name": "1INCH / USD",
@@ -32891,33 +32837,6 @@
      "status": "active",
      "base_path": null,
      "operator_count": 10
-    },
-    "usr-usd": {
-     "name": "USR / USD",
-     "path": "usr-usd",
-     "address": "0xE8ed18E29402CD223bC5B73D30e40CCdf7b72986",
-     "aggregator": "0x91d5fFD8e7060a137925ceD9ad80Dd1979254107",
-     "contract_version": 6,
-     "svr_proxy": null,
-     "svr_label": null,
-     "decimals": 8,
-     "heartbeat": 86400,
-     "deviation_threshold_pct": 0.3,
-     "category": "deprecating",
-     "feed_type": "Crypto",
-     "product_type": "Price",
-     "base": "USR",
-     "quote": "USD",
-     "asset_name": "Resolv USR",
-     "market_hours": "Crypto",
-     "issuer": null,
-     "por_auditor": null,
-     "por_source": null,
-     "clic_product_name": "USR/USD-RefPrice-DF-Binance-001",
-     "shutdown_date": "2026-10-18",
-     "status": "shut_down",
-     "base_path": null,
-     "operator_count": 16
     },
     "vai-usd": {
      "name": "VAI / USD",
@@ -37324,7 +37243,7 @@
     "https://rpc.soniclabs.com",
     "https://sonic-rpc.publicnode.com"
    ],
-   "feed_count": 36,
+   "feed_count": 35,
    "feeds": {
     "bes-s-exchange-rate": {
      "name": "beS / S Exchange Rate",
@@ -37944,33 +37863,6 @@
      "clic_product_name": "USDT/USD-RefPrice-DF-Sonic-001",
      "shutdown_date": null,
      "status": "active",
-     "base_path": null,
-     "operator_count": 10
-    },
-    "ussd-usd": {
-     "name": "USSD / USD",
-     "path": "ussd-usd",
-     "address": "0xc0663D811E63AcdcE3A73ddcA57B2c5Ff13fB33E",
-     "aggregator": "0x0F928BC2f45c43E8885d2365Bd75fb132E6C1165",
-     "contract_version": 6,
-     "svr_proxy": null,
-     "svr_label": null,
-     "decimals": 18,
-     "heartbeat": 86400,
-     "deviation_threshold_pct": 0.5,
-     "category": "deprecating",
-     "feed_type": "Crypto",
-     "product_type": "Price",
-     "base": "USSD",
-     "quote": "USD",
-     "asset_name": "US Sonic Dollar",
-     "market_hours": "Crypto",
-     "issuer": null,
-     "por_auditor": null,
-     "por_source": null,
-     "clic_product_name": "USSD/USD-RefPrice-DF-Sonic-001",
-     "shutdown_date": "2026-10-18",
-     "status": "shut_down",
      "base_path": null,
      "operator_count": 10
     },

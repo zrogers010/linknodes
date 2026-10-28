@@ -2,7 +2,7 @@
  "version": "3.0.0",
  "environment": "testnet",
  "source": "chainlink-reference-data-directory",
- "generated_at": 1792470215,
+ "generated_at": 1793193708,
  "networks": {
   "sepolia": {
    "label": "Ethereum Sepolia",
@@ -3052,7 +3052,7 @@
     "https://sepolia.base.org",
     "https://base-sepolia-rpc.publicnode.com"
    ],
-   "feed_count": 10,
+   "feed_count": 11,
    "feeds": {
     "btc-usd": {
      "name": "BTC / USD",
@@ -3279,6 +3279,32 @@
      "base": null,
      "quote": null,
      "asset_name": "",
+     "market_hours": "Crypto",
+     "issuer": null,
+     "por_auditor": null,
+     "por_source": null,
+     "clic_product_name": null,
+     "shutdown_date": null,
+     "status": "active",
+     "base_path": null
+    },
+    "wsteth-eth": {
+     "name": "WSTETH / ETH",
+     "path": "wsteth-eth",
+     "address": "0x125D4cbeD662f53B1d24F9aF8dfBd356a8bB5833",
+     "aggregator": "0x7730B83cba48A76553fD79cafDd48f05a9688272",
+     "contract_version": 4,
+     "svr_proxy": null,
+     "svr_label": null,
+     "decimals": 18,
+     "heartbeat": 86400,
+     "deviation_threshold_pct": 0.5,
+     "category": "unranked",
+     "feed_type": "Other",
+     "product_type": null,
+     "base": null,
+     "quote": null,
+     "asset_name": "Wrapped stETH",
      "market_hours": "Crypto",
      "issuer": null,
      "por_auditor": null,
