@@ -31,6 +31,8 @@ from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.responses import JSONResponse
 from web3 import AsyncWeb3
 
+from market_hours import assess_freshness
+
 REGISTRY_MAINNET_PATH = Path(__file__).parent / "registry.json"
 REGISTRY_MAINNET: dict = json.loads(REGISTRY_MAINNET_PATH.read_text())
 
@@ -45,6 +47,13 @@ CCIP_REGISTRY_MAINNET: dict = json.loads(CCIP_REGISTRY_MAINNET_PATH.read_text())
 
 CCIP_REGISTRY_TESTNET_PATH = Path(__file__).parent / "ccip_registry_testnet.json"
 CCIP_REGISTRY_TESTNET: dict = json.loads(CCIP_REGISTRY_TESTNET_PATH.read_text())
+
+STREAMS_247_PATH = Path(__file__).parent / "streams_247.json"
+STREAMS_247: dict = json.loads(STREAMS_247_PATH.read_text()) if STREAMS_247_PATH.exists() else {
+    "version": "1.0.0",
+    "count": 0,
+    "streams": [],
+}
 
 
 def get_registry(environment: str = "mainnet") -> dict:
@@ -419,6 +428,7 @@ async def _read_feed(network: str, feed: str, round_id: int | None, environment:
                 "heartbeat_seconds": feed_meta["heartbeat"],
                 "deviation_threshold_pct": feed_meta["deviation_threshold_pct"],
                 "market_hours": feed_meta["market_hours"],
+                "is_247": bool(feed_meta.get("is_247")),
                 "rpc_endpoint": rpc_url,
                 "rpc_latency_ms": elapsed_ms,
                 "cache": "miss",
@@ -433,6 +443,12 @@ async def _read_feed(network: str, feed: str, round_id: int | None, environment:
                 "staleness_seconds": max(0, int(time.time()) - updated_at),
             },
         }
+        response["meta"]["freshness"] = assess_freshness(
+            market_hours=feed_meta.get("market_hours"),
+            heartbeat=feed_meta.get("heartbeat"),
+            updated_at=updated_at,
+            is_247=bool(feed_meta.get("is_247")),
+        )
         
         # Add resolution info if we fell back to a variant
         if resolved_name:
@@ -572,6 +588,12 @@ async def compare_feed(
         )
 
     return {"success": True, "feed": feed, "summary": summary, "results": results}
+
+
+@app.get("/v1/streams-247")
+async def get_streams_247():
+    """List-only catalog of Chainlink 24/7 Data Streams (no live prices)."""
+    return STREAMS_247
 
 
 @app.get("/v1/operators")

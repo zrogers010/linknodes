@@ -23,6 +23,11 @@ interface FeedData {
     deviation_threshold_pct: number
     feed_type: string
     risk_category: string
+    market_hours?: string
+    freshness?: {
+      status: string
+      message: string
+    }
     resolved_from?: string
     resolved_to?: string
     resolution_note?: string
@@ -120,7 +125,7 @@ contract PriceConsumer {
         require(updatedAt > 0, "Round not complete");
         require(roundId > 0, "Invalid round");
         
-        uint256 HEARTBEAT = ${meta.heartbeat_seconds};
+        uint256 HEARTBEAT = ${meta.heartbeat_seconds}; // this feed's catalog heartbeat
         require(block.timestamp - updatedAt <= HEARTBEAT + 900, "Stale price");
         
         return (answer, FEED.decimals());
@@ -208,7 +213,9 @@ console.log("${meta.feed_name}:", price);`
                 ${payload.price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 8 })}
               </div>
               <div className="text-xs text-slate-400">
-                Updated {payload.staleness_seconds}s ago
+                {meta.freshness?.status === 'market_closed'
+                  ? meta.freshness.message
+                  : `Updated ${payload.staleness_seconds}s ago`}
               </div>
             </div>
           </div>

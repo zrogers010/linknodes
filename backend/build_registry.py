@@ -169,6 +169,14 @@ TESTNET_CHAINS: dict[str, tuple[str, str, int, str, list[str]]] = {
 
 SKIP_CATEGORIES = {"hidden"}
 
+# Filled by the most recent build_registry() mainnet pass; written in main().
+_LAST_STREAMS_247: list[dict] = []
+
+# 24/7 Data Streams (list-only). These have a feedId and no proxyAddress, so
+# `include()` drops them from the on-chain registry. Kept in streams_247.json.
+STREAMS_247_FILENAME = "streams_247.json"
+COMMODITY_247_BASES = {"XAU", "XAG", "WTI", "BRENT", "NGAS", "USOIL", "USUKOIL"}
+
 
 def include(feed: dict) -> bool:
     """Determine if a feed should be included in the registry.
@@ -272,12 +280,89 @@ def compute_feed_status(category: str | None, shutdown_date_iso: str | None, utc
     return "active"
 
 
+def _is_247_stream_entry(feed: dict) -> bool:
+    """Arbitrum 24/7 Data Streams: schema v2, named like TSLA/USD-Streams-247-mainnet-production."""
+    docs = feed.get("docs") or {}
+    name = feed.get("name") or ""
+    if feed.get("proxyAddress"):
+        return False
+    if not feed.get("feedId"):
+        return False
+    if "Streams-247-mainnet-production" not in name:
+        return False
+    # Exclude 247CustomPrice (schema v11) and other variants.
+    if "CustomPrice" in name:
+        return False
+    schema = (docs.get("schema") or "").lower()
+    return schema == "v2"
+
+
+def _stream_asset_class(feed: dict) -> str:
+    docs = feed.get("docs") or {}
+    base = (docs.get("baseAsset") or "").upper()
+    if base in COMMODITY_247_BASES:
+        return "Commodities"
+    raw = docs.get("assetClass") or feed.get("feedType") or "Other"
+    if raw in {"Equities", "Equity", "Stocks"}:
+        return "Equities"
+    if raw in {"Commodities", "Commodity", "Futures", "Metal", "Precious_Metals"}:
+        return "Commodities"
+    if raw in {"Forex"} and base in COMMODITY_247_BASES:
+        return "Commodities"
+    return raw
+
+
+def compact_247_stream(feed: dict, network_key: str, chain_id: int) -> dict:
+    """List-only 24/7 stream row. No proxy / no live price fields."""
+    docs = feed.get("docs") or {}
+    name = feed.get("name") or ""
+    display = name.split("-Streams-247")[0] if "-Streams-247" in name else (
+        f"{docs.get('baseAsset') or '?'}/{docs.get('quoteAsset') or '?'}"
+    )
+    return {
+        "name": name,
+        "display_name": display,
+        "path": feed.get("path"),
+        "feed_id": feed.get("feedId"),
+        "schema": docs.get("schema"),
+        "asset_class": _stream_asset_class(feed),
+        "feed_type": feed.get("feedType") or docs.get("feedType"),
+        "base": docs.get("baseAsset"),
+        "quote": docs.get("quoteAsset"),
+        "asset_name": feed.get("assetName") or docs.get("assetName") or "",
+        "network": network_key,
+        "chain_id": chain_id,
+        "notes": "schema v2 reports a price only (no marketStatus). Access via Chainlink.",
+    }
+
+
+def extract_247_streams(raw_feeds: list, network_key: str, chain_id: int) -> list[dict]:
+    """Ingest 24/7 stream entries without touching the on-chain feed shape."""
+    streams = []
+    seen = set()
+    for feed in raw_feeds:
+        if not _is_247_stream_entry(feed):
+            continue
+        feed_id = feed.get("feedId")
+        if feed_id in seen:
+            continue
+        seen.add(feed_id)
+        streams.append(compact_247_stream(feed, network_key, chain_id))
+    streams.sort(key=lambda s: (s.get("asset_class") or "", s.get("base") or "", s.get("name") or ""))
+    return streams
+
+
 def compact(feed: dict) -> dict:
+    from market_hours import is_247_fields
+
     docs = feed.get("docs") or {}
     shutdown_date_raw = docs.get("shutdownDate")
     shutdown_date_iso = parse_shutdown_date(shutdown_date_raw)
     category = feed.get("feedCategory") or "unranked"
-    
+    attribute_type = docs.get("attributeType") or docs.get("productTypeCode")
+    product_type_code = docs.get("productTypeCode") or docs.get("attributeType")
+    feed_type_raw = feed.get("feedType") or docs.get("feedType") or docs.get("assetClass") or "Other"
+
     return {
         "name": feed["name"],
         "path": feed["path"],
@@ -290,8 +375,17 @@ def compact(feed: dict) -> dict:
         "heartbeat": feed.get("heartbeat"),
         "deviation_threshold_pct": feed.get("threshold"),
         "category": category,
-        "feed_type": (feed.get("feedType") or docs.get("assetClass") or "Other").capitalize(),
+        "feed_type": feed_type_raw.capitalize() if isinstance(feed_type_raw, str) else "Other",
         "product_type": docs.get("productType"),
+        "attribute_type": attribute_type,
+        "product_type_code": product_type_code,
+        "is_247": is_247_fields(
+            name=feed.get("name"),
+            feed_type=feed_type_raw,
+            market_hours=docs.get("marketHours"),
+            attribute_type=attribute_type,
+            product_type_code=product_type_code,
+        ),
         "base": docs.get("baseAsset"),
         "quote": docs.get("quoteAsset"),
         "asset_name": feed.get("assetName") or docs.get("baseAsset") or "",
@@ -539,6 +633,7 @@ def build_registry(chains: dict, environment: str, http_client=None, output_dir=
         "networks": {},
     }
     total = 0
+    collected_streams: list[dict] = []
     
     # Track all HTTP responses for validation
     http_responses = {}
@@ -583,6 +678,9 @@ def build_registry(chains: dict, environment: str, http_client=None, output_dir=
                     temp_nodes_path = temp_dir / f"{nodes_file}.json"
                     temp_nodes_path.write_text(json.dumps(nodes, indent=1))
                     
+                    if environment == "mainnet":
+                        collected_streams.extend(extract_247_streams(raw, key, chain_id))
+
                     live_feeds = [feed for feed in raw if include(feed)]
                     validate_source_data(live_feeds, nodes, label)
 
@@ -678,6 +776,9 @@ def build_registry(chains: dict, environment: str, http_client=None, output_dir=
             print(f"\n{e}\n")
             raise
         
+        # Sidecar only — never part of the on-chain feed catalog shape.
+        _LAST_STREAMS_247.clear()
+        _LAST_STREAMS_247.extend(collected_streams)
         return registry, total, temp_dir
     
     except Exception:
@@ -717,6 +818,8 @@ def main(http_client=None, output_dir=None) -> None:
         
         import tempfile
         backend_dir = output_dir or Path(__file__).parent
+
+        streams_247 = list(_LAST_STREAMS_247)
         
         # Write registries to temp files first
         with tempfile.NamedTemporaryFile(mode='w', dir=backend_dir, delete=False, suffix='.tmp') as tmp:
@@ -726,13 +829,36 @@ def main(http_client=None, output_dir=None) -> None:
         with tempfile.NamedTemporaryFile(mode='w', dir=backend_dir, delete=False, suffix='.tmp') as tmp:
             tmp.write(json.dumps(testnet_registry, indent=1))
             tmp_testnet = tmp.name
+
+        streams_doc = {
+            "version": "1.0.0",
+            "source": "chainlink-reference-data-directory",
+            "product": "chainlink-247-streams",
+            "chain_id": 42161,
+            "network": "arbitrum",
+            "schema": "v2",
+            "access": "contact-chainlink",
+            "note": (
+                "List-only catalog of Chainlink 24/7 Data Streams. These entries have a "
+                "feedId and no on-chain proxyAddress. They are not Data Feeds. Access is "
+                "currently through Chainlink. Report schema v2 carries a price only "
+                "(no marketStatus)."
+            ),
+            "count": len(streams_247),
+            "streams": streams_247,
+        }
+        with tempfile.NamedTemporaryFile(mode='w', dir=backend_dir, delete=False, suffix='.tmp') as tmp:
+            tmp.write(json.dumps(streams_doc, indent=1))
+            tmp_streams = tmp.name
         
         # Atomic replace for registries
         mainnet_path = backend_dir / "registry.json"
         testnet_path = backend_dir / "registry_testnet.json"
+        streams_path = backend_dir / STREAMS_247_FILENAME
         
         os.replace(tmp_mainnet, mainnet_path)
         os.replace(tmp_testnet, testnet_path)
+        os.replace(tmp_streams, streams_path)
         
         # Write nodes files atomically (combined mainnet + testnet in single swap)
         nodes_dir = backend_dir / "data" / "nodes"
@@ -742,6 +868,7 @@ def main(http_client=None, output_dir=None) -> None:
               f"({mainnet_path.stat().st_size / 1024:.0f} KB)")
         print(f"✓ Wrote {testnet_path.name}: {testnet_total} feeds across {len(TESTNET_CHAINS)} chains "
               f"({testnet_path.stat().st_size / 1024:.0f} KB)")
+        print(f"✓ Wrote {streams_path.name}: {len(streams_247)} 24/7 streams (list-only)")
         
         print("\n" + "=" * 70)
         print(f"Total: {mainnet_total + testnet_total} feeds across {len(MAINNET_CHAINS) + len(TESTNET_CHAINS)} chains")

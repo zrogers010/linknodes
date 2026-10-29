@@ -211,6 +211,16 @@ const productPages = [
     path: 'products/automation',
     title: 'Automation — Decentralized Smart Contract Execution | LinkNodes.io',
     description: 'Automate smart contract functions with Chainlink Automation. Time-based and custom logic triggers for decentralized, reliable on-chain automation.'
+  },
+  {
+    path: 'rwa',
+    title: 'RWA and Chainlink 24/7 feeds | LinkNodes.io',
+    description: 'Live stock, commodity, and tokenized-asset Chainlink Data Feeds by chain, plus the 17 Arbitrum 24/7 Data Streams. Session badges are calculated by LinkNodes, not an oracle value.'
+  },
+  {
+    path: 'chainlink-247',
+    title: 'Chainlink 24/7 explained | LinkNodes.io',
+    description: 'What Chainlink 24/7 is, how Data Feeds differ from Data Streams, what is live today (17 Arbitrum streams and tGLD), what is not on-chain yet, and how access works.'
   }
 ];
 

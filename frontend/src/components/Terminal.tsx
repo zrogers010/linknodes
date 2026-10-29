@@ -5,6 +5,7 @@ import { ComparePanel } from './ComparePanel'
 import { CopyButton } from './CopyButton'
 import { JsonViewer } from './JsonViewer'
 import { shareUrl } from '../hooks/useUrlState'
+import { assessFreshness, formatLastUpdateEt, type Freshness } from '../marketHours'
 
 interface Props {
   registry: Registry
@@ -84,7 +85,18 @@ export function Terminal({
   const updatedAt = result?.payload?.unix_timestamp as number | undefined
   const staleness = result ? Number(result.payload.staleness_seconds) : null
   const heartbeat = result?.meta.heartbeat_seconds != null ? Number(result.meta.heartbeat_seconds) : null
-  const isFresh = staleness != null && (heartbeat == null || staleness <= heartbeat * 1.2)
+  const freshness = (result?.meta.freshness as Freshness | undefined) ?? (
+    result
+      ? assessFreshness({
+          marketHours: String(result.meta.market_hours ?? feed?.market_hours ?? ''),
+          heartbeat,
+          updatedAt,
+          is247: Boolean(result.meta.is_247 ?? feed?.is_247),
+        })
+      : null
+  )
+  const isMarketClosed = freshness?.status === 'market_closed'
+  const isFresh = freshness ? freshness.status === 'fresh' : staleness != null && (heartbeat == null || staleness <= heartbeat * 1.2)
 
   return (
     <section className="flex min-w-0 flex-col gap-4 bg-ink-950 p-4 sm:p-5 lg:h-full lg:overflow-y-auto">
@@ -142,11 +154,19 @@ export function Terminal({
             <div className="flex items-center gap-2 pb-1 text-[12px] text-slate-400">
               <span
                 className={`h-2 w-2 rounded-full ${
-                  isFresh ? 'bg-emerald-400 shadow-[0_0_6px] shadow-emerald-400' : 'bg-amber-400 shadow-[0_0_6px] shadow-amber-400'
+                  isMarketClosed
+                    ? 'bg-slate-500'
+                    : isFresh
+                      ? 'bg-emerald-400 shadow-[0_0_6px] shadow-emerald-400'
+                      : 'bg-amber-400 shadow-[0_0_6px] shadow-amber-400'
                 }`}
               />
-              updated {formatDuration(staleness)} ago
-              {!isFresh && <span className="text-amber-400">(past heartbeat — market likely closed)</span>}
+              {isMarketClosed
+                ? freshness?.message ?? `Market closed, last update ${formatLastUpdateEt(updatedAt)}`
+                : `updated ${formatDuration(staleness)} ago`}
+              {!isFresh && !isMarketClosed && (
+                <span className="text-amber-400">(past heartbeat {heartbeat != null ? `${heartbeat}s` : ''})</span>
+              )}
             </div>
           )}
         </div>
