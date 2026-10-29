@@ -28,7 +28,7 @@ jobs:
       - name: Run unit tests
         run: |
           cd backend
-          pytest test_shape_validation.py test_svr_matching.py test_shutdown.py test_mutation_killers.py test_request_time_status.py test_regression_pr16_round2.py test_refresh_checks.py test_operators.py test_production_mutations.py test_iso_date_validation.py test_check_data_changes.py -v
+          pytest test_shape_validation.py test_svr_matching.py test_shutdown.py test_mutation_killers.py test_request_time_status.py test_regression_pr16_round2.py test_refresh_checks.py test_operators.py test_production_mutations.py test_iso_date_validation.py test_check_data_changes.py test_market_hours.py test_streams_247.py -v
       
       - name: Start backend server
         run: |
@@ -58,12 +58,17 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
       
       - name: Test malformed date handling
         run: |
           cd frontend
           node test-malformed-dates.js
+
+      - name: Test market-hours calendar
+        run: |
+          cd frontend
+          node --experimental-strip-types test-market-hours.js
 
   validate-ccip:
     name: Validate CCIP Registry
@@ -165,6 +170,14 @@ jobs:
           # Count feed pages in sitemap
           FEED_COUNT=$(grep -c "/feeds/" public/sitemap.xml || true)
           echo "Sitemap contains $FEED_COUNT feed pages"
+          if ! grep -q "/rwa" public/sitemap.xml; then
+            echo "❌ Sitemap missing /rwa"
+            exit 1
+          fi
+          if ! grep -q "/chainlink-247" public/sitemap.xml; then
+            echo "❌ Sitemap missing /chainlink-247"
+            exit 1
+          fi
           # Should have ~49 CCIP lanes
           if [ "$LANE_COUNT" -lt 40 ]; then
             echo "❌ Too few CCIP lanes in sitemap (expected ~49)"
@@ -191,6 +204,8 @@ jobs:
           test -f feeds/base/index.html || { echo "❌ Missing feeds/base/index.html"; exit 1; }
           test -f products/ccip/ethereum/arbitrum/index.html || { echo "❌ Missing products/ccip/ethereum/arbitrum/index.html"; exit 1; }
           test -f 404.html || { echo "❌ Missing 404.html"; exit 1; }
+          test -f rwa/index.html || { echo "❌ Missing rwa/index.html"; exit 1; }
+          test -f chainlink-247/index.html || { echo "❌ Missing chainlink-247/index.html"; exit 1; }
           echo "✅ Prerendered files exist"
 
   seo-nginx-tests:
@@ -306,6 +321,34 @@ jobs:
           fi
           
           echo "✅ /products/ccip/ethereum/arbitrum: 200 with correct meta tags"
+
+          RESPONSE=$(curl -s -w "\n%{http_code}" http://localhost:8080/rwa)
+          HTTP_CODE=$(echo "$RESPONSE" | tail -1)
+          HTML=$(echo "$RESPONSE" | head -n -1)
+          if [ "$HTTP_CODE" != "200" ]; then
+            echo "❌ /rwa returned $HTTP_CODE (expected 200)"
+            exit 1
+          fi
+          if ! echo "$HTML" | grep -q "<title>RWA and Chainlink 24/7 feeds"; then
+            echo "❌ /rwa missing correct title"
+            echo "$HTML" | grep "<title>"
+            exit 1
+          fi
+          echo "✅ /rwa: 200 with correct meta tags"
+
+          RESPONSE=$(curl -s -w "\n%{http_code}" http://localhost:8080/chainlink-247)
+          HTTP_CODE=$(echo "$RESPONSE" | tail -1)
+          HTML=$(echo "$RESPONSE" | head -n -1)
+          if [ "$HTTP_CODE" != "200" ]; then
+            echo "❌ /chainlink-247 returned $HTTP_CODE (expected 200)"
+            exit 1
+          fi
+          if ! echo "$HTML" | grep -q "<title>Chainlink 24/7 explained"; then
+            echo "❌ /chainlink-247 missing correct title"
+            echo "$HTML" | grep "<title>"
+            exit 1
+          fi
+          echo "✅ /chainlink-247: 200 with correct meta tags"
       
       - name: Test invalid routes return 404
         run: |

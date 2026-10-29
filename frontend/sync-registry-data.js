@@ -21,7 +21,7 @@ if (!fs.existsSync(dataDir)) {
 }
 
 // Copy registry files (mainnet + testnet)
-const filesToSync = ['registry.json', 'ccip_registry.json', 'registry_testnet.json', 'ccip_registry_testnet.json'];
+const filesToSync = ['registry.json', 'ccip_registry.json', 'registry_testnet.json', 'ccip_registry_testnet.json', 'streams_247.json'];
 
 for (const filename of filesToSync) {
   const srcPath = path.join(backendDir, filename);

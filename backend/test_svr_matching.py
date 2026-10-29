@@ -73,6 +73,9 @@ def test_compact_extracts_metadata():
     assert compacted["contract_version"] == 3
     assert compacted["shutdown_date"] == "2026-10-18"
     assert compacted["market_hours"] == "24/7"
+    assert compacted["is_247"] is True
+    assert compacted.get("attribute_type") is None
+    assert compacted.get("product_type_code") is None
     
     # Verify status computation (using test date 2026-10-17, before shutdown)
     status = compute_feed_status("verified", "2026-10-18", "2026-10-17")

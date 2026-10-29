@@ -182,6 +182,16 @@ ${lanes.map(lane => `  <url>
     <priority>0.8</priority>
   </url>`).join('\n')}
   <url>
+    <loc>https://www.linknodes.io/rwa</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.linknodes.io/chainlink-247</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://www.linknodes.io/feeds</loc>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
@@ -203,6 +213,6 @@ ${feedPages.map(page => `  <url>
   const outputPath = path.join(__dirname, 'public/sitemap.xml');
   fs.writeFileSync(outputPath, sitemap);
   console.log(`Sitemap generated: ${outputPath}`);
-  console.log(`Total URLs: ${lanes.length + feedPages.length + 8}`);
+  console.log(`Total URLs: ${lanes.length + feedPages.length + 10}`);
 }
 

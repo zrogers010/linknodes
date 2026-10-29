@@ -23,6 +23,50 @@ export interface FeedMeta {
   shutdown_date?: string | null
   status?: string
   base_path?: string | null
+  attribute_type?: string | null
+  product_type_code?: string | null
+  is_247?: boolean
+}
+
+export type MarketSession = 'open' | 'pre' | 'post' | 'overnight' | 'closed' | 'extended'
+
+export interface Freshness {
+  status: 'fresh' | 'stale' | 'market_closed' | 'unknown'
+  heartbeat_seconds: number
+  max_age_seconds: number
+  age_seconds: number | null
+  session: MarketSession
+  session_source: 'linknodes'
+  message: string
+}
+
+export interface Stream247 {
+  name: string
+  display_name: string
+  path: string
+  feed_id: string
+  schema: string
+  asset_class: string
+  feed_type?: string | null
+  base?: string | null
+  quote?: string | null
+  asset_name: string
+  network: string
+  chain_id: number
+  notes?: string
+}
+
+export interface Streams247Doc {
+  version: string
+  source?: string
+  product?: string
+  chain_id: number
+  network: string
+  schema: string
+  access?: string
+  note?: string
+  count: number
+  streams: Stream247[]
 }
 
 export interface NetworkMeta {
@@ -45,7 +89,7 @@ export interface QueryResult {
   success: boolean
   provider: string
   query_type: string
-  meta: Record<string, string | number | null>
+  meta: Record<string, string | number | boolean | null | Freshness>
   payload: Record<string, string | number>
 }
 

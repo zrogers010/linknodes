@@ -12,7 +12,10 @@ import { DataFeedsPage } from './pages/products/DataFeedsPage'
 import { FunctionsPage } from './pages/products/FunctionsPage'
 import { VRFPage } from './pages/products/VRFPage'
 import { EnvironmentProvider, useEnvironment } from './EnvironmentContext'
+import { SiteBanner } from './components/SiteBanner'
 import { ChartBarIcon, NetworkIcon, CodeIcon, DicesIcon, ClockIcon, HexagonIcon } from './components/icons/Icon'
+import { Chainlink247Page } from './pages/Chainlink247Page'
+import { RwaHubPage } from './pages/RwaHubPage'
 import type { Registry } from './types'
 
 const PRODUCT_NAV = [
@@ -25,6 +28,7 @@ const PRODUCT_NAV = [
 
 const SECONDARY_NAV = [
   { to: '/feeds', label: 'Feed Catalog', end: false },
+  { to: '/rwa', label: 'RWA / 24/7', end: false },
   { to: '/operators', label: 'Node Operators', end: false },
 ]
 
@@ -181,6 +185,7 @@ export default function App() {
       <BrowserRouter>
         <div className="flex h-full flex-col">
           <Navigation registry={registry} />
+          <SiteBanner />
 
           <Routes>
             <Route path="/" element={<HomePage />} />
@@ -193,6 +198,8 @@ export default function App() {
             <Route path="/feeds" element={<FeedIndexPage />} />
             <Route path="/feeds/:chain" element={<FeedIndexPage />} />
             <Route path="/feeds/:chain/:feed" element={<FeedDetailPage />} />
+            <Route path="/rwa" element={<RwaHubPage registry={registry} />} />
+            <Route path="/chainlink-247" element={<Chainlink247Page />} />
             <Route path="/operators" element={<OperatorsPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>

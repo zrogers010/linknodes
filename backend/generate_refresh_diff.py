@@ -95,6 +95,13 @@ def main():
         print(f"| {new_data['label']} | {old_count} | {new_count} | {change_str} |")
     
     print()
+
+    new_streams = load_json(backend / "streams_247.json")
+    old_streams = load_committed_version(backend / "streams_247.json")
+    print("### 24/7 Streams (list-only)")
+    print()
+    print(f"- **Count**: {new_streams.get('count', 0)} (was {old_streams.get('count', 0)})")
+    print()
     
     # Operator changes
     print("### Operators")

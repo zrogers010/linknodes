@@ -188,6 +188,57 @@ contract PriceConsumerL2 {
     valid, msg = compile_with_forge(feeds_l2, "Data Feeds L2")
     results.append(valid)
     print(f"  {'✓' if valid else '✗'} {msg}")
+
+    # 2b. 24/5 / NYSE-hours consumer (per-feed heartbeat, restricted mode, jump bounds)
+    print("\n📊 Data Feeds (24/5 equities consumer)")
+    feeds_equities = """// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+import {AggregatorV3Interface} from "@chainlink/contracts/src/v0.8/shared/interfaces/AggregatorV3Interface.sol";
+
+/// Docs:
+///   https://docs.chain.link/data-streams/market-hours
+///   https://docs.chain.link/data-streams/rwa-streams/24-5-us-equities-user-guide
+/// marketStatus: 0 Unknown, 1 Pre, 2 Regular, 3 Post, 4 Overnight, 5 Closed
+contract EquitiesHoursConsumer {
+    AggregatorV3Interface internal constant FEED =
+        AggregatorV3Interface(0x8d0CC5f38f9E802475f2CFf4F9fc7000C2E1557c);
+    uint256 public constant HEARTBEAT = 86400;
+    uint256 public constant STALE_BUFFER = 900;
+    uint256 public constant MAX_JUMP_BPS = 2_000;
+    int256 public lastGoodPrice;
+
+    event PriceAccepted(int256 price, uint256 updatedAt, bool restricted);
+
+    function readPrice(bool marketClosed)
+        external
+        returns (int256 price, uint8 decimals, bool restricted)
+    {
+        (uint80 roundId, int256 answer,, uint256 updatedAt,) = FEED.latestRoundData();
+        require(answer > 0, "Invalid price");
+        require(updatedAt > 0, "Round not complete");
+        require(roundId > 0, "Invalid round");
+        if (lastGoodPrice > 0) {
+            uint256 basis = uint256(lastGoodPrice);
+            uint256 latest = uint256(answer);
+            uint256 diff = latest > basis ? latest - basis : basis - latest;
+            require(diff * 10_000 <= basis * MAX_JUMP_BPS, "Implausible jump");
+        }
+        if (marketClosed) {
+            lastGoodPrice = answer;
+            emit PriceAccepted(answer, updatedAt, true);
+            return (answer, FEED.decimals(), true);
+        }
+        require(block.timestamp - updatedAt <= HEARTBEAT + STALE_BUFFER, "Stale price");
+        lastGoodPrice = answer;
+        emit PriceAccepted(answer, updatedAt, false);
+        return (answer, FEED.decimals(), false);
+    }
+}"""
+
+    valid, msg = compile_with_forge(feeds_equities, "Equities 24/5")
+    results.append(valid)
+    print(f"  {'✓' if valid else '✗'} {msg}")
     
     # 3. CCIP Sender (Ethereum -> Arbitrum)
     print("\n🌉 CCIP Sender (Ethereum -> Arbitrum)")
