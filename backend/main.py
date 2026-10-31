@@ -32,7 +32,7 @@ from fastapi import FastAPI, HTTPException, Query, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.responses import JSONResponse
-from starlette.routing import Mount
+from starlette.routing import Mount, Route as StarletteRoute
 from web3 import AsyncWeb3
 
 from build_agents_catalog import (
@@ -45,8 +45,24 @@ from build_agents_catalog import (
 from market_hours import assess_freshness
 from mcp_server import create_mcp_http_app, mcp as linknodes_mcp
 
-# Must be built before FastAPI lifespan touches session_manager.
-MCP_HTTP_APP = create_mcp_http_app()
+
+class _McpHttpHolder:
+    """ASGI wrapper so POST /mcp works without a trailing-slash 307."""
+
+    def __init__(self) -> None:
+        self.app = create_mcp_http_app()
+
+    async def __call__(self, scope, receive, send):
+        if scope.get("type") in ("http", "websocket"):
+            path = scope.get("path", "")
+            if path in ("/mcp", "/mcp/"):
+                scope = dict(scope)
+                scope["path"] = "/"
+                scope["raw_path"] = b"/"
+        await self.app(scope, receive, send)
+
+
+MCP_HTTP = _McpHttpHolder()
 
 REGISTRY_MAINNET_PATH = Path(__file__).parent / "registry.json"
 REGISTRY_MAINNET: dict = json.loads(REGISTRY_MAINNET_PATH.read_text())
@@ -121,10 +137,10 @@ async def _lifespan(_app: FastAPI):
 
     # Rebuild the mounted /mcp app so session_manager.run() can start again
     # after TestClient (or a process recycle) exits a previous lifespan.
-    fresh_mcp_app = create_mcp_http_app()
+    MCP_HTTP.app = create_mcp_http_app()
     for route in _app.router.routes:
         if isinstance(route, Mount) and route.path == "/mcp":
-            route.app = fresh_mcp_app
+            route.app = MCP_HTTP.app
             break
 
     async with linknodes_mcp.session_manager.run():
@@ -350,7 +366,17 @@ app.add_middleware(
 app.add_middleware(GZipMiddleware, minimum_size=1024)
 
 # Streamable HTTP MCP on the same process — no extra host, container, or LB.
-app.mount("/mcp", MCP_HTTP_APP)
+# Exact /mcp (no 307) plus /mcp/* for the mounted Streamable HTTP app.
+_app_routes = app.router.routes
+_app_routes.insert(
+    0,
+    StarletteRoute(
+        "/mcp",
+        endpoint=MCP_HTTP,
+        methods=["GET", "POST", "DELETE", "OPTIONS", "HEAD"],
+    ),
+)
+app.mount("/mcp", MCP_HTTP.app)
 
 
 @app.middleware("http")

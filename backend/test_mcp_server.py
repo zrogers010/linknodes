@@ -40,8 +40,28 @@ def test_mcp_http_initialize_and_tools_list():
     from main import app
 
     with TestClient(app) as client:
-        init = client.post(
+        noslash = client.post(
             "/mcp",
+            follow_redirects=False,
+            headers={
+                "Content-Type": "application/json",
+                "Accept": "application/json, text/event-stream",
+            },
+            json={
+                "jsonrpc": "2.0",
+                "id": 0,
+                "method": "initialize",
+                "params": {
+                    "protocolVersion": "2025-03-26",
+                    "capabilities": {},
+                    "clientInfo": {"name": "linknodes-test", "version": "0.0.1"},
+                },
+            },
+        )
+        assert noslash.status_code == 200, noslash.text
+
+        init = client.post(
+            "/mcp/",
             headers={
                 "Content-Type": "application/json",
                 "Accept": "application/json, text/event-stream",
