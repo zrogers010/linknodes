@@ -3,7 +3,7 @@
   "environment": "mainnet",
   "source": "chainlink-ccip-api",
   "source_url": "https://docs.chain.link/api/ccip/v1/chains?environment=mainnet",
-  "generated_at": 1792855208,
+  "generated_at": 1793452859,
   "description": "CCIP router addresses and chain selectors from Chainlink's official mainnet API",
   "networks": {
     "ethereum": {
