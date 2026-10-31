@@ -2,7 +2,7 @@
   "version": "1.0.0",
   "source": "chainlink-agents-gateway",
   "source_url": "https://agents.chain.link/v1/catalog",
-  "generated_at": "2026-10-31T00:02:53Z",
+  "generated_at": "2026-10-31T13:21:01Z",
   "status": "ok",
   "count": 12,
   "workflows": [
