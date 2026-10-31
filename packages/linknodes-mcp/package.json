@@ -1,0 +1,39 @@
+{
+  "name": "linknodes-mcp",
+  "version": "0.1.0",
+  "description": "Read-only MCP server for the public LinkNodes.io Chainlink API. Runs on your machine via stdio; no API key.",
+  "type": "module",
+  "bin": {
+    "linknodes-mcp": "./src/index.js"
+  },
+  "main": "./src/index.js",
+  "files": [
+    "src",
+    "README.md"
+  ],
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "node --test test/client.test.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "keywords": [
+    "mcp",
+    "chainlink",
+    "linknodes",
+    "data-feeds",
+    "ccip"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zrogers010/linknodes.git",
+    "directory": "packages/linknodes-mcp"
+  },
+  "homepage": "https://www.linknodes.io/agents",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.20.0",
+    "zod": "^3.25.0"
+  }
+}

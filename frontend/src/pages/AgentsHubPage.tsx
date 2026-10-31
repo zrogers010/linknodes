@@ -82,7 +82,7 @@ const SOURCES = [
 function Snippet({ code }: { code: string }) {
   return (
     <div className="mt-2 flex items-start gap-2 border border-ink-700 bg-ink-950 px-3 py-2">
-      <code className="min-w-0 flex-1 overflow-x-auto font-mono text-[12px] text-slate-300">{code}</code>
+      <code className="min-w-0 flex-1 overflow-x-auto whitespace-pre-wrap font-mono text-[12px] text-slate-300">{code}</code>
       <CopyButton text={code} />
     </div>
   )
@@ -359,6 +359,27 @@ export function AgentsHubPage() {
         </section>
 
         <section className="mb-8">
+          <h2 className="text-base font-bold text-white">Use LinkNodes in your AI assistant</h2>
+          <p className="mt-2 text-sm leading-relaxed text-slate-400">
+            LinkNodes ships a free, read-only MCP server that wraps the public{" "}
+            <code className="text-slate-300">/v1</code> API: feed lookup, cross-chain compare, CCIP
+            registry and lane lookup, 24/7 streams, operators, and this agents catalog. It adds no
+            hosting cost — it runs on your machine via stdio, or on the existing backend at{" "}
+            <code className="text-slate-300">/mcp</code>. No API key.
+          </p>
+          <p className="mt-3 text-xs font-semibold uppercase tracking-wider text-slate-500">
+            Cursor / Claude Code (from a clone)
+          </p>
+          <Snippet code={'{\n  "mcpServers": {\n    "linknodes": {\n      "command": "node",\n      "args": ["./packages/linknodes-mcp/src/index.js"]\n    }\n  }\n}'} />
+          <p className="mt-3 text-xs leading-relaxed text-slate-500">
+            After the package is published to npm:{" "}
+            <code className="text-slate-300">npx -y linknodes-mcp</code>. Claude Code from a clone:{" "}
+            <code className="text-slate-300">claude mcp add --transport stdio linknodes -- node ./packages/linknodes-mcp/src/index.js</code>.
+            See <code className="text-slate-300">packages/linknodes-mcp/README.md</code>.
+          </p>
+        </section>
+
+        <section className="mb-8">
           <h2 className="text-base font-bold text-white">Machine-readable LinkNodes</h2>
           <p className="mt-2 text-sm leading-relaxed text-slate-400">
             LinkNodes itself is a free, read-only toolkit. These files describe the site and the
@@ -370,6 +391,7 @@ export function AgentsHubPage() {
               { href: '/llms-full.txt', label: '/llms-full.txt', note: 'Longer route-by-route description' },
               { href: '/.well-known/agent.json', label: '/.well-known/agent.json', note: 'LinkNodes agent card' },
               { href: '/v1/openapi.json', label: '/v1/openapi.json', note: 'Public OpenAPI 3 spec for /v1' },
+              { href: '/mcp', label: '/mcp', note: 'Optional Streamable HTTP MCP on the existing backend' },
             ].map((item) => (
               <li key={item.href}>
                 <a href={item.href} className="inline-flex items-start gap-2 text-accent-400 hover:text-accent-300">
