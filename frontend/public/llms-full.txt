@@ -80,6 +80,13 @@ Cached copy of https://agents.chain.link/v1/catalog plus unpaid per-item detail 
 ### GET /healthz
 Liveness plus catalog counts. Not rate limited.
 
+### POST /mcp
+Optional Streamable HTTP MCP endpoint mounted on the existing backend (no extra host). Same read-only tools as `packages/linknodes-mcp`. Prefer the stdio package on your own machine until production proxies `/mcp` the same way it already proxies `/v1`.
+
+## MCP (stdio)
+
+`packages/linknodes-mcp` is a read-only stdio MCP server. It calls `https://www.linknodes.io/v1` with no API key. The owner publishes it to npm; until then run `node packages/linknodes-mcp/src/index.js` from a clone. Tools: search_feeds, lookup_feed, compare_feed, ccip_registry, ccip_lane, list_streams_247, list_operators, agents_catalog.
+
 ## Discovery files
 
 - https://www.linknodes.io/llms.txt

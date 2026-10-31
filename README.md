@@ -72,6 +72,7 @@ frontend (React + Tailwind, static)  ──►  backend (FastAPI, stateless)
 - `/llms.txt` and `/llms-full.txt` — page and public API index for language models
 - `/.well-known/agent.json` — LinkNodes agent card
 - `/v1/openapi.json` — OpenAPI 3 spec for the public `/v1` API (`/v1/docs` is Swagger UI)
+- `packages/linknodes-mcp` — read-only MCP server (stdio, runs on your machine). Optional `/mcp` Streamable HTTP on the existing backend. Not published to npm yet.
 
 ## Running locally
 

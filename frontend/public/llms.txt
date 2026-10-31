@@ -24,6 +24,8 @@ This file lists public human pages and the read-only `/v1` API. No API keys. 120
 - [GET /v1/operators](https://www.linknodes.io/v1/operators): Curated operators
 - [GET /v1/agents/catalog](https://www.linknodes.io/v1/agents/catalog): Cached Chainlink for Agents catalog
 - [GET /healthz](https://www.linknodes.io/healthz): Liveness
+- [MCP stdio package](https://github.com/zrogers010/linknodes/tree/main/packages/linknodes-mcp): `npx` / local `node` server (not published yet)
+- [POST /mcp](https://www.linknodes.io/mcp): Optional Streamable HTTP MCP on the existing backend
 
 ## Optional
 - [Full text](https://www.linknodes.io/llms-full.txt)

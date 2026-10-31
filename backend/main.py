@@ -32,6 +32,7 @@ from fastapi import FastAPI, HTTPException, Query, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.responses import JSONResponse
+from starlette.routing import Mount, Route as StarletteRoute
 from web3 import AsyncWeb3
 
 from build_agents_catalog import (
@@ -42,6 +43,26 @@ from build_agents_catalog import (
     should_keep_last_good,
 )
 from market_hours import assess_freshness
+from mcp_server import create_mcp_http_app, mcp as linknodes_mcp
+
+
+class _McpHttpHolder:
+    """ASGI wrapper so POST /mcp works without a trailing-slash 307."""
+
+    def __init__(self) -> None:
+        self.app = create_mcp_http_app()
+
+    async def __call__(self, scope, receive, send):
+        if scope.get("type") in ("http", "websocket"):
+            path = scope.get("path", "")
+            if path in ("/mcp", "/mcp/"):
+                scope = dict(scope)
+                scope["path"] = "/"
+                scope["raw_path"] = b"/"
+        await self.app(scope, receive, send)
+
+
+MCP_HTTP = _McpHttpHolder()
 
 REGISTRY_MAINNET_PATH = Path(__file__).parent / "registry.json"
 REGISTRY_MAINNET: dict = json.loads(REGISTRY_MAINNET_PATH.read_text())
@@ -96,11 +117,11 @@ def refresh_agents_catalog_in_place() -> bool:
 
 @asynccontextmanager
 async def _lifespan(_app: FastAPI):
-    """Optional in-process catalog refresh. Disabled in tests via env."""
-    if os.environ.get("LINKNODES_DISABLE_AGENTS_REFRESH") == "1" or os.environ.get("PYTEST_CURRENT_TEST"):
-        yield
-        return
-
+    """MCP session manager + optional in-process agents catalog refresh."""
+    refresh_disabled = (
+        os.environ.get("LINKNODES_DISABLE_AGENTS_REFRESH") == "1"
+        or os.environ.get("PYTEST_CURRENT_TEST")
+    )
     stop = asyncio.Event()
 
     async def _loop() -> None:
@@ -114,16 +135,28 @@ async def _lifespan(_app: FastAPI):
             except asyncio.TimeoutError:
                 await asyncio.to_thread(refresh_agents_catalog_in_place)
 
-    task = asyncio.create_task(_loop())
-    try:
-        yield
-    finally:
-        stop.set()
-        task.cancel()
+    # Rebuild the mounted /mcp app so session_manager.run() can start again
+    # after TestClient (or a process recycle) exits a previous lifespan.
+    MCP_HTTP.app = create_mcp_http_app()
+    for route in _app.router.routes:
+        if isinstance(route, Mount) and route.path == "/mcp":
+            route.app = MCP_HTTP.app
+            break
+
+    async with linknodes_mcp.session_manager.run():
+        if refresh_disabled:
+            yield
+            return
+        task = asyncio.create_task(_loop())
         try:
-            await task
-        except asyncio.CancelledError:
-            pass
+            yield
+        finally:
+            stop.set()
+            task.cancel()
+            try:
+                await task
+            except asyncio.CancelledError:
+                pass
 
 
 def get_registry(environment: str = "mainnet") -> dict:
@@ -332,10 +365,23 @@ app.add_middleware(
 # The full-catalog registry is ~450 KB raw; gzip ships it in ~15% of that.
 app.add_middleware(GZipMiddleware, minimum_size=1024)
 
+# Streamable HTTP MCP on the same process — no extra host, container, or LB.
+# Exact /mcp (no 307) plus /mcp/* for the mounted Streamable HTTP app.
+_app_routes = app.router.routes
+_app_routes.insert(
+    0,
+    StarletteRoute(
+        "/mcp",
+        endpoint=MCP_HTTP,
+        methods=["GET", "POST", "DELETE", "OPTIONS", "HEAD"],
+    ),
+)
+app.mount("/mcp", MCP_HTTP.app)
+
 
 @app.middleware("http")
 async def rate_limit(request: Request, call_next):
-    if request.url.path.startswith("/v1/"):
+    if request.url.path.startswith("/v1/") or request.url.path.startswith("/mcp"):
         # X-Forwarded-For: client, proxy1, proxy2, ..., ALB
         # The ALB appends the real client IP as the last entry (rightmost trusted hop).
         # Earlier entries can be spoofed by the client. We trust the last entry when behind ALB.
