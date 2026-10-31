@@ -192,6 +192,11 @@ ${lanes.map(lane => `  <url>
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://www.linknodes.io/agents</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://www.linknodes.io/feeds</loc>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
@@ -213,6 +218,6 @@ ${feedPages.map(page => `  <url>
   const outputPath = path.join(__dirname, 'public/sitemap.xml');
   fs.writeFileSync(outputPath, sitemap);
   console.log(`Sitemap generated: ${outputPath}`);
-  console.log(`Total URLs: ${lanes.length + feedPages.length + 10}`);
+  console.log(`Total URLs: ${lanes.length + feedPages.length + 11}`);
 }
 

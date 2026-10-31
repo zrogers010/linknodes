@@ -16,6 +16,7 @@ import { SiteBanner } from './components/SiteBanner'
 import { ChartBarIcon, NetworkIcon, CodeIcon, DicesIcon, ClockIcon, HexagonIcon } from './components/icons/Icon'
 import { Chainlink247Page } from './pages/Chainlink247Page'
 import { RwaHubPage } from './pages/RwaHubPage'
+import { AgentsHubPage } from './pages/AgentsHubPage'
 import type { Registry } from './types'
 
 const PRODUCT_NAV = [
@@ -29,6 +30,7 @@ const PRODUCT_NAV = [
 const SECONDARY_NAV = [
   { to: '/feeds', label: 'Feed Catalog', end: false },
   { to: '/rwa', label: 'RWA / 24/7', end: false },
+  { to: '/agents', label: 'Agents', end: false },
   { to: '/operators', label: 'Node Operators', end: false },
 ]
 
@@ -200,6 +202,7 @@ export default function App() {
             <Route path="/feeds/:chain/:feed" element={<FeedDetailPage />} />
             <Route path="/rwa" element={<RwaHubPage registry={registry} />} />
             <Route path="/chainlink-247" element={<Chainlink247Page />} />
+            <Route path="/agents" element={<AgentsHubPage />} />
             <Route path="/operators" element={<OperatorsPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>

@@ -102,6 +102,21 @@ def main():
     print()
     print(f"- **Count**: {new_streams.get('count', 0)} (was {old_streams.get('count', 0)})")
     print()
+
+    new_agents = load_json(backend / "agents_catalog.json")
+    old_agents = load_committed_version(backend / "agents_catalog.json")
+    print("### Chainlink for Agents catalog")
+    print()
+    print(f"- **Count**: {new_agents.get('count', 0)} (was {old_agents.get('count', 0)})")
+    new_names = {w.get("name") for w in new_agents.get("workflows", []) if w.get("name")}
+    old_names = {w.get("name") for w in old_agents.get("workflows", []) if w.get("name")}
+    added_agents = sorted(new_names - old_names)
+    removed_agents = sorted(old_names - new_names)
+    if added_agents:
+        print(f"- **Added**: {', '.join(added_agents)}")
+    if removed_agents:
+        print(f"- **Removed**: {', '.join(removed_agents)}")
+    print()
     
     # Operator changes
     print("### Operators")

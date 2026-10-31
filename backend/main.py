@@ -19,8 +19,11 @@ Production posture (still zero infrastructure):
 
 import asyncio
 import json
+import os
+import threading
 import time
 from collections import defaultdict, deque
+from contextlib import asynccontextmanager
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -31,6 +34,13 @@ from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.responses import JSONResponse
 from web3 import AsyncWeb3
 
+from build_agents_catalog import (
+    build_catalog,
+    empty_catalog,
+    load_existing,
+    load_selector_labels,
+    should_keep_last_good,
+)
 from market_hours import assess_freshness
 
 REGISTRY_MAINNET_PATH = Path(__file__).parent / "registry.json"
@@ -54,6 +64,66 @@ STREAMS_247: dict = json.loads(STREAMS_247_PATH.read_text()) if STREAMS_247_PATH
     "count": 0,
     "streams": [],
 }
+
+AGENTS_CATALOG_PATH = Path(__file__).parent / "agents_catalog.json"
+AGENTS_CATALOG: dict = load_existing(AGENTS_CATALOG_PATH) or empty_catalog()
+_agents_catalog_lock = threading.Lock()
+AGENTS_CATALOG_REFRESH_S = 30 * 60
+CCIP_SELECTOR_LABELS = load_selector_labels(Path(__file__).parent / "ccip_registry.json")
+
+
+def get_agents_catalog() -> dict:
+    """Return the in-memory agents catalog (baked file, plus optional live refresh)."""
+    with _agents_catalog_lock:
+        return AGENTS_CATALOG
+
+
+def refresh_agents_catalog_in_place() -> bool:
+    """Re-fetch the gateway catalog. On failure, keep the last good in-memory copy."""
+    try:
+        catalog, _statuses = build_catalog(CCIP_SELECTOR_LABELS)
+        with _agents_catalog_lock:
+            previous = dict(AGENTS_CATALOG)
+        if should_keep_last_good(catalog, previous):
+            return False
+        with _agents_catalog_lock:
+            AGENTS_CATALOG.clear()
+            AGENTS_CATALOG.update(catalog)
+        return True
+    except Exception:
+        return False
+
+
+@asynccontextmanager
+async def _lifespan(_app: FastAPI):
+    """Optional in-process catalog refresh. Disabled in tests via env."""
+    if os.environ.get("LINKNODES_DISABLE_AGENTS_REFRESH") == "1" or os.environ.get("PYTEST_CURRENT_TEST"):
+        yield
+        return
+
+    stop = asyncio.Event()
+
+    async def _loop() -> None:
+        first = True
+        while not stop.is_set():
+            timeout = 60 if first else AGENTS_CATALOG_REFRESH_S
+            first = False
+            try:
+                await asyncio.wait_for(stop.wait(), timeout=timeout)
+                return
+            except asyncio.TimeoutError:
+                await asyncio.to_thread(refresh_agents_catalog_in_place)
+
+    task = asyncio.create_task(_loop())
+    try:
+        yield
+    finally:
+        stop.set()
+        task.cancel()
+        try:
+            await task
+        except asyncio.CancelledError:
+            pass
 
 
 def get_registry(environment: str = "mainnet") -> dict:
@@ -228,9 +298,28 @@ _response_cache: dict[tuple[str, str, int | None], tuple[float, dict]] = {}
 _rate_buckets: dict[str, deque[float]] = defaultdict(deque)
 
 app = FastAPI(
-    title="LinkNodes Core Engine",
+    title="LinkNodes API",
     version="2.1.0",
-    description="The Postman for Chainlink developers. No keys, no accounts, no limits.",
+    description=(
+        "Read-only public API for the LinkNodes Chainlink developer toolkit. "
+        "No API keys. Rate limited to 120 requests/minute/IP. "
+        "OpenAPI is served at `/v1/openapi.json` (FastAPI's default `/openapi.json` "
+        "is not used because the public site only proxies `/v1/*`)."
+    ),
+    openapi_url="/v1/openapi.json",
+    docs_url="/v1/docs",
+    redoc_url=None,
+    lifespan=_lifespan,
+    servers=[
+        {"url": "https://www.linknodes.io", "description": "Production"},
+        {"url": "http://localhost:8100", "description": "Local backend"},
+    ],
+    openapi_tags=[
+        {"name": "feeds", "description": "Data Feeds catalog, live reads, and cross-chain compare"},
+        {"name": "ccip", "description": "CCIP registry and lane lookup"},
+        {"name": "catalogs", "description": "Operators, 24/7 streams, and Chainlink for Agents catalog"},
+        {"name": "meta", "description": "Health"},
+    ],
 )
 
 # Universal CORS: the sandbox is a public utility, callable from anywhere.
@@ -472,7 +561,7 @@ async def _read_feed(network: str, feed: str, round_id: int | None, environment:
     raise HTTPException(status_code=502, detail=f"All public RPC nodes failed for {network}: {last_error}")
 
 
-@app.get("/v1/registry")
+@app.get("/v1/registry", tags=["feeds"])
 async def api_get_registry(
     environment: str = Query("mainnet", description="Environment: mainnet or testnet")
 ):
@@ -500,7 +589,7 @@ async def api_get_registry(
     return filtered_registry
 
 
-@app.get("/v1/query/{network}/{feed}")
+@app.get("/v1/query/{network}/{feed}", tags=["feeds"])
 async def query_feed(
     network: str,
     feed: str,
@@ -523,7 +612,7 @@ async def query_feed(
     return await _read_feed(network.lower(), feed.lower(), round_id, env)
 
 
-@app.get("/v1/compare/{feed}")
+@app.get("/v1/compare/{feed}", tags=["feeds"])
 async def compare_feed(
     feed: str,
     environment: str = Query("mainnet", description="Environment: mainnet or testnet"),
@@ -590,19 +679,32 @@ async def compare_feed(
     return {"success": True, "feed": feed, "summary": summary, "results": results}
 
 
-@app.get("/v1/streams-247")
+@app.get("/v1/streams-247", tags=["catalogs"])
 async def get_streams_247():
     """List-only catalog of Chainlink 24/7 Data Streams (no live prices)."""
     return STREAMS_247
 
 
-@app.get("/v1/operators")
+@app.get("/v1/operators", tags=["catalogs"])
 async def get_operators():
     """Curated directory of well-known Chainlink node operators."""
     return OPERATORS
 
 
-@app.get("/v1/ccip/registry")
+@app.get("/v1/agents/catalog", tags=["catalogs"])
+async def get_agents_catalog_api():
+    """Cached Chainlink for Agents gateway catalog (names, descriptions, published prices).
+
+    Sourced from `https://agents.chain.link/v1/catalog` plus per-workflow detail.
+    Refreshed by the daily data-refresh workflow and, when the process is up,
+    an in-memory retry every 30 minutes. If the gateway is down the last good
+    copy is returned. `price_usdc` is present only when the gateway published it
+    without requiring payment.
+    """
+    return get_agents_catalog()
+
+
+@app.get("/v1/ccip/registry", tags=["ccip"])
 async def api_get_ccip_registry(
     environment: str = Query("mainnet", description="Environment: mainnet or testnet")
 ):
@@ -613,7 +715,7 @@ async def api_get_ccip_registry(
     return get_ccip_registry(env)
 
 
-@app.get("/v1/ccip/lane/{source}/{destination}")
+@app.get("/v1/ccip/lane/{source}/{destination}", tags=["ccip"])
 async def get_ccip_lane(
     source: str,
     destination: str,
@@ -679,8 +781,9 @@ async def get_ccip_lane(
     }
 
 
-@app.get("/healthz")
+@app.get("/healthz", tags=["meta"])
 async def healthz():
+    catalog = get_agents_catalog()
     return {
         "status": "ok",
         "registry_version": REGISTRY_MAINNET["version"],
@@ -693,6 +796,11 @@ async def healthz():
             "networks": len(REGISTRY_TESTNET["networks"]),
             "feeds": sum(len(filter_visible_feeds(n["feeds"])) for n in REGISTRY_TESTNET["networks"].values()),
             "ccip_networks": len(CCIP_REGISTRY_TESTNET["networks"]),
+        },
+        "agents_catalog": {
+            "count": catalog.get("count", 0),
+            "generated_at": catalog.get("generated_at"),
+            "status": catalog.get("status"),
         },
         "cache_entries": len(_response_cache),
     }

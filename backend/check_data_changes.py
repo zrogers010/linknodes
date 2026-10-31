@@ -42,6 +42,7 @@ def main():
         backend / "ccip_registry.json",
         backend / "ccip_registry_testnet.json",
         backend / "streams_247.json",
+        backend / "agents_catalog.json",
     ]
     
     # Add all nodes files

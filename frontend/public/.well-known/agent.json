@@ -1,0 +1,78 @@
+{
+  "name": "LinkNodes",
+  "description": "Read-only Chainlink developer toolkit. Public /v1 API for Data Feeds, CCIP lanes, operators, 24/7 streams, and a cached Chainlink for Agents catalog. No API keys. No write operations.",
+  "url": "https://www.linknodes.io",
+  "version": "2.1.0",
+  "documentationUrl": "https://www.linknodes.io/llms-full.txt",
+  "provider": {
+    "organization": "LinkNodes",
+    "url": "https://www.linknodes.io"
+  },
+  "defaultInputModes": ["application/json"],
+  "defaultOutputModes": ["application/json"],
+  "capabilities": {
+    "streaming": false,
+    "pushNotifications": false,
+    "stateTransitionHistory": false
+  },
+  "authentication": {
+    "schemes": []
+  },
+  "skills": [
+    {
+      "id": "feed-lookup",
+      "name": "Data Feed lookup",
+      "description": "Resolve a Chainlink Data Feed by chain slug and feed slug, including live latestRoundData.",
+      "tags": ["chainlink", "data-feeds", "read-only"],
+      "examples": [
+        "GET /v1/query/ethereum/eth-usd",
+        "GET /v1/query/arbitrum/xau-usd?round_id=36893488147419105538"
+      ]
+    },
+    {
+      "id": "feed-compare",
+      "name": "Cross-chain feed compare",
+      "description": "Query the same feed on every chain it is deployed on and return the spread in bps.",
+      "tags": ["chainlink", "data-feeds", "compare"],
+      "examples": ["GET /v1/compare/eth-usd"]
+    },
+    {
+      "id": "ccip-lookup",
+      "name": "CCIP registry and lane lookup",
+      "description": "Router addresses, chain selectors, and per-lane support from Chainlink's CCIP directory.",
+      "tags": ["chainlink", "ccip"],
+      "examples": [
+        "GET /v1/ccip/registry",
+        "GET /v1/ccip/lane/ethereum/arbitrum"
+      ]
+    },
+    {
+      "id": "streams-247",
+      "name": "24/7 streams list",
+      "description": "List-only catalog of Chainlink 24/7 Data Streams. No live report prices.",
+      "tags": ["chainlink", "data-streams"],
+      "examples": ["GET /v1/streams-247"]
+    },
+    {
+      "id": "operators",
+      "name": "Node operators",
+      "description": "Curated directory of well-known Chainlink node operators.",
+      "tags": ["chainlink", "operators"],
+      "examples": ["GET /v1/operators"]
+    },
+    {
+      "id": "agents-catalog",
+      "name": "Chainlink for Agents catalog",
+      "description": "Cached public catalog from agents.chain.link, including published per-workflow USDC prices when the gateway exposes them without payment.",
+      "tags": ["chainlink", "agents"],
+      "examples": ["GET /v1/agents/catalog"]
+    }
+  ],
+  "x-endpoints": {
+    "openapi": "https://www.linknodes.io/v1/openapi.json",
+    "rest_api": "https://www.linknodes.io/v1",
+    "llms": "https://www.linknodes.io/llms.txt",
+    "llms_full": "https://www.linknodes.io/llms-full.txt",
+    "agents_hub": "https://www.linknodes.io/agents"
+  }
+}
