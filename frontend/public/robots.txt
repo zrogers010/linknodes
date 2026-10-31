@@ -4,9 +4,22 @@ Allow: /products/data-feeds
 Allow: /products/ccip
 Allow: /feeds
 Allow: /operators
+Allow: /agents
+Allow: /rwa
+Allow: /chainlink-247
+Allow: /llms.txt
+Allow: /llms-full.txt
+Allow: /.well-known/agent.json
+Allow: /v1/openapi.json
 
 Disallow: /products/functions
 Disallow: /products/vrf
 Disallow: /products/automation
 
 Sitemap: https://www.linknodes.io/sitemap.xml
+
+# Machine-readable discovery
+# https://www.linknodes.io/llms.txt
+# https://www.linknodes.io/llms-full.txt
+# https://www.linknodes.io/.well-known/agent.json
+# https://www.linknodes.io/v1/openapi.json

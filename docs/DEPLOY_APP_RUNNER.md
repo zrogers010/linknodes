@@ -5,8 +5,10 @@ This guide walks you through deploying LinkNodes to AWS App Runner using Docker 
 ## Architecture Overview
 
 LinkNodes on App Runner runs as **two separate services**:
-- **Backend Service** — FastAPI engine serving the Chainlink API (`/v1/*` endpoints)
+- **Backend Service** — FastAPI engine serving the Chainlink API (`/v1/*` endpoints) and an optional read-only MCP endpoint at `/mcp` (same container, no extra service)
 - **Frontend Service** — Static React SPA served via nginx
+
+`/mcp` is on the backend service URL after you redeploy that image. The production frontend nginx template does **not** proxy `/mcp` (it also does not proxy `/v1`; that is handled in front of the two services). If you want `https://www.linknodes.io/mcp`, add the same path rule you already use for `/v1`. Local `docker compose` nginx now proxies `/mcp` to the existing backend. No new App Runner service, container, or load balancer.
 
 Each service runs in its own App Runner instance with independent scaling and monitoring.
 

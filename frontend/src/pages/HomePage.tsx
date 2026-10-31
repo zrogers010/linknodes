@@ -98,6 +98,13 @@ export function HomePage() {
                 RWA / 24/7
                 <ChevronRightIcon size={16} />
               </Link>
+              <Link
+                to="/agents"
+                className="inline-flex items-center gap-2 border border-ink-600 bg-ink-800 px-4 py-2 text-sm font-semibold text-slate-300 transition-colors hover:border-ink-500 hover:bg-ink-750"
+              >
+                Agents
+                <ChevronRightIcon size={16} />
+              </Link>
             </div>
             <div className="mt-6 flex flex-wrap items-center gap-4 text-xs text-slate-500">
               <div className="flex items-center gap-1.5">

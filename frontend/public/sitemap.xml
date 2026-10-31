@@ -486,6 +486,21 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://www.linknodes.io/rwa</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.linknodes.io/chainlink-247</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.linknodes.io/agents</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://www.linknodes.io/feeds</loc>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
@@ -752,11 +767,6 @@
   </url>
   <url>
     <loc>https://www.linknodes.io/feeds/ethereum/eeth-por</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.linknodes.io/feeds/ethereum/eigen-usd</loc>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
@@ -1366,11 +1376,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.linknodes.io/feeds/ethereum/stbrl-tbrl-exchange-rate</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://www.linknodes.io/feeds/ethereum/steth-eth</loc>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
@@ -1387,16 +1392,6 @@
   </url>
   <url>
     <loc>https://www.linknodes.io/feeds/ethereum/stg-usd</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.linknodes.io/feeds/ethereum/stgld-tgld-exchange-rate</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.linknodes.io/feeds/ethereum/stmxn-tmxn-exchange-rate</loc>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
@@ -1427,11 +1422,6 @@
   </url>
   <url>
     <loc>https://www.linknodes.io/feeds/ethereum/susdai-usdai-exchange-rate</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.linknodes.io/feeds/ethereum/susdat-nav</loc>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
@@ -1857,21 +1847,6 @@
   </url>
   <url>
     <loc>https://www.linknodes.io/feeds/arbitrum/ankreth-eth-exchange-rate</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.linknodes.io/feeds/arbitrum/aoabt-nav</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.linknodes.io/feeds/arbitrum/aoabt-por</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.linknodes.io/feeds/arbitrum/aoabtb-nav</loc>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
@@ -3331,11 +3306,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.linknodes.io/feeds/base/ezeth-eth-exchange-rate</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://www.linknodes.io/feeds/base/ezeth-eth-exchange-rate-svr</loc>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
@@ -3792,11 +3762,6 @@
   </url>
   <url>
     <loc>https://www.linknodes.io/feeds/base/uspc-por</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.linknodes.io/feeds/base/usr-usd</loc>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
@@ -4971,6 +4936,11 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://www.linknodes.io/feeds/polygon/eurr-por</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://www.linknodes.io/feeds/polygon/fil-usd</loc>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
@@ -5587,6 +5557,11 @@
   </url>
   <url>
     <loc>https://www.linknodes.io/feeds/avalanche/pol-usd</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.linknodes.io/feeds/avalanche/pst-usdc-exchange-rate</loc>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
@@ -6541,11 +6516,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.linknodes.io/feeds/bnb/usr-usd</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://www.linknodes.io/feeds/bnb/vai-usd</loc>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
@@ -7491,11 +7461,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.linknodes.io/feeds/sonic/ussd-usd</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://www.linknodes.io/feeds/sonic/vyusd-usd-exchange-rate</loc>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
@@ -8332,6 +8297,11 @@
   </url>
   <url>
     <loc>https://www.linknodes.io/feeds/base-sepolia/usdt-usd</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.linknodes.io/feeds/base-sepolia/wsteth-usd</loc>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>

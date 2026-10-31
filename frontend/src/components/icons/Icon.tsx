@@ -183,6 +183,26 @@ export function BuildingBankIcon({ size = 20, ...props }: IconProps) {
   )
 }
 
+export function RobotIcon({ size = 20, ...props }: IconProps) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <path d="M7 7h10a2 2 0 0 1 2 2v1l1 0a2 2 0 0 1 2 2v3a2 2 0 0 1 -2 2l-1 0v1a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-1l-1 0a2 2 0 0 1 -2 -2v-3a2 2 0 0 1 2 -2l1 0v-1a2 2 0 0 1 2 -2z" />
+      <path d="M10 16h4" />
+      <circle cx="8.5" cy="11.5" r=".5" fill="currentColor" />
+      <circle cx="15.5" cy="11.5" r=".5" fill="currentColor" />
+    </svg>
+  )
+}
+
+export function ShieldCheckIcon({ size = 20, ...props }: IconProps) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <path d="M12 3a12 12 0 0 0 8.5 3a12 12 0 0 1 -8.5 15a12 12 0 0 1 -8.5 -15a12 12 0 0 0 8.5 -3" />
+      <path d="M9 12l2 2l4 -4" />
+    </svg>
+  )
+}
+
 export function HexagonIcon({ size = 20, ...props }: IconProps) {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>

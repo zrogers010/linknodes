@@ -48,6 +48,7 @@ jobs:
           python3 build_registry.py
           python3 build_operators.py
           python3 build_ccip_registry.py
+          python3 build_agents_catalog.py
       
       - name: Sync frontend registry data
         run: |
@@ -57,7 +58,7 @@ jobs:
       - name: Run shape validation tests
         run: |
           cd backend
-          python3 -m pytest test_shape_validation.py test_refresh_checks.py test_operators.py -v
+          python3 -m pytest test_shape_validation.py test_refresh_checks.py test_operators.py test_agents_catalog.py -v
       
       - name: Check for changes
         id: check_changes

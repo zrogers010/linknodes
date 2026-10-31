@@ -1,0 +1,356 @@
+{
+  "version": "1.0.0",
+  "source": "chainlink-agents-gateway",
+  "source_url": "https://agents.chain.link/v1/catalog",
+  "generated_at": "2026-10-31T00:02:53Z",
+  "status": "ok",
+  "count": 12,
+  "workflows": [
+    {
+      "name": "streams-bulk-reports",
+      "description": "Get signed Data Streams reports for multiple feeds at a Unix timestamp.",
+      "kind": "endpoint",
+      "execute_endpoint": "GET /v1/streams/reports/bulk",
+      "price_usdc": null,
+      "price_overrides": [],
+      "price_tier": "read",
+      "input_params": [
+        {
+          "name": "feedIDs",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "timestamp",
+          "type": "integer",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "streams-latest-report",
+      "description": "Get the latest signed Data Streams report for one feed.",
+      "kind": "endpoint",
+      "execute_endpoint": "GET /v1/streams/reports/latest",
+      "price_usdc": null,
+      "price_overrides": [],
+      "price_tier": "read",
+      "input_params": [
+        {
+          "name": "feedID",
+          "type": "string",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "streams-report-at-timestamp",
+      "description": "Get a signed Data Streams report for one feed at a Unix timestamp.",
+      "kind": "endpoint",
+      "execute_endpoint": "GET /v1/streams/reports",
+      "price_usdc": null,
+      "price_overrides": [],
+      "price_tier": "read",
+      "input_params": [
+        {
+          "name": "feedID",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "timestamp",
+          "type": "integer",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "aave-positions",
+      "description": "Fetch Aave v3 supply positions for the agent smart wallet on the selected chain.",
+      "kind": "workflow",
+      "execute_endpoint": "POST /v1/operations/aave-positions",
+      "price_usdc": "0.01",
+      "price_overrides": [
+        {
+          "chain_selector": "5009297550715157269",
+          "price_usdc": "0.05",
+          "network_label": "Ethereum Mainnet"
+        }
+      ],
+      "price_tier": null,
+      "input_params": [
+        {
+          "name": "chain_selector",
+          "type": "chain_selector",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "aave-supply",
+      "description": "Build ERC-20 approve and Aave V3 Pool supply calldata.",
+      "kind": "workflow",
+      "execute_endpoint": "POST /v1/operations/aave-supply",
+      "price_usdc": "0.01",
+      "price_overrides": [
+        {
+          "chain_selector": "5009297550715157269",
+          "price_usdc": "0.05",
+          "network_label": "Ethereum Mainnet"
+        }
+      ],
+      "price_tier": null,
+      "input_params": [
+        {
+          "name": "amount",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "chain_selector",
+          "type": "chain_selector",
+          "required": true
+        },
+        {
+          "name": "token_address",
+          "type": "string",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "aave-withdraw",
+      "description": "Build Aave V3 Pool withdraw calldata.",
+      "kind": "workflow",
+      "execute_endpoint": "POST /v1/operations/aave-withdraw",
+      "price_usdc": "0.01",
+      "price_overrides": [
+        {
+          "chain_selector": "5009297550715157269",
+          "price_usdc": "0.05",
+          "network_label": "Ethereum Mainnet"
+        }
+      ],
+      "price_tier": null,
+      "input_params": [
+        {
+          "name": "amount",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "chain_selector",
+          "type": "chain_selector",
+          "required": true
+        },
+        {
+          "name": "token_address",
+          "type": "string",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "aave-yields",
+      "description": "Fetch Aave v3 supply reserve APYs for the selected chain.",
+      "kind": "workflow",
+      "execute_endpoint": "POST /v1/operations/aave-yields",
+      "price_usdc": "0.01",
+      "price_overrides": [
+        {
+          "chain_selector": "5009297550715157269",
+          "price_usdc": "0.05",
+          "network_label": "Ethereum Mainnet"
+        }
+      ],
+      "price_tier": null,
+      "input_params": [
+        {
+          "name": "chain_selector",
+          "type": "chain_selector",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "bridge-tokens",
+      "description": "Build CCIP token bridge calldata with token-fee payment, approvals, and ccipSend transactions.",
+      "kind": "workflow",
+      "execute_endpoint": "POST /v1/operations/bridge-tokens",
+      "price_usdc": "0.01",
+      "price_overrides": [
+        {
+          "chain_selector": "5009297550715157269",
+          "price_usdc": "0.05",
+          "network_label": "Ethereum Mainnet"
+        }
+      ],
+      "price_tier": null,
+      "input_params": [
+        {
+          "name": "amount",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "chain_selector",
+          "type": "chain_selector",
+          "required": true
+        },
+        {
+          "name": "destination_account",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "destination_chain_selector",
+          "type": "chain_selector",
+          "required": true
+        },
+        {
+          "name": "fee_token_address",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "token_address",
+          "type": "string",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "token-balance",
+      "description": "Read the agent smart wallet's ERC-20 token balance on the selected chain.",
+      "kind": "workflow",
+      "execute_endpoint": "POST /v1/operations/token-balance",
+      "price_usdc": "0.01",
+      "price_overrides": [
+        {
+          "chain_selector": "5009297550715157269",
+          "price_usdc": "0.05",
+          "network_label": "Ethereum Mainnet"
+        }
+      ],
+      "price_tier": null,
+      "input_params": [
+        {
+          "name": "chain_selector",
+          "type": "chain_selector",
+          "required": true
+        },
+        {
+          "name": "token_address",
+          "type": "string",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "token-info",
+      "description": "Read ERC-20 token metadata on the selected chain: name, symbol, decimals, and totalSupply.",
+      "kind": "workflow",
+      "execute_endpoint": "POST /v1/operations/token-info",
+      "price_usdc": "0.01",
+      "price_overrides": [
+        {
+          "chain_selector": "5009297550715157269",
+          "price_usdc": "0.05",
+          "network_label": "Ethereum Mainnet"
+        }
+      ],
+      "price_tier": null,
+      "input_params": [
+        {
+          "name": "chain_selector",
+          "type": "chain_selector",
+          "required": true
+        },
+        {
+          "name": "token_address",
+          "type": "string",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "token-swap",
+      "description": "Use Uniswap Trading API quote/swap to produce calldata (including approval when allowance is insufficient).",
+      "kind": "workflow",
+      "execute_endpoint": "POST /v1/operations/token-swap",
+      "price_usdc": "0.01",
+      "price_overrides": [
+        {
+          "chain_selector": "5009297550715157269",
+          "price_usdc": "0.05",
+          "network_label": "Ethereum Mainnet"
+        }
+      ],
+      "price_tier": null,
+      "input_params": [
+        {
+          "name": "amount_in",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "chain_selector",
+          "type": "chain_selector",
+          "required": true
+        },
+        {
+          "name": "max_slippage_bps",
+          "type": "integer",
+          "required": false
+        },
+        {
+          "name": "token_in",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "token_out",
+          "type": "string",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "token-transfer",
+      "description": "Build ERC-20 transfer calldata for a caller-provided amount.",
+      "kind": "workflow",
+      "execute_endpoint": "POST /v1/operations/token-transfer",
+      "price_usdc": "0.01",
+      "price_overrides": [
+        {
+          "chain_selector": "5009297550715157269",
+          "price_usdc": "0.05",
+          "network_label": "Ethereum Mainnet"
+        }
+      ],
+      "price_tier": null,
+      "input_params": [
+        {
+          "name": "amount",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "chain_selector",
+          "type": "chain_selector",
+          "required": true
+        },
+        {
+          "name": "to_address",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "token_address",
+          "type": "string",
+          "required": true
+        }
+      ]
+    }
+  ]
+}

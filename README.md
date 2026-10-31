@@ -62,8 +62,17 @@ frontend (React + Tailwind, static)  ──►  backend (FastAPI, stateless)
 ### Secondary Pages
 - **Feed Catalog (`/feeds`)** — every feed aggregated across chains as sortable cards.
   Sort by chain coverage, fastest heartbeat, or name; filter by asset class.
+- **RWA / 24/7 (`/rwa`, `/chainlink-247`)** — equities, commodities, and the 24/7 streams list.
+- **Agents (`/agents`)** — Chainlink for Agents (beta) setup guide and a live table of the
+  public gateway catalog at `agents.chain.link`.
 - **Node Operators (`/operators`)** — curated directory of well-known Chainlink node
   operators served from `backend/operators.json`.
+
+### Machine-readable discovery
+- `/llms.txt` and `/llms-full.txt` — page and public API index for language models
+- `/.well-known/agent.json` — LinkNodes agent card
+- `/v1/openapi.json` — OpenAPI 3 spec for the public `/v1` API (`/v1/docs` is Swagger UI)
+- `packages/linknodes-mcp` — read-only MCP server (stdio, runs on your machine). Optional `/mcp` Streamable HTTP on the existing backend. Not published to npm yet.
 
 ## Running locally
 
@@ -109,6 +118,9 @@ Open http://localhost:5173.
 | Endpoint | Description |
 | --- | --- |
 | `GET /v1/operators` | Curated node operator directory |
+| `GET /v1/streams-247` | 24/7 Data Streams list (no live prices) |
+| `GET /v1/agents/catalog` | Cached Chainlink for Agents gateway catalog |
+| `GET /v1/openapi.json` | OpenAPI 3 spec |
 | `GET /healthz` | Liveness probe + catalog stats |
 
 Examples:

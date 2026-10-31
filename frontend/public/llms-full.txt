@@ -1,0 +1,108 @@
+# LinkNodes — full page and API map
+
+Source: https://www.linknodes.io/llms-full.txt
+Site: https://www.linknodes.io
+OpenAPI: https://www.linknodes.io/v1/openapi.json
+Agent card: https://www.linknodes.io/.well-known/agent.json
+
+LinkNodes is a free, un-gated web toolkit for Chainlink developers. The frontend is a static React app. The backend is a stateless FastAPI process. There is no account system and no write API. Rate limit: 120 requests / 60 seconds / IP on `/v1/*`.
+
+This document describes LinkNodes pages and public API routes. It is not the Chainlink for Agents gateway. Paid agent workflows live at https://agents.chain.link.
+
+## Pages
+
+### /
+Marketing homepage. Product cards for Data Feeds, CCIP, Functions, VRF, and Automation. CTAs to the live sandboxes, the RWA hub, and the Agents page.
+
+### /products/data-feeds
+Live Data Feeds sandbox. Query 1,400+ feeds across 13 mainnets (and testnets via the header toggle). Historical `round_id` support. Production snippets. Uses GET /v1/registry, /v1/query/{chain}/{feed}, /v1/compare/{feed}.
+
+### /products/ccip
+CCIP explorer. Source/destination selectors, router addresses, RMN proxies, Solidity ccipSend snippets. Per-lane URLs at /products/ccip/{source}/{dest}. Uses GET /v1/ccip/registry and /v1/ccip/lane/{source}/{dest}.
+
+### /products/functions, /products/vrf, /products/automation
+Preview / documentation pages. Disallowed in robots.txt until the sandboxes are live.
+
+### /feeds, /feeds/{chain}, /feeds/{chain}/{feed}
+Feed catalog and per-feed pages with proxy addresses, heartbeats, and a live latest-round read.
+
+### /rwa
+Real-world asset hub: on-chain equity/commodity/tokenized feeds plus the list of 24/7 Data Streams. Session badges are calculated by LinkNodes from the NYSE calendar, not an oracle value.
+
+### /chainlink-247
+Reference article for the October 2026 Chainlink 24/7 launch. Feeds vs Streams, what is live, what is not.
+
+### /agents
+Chainlink for Agents (beta) explainer: skill install (`npx skills add smartcontractkit/chainlink-for-agents`), Base wallet + USDC funding, registration, chain-wallet deploy, owner-set guardrails at app.chain.link, and the x402 402-then-retry flow. Includes a live table of the gateway catalog served from GET /v1/agents/catalog.
+
+### /operators
+Curated node-operator directory from GET /v1/operators.
+
+### /sandbox
+Legacy alias used in some docs; the live Data Feeds UI is /products/data-feeds.
+
+## Public API
+
+Base URL in production: https://www.linknodes.io
+Local backend: http://localhost:8100
+CORS: allow all origins. No authentication.
+
+### GET /v1/openapi.json
+OpenAPI 3 document for this API. FastAPI's default `/openapi.json` is intentionally unused because the public hostname only proxies `/v1/*` and `/healthz`.
+
+### GET /v1/docs
+Swagger UI for the same spec.
+
+### GET /v1/registry?environment=mainnet|testnet
+Full Data Feeds catalog. Shut-down feeds are filtered at request time. Gzip-compressed.
+
+### GET /v1/query/{network}/{feed}?round_id=&environment=
+Live `latestRoundData()` or historical `getRoundData()`. `{network}` is a slug such as `ethereum`, `arbitrum`, `base`. `{feed}` is a slug such as `eth-usd`, `xau-usd`.
+
+### GET /v1/compare/{feed}?environment=
+Same feed on every chain it is deployed on, plus min/max/spread_bps.
+
+### GET /v1/ccip/registry?environment=mainnet|testnet
+CCIP routers, chain selectors, RMN proxies, supported destinations.
+
+### GET /v1/ccip/lane/{source}/{destination}?environment=
+One lane. 404 if the pair is unknown or not supported.
+
+### GET /v1/streams-247
+List-only catalog of Chainlink 24/7 Data Streams (feed IDs, no live report prices).
+
+### GET /v1/operators
+Curated marketing-style operator directory.
+
+### GET /v1/agents/catalog
+Cached copy of https://agents.chain.link/v1/catalog plus unpaid per-item detail (`kind`, `execute_endpoint`, `price_usdc` when published). Refreshed by the daily GitHub data-refresh workflow. The running API also retries the gateway every 30 minutes and keeps the last good copy if the gateway is down.
+
+### GET /healthz
+Liveness plus catalog counts. Not rate limited.
+
+### POST /mcp
+Optional Streamable HTTP MCP endpoint mounted on the existing backend (no extra host). Same read-only tools as `packages/linknodes-mcp`. Prefer the stdio package on your own machine until production proxies `/mcp` the same way it already proxies `/v1`.
+
+## MCP (stdio)
+
+`packages/linknodes-mcp` is a read-only stdio MCP server. It calls `https://www.linknodes.io/v1` with no API key. The owner publishes it to npm; until then run `node packages/linknodes-mcp/src/index.js` from a clone. Tools: search_feeds, lookup_feed, compare_feed, ccip_registry, ccip_lane, list_streams_247, list_operators, agents_catalog.
+
+## Discovery files
+
+- https://www.linknodes.io/llms.txt
+- https://www.linknodes.io/llms-full.txt
+- https://www.linknodes.io/.well-known/agent.json
+- https://www.linknodes.io/robots.txt
+- https://www.linknodes.io/sitemap.xml
+
+## Official Chainlink for Agents (not hosted by LinkNodes)
+
+- Docs: https://docs.chain.link/solutions/chainlink-for-agents
+- Guardrails guide: https://docs.chain.link/solutions/chainlink-for-agents/guides/set-guardrails
+- Price + swap guide: https://docs.chain.link/solutions/chainlink-for-agents/guides/check-price-and-swap
+- Skills: https://github.com/smartcontractkit/chainlink-for-agents
+- Gateway: https://agents.chain.link
+- Gateway catalog: https://agents.chain.link/v1/catalog
+- Gateway agent card: https://agents.chain.link/.well-known/agent.json
+- Gateway OpenAPI: https://agents.chain.link/v1/openapi.yaml
+- Platform UI: https://app.chain.link/cre/agents

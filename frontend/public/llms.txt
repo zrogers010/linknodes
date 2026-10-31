@@ -1,0 +1,33 @@
+# LinkNodes
+> Free, un-gated web toolkit for Chainlink / smart-contract developers. Live Data Feeds sandbox, CCIP lane explorer, RWA / 24/7 hub, node operators, and a Chainlink for Agents explainer with a cached public catalog.
+
+This file lists public human pages and the read-only `/v1` API. No API keys. 120 requests/minute/IP.
+
+## Pages
+- [Home](https://www.linknodes.io/): Product suite landing
+- [Data Feeds sandbox](https://www.linknodes.io/products/data-feeds): Query 1,400+ mainnet feeds
+- [CCIP explorer](https://www.linknodes.io/products/ccip): Routers, selectors, Solidity snippets
+- [Feed catalog](https://www.linknodes.io/feeds): All feeds as sortable cards
+- [RWA / 24/7 hub](https://www.linknodes.io/rwa): Equities, commodities, 24/7 streams list
+- [Chainlink 24/7 explained](https://www.linknodes.io/chainlink-247): Feeds vs Streams, what is live
+- [Chainlink for Agents](https://www.linknodes.io/agents): Beta setup guide and live gateway catalog
+- [Node operators](https://www.linknodes.io/operators): Curated operator directory
+
+## Public API
+- [OpenAPI spec](https://www.linknodes.io/v1/openapi.json)
+- [GET /v1/registry](https://www.linknodes.io/v1/registry): Feed catalog
+- [GET /v1/query/{chain}/{feed}](https://www.linknodes.io/v1/query/ethereum/eth-usd): latestRoundData
+- [GET /v1/compare/{feed}](https://www.linknodes.io/v1/compare/eth-usd): Cross-chain spread
+- [GET /v1/ccip/registry](https://www.linknodes.io/v1/ccip/registry): CCIP routers and selectors
+- [GET /v1/ccip/lane/{source}/{dest}](https://www.linknodes.io/v1/ccip/lane/ethereum/arbitrum): One lane
+- [GET /v1/streams-247](https://www.linknodes.io/v1/streams-247): 24/7 Data Streams list (no live prices)
+- [GET /v1/operators](https://www.linknodes.io/v1/operators): Curated operators
+- [GET /v1/agents/catalog](https://www.linknodes.io/v1/agents/catalog): Cached Chainlink for Agents catalog
+- [GET /healthz](https://www.linknodes.io/healthz): Liveness
+- [MCP stdio package](https://github.com/zrogers010/linknodes/tree/main/packages/linknodes-mcp): `npx` / local `node` server (not published yet)
+- [POST /mcp](https://www.linknodes.io/mcp): Optional Streamable HTTP MCP on the existing backend
+
+## Optional
+- [Full text](https://www.linknodes.io/llms-full.txt)
+- [Agent card](https://www.linknodes.io/.well-known/agent.json)
+- [Sitemap](https://www.linknodes.io/sitemap.xml)

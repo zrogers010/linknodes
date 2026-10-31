@@ -221,6 +221,11 @@ const productPages = [
     path: 'chainlink-247',
     title: 'Chainlink 24/7 explained | LinkNodes.io',
     description: 'What Chainlink 24/7 is, how Data Feeds differ from Data Streams, what is live today (17 Arbitrum streams and tGLD), what is not on-chain yet, and how access works.'
+  },
+  {
+    path: 'agents',
+    title: 'Chainlink for Agents | LinkNodes.io',
+    description: 'Plain-language setup for Chainlink for Agents: skills install, Base USDC, registration, chain wallet, guardrails, and the x402 402-then-retry flow. Live catalog from agents.chain.link.'
   }
 ];
 

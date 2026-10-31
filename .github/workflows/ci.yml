@@ -28,7 +28,7 @@ jobs:
       - name: Run unit tests
         run: |
           cd backend
-          pytest test_shape_validation.py test_svr_matching.py test_shutdown.py test_mutation_killers.py test_request_time_status.py test_regression_pr16_round2.py test_refresh_checks.py test_operators.py test_production_mutations.py test_iso_date_validation.py test_check_data_changes.py test_market_hours.py test_streams_247.py -v
+          pytest test_shape_validation.py test_svr_matching.py test_shutdown.py test_mutation_killers.py test_request_time_status.py test_regression_pr16_round2.py test_refresh_checks.py test_operators.py test_production_mutations.py test_iso_date_validation.py test_check_data_changes.py test_market_hours.py test_streams_247.py test_agents_catalog.py test_mcp_server.py -v
       
       - name: Start backend server
         run: |
@@ -69,6 +69,12 @@ jobs:
         run: |
           cd frontend
           node --experimental-strip-types test-market-hours.js
+
+      - name: Test LinkNodes MCP client helpers
+        run: |
+          cd packages/linknodes-mcp
+          npm ci
+          npm test
 
   validate-ccip:
     name: Validate CCIP Registry
@@ -178,6 +184,10 @@ jobs:
             echo "❌ Sitemap missing /chainlink-247"
             exit 1
           fi
+          if ! grep -q "/agents" public/sitemap.xml; then
+            echo "❌ Sitemap missing /agents"
+            exit 1
+          fi
           # Should have ~49 CCIP lanes
           if [ "$LANE_COUNT" -lt 40 ]; then
             echo "❌ Too few CCIP lanes in sitemap (expected ~49)"
@@ -206,6 +216,10 @@ jobs:
           test -f 404.html || { echo "❌ Missing 404.html"; exit 1; }
           test -f rwa/index.html || { echo "❌ Missing rwa/index.html"; exit 1; }
           test -f chainlink-247/index.html || { echo "❌ Missing chainlink-247/index.html"; exit 1; }
+          test -f agents/index.html || { echo "❌ Missing agents/index.html"; exit 1; }
+          test -f llms.txt || { echo "❌ Missing llms.txt"; exit 1; }
+          test -f llms-full.txt || { echo "❌ Missing llms-full.txt"; exit 1; }
+          test -f .well-known/agent.json || { echo "❌ Missing .well-known/agent.json"; exit 1; }
           echo "✅ Prerendered files exist"
 
   seo-nginx-tests:
@@ -349,6 +363,37 @@ jobs:
             exit 1
           fi
           echo "✅ /chainlink-247: 200 with correct meta tags"
+
+          RESPONSE=$(curl -s -w "\n%{http_code}" http://localhost:8080/agents)
+          HTTP_CODE=$(echo "$RESPONSE" | tail -1)
+          HTML=$(echo "$RESPONSE" | head -n -1)
+          if [ "$HTTP_CODE" != "200" ]; then
+            echo "❌ /agents returned $HTTP_CODE (expected 200)"
+            exit 1
+          fi
+          if ! echo "$HTML" | grep -q "<title>Chainlink for Agents"; then
+            echo "❌ /agents missing correct title"
+            echo "$HTML" | grep "<title>"
+            exit 1
+          fi
+          echo "✅ /agents: 200 with correct meta tags"
+
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8080/llms.txt)
+          if [ "$HTTP_CODE" != "200" ]; then
+            echo "❌ /llms.txt returned $HTTP_CODE (expected 200)"
+            exit 1
+          fi
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8080/llms-full.txt)
+          if [ "$HTTP_CODE" != "200" ]; then
+            echo "❌ /llms-full.txt returned $HTTP_CODE (expected 200)"
+            exit 1
+          fi
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8080/.well-known/agent.json)
+          if [ "$HTTP_CODE" != "200" ]; then
+            echo "❌ /.well-known/agent.json returned $HTTP_CODE (expected 200)"
+            exit 1
+          fi
+          echo "✅ discovery files: /llms.txt /llms-full.txt /.well-known/agent.json"
       
       - name: Test invalid routes return 404
         run: |
@@ -550,6 +595,35 @@ jobs:
             exit 1
           fi
           echo "✅ /v1/query works"
+
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8080/v1/openapi.json)
+          if [ "$HTTP_CODE" != "200" ]; then
+            echo "❌ /v1/openapi.json returned $HTTP_CODE"
+            exit 1
+          fi
+          if ! curl -s http://localhost:8080/v1/openapi.json | grep -q '"/v1/registry"'; then
+            echo "❌ /v1/openapi.json missing /v1/registry path"
+            exit 1
+          fi
+          echo "✅ /v1/openapi.json works"
+
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8080/v1/agents/catalog)
+          if [ "$HTTP_CODE" != "200" ]; then
+            echo "❌ /v1/agents/catalog returned $HTTP_CODE"
+            exit 1
+          fi
+          echo "✅ /v1/agents/catalog works"
+
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" -X POST http://localhost:8080/mcp \
+            -H "Content-Type: application/json" \
+            -H "Accept: application/json, text/event-stream" \
+            -d '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-03-26","capabilities":{},"clientInfo":{"name":"ci","version":"0"}}}')
+          if [ "$HTTP_CODE" != "200" ]; then
+            echo "❌ POST /mcp initialize returned $HTTP_CODE"
+            docker logs test-backend
+            exit 1
+          fi
+          echo "✅ /mcp initialize works"
           
           echo ""
           echo "✅ Backend Docker image works correctly"
