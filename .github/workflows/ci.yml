@@ -204,7 +204,30 @@ jobs:
         run: |
           cd frontend
           test -f public/og-default.png
-          echo "✅ OG image generated"
+          test -f public/og-agents.png
+          test -f public/og-rwa.png
+          test -f public/og-chainlink-247.png
+          test -f public/og-feeds.png
+          test -f public/favicon.ico
+          test -f public/apple-touch-icon.png
+          python3 - <<'PY'
+          import struct, sys
+          from pathlib import Path
+          for name in ["og-default.png", "og-agents.png", "og-rwa.png", "og-chainlink-247.png", "og-feeds.png"]:
+              data = Path("public", name).read_bytes()
+              if data[:8] != b"\x89PNG\r\n\x1a\n":
+                  print(f"❌ {name} is not a PNG")
+                  sys.exit(1)
+              w, h = struct.unpack(">II", data[16:24])
+              if (w, h) != (1200, 630):
+                  print(f"❌ {name} is {w}x{h}, expected 1200x630")
+                  sys.exit(1)
+              if len(data) < 20_000:
+                  print(f"❌ {name} is suspiciously small ({len(data)} bytes)")
+                  sys.exit(1)
+          print("✅ OG images are 1200x630 PNGs")
+          PY
+          echo "✅ OG images and icons generated"
 
       - name: Verify prerendered files exist
         run: |
@@ -220,6 +243,8 @@ jobs:
           test -f llms.txt || { echo "❌ Missing llms.txt"; exit 1; }
           test -f llms-full.txt || { echo "❌ Missing llms-full.txt"; exit 1; }
           test -f .well-known/agent.json || { echo "❌ Missing .well-known/agent.json"; exit 1; }
+          test -f data/registry.json || { echo "❌ Missing data/registry.json"; exit 1; }
+          test -f data/registry_testnet.json || { echo "❌ Missing data/registry_testnet.json"; exit 1; }
           echo "✅ Prerendered files exist"
 
   seo-nginx-tests:
@@ -377,6 +402,86 @@ jobs:
             exit 1
           fi
           echo "✅ /agents: 200 with correct meta tags"
+
+          for PATH_AND_OG in \
+            "/|og-default.png" \
+            "/agents|og-agents.png" \
+            "/rwa|og-rwa.png" \
+            "/chainlink-247|og-chainlink-247.png" \
+            "/feeds|og-feeds.png"
+          do
+            PAGE_PATH="${PATH_AND_OG%%|*}"
+            OG_FILE="${PATH_AND_OG##*|}"
+            PAGE_HTML=$(curl -s "http://localhost:8080${PAGE_PATH}")
+            EXPECTED_URL="https://www.linknodes.io${PAGE_PATH}"
+            if [ "$PAGE_PATH" != "/" ]; then
+              EXPECTED_URL="https://www.linknodes.io${PAGE_PATH}"
+            fi
+            if ! echo "$PAGE_HTML" | grep -q "name=\"twitter:url\" content=\"${EXPECTED_URL}\""; then
+              echo "❌ ${PAGE_PATH} missing per-page twitter:url ${EXPECTED_URL}"
+              echo "$PAGE_HTML" | grep "twitter:url"
+              exit 1
+            fi
+            if ! echo "$PAGE_HTML" | grep -q "property=\"og:url\" content=\"${EXPECTED_URL}\""; then
+              echo "❌ ${PAGE_PATH} missing per-page og:url ${EXPECTED_URL}"
+              exit 1
+            fi
+            if ! echo "$PAGE_HTML" | grep -q "name=\"twitter:card\" content=\"summary_large_image\""; then
+              echo "❌ ${PAGE_PATH} missing twitter:card summary_large_image"
+              exit 1
+            fi
+            if echo "$PAGE_HTML" | grep -q 'name="twitter:site"'; then
+              echo "❌ ${PAGE_PATH} should omit empty twitter:site"
+              exit 1
+            fi
+            if ! echo "$PAGE_HTML" | grep -q "property=\"og:image\" content=\"https://www.linknodes.io/${OG_FILE}\""; then
+              echo "❌ ${PAGE_PATH} missing OG image ${OG_FILE}"
+              echo "$PAGE_HTML" | grep "og:image"
+              exit 1
+            fi
+            HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" "http://localhost:8080/${OG_FILE}")
+            if [ "$HTTP_CODE" != "200" ]; then
+              echo "❌ /${OG_FILE} returned $HTTP_CODE (expected 200)"
+              exit 1
+            fi
+          done
+          echo "✅ per-page twitter/og URL + card + OG images"
+
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8080/data/registry.json)
+          if [ "$HTTP_CODE" != "200" ]; then
+            echo "❌ /data/registry.json returned $HTTP_CODE (expected 200)"
+            exit 1
+          fi
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8080/data/registry_testnet.json)
+          if [ "$HTTP_CODE" != "200" ]; then
+            echo "❌ /data/registry_testnet.json returned $HTTP_CODE (expected 200)"
+            exit 1
+          fi
+          echo "✅ registry JSON files are served"
+
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8080/favicon.ico)
+          if [ "$HTTP_CODE" != "200" ]; then
+            echo "❌ /favicon.ico returned $HTTP_CODE (expected 200)"
+            exit 1
+          fi
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8080/apple-touch-icon.png)
+          if [ "$HTTP_CODE" != "200" ]; then
+            echo "❌ /apple-touch-icon.png returned $HTTP_CODE (expected 200)"
+            exit 1
+          fi
+          echo "✅ favicon.ico and apple-touch-icon.png"
+
+          HEADERS=$(curl -sI http://localhost:8080/)
+          echo "$HEADERS" | grep -qi "strict-transport-security" || { echo "❌ missing HSTS"; echo "$HEADERS"; exit 1; }
+          echo "$HEADERS" | grep -qi "x-content-type-options: nosniff" || { echo "❌ missing nosniff"; echo "$HEADERS"; exit 1; }
+          echo "$HEADERS" | grep -qi "x-frame-options: DENY" || { echo "❌ missing frame options"; echo "$HEADERS"; exit 1; }
+          echo "$HEADERS" | grep -qi "referrer-policy: strict-origin-when-cross-origin" || { echo "❌ missing referrer-policy"; echo "$HEADERS"; exit 1; }
+          if echo "$HEADERS" | grep -qi "server: nginx/"; then
+            echo "❌ server_tokens still exposing nginx version"
+            echo "$HEADERS"
+            exit 1
+          fi
+          echo "✅ security headers"
 
           HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8080/llms.txt)
           if [ "$HTTP_CODE" != "200" ]; then

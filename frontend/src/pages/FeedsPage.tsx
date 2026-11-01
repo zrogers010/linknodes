@@ -120,6 +120,7 @@ export function FeedsPage({ registry }: { registry: Registry }) {
         title="Feed Catalog — 1,400+ Chainlink Data Feeds"
         description="Complete catalog of Chainlink Data Feeds aggregated across 13 mainnets. Browse crypto, forex, equities, commodities, and macro feeds by coverage, heartbeat, and risk rating."
         path="/feeds"
+        ogImage="https://www.linknodes.io/og-feeds.png"
       />
       <div className="mx-auto max-w-7xl">
         <div className="mb-1 flex items-baseline gap-3">

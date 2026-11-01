@@ -62,11 +62,12 @@ export function ControlPanel({ registry, state, onChange, onFeedPick }: Props) {
   return (
     <aside className="flex h-full min-h-0 flex-col border-r border-ink-700 bg-ink-900">
       <div className="border-b border-ink-700 p-4">
-        <label className="mb-2 block text-[11px] font-semibold uppercase tracking-widest text-slate-500">
+        <label htmlFor="sandbox-network" className="mb-2 block text-[11px] font-semibold uppercase tracking-widest text-slate-400">
           Target Network
         </label>
         <div className="relative">
           <select
+            id="sandbox-network"
             value={state.network}
             onChange={(e) => onChange({ network: e.target.value })}
             className="w-full appearance-none rounded-lg border border-ink-600 bg-ink-800 px-3 py-2.5 text-sm font-medium text-slate-200 outline-none transition-colors hover:border-accent-500/60 focus:border-accent-500"
@@ -93,7 +94,7 @@ export function ControlPanel({ registry, state, onChange, onFeedPick }: Props) {
       </div>
 
       <div className="border-b border-ink-700 p-4 pb-3">
-        <label className="mb-2 block text-[11px] font-semibold uppercase tracking-widest text-slate-500">
+        <label htmlFor="sandbox-feed-search" className="mb-2 block text-[11px] font-semibold uppercase tracking-widest text-slate-400">
           Feed Catalog
         </label>
         <div className="relative">
@@ -108,6 +109,9 @@ export function ControlPanel({ registry, state, onChange, onFeedPick }: Props) {
             <path d="M13.5 13.5 17 17" strokeLinecap="round" />
           </svg>
           <input
+            id="sandbox-feed-search"
+            type="search"
+            aria-label="Search feeds"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             onKeyDown={(e) => {

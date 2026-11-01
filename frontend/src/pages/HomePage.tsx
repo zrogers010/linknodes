@@ -159,14 +159,14 @@ export function HomePage() {
                   <p className="mb-2 text-xs font-medium text-slate-400">
                     {product.tagline}
                   </p>
-                  <p className="mb-3 text-xs leading-relaxed text-slate-500">
+                  <p className="mb-3 text-xs leading-relaxed text-slate-400">
                     {product.description}
                   </p>
                   
                   <div className="mt-auto">
                     <div className="mb-2 grid grid-cols-2 gap-x-3 gap-y-1">
                       {product.features.map((feature) => (
-                        <div key={feature} className="flex items-center gap-1 text-[11px] text-slate-500">
+                        <div key={feature} className="flex items-center gap-1 text-[11px] text-slate-400">
                           <div className="h-1 w-1 shrink-0 bg-slate-600" />
                           <span>{feature}</span>
                         </div>

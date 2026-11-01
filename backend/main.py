@@ -365,6 +365,17 @@ app.add_middleware(
 # The full-catalog registry is ~450 KB raw; gzip ships it in ~15% of that.
 app.add_middleware(GZipMiddleware, minimum_size=1024)
 
+
+@app.middleware("http")
+async def add_security_headers(request: Request, call_next):
+    """Low-risk browser headers for the public API (HSTS is ignored on plain HTTP)."""
+    response = await call_next(request)
+    response.headers.setdefault("X-Content-Type-Options", "nosniff")
+    response.headers.setdefault("X-Frame-Options", "DENY")
+    response.headers.setdefault("Referrer-Policy", "strict-origin-when-cross-origin")
+    response.headers.setdefault("Strict-Transport-Security", "max-age=31536000; includeSubDomains")
+    return response
+
 # Streamable HTTP MCP on the same process — no extra host, container, or LB.
 # Exact /mcp (no 307) plus /mcp/* for the mounted Streamable HTTP app.
 _app_routes = app.router.routes

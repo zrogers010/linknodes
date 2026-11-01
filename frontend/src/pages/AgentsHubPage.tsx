@@ -120,6 +120,7 @@ export function AgentsHubPage() {
         title="Chainlink for Agents"
         description="Plain-language setup for Chainlink for Agents: skills install, Base USDC, registration, chain wallet, guardrails, and the x402 402-then-retry flow. Live catalog from agents.chain.link."
         path="/agents"
+        ogImage="https://www.linknodes.io/og-agents.png"
       />
 
       <div className="mx-auto max-w-6xl">

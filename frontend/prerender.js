@@ -8,6 +8,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { DEFAULT_OG_IMAGE, SITE_URL, TWITTER_SITE, ogImageForPath } from './src/seo-config.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -87,9 +88,6 @@ if (!fs.existsSync(templatePath)) {
 
 const template = fs.readFileSync(templatePath, 'utf8');
 
-const SITE_URL = 'https://www.linknodes.io';
-const SITE_NAME = 'LinkNodes.io';
-
 /**
  * Inject meta tags into HTML template
  */
@@ -97,9 +95,10 @@ function injectMetaTags(html, {
   title,
   description,
   canonical,
-  ogImage = `${SITE_URL}/og-default.png`,
+  ogImage,
   jsonLd = null
 }) {
+  const resolvedOg = ogImage || ogImageForPath(new URL(canonical).pathname) || DEFAULT_OG_IMAGE;
   // Replace title
   html = html.replace(/<title>.*?<\/title>/, `<title>${title}</title>`);
   
@@ -130,10 +129,18 @@ function injectMetaTags(html, {
   );
   html = html.replace(
     /<meta property="og:image" content=".*?" ?\/?>/,
-    `<meta property="og:image" content="${ogImage}" />`
+    `<meta property="og:image" content="${resolvedOg}" />`
   );
   
   // Replace Twitter tags
+  html = html.replace(
+    /<meta name="twitter:card" content=".*?" ?\/?>/,
+    `<meta name="twitter:card" content="summary_large_image" />`
+  );
+  html = html.replace(
+    /<meta name="twitter:url" content=".*?" ?\/?>/,
+    `<meta name="twitter:url" content="${canonical}" />`
+  );
   html = html.replace(
     /<meta name="twitter:title" content=".*?" ?\/?>/,
     `<meta name="twitter:title" content="${title}" />`
@@ -144,8 +151,16 @@ function injectMetaTags(html, {
   );
   html = html.replace(
     /<meta name="twitter:image" content=".*?" ?\/?>/,
-    `<meta name="twitter:image" content="${ogImage}" />`
+    `<meta name="twitter:image" content="${resolvedOg}" />`
   );
+
+  html = html.replace(/\s*<meta name="twitter:site" content=".*?" ?\/?>/, '');
+  if (TWITTER_SITE) {
+    html = html.replace(
+      /<meta name="twitter:card" content="summary_large_image" ?\/?>/,
+      `<meta name="twitter:card" content="summary_large_image" />\n    <meta name="twitter:site" content="${TWITTER_SITE}" />`
+    );
+  }
   
   // Add JSON-LD if provided
   if (jsonLd) {

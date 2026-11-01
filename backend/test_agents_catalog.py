@@ -148,3 +148,7 @@ def test_agents_catalog_route_and_openapi():
         health = client.get("/healthz")
         assert health.status_code == 200
         assert "agents_catalog" in health.json()
+        assert health.headers.get("x-content-type-options") == "nosniff"
+        assert health.headers.get("x-frame-options") == "DENY"
+        assert health.headers.get("referrer-policy") == "strict-origin-when-cross-origin"
+        assert "max-age=31536000" in health.headers.get("strict-transport-security", "")

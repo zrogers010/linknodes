@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { apiUrl } from '../config'
+import { apiUrl, withQuery } from '../config'
+import { useEnvironment } from '../EnvironmentContext'
 import { ControlPanel } from '../components/ControlPanel'
 import { SnippetColumn } from '../components/SnippetColumn'
 import { Terminal } from '../components/Terminal'
@@ -7,6 +8,7 @@ import { useUrlState } from '../hooks/useUrlState'
 import type { QueryResult, Registry } from '../types'
 
 export function SandboxPage({ registry }: { registry: Registry }) {
+  const { environment } = useEnvironment()
   const [state, updateState] = useUrlState()
   const [roundId, setRoundId] = useState('')
   const [result, setResult] = useState<QueryResult | null>(null)
@@ -26,8 +28,10 @@ export function SandboxPage({ registry }: { registry: Registry }) {
     setError(null)
     const started = performance.now()
     try {
-      const qs = rid ? `?round_id=${rid}` : ''
-      const resp = await fetch(apiUrl(`/v1/query/${network}/${feed}${qs}`))
+      const resp = await fetch(apiUrl(withQuery(`/v1/query/${network}/${feed}`, {
+        round_id: rid || undefined,
+        environment,
+      })))
       const body = await resp.json()
       if (seq !== requestSeq.current) return
       setLatencyMs(Math.round(performance.now() - started))
@@ -45,10 +49,26 @@ export function SandboxPage({ registry }: { registry: Registry }) {
     } finally {
       if (seq === requestSeq.current) setLoading(false)
     }
-  }, [])
+  }, [environment])
 
   // Auto-query whenever the route changes -- covers first load, shared links,
   // and every selection in the picker. Round IDs are feed-specific, so reset.
+  useEffect(() => {
+    const networks = registry.networks
+    if (!networks[state.network]) {
+      const firstNet = Object.keys(networks)[0]
+      const firstFeed = firstNet ? Object.keys(networks[firstNet].feeds)[0] : ''
+      if (firstNet && firstFeed) {
+        updateState({ network: firstNet, feed: firstFeed })
+      }
+      return
+    }
+    if (!networks[state.network].feeds[state.feed]) {
+      const firstFeed = Object.keys(networks[state.network].feeds)[0]
+      if (firstFeed) updateState({ feed: firstFeed })
+    }
+  }, [registry, state.network, state.feed, updateState])
+
   useEffect(() => {
     setRoundId('')
     sendRequest(state.network, state.feed, '')

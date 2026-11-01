@@ -12,8 +12,10 @@ dist
 dist-ssr
 *.local
 
-# Generated OG image
-public/og-default.png
+# Generated OG images and icons (built by generate-og-images.js)
+public/og-*.png
+public/favicon.ico
+public/apple-touch-icon.png
 
 # Editor directories and files
 .vscode/*

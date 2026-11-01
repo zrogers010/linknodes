@@ -1,0 +1,7 @@
+Inter (SIL Open Font License 1.1)
+Copyright 2016 The Inter Project Authors
+https://github.com/rsms/inter
+
+The TTF files here are the Latin 400 and 700 cuts of Inter 5.2.5
+from Fontsource (https://fontsource.org/fonts/inter).
+They are bundled so OG image generation does not depend on system fonts.

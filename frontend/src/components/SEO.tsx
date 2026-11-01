@@ -1,5 +1,12 @@
 import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
+import {
+  DEFAULT_OG_IMAGE,
+  SITE_NAME,
+  SITE_URL,
+  TWITTER_SITE,
+  ogImageForPath,
+} from '../seo-config.js'
 
 interface SEOProps {
   title?: string
@@ -9,11 +16,8 @@ interface SEOProps {
   jsonLd?: Record<string, any>
 }
 
-const SITE_URL = 'https://www.linknodes.io'
-const SITE_NAME = 'LinkNodes.io'
 const DEFAULT_TITLE = 'LinkNodes.io — The Developer Toolkit for Chainlink'
 const DEFAULT_DESCRIPTION = 'Query 1,400+ live Chainlink Data Feeds and explore CCIP lane configuration across 13 mainnets. Free developer toolkit, no wallet required.'
-const DEFAULT_OG_IMAGE = `${SITE_URL}/og-default.png`
 
 export function SEO({ title, description, path, ogImage, jsonLd }: SEOProps) {
   const location = useLocation()
@@ -21,7 +25,7 @@ export function SEO({ title, description, path, ogImage, jsonLd }: SEOProps) {
   const fullTitle = title ? `${title} | ${SITE_NAME}` : DEFAULT_TITLE
   const metaDescription = description || DEFAULT_DESCRIPTION
   const canonicalUrl = `${SITE_URL}${currentPath}`
-  const ogImageUrl = ogImage || DEFAULT_OG_IMAGE
+  const ogImageUrl = ogImage || ogImageForPath(currentPath) || DEFAULT_OG_IMAGE
 
   useEffect(() => {
     document.title = fullTitle
@@ -37,6 +41,11 @@ export function SEO({ title, description, path, ogImage, jsonLd }: SEOProps) {
       element.setAttribute('content', content)
     }
 
+    const removeMetaTag = (property: string, useProperty = false) => {
+      const attribute = useProperty ? 'property' : 'name'
+      document.querySelector(`meta[${attribute}="${property}"]`)?.remove()
+    }
+
     updateMetaTag('description', metaDescription)
     updateMetaTag('og:title', fullTitle, true)
     updateMetaTag('og:description', metaDescription, true)
@@ -47,9 +56,15 @@ export function SEO({ title, description, path, ogImage, jsonLd }: SEOProps) {
     updateMetaTag('og:image:width', '1200', true)
     updateMetaTag('og:image:height', '630', true)
     updateMetaTag('twitter:card', 'summary_large_image')
+    updateMetaTag('twitter:url', canonicalUrl)
     updateMetaTag('twitter:title', fullTitle)
     updateMetaTag('twitter:description', metaDescription)
     updateMetaTag('twitter:image', ogImageUrl)
+    if (TWITTER_SITE) {
+      updateMetaTag('twitter:site', TWITTER_SITE)
+    } else {
+      removeMetaTag('twitter:site')
+    }
 
     let canonical = document.querySelector('link[rel="canonical"]')
     if (!canonical) {
