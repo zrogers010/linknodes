@@ -3,7 +3,8 @@ import { useParams, Link } from 'react-router-dom'
 import { PageLayout } from '../components/PageLayout'
 import { CopyButton } from '../components/CopyButton'
 import { SEO } from '../components/SEO'
-import { apiUrl } from '../config'
+import { apiUrl, withQuery } from '../config'
+import { useEnvironment } from '../EnvironmentContext'
 
 interface FeedData {
   success: boolean
@@ -36,9 +37,11 @@ interface FeedData {
 
 export function FeedDetailPage() {
   const { chain, feed } = useParams<{ chain: string; feed: string }>()
+  const { environment } = useEnvironment()
   const [data, setData] = useState<FeedData | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const queryPath = withQuery(`/v1/query/${chain}/${feed}`, { environment })
 
   useEffect(() => {
     if (!chain || !feed) return
@@ -46,7 +49,7 @@ export function FeedDetailPage() {
     setLoading(true)
     setError(null)
 
-    fetch(apiUrl(`/v1/query/${chain}/${feed}`))
+    fetch(apiUrl(queryPath))
       .then(async (r) => {
         const json = await r.json()
         if (!r.ok) {
@@ -62,7 +65,7 @@ export function FeedDetailPage() {
         setData(null)
       })
       .finally(() => setLoading(false))
-  }, [chain, feed])
+  }, [chain, feed, queryPath])
 
   if (loading) {
     return (
@@ -302,9 +305,9 @@ console.log("${meta.feed_name}:", price);`
           <p className="mb-2 text-sm text-slate-400">Query this feed via API:</p>
           <div className="flex items-center gap-2">
             <code className="flex-1 rounded bg-ink-800 px-3 py-2 text-xs text-slate-300">
-              {apiUrl(`/v1/query/${chain}/${feed}`)}
+              {apiUrl(queryPath)}
             </code>
-            <CopyButton text={apiUrl(`/v1/query/${chain}/${feed}`)} />
+            <CopyButton text={apiUrl(queryPath)} />
           </div>
         </div>
       </div>

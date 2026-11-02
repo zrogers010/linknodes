@@ -5,7 +5,7 @@ import { InfoCircleIcon, XIcon } from './icons/Icon'
 const STORAGE_KEY = 'ln-dismiss-chainlink-247'
 
 export function SiteBanner() {
-  const [visible, setVisible] = useState(false)
+  const [visible, setVisible] = useState(true)
 
   useEffect(() => {
     try {

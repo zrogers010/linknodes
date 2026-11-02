@@ -1,6 +1,5 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import { BrowserRouter, Link, NavLink, Route, Routes, useLocation } from 'react-router-dom'
-import { apiUrl } from './config'
 import { FeedIndexPage } from './pages/FeedIndexPage'
 import { FeedDetailPage } from './pages/FeedDetailPage'
 import { HomePage } from './pages/HomePage'
@@ -47,8 +46,12 @@ function Navigation({ registry }: { registry: Registry }) {
   return (
     <header className="shrink-0 border-b border-ink-700 bg-ink-900">
       <div className="flex items-center gap-3 px-4 py-2.5 sm:px-5">
-        <Link to="/" className="flex h-7 w-7 shrink-0 items-center justify-center border border-ink-600 bg-ink-800 text-accent-400 transition-colors hover:border-accent-500 hover:text-accent-300">
-          <HexagonIcon size={16} />
+        <Link
+          to="/"
+          aria-label="LinkNodes home"
+          className="flex h-7 w-7 shrink-0 items-center justify-center border border-ink-600 bg-ink-800 text-accent-400 transition-colors hover:border-accent-500 hover:text-accent-300"
+        >
+          <HexagonIcon size={16} aria-hidden="true" />
         </Link>
         <div className="min-w-0">
           <Link to="/" className="group">
@@ -84,9 +87,12 @@ function Navigation({ registry }: { registry: Registry }) {
 
         <div className="ml-auto flex items-center gap-2">
           <button
+            type="button"
             onClick={() => setEnvironment(environment === 'mainnet' ? 'testnet' : 'mainnet')}
             className="border border-ink-600 bg-ink-800 px-2.5 py-1 text-[10px] font-medium uppercase tracking-wide text-slate-300 transition-colors hover:border-ink-500 hover:bg-ink-750"
             title="Toggle between Mainnet and Testnet"
+            aria-label={`Network environment: ${environment}. Click to switch to ${environment === 'mainnet' ? 'testnet' : 'mainnet'}`}
+            aria-pressed={environment === 'testnet'}
           >
             {environment === 'mainnet' ? 'Mainnet' : 'Testnet'}
           </button>
@@ -146,28 +152,17 @@ function Navigation({ registry }: { registry: Registry }) {
   )
 }
 
-export default function App() {
-  const [registry, setRegistry] = useState<Registry | null>(null)
-  const [registryError, setRegistryError] = useState<string | null>(null)
-
-  useEffect(() => {
-    fetch(apiUrl('/v1/registry'))
-      .then((r) => {
-        if (!r.ok) throw new Error(`registry fetch failed: HTTP ${r.status}`)
-        return r.json()
-      })
-      .then(setRegistry)
-      .catch((e) => setRegistryError(String(e)))
-  }, [])
+function AppShell() {
+  const { registry, registryError } = useEnvironment()
 
   if (registryError) {
     return (
       <div className="flex h-full items-center justify-center p-8">
         <div className="max-w-md rounded-xl border border-rose-500/30 bg-ink-900 p-6 text-center">
-          <p className="text-sm font-semibold text-rose-400">Engine unreachable</p>
+          <p className="text-sm font-semibold text-rose-400">Catalog unavailable</p>
           <p className="mt-2 font-mono text-[12px] text-slate-400">{registryError}</p>
-          <p className="mt-3 text-[12px] text-slate-500">
-            Start the backend: <code className="text-slate-300">uvicorn main:app --port 8100</code>
+          <p className="mt-3 text-[12px] text-slate-400">
+            The mainnet/testnet registries are served from <code className="text-slate-300">/data/registry.json</code>.
           </p>
         </div>
       </div>
@@ -177,37 +172,43 @@ export default function App() {
   if (!registry) {
     return (
       <div className="flex h-full items-center justify-center">
-        <p className="font-mono text-sm text-slate-500">loading feed catalog…</p>
+        <p className="font-mono text-sm text-slate-400">loading feed catalog…</p>
       </div>
     )
   }
 
   return (
-    <EnvironmentProvider>
-      <BrowserRouter>
-        <div className="flex h-full flex-col">
-          <Navigation registry={registry} />
-          <SiteBanner />
+    <BrowserRouter>
+      <div className="flex h-full flex-col">
+        <Navigation registry={registry} />
+        <SiteBanner />
 
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/products/data-feeds" element={<DataFeedsPage registry={registry} />} />
-            <Route path="/products/ccip" element={<CCIPPage />} />
-            <Route path="/products/ccip/:source/:dest" element={<CCIPPage />} />
-            <Route path="/products/functions" element={<FunctionsPage />} />
-            <Route path="/products/vrf" element={<VRFPage />} />
-            <Route path="/products/automation" element={<AutomationPage />} />
-            <Route path="/feeds" element={<FeedIndexPage />} />
-            <Route path="/feeds/:chain" element={<FeedIndexPage />} />
-            <Route path="/feeds/:chain/:feed" element={<FeedDetailPage />} />
-            <Route path="/rwa" element={<RwaHubPage registry={registry} />} />
-            <Route path="/chainlink-247" element={<Chainlink247Page />} />
-            <Route path="/agents" element={<AgentsHubPage />} />
-            <Route path="/operators" element={<OperatorsPage />} />
-            <Route path="*" element={<NotFoundPage />} />
-          </Routes>
-        </div>
-      </BrowserRouter>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/products/data-feeds" element={<DataFeedsPage registry={registry} />} />
+          <Route path="/products/ccip" element={<CCIPPage />} />
+          <Route path="/products/ccip/:source/:dest" element={<CCIPPage />} />
+          <Route path="/products/functions" element={<FunctionsPage />} />
+          <Route path="/products/vrf" element={<VRFPage />} />
+          <Route path="/products/automation" element={<AutomationPage />} />
+          <Route path="/feeds" element={<FeedIndexPage />} />
+          <Route path="/feeds/:chain" element={<FeedIndexPage />} />
+          <Route path="/feeds/:chain/:feed" element={<FeedDetailPage />} />
+          <Route path="/rwa" element={<RwaHubPage registry={registry} />} />
+          <Route path="/chainlink-247" element={<Chainlink247Page />} />
+          <Route path="/agents" element={<AgentsHubPage />} />
+          <Route path="/operators" element={<OperatorsPage />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </div>
+    </BrowserRouter>
+  )
+}
+
+export default function App() {
+  return (
+    <EnvironmentProvider>
+      <AppShell />
     </EnvironmentProvider>
   )
 }

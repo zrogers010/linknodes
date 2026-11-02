@@ -43,6 +43,7 @@ export function Chainlink247Page() {
         title="Chainlink 24/7 explained"
         description="What Chainlink 24/7 is, how Data Feeds differ from Data Streams, what is live today (17 Arbitrum streams and tGLD), what is not on-chain yet, and how access works."
         path="/chainlink-247"
+        ogImage="https://www.linknodes.io/og-chainlink-247.png"
       />
 
       <article className="mx-auto max-w-3xl">

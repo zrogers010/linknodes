@@ -1,38 +1,14 @@
-import { useEffect, useState, useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { PageLayout } from '../components/PageLayout'
 import { SEO } from '../components/SEO'
-import { apiUrl } from '../config'
-
-interface Registry {
-  version: string
-  networks: Record<string, {
-    label: string
-    chain_id: number
-    feed_count: number
-    feeds: Record<string, {
-      name: string
-      address: string
-      decimals: number
-      category: string
-      feed_type: string
-    }>
-  }>
-}
+import { useEnvironment } from '../EnvironmentContext'
 
 export function FeedIndexPage() {
   const { chain } = useParams<{ chain?: string }>()
-  const [registry, setRegistry] = useState<Registry | null>(null)
+  const { registry } = useEnvironment()
   const [searchQuery, setSearchQuery] = useState('')
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    fetch(apiUrl('/v1/registry'))
-      .then((r) => r.json())
-      .then(setRegistry)
-      .catch(console.error)
-      .finally(() => setLoading(false))
-  }, [])
+  const loading = !registry
 
   const networkData = chain && registry ? registry.networks[chain] : null
 
@@ -134,6 +110,7 @@ export function FeedIndexPage() {
         title={pageTitle}
         description={pageDescription}
         path={chain ? `/feeds/${chain}` : '/feeds'}
+        ogImage="https://www.linknodes.io/og-feeds.png"
       />
 
       <div className="mx-auto max-w-7xl">
@@ -157,11 +134,12 @@ export function FeedIndexPage() {
 
           {/* Search */}
           <input
-            type="text"
+            type="search"
+            aria-label="Search feeds"
             placeholder="Search feeds..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full rounded-xl border border-ink-700 bg-ink-900 px-4 py-3 text-sm text-white placeholder-slate-500 focus:border-accent-500 focus:outline-none focus:ring-1 focus:ring-accent-500"
+            className="w-full rounded-xl border border-ink-700 bg-ink-900 px-4 py-3 text-sm text-white placeholder-slate-400 focus:border-accent-500 focus:outline-none focus:ring-1 focus:ring-accent-500"
           />
         </div>
 

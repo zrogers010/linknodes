@@ -19,6 +19,14 @@ export function useEnvironment() {
   return context
 }
 
+async function loadRegistry(url: string): Promise<Registry> {
+  const response = await fetch(url)
+  if (!response.ok) {
+    throw new Error(`${url} failed: HTTP ${response.status}`)
+  }
+  return response.json()
+}
+
 export function EnvironmentProvider({ children }: { children: ReactNode }) {
   const [environment, setEnvironment] = useState<'mainnet' | 'testnet'>('mainnet')
   const [registryMainnet, setRegistryMainnet] = useState<Registry | null>(null)
@@ -27,12 +35,13 @@ export function EnvironmentProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     Promise.all([
-      fetch('/data/registry.json').then(r => r.json()),
-      fetch('/data/registry_testnet.json').then(r => r.json()),
+      loadRegistry('/data/registry.json'),
+      loadRegistry('/data/registry_testnet.json'),
     ])
       .then(([mainnet, testnet]) => {
         setRegistryMainnet(mainnet)
         setRegistryTestnet(testnet)
+        setRegistryError(null)
       })
       .catch((e) => setRegistryError(String(e)))
   }, [])

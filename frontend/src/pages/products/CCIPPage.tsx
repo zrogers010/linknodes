@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { ProductLayout } from '../../components/ProductLayout'
-import { apiUrl } from '../../config'
+import { apiUrl, withQuery } from '../../config'
 import { CopyButton } from '../../components/CopyButton'
 import { SEO } from '../../components/SEO'
 import { useEnvironment } from '../../EnvironmentContext'
@@ -54,7 +54,7 @@ export function CCIPPage() {
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
-    fetch(apiUrl('/v1/ccip/registry'))
+    fetch(apiUrl(withQuery('/v1/ccip/registry', { environment })))
       .then((r) => r.json())
       .then((data) => {
         setRegistry(data)
@@ -88,7 +88,7 @@ export function CCIPPage() {
       navigate(currentPath, { replace: true })
     }
     
-    fetch(apiUrl(`/v1/ccip/lane/${sourceChain}/${destChain}`))
+    fetch(apiUrl(withQuery(`/v1/ccip/lane/${sourceChain}/${destChain}`, { environment })))
       .then(async (r) => {
         const data = await r.json()
         if (!r.ok) {
@@ -104,7 +104,7 @@ export function CCIPPage() {
         setLaneData(null)
       })
       .finally(() => setLoading(false))
-  }, [registry, sourceChain, destChain, navigate])
+  }, [registry, sourceChain, destChain, navigate, environment])
 
   const availableDestinations = registry?.networks[sourceChain]?.supports || []
 

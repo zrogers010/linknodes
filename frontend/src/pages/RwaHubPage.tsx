@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom'
 import { PageLayout } from '../components/PageLayout'
 import { SEO } from '../components/SEO'
 import { BuildingBankIcon, CalendarIcon, ChevronRightIcon, ExternalLinkIcon, InfoCircleIcon } from '../components/icons/Icon'
-import { apiUrl } from '../config'
+import { apiUrl, withQuery } from '../config'
+import { useEnvironment } from '../EnvironmentContext'
 import {
   SESSION_LABEL,
   SESSION_STYLE,
@@ -74,6 +75,7 @@ function SessionBadge({ session }: { session: MarketSession }) {
 }
 
 export function RwaHubPage({ registry }: { registry: Registry }) {
+  const { environment } = useEnvironment()
   const [streamsDoc, setStreamsDoc] = useState<Streams247Doc | null>(null)
   const [chainFilter, setChainFilter] = useState<string>('all')
   const [classFilter, setClassFilter] = useState<string>('all')
@@ -140,7 +142,7 @@ export function RwaHubPage({ registry }: { registry: Registry }) {
           batch.map(async (key) => {
             const [chain, slug] = key.split('/')
             try {
-              const r = await fetch(apiUrl(`/v1/query/${chain}/${slug}`))
+              const r = await fetch(apiUrl(withQuery(`/v1/query/${chain}/${slug}`, { environment })))
               if (!r.ok) return [key, null] as const
               const json = (await r.json()) as QueryResult
               const freshness = (json.meta.freshness as Freshness | undefined) ?? null
@@ -170,7 +172,7 @@ export function RwaHubPage({ registry }: { registry: Registry }) {
     return () => {
       cancelled = true
     }
-  }, [visible])
+  }, [visible, environment])
 
   const tsla = registry.networks[FEATURED_TSLA.chain]?.feeds[FEATURED_TSLA.slug]
   const tslaPrice = prices[`${FEATURED_TSLA.chain}/${FEATURED_TSLA.slug}`]
@@ -192,6 +194,7 @@ export function RwaHubPage({ registry }: { registry: Registry }) {
         title="RWA and Chainlink 24/7 feeds"
         description="Live stock, commodity, and tokenized-asset Chainlink Data Feeds by chain, plus the 17 Arbitrum 24/7 Data Streams. Session badges are calculated by LinkNodes, not an oracle value."
         path="/rwa"
+        ogImage="https://www.linknodes.io/og-rwa.png"
       />
 
       <div className="mx-auto max-w-6xl">
