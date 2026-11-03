@@ -179,7 +179,7 @@
     "0x8aadf849561dccec75da44d1147e736e0cc0134e",
     "0x522bb49be4fb6e3cec18df911c2a66457e6fc3e2",
     "0x5fdf4abaf24d8229defbd28890cb01e0d8108e96",
-    "0x9a5b545aa8b6289288e529c4099b0cca62bcb708",
+    "0x585b3e95eedd03af221f724557d03384864da3ca",
     "0xd8d2297bdf4a84569bcec83c92a81549be9c51e6",
     "0x0c46dc0ba85eab5a515f819f1a705ed324da687b",
     "0x7b740d24396b09f992b655a590139d7fbb5c73c8",
@@ -200,7 +200,7 @@
     "frameworkventures",
     "rhino",
     "omniscience",
-    "p2porg",
+    "01node",
     "simplyvc",
     "chainlayer",
     "dextrac",
@@ -472,6 +472,45 @@
     "linkforest",
     "linkpool",
     "linkriver"
+   ]
+  },
+  "ars-usd-data-engine": {
+   "aggregator": "0xAA6319cA9816E3fe5E91719c1B1ef9aC7eb6f7cF",
+   "transmitters": [
+    "0x585b3e95eedd03af221f724557d03384864da3ca",
+    "0xfe31f3ecfde29fc4915d80eb8a9d67bff14180b3",
+    "0x0c46dc0ba85eab5a515f819f1a705ed324da687b",
+    "0x4cb67cfee180b6b73b70c7b3fc162e5fcf6532f1",
+    "0x7b740d24396b09f992b655a590139d7fbb5c73c8",
+    "0x42afc2f6ae88678296ecb2eba34ccfbd1adc5f93",
+    "0x7a13cd97d442856ff5387d55a7b3f09bf680102b",
+    "0x8aadf849561dccec75da44d1147e736e0cc0134e",
+    "0x30d872350fe74f47c85847d6784b42f9b0816f04",
+    "0xf38326579519377178725a741c35999e8051e907",
+    "0xe9dcbacc91db0e37562a8455c80d0734d7cf3bd1",
+    "0x1d5804ae896c64ecc88e15379061ce6230f11895",
+    "0xc917e3bf6c211b326ffd4ed13e7d9a67682095ca",
+    "0xe9e4d87b0e7f97dd622439c26605b3b038c276c4",
+    "0xdb0f470c2e87a645b1d7f8900b9a8f5ade9af259",
+    "0xd8d2297bdf4a84569bcec83c92a81549be9c51e6"
+   ],
+   "operators": [
+    "01node",
+    "blockdaemon",
+    "chainlayer",
+    "deepbase",
+    "dextrac",
+    "easy2stake",
+    "fiews",
+    "frameworkventures",
+    "galaxy",
+    "inotel",
+    "linkforest",
+    "linkpool",
+    "linkriver",
+    "matrixedlink",
+    "piertwo",
+    "simplyvc"
    ]
   },
   "aud-usd": {
@@ -1006,7 +1045,7 @@
     "0xe62efa5462961055757c63931a15601545e4d273",
     "0x5c026b7107f1f92a9768cf64f8b2a22252b0788d",
     "0xfe31f3ecfde29fc4915d80eb8a9d67bff14180b3",
-    "0x9a5b545aa8b6289288e529c4099b0cca62bcb708",
+    "0x4b4df3c44fa13f9d12277458e2069ecbbee1b085",
     "0x7a13cd97d442856ff5387d55a7b3f09bf680102b",
     "0x6d53d5e35f5226a1613877e071b81217387ac6b5",
     "0x1d36a4c2ab15ccd29b312991176d85622299cc11",
@@ -1039,7 +1078,7 @@
     "vulcan",
     "stakefish",
     "blockdaemon",
-    "p2porg",
+    "chorusone",
     "fiews",
     "blocksizecapital",
     "orionmoney",
@@ -1075,7 +1114,7 @@
     "0xe62efa5462961055757c63931a15601545e4d273",
     "0x30d872350fe74f47c85847d6784b42f9b0816f04",
     "0xfe31f3ecfde29fc4915d80eb8a9d67bff14180b3",
-    "0x9a5b545aa8b6289288e529c4099b0cca62bcb708",
+    "0x2dbbd12bf0f6a23cf4455cc6be874b7a246288ce",
     "0x7a13cd97d442856ff5387d55a7b3f09bf680102b",
     "0x6d53d5e35f5226a1613877e071b81217387ac6b5",
     "0xba4555a80e47477bbf23b721563d38b10eb65dfa",
@@ -1108,7 +1147,7 @@
     "vulcan",
     "galaxy",
     "blockdaemon",
-    "p2porg",
+    "bharvest",
     "fiews",
     "blocksizecapital",
     "stakesystems",
@@ -1135,33 +1174,6 @@
     "linkriver",
     "onchaintech",
     "01node"
-   ]
-  },
-  "btcy-nav": {
-   "aggregator": "0xe902CD939A0605001257a5719B4d6D5478B490b4",
-   "transmitters": [
-    "0x585b3e95eedd03af221f724557d03384864da3ca",
-    "0x7b740d24396b09f992b655a590139d7fbb5c73c8",
-    "0x30d872350fe74f47c85847d6784b42f9b0816f04",
-    "0xe9dcbacc91db0e37562a8455c80d0734d7cf3bd1",
-    "0x1d5804ae896c64ecc88e15379061ce6230f11895",
-    "0xc917e3bf6c211b326ffd4ed13e7d9a67682095ca",
-    "0x5ea7eae0ebc1f4256806c8bf234f672d410fc988",
-    "0xd8d2297bdf4a84569bcec83c92a81549be9c51e6",
-    "0x0613a20e394593c2aeb627760e6d6fb816d77fbb",
-    "0x65a43936d7e1295cca6f30f6a0b25fe49cab32c8"
-   ],
-   "operators": [
-    "01node",
-    "dextrac",
-    "galaxy",
-    "linkforest",
-    "linkpool",
-    "linkriver",
-    "newroad",
-    "simplyvc",
-    "syncnode",
-    "validationcloud"
    ]
   },
   "c1usd-por": {
@@ -1434,7 +1446,7 @@
     "0xfe31f3ecfde29fc4915d80eb8a9d67bff14180b3",
     "0x6d53d5e35f5226a1613877e071b81217387ac6b5",
     "0x0c46dc0ba85eab5a515f819f1a705ed324da687b",
-    "0x9a5b545aa8b6289288e529c4099b0cca62bcb708",
+    "0x2dbbd12bf0f6a23cf4455cc6be874b7a246288ce",
     "0x4cb67cfee180b6b73b70c7b3fc162e5fcf6532f1",
     "0x7b740d24396b09f992b655a590139d7fbb5c73c8",
     "0x42afc2f6ae88678296ecb2eba34ccfbd1adc5f93",
@@ -1452,7 +1464,7 @@
     "blockdaemon",
     "blocksizecapital",
     "chainlayer",
-    "p2porg",
+    "bharvest",
     "deepbase",
     "dextrac",
     "easy2stake",
@@ -1680,7 +1692,7 @@
     "0x990cfbbdc5aeb794b657b4309017f84479e8eb7d",
     "0x5c026b7107f1f92a9768cf64f8b2a22252b0788d",
     "0x0613a20e394593c2aeb627760e6d6fb816d77fbb",
-    "0x9a5b545aa8b6289288e529c4099b0cca62bcb708",
+    "0x585b3e95eedd03af221f724557d03384864da3ca",
     "0xe62efa5462961055757c63931a15601545e4d273",
     "0xc0c7eb4a39baa77fd52715bd1dce2246df85e489",
     "0x5dc428646bf9a29a4d623e0cdb57384e811f6f77",
@@ -1701,7 +1713,7 @@
     "onchaintech",
     "stakefish",
     "syncnode",
-    "p2porg",
+    "01node",
     "vulcan",
     "northwestnodes",
     "shultzpro",
@@ -2442,7 +2454,7 @@
     "0xc917e3bf6c211b326ffd4ed13e7d9a67682095ca",
     "0x97360a89b5adb7d82dbde6c66a49de8a48d550e6",
     "0x4cb67cfee180b6b73b70c7b3fc162e5fcf6532f1",
-    "0x9a5b545aa8b6289288e529c4099b0cca62bcb708",
+    "0x2dbbd12bf0f6a23cf4455cc6be874b7a246288ce",
     "0x6d53d5e35f5226a1613877e071b81217387ac6b5",
     "0xd8d2297bdf4a84569bcec83c92a81549be9c51e6",
     "0x8aadf849561dccec75da44d1147e736e0cc0134e",
@@ -2475,7 +2487,7 @@
     "linkriver",
     "artifact",
     "deepbase",
-    "p2porg",
+    "bharvest",
     "blocksizecapital",
     "simplyvc",
     "frameworkventures",
@@ -2511,7 +2523,7 @@
     "0xc917e3bf6c211b326ffd4ed13e7d9a67682095ca",
     "0x97360a89b5adb7d82dbde6c66a49de8a48d550e6",
     "0x4cb67cfee180b6b73b70c7b3fc162e5fcf6532f1",
-    "0x9a5b545aa8b6289288e529c4099b0cca62bcb708",
+    "0x2dbbd12bf0f6a23cf4455cc6be874b7a246288ce",
     "0x6d53d5e35f5226a1613877e071b81217387ac6b5",
     "0xd8d2297bdf4a84569bcec83c92a81549be9c51e6",
     "0x8aadf849561dccec75da44d1147e736e0cc0134e",
@@ -2544,7 +2556,7 @@
     "linkriver",
     "artifact",
     "deepbase",
-    "p2porg",
+    "bharvest",
     "blocksizecapital",
     "simplyvc",
     "frameworkventures",
@@ -4252,7 +4264,7 @@
     "0x97360a89b5adb7d82dbde6c66a49de8a48d550e6",
     "0xba4555a80e47477bbf23b721563d38b10eb65dfa",
     "0x35a06994a99b335b700bb3c875408489a9f8bbef",
-    "0x9a5b545aa8b6289288e529c4099b0cca62bcb708",
+    "0x30d872350fe74f47c85847d6784b42f9b0816f04",
     "0x0613a20e394593c2aeb627760e6d6fb816d77fbb",
     "0x3dc0d7c8f6925422af7cfeafaf1588c185c05624",
     "0x4b4df3c44fa13f9d12277458e2069ecbbee1b085",
@@ -4285,7 +4297,7 @@
     "artifact",
     "stakesystems",
     "snzpool",
-    "p2porg",
+    "galaxy",
     "syncnode",
     "everstake",
     "chorusone",
@@ -4321,7 +4333,7 @@
     "0x990cfbbdc5aeb794b657b4309017f84479e8eb7d",
     "0xc917e3bf6c211b326ffd4ed13e7d9a67682095ca",
     "0x35a06994a99b335b700bb3c875408489a9f8bbef",
-    "0x9a5b545aa8b6289288e529c4099b0cca62bcb708",
+    "0x97360a89b5adb7d82dbde6c66a49de8a48d550e6",
     "0x0613a20e394593c2aeb627760e6d6fb816d77fbb",
     "0x3dc0d7c8f6925422af7cfeafaf1588c185c05624",
     "0x4b4df3c44fa13f9d12277458e2069ecbbee1b085",
@@ -4354,7 +4366,7 @@
     "onchaintech",
     "linkriver",
     "snzpool",
-    "p2porg",
+    "artifact",
     "syncnode",
     "everstake",
     "chorusone",
@@ -7076,45 +7088,6 @@
     "fiews"
    ]
   },
-  "stbrl-tbrl-exchange-rate": {
-   "aggregator": "0xc40526086db1B5983FaD6F0E59567113B7b5E31F",
-   "transmitters": [
-    "0x585b3e95eedd03af221f724557d03384864da3ca",
-    "0xc0c7eb4a39baa77fd52715bd1dce2246df85e489",
-    "0x97360a89b5adb7d82dbde6c66a49de8a48d550e6",
-    "0xfe31f3ecfde29fc4915d80eb8a9d67bff14180b3",
-    "0x6d53d5e35f5226a1613877e071b81217387ac6b5",
-    "0x0c46dc0ba85eab5a515f819f1a705ed324da687b",
-    "0xe62efa5462961055757c63931a15601545e4d273",
-    "0x4cb67cfee180b6b73b70c7b3fc162e5fcf6532f1",
-    "0x7b740d24396b09f992b655a590139d7fbb5c73c8",
-    "0x42afc2f6ae88678296ecb2eba34ccfbd1adc5f93",
-    "0x3dc0d7c8f6925422af7cfeafaf1588c185c05624",
-    "0x7a13cd97d442856ff5387d55a7b3f09bf680102b",
-    "0x8aadf849561dccec75da44d1147e736e0cc0134e",
-    "0x30d872350fe74f47c85847d6784b42f9b0816f04",
-    "0xf38326579519377178725a741c35999e8051e907",
-    "0x30b18f1c425123314c82b0236d7a349433755386"
-   ],
-   "operators": [
-    "01node",
-    "northwestnodes",
-    "artifact",
-    "blockdaemon",
-    "blocksizecapital",
-    "chainlayer",
-    "vulcan",
-    "deepbase",
-    "dextrac",
-    "easy2stake",
-    "everstake",
-    "fiews",
-    "frameworkventures",
-    "galaxy",
-    "inotel",
-    "kytzu"
-   ]
-  },
   "steth-eth": {
    "aggregator": "0xC9c8Efa84eaB332d1950e5Ba0a913b090775825c",
    "transmitters": [
@@ -7263,84 +7236,6 @@
     "stakesystems",
     "stakin",
     "vulcan"
-   ]
-  },
-  "stgld-tgld-exchange-rate": {
-   "aggregator": "0x224ac1d400BE6b1F50b040c3fF8c2A19300384F7",
-   "transmitters": [
-    "0x585b3e95eedd03af221f724557d03384864da3ca",
-    "0x243205e5c413534d0702ea981a35256e6853857f",
-    "0xe9dcbacc91db0e37562a8455c80d0734d7cf3bd1",
-    "0x97360a89b5adb7d82dbde6c66a49de8a48d550e6",
-    "0xfe31f3ecfde29fc4915d80eb8a9d67bff14180b3",
-    "0x6d53d5e35f5226a1613877e071b81217387ac6b5",
-    "0x0c46dc0ba85eab5a515f819f1a705ed324da687b",
-    "0x5dc428646bf9a29a4d623e0cdb57384e811f6f77",
-    "0x4cb67cfee180b6b73b70c7b3fc162e5fcf6532f1",
-    "0x7b740d24396b09f992b655a590139d7fbb5c73c8",
-    "0x42afc2f6ae88678296ecb2eba34ccfbd1adc5f93",
-    "0x3dc0d7c8f6925422af7cfeafaf1588c185c05624",
-    "0x7a13cd97d442856ff5387d55a7b3f09bf680102b",
-    "0x8aadf849561dccec75da44d1147e736e0cc0134e",
-    "0x30d872350fe74f47c85847d6784b42f9b0816f04",
-    "0xf38326579519377178725a741c35999e8051e907"
-   ],
-   "operators": [
-    "01node",
-    "wetez",
-    "linkforest",
-    "artifact",
-    "blockdaemon",
-    "blocksizecapital",
-    "chainlayer",
-    "shultzpro",
-    "deepbase",
-    "dextrac",
-    "easy2stake",
-    "everstake",
-    "fiews",
-    "frameworkventures",
-    "galaxy",
-    "inotel"
-   ]
-  },
-  "stmxn-tmxn-exchange-rate": {
-   "aggregator": "0x7dF19fF8AF15e553e5ac9DA447d7FF323586C227",
-   "transmitters": [
-    "0x585b3e95eedd03af221f724557d03384864da3ca",
-    "0x522bb49be4fb6e3cec18df911c2a66457e6fc3e2",
-    "0x97360a89b5adb7d82dbde6c66a49de8a48d550e6",
-    "0xfe31f3ecfde29fc4915d80eb8a9d67bff14180b3",
-    "0x6d53d5e35f5226a1613877e071b81217387ac6b5",
-    "0x0c46dc0ba85eab5a515f819f1a705ed324da687b",
-    "0x35a06994a99b335b700bb3c875408489a9f8bbef",
-    "0x4cb67cfee180b6b73b70c7b3fc162e5fcf6532f1",
-    "0x7b740d24396b09f992b655a590139d7fbb5c73c8",
-    "0x42afc2f6ae88678296ecb2eba34ccfbd1adc5f93",
-    "0x3dc0d7c8f6925422af7cfeafaf1588c185c05624",
-    "0x7a13cd97d442856ff5387d55a7b3f09bf680102b",
-    "0x8aadf849561dccec75da44d1147e736e0cc0134e",
-    "0x30d872350fe74f47c85847d6784b42f9b0816f04",
-    "0xf38326579519377178725a741c35999e8051e907",
-    "0x30b18f1c425123314c82b0236d7a349433755386"
-   ],
-   "operators": [
-    "01node",
-    "rhino",
-    "artifact",
-    "blockdaemon",
-    "blocksizecapital",
-    "chainlayer",
-    "snzpool",
-    "deepbase",
-    "dextrac",
-    "easy2stake",
-    "everstake",
-    "fiews",
-    "frameworkventures",
-    "galaxy",
-    "inotel",
-    "kytzu"
    ]
   },
   "strc-usd": {
@@ -7575,33 +7470,6 @@
     "galaxy",
     "inotel",
     "kytzu"
-   ]
-  },
-  "susdat-nav": {
-   "aggregator": "0x9d7fE32813b1B8fd927bB515ac5380b9256e129c",
-   "transmitters": [
-    "0x7a13cd97d442856ff5387d55a7b3f09bf680102b",
-    "0xe9dcbacc91db0e37562a8455c80d0734d7cf3bd1",
-    "0x1d5804ae896c64ecc88e15379061ce6230f11895",
-    "0xc917e3bf6c211b326ffd4ed13e7d9a67682095ca",
-    "0xe7b837a55df42ecc95bf893c3c31750264932596",
-    "0x5ea7eae0ebc1f4256806c8bf234f672d410fc988",
-    "0xdb0f470c2e87a645b1d7f8900b9a8f5ade9af259",
-    "0xd8d2297bdf4a84569bcec83c92a81549be9c51e6",
-    "0x0613a20e394593c2aeb627760e6d6fb816d77fbb",
-    "0x65a43936d7e1295cca6f30f6a0b25fe49cab32c8"
-   ],
-   "operators": [
-    "fiews",
-    "linkforest",
-    "linkpool",
-    "linkriver",
-    "luganodes",
-    "newroad",
-    "piertwo",
-    "simplyvc",
-    "syncnode",
-    "validationcloud"
    ]
   },
   "susdd-usdd-exchange-rate": {
@@ -8832,7 +8700,7 @@
     "0xfe31f3ecfde29fc4915d80eb8a9d67bff14180b3",
     "0x65a43936d7e1295cca6f30f6a0b25fe49cab32c8",
     "0xe62efa5462961055757c63931a15601545e4d273",
-    "0x9a5b545aa8b6289288e529c4099b0cca62bcb708",
+    "0x97360a89b5adb7d82dbde6c66a49de8a48d550e6",
     "0xdb0f470c2e87a645b1d7f8900b9a8f5ade9af259",
     "0xf38326579519377178725a741c35999e8051e907"
    ],
@@ -8850,7 +8718,7 @@
     "blockdaemon",
     "validationcloud",
     "vulcan",
-    "p2porg",
+    "artifact",
     "piertwo",
     "inotel"
    ]
@@ -9306,7 +9174,7 @@
     "0xfe31f3ecfde29fc4915d80eb8a9d67bff14180b3",
     "0x65a43936d7e1295cca6f30f6a0b25fe49cab32c8",
     "0x990cfbbdc5aeb794b657b4309017f84479e8eb7d",
-    "0x9a5b545aa8b6289288e529c4099b0cca62bcb708",
+    "0x97360a89b5adb7d82dbde6c66a49de8a48d550e6",
     "0xdb0f470c2e87a645b1d7f8900b9a8f5ade9af259",
     "0xf38326579519377178725a741c35999e8051e907"
    ],
@@ -9324,7 +9192,7 @@
     "blockdaemon",
     "validationcloud",
     "onchaintech",
-    "p2porg",
+    "artifact",
     "piertwo",
     "inotel"
    ]
@@ -9332,7 +9200,7 @@
   "usdt-usd-svr": {
    "aggregator": "0xd2cdb0cC238946ff513eAAE2B5B3FC739c06F2a7",
    "transmitters": [
-    "0x9a5b545aa8b6289288e529c4099b0cca62bcb708",
+    "0x97360a89b5adb7d82dbde6c66a49de8a48d550e6",
     "0x0c46dc0ba85eab5a515f819f1a705ed324da687b",
     "0xd8d2297bdf4a84569bcec83c92a81549be9c51e6",
     "0xdb0f470c2e87a645b1d7f8900b9a8f5ade9af259",
@@ -9350,7 +9218,7 @@
     "0x585b3e95eedd03af221f724557d03384864da3ca"
    ],
    "operators": [
-    "p2porg",
+    "artifact",
     "chainlayer",
     "simplyvc",
     "piertwo",
@@ -9579,7 +9447,7 @@
     "0xe9e4d87b0e7f97dd622439c26605b3b038c276c4",
     "0x5ea7eae0ebc1f4256806c8bf234f672d410fc988",
     "0x5fdf4abaf24d8229defbd28890cb01e0d8108e96",
-    "0x9a5b545aa8b6289288e529c4099b0cca62bcb708",
+    "0x2dbbd12bf0f6a23cf4455cc6be874b7a246288ce",
     "0xdb0f470c2e87a645b1d7f8900b9a8f5ade9af259",
     "0xd8d2297bdf4a84569bcec83c92a81549be9c51e6"
    ],
@@ -9597,7 +9465,7 @@
     "matrixedlink",
     "newroad",
     "omniscience",
-    "p2porg",
+    "bharvest",
     "piertwo",
     "simplyvc"
    ]
@@ -13608,33 +13476,6 @@
     "vulcan"
    ]
   },
-  "mln-usd": {
-   "aggregator": "0x09542AC90FA6AF73922fbBD6FB1F713B6D8b7dFb",
-   "transmitters": [
-    "0x9cd5b3e0777b3c85803e6c54c48f905315b9bbe6",
-    "0x9aa888f5acdc6ac3dfb84103b798722396f7ceee",
-    "0x0e3786ed9f1ff2c4c79489cc4bce900d8a5ceaf0",
-    "0xcd96e5a8ab6536394f87b746030bc82c529cbb66",
-    "0x402a0a65ff8cb155288d96e5b791885043695317",
-    "0x1b8e3f415dd41ef5958243dc9f88d40a56f5db98",
-    "0x149371c224dc4c5d96d592093d8670114a737c80",
-    "0x940ddd8918d28a9678471a9c3813975ad70314d8",
-    "0xe6004a0cf3897d4659a1c01162c5eb0b41e6051d",
-    "0x84b4d5471c8e6c1bd0a48d9b06ba8fc05d29f1e2"
-   ],
-   "operators": [
-    "chainlayer",
-    "dextrac",
-    "frameworkventures",
-    "linkforest",
-    "linkpool",
-    "matrixedlink",
-    "northwestnodes",
-    "piertwo",
-    "snzpool",
-    "vulcan"
-   ]
-  },
   "mnt-usd": {
    "aggregator": "0xAE3915B1EE36c045c9E3b11aCF5F5cd4F5e23939",
    "transmitters": [
@@ -17332,6 +17173,33 @@
     "syncnode"
    ]
   },
+  "ars-usd": {
+   "aggregator": "0x9592ae653E44218a721A3900517Fa93C661F9282",
+   "transmitters": [
+    "0x92467ba6573b264c61eb9294adfe3969c46b135a",
+    "0x53e4cc064aeb70c62a5f9259c5ab9717ccad4fd5",
+    "0x1961b25137863c5a84f1cc68cba3e6ff43e8d77a",
+    "0x5e4666a8b9e9493df49a875762c5a92a063a790d",
+    "0xa916996a8ff9ca7bbddb597c5e7ea0e9d473c16f",
+    "0x5d0c60e67d60a12a614376a747542c0a4c805fa1",
+    "0x79fc1d9e8a7425adc44183bf8e1efbcbf752de48",
+    "0x1ba0c1192d11a192c092fe23b874623278b8fb5f",
+    "0xe0b627e26b86b664ee4e3adcd6ceb8b8f59a84f8",
+    "0xb2777b58f50388a9acf264023722c83be025dc1d"
+   ],
+   "operators": [
+    "01node",
+    "chainlayer",
+    "dextrac",
+    "fiews",
+    "galaxy",
+    "linkpool",
+    "matrixedlink",
+    "piertwo",
+    "snzpool",
+    "syncnode"
+   ]
+  },
   "arsx-base-por": {
    "aggregator": "0x8C75Dce32892F9B7d3dFA51f81519d8b4ca45f10",
    "transmitters": [
@@ -18567,33 +18435,6 @@
     "dextrac",
     "fiews",
     "galaxy",
-    "linkpool",
-    "matrixedlink",
-    "piertwo",
-    "snzpool",
-    "syncnode"
-   ]
-  },
-  "ezeth-eth": {
-   "aggregator": "0xa56Ab337482c198e746d3BfD9f7C92D6435871f5",
-   "transmitters": [
-    "0x92467ba6573b264c61eb9294adfe3969c46b135a",
-    "0x53e4cc064aeb70c62a5f9259c5ab9717ccad4fd5",
-    "0xa916996a8ff9ca7bbddb597c5e7ea0e9d473c16f",
-    "0x1961b25137863c5a84f1cc68cba3e6ff43e8d77a",
-    "0x5e4666a8b9e9493df49a875762c5a92a063a790d",
-    "0x5d0c60e67d60a12a614376a747542c0a4c805fa1",
-    "0x79fc1d9e8a7425adc44183bf8e1efbcbf752de48",
-    "0x1ba0c1192d11a192c092fe23b874623278b8fb5f",
-    "0xe0b627e26b86b664ee4e3adcd6ceb8b8f59a84f8",
-    "0xb2777b58f50388a9acf264023722c83be025dc1d"
-   ],
-   "operators": [
-    "01node",
-    "chainlayer",
-    "galaxy",
-    "dextrac",
-    "fiews",
     "linkpool",
     "matrixedlink",
     "piertwo",
@@ -20572,6 +20413,33 @@
     "dextrac"
    ]
   },
+  "syzusd-yzusd-exchange-rate": {
+   "aggregator": "0xB0780e74396BC98B9071bd3e7C61bEdf0B73b25E",
+   "transmitters": [
+    "0x92467ba6573b264c61eb9294adfe3969c46b135a",
+    "0x53e4cc064aeb70c62a5f9259c5ab9717ccad4fd5",
+    "0x1961b25137863c5a84f1cc68cba3e6ff43e8d77a",
+    "0x5e4666a8b9e9493df49a875762c5a92a063a790d",
+    "0xa916996a8ff9ca7bbddb597c5e7ea0e9d473c16f",
+    "0x5d0c60e67d60a12a614376a747542c0a4c805fa1",
+    "0x79fc1d9e8a7425adc44183bf8e1efbcbf752de48",
+    "0x1ba0c1192d11a192c092fe23b874623278b8fb5f",
+    "0xe0b627e26b86b664ee4e3adcd6ceb8b8f59a84f8",
+    "0xb2777b58f50388a9acf264023722c83be025dc1d"
+   ],
+   "operators": [
+    "01node",
+    "chainlayer",
+    "dextrac",
+    "fiews",
+    "galaxy",
+    "linkpool",
+    "matrixedlink",
+    "piertwo",
+    "snzpool",
+    "syncnode"
+   ]
+  },
   "tbtc-usd": {
    "aggregator": "0xb9Df6B5AC0A6679a8677741d5b7DB6302E563620",
    "transmitters": [
@@ -21087,33 +20955,6 @@
   },
   "uspc-por": {
    "aggregator": "0x92A745Cf19Bb199f9353488047Dd6B580558D78d",
-   "transmitters": [
-    "0x92467ba6573b264c61eb9294adfe3969c46b135a",
-    "0x53e4cc064aeb70c62a5f9259c5ab9717ccad4fd5",
-    "0x1961b25137863c5a84f1cc68cba3e6ff43e8d77a",
-    "0x5e4666a8b9e9493df49a875762c5a92a063a790d",
-    "0xa916996a8ff9ca7bbddb597c5e7ea0e9d473c16f",
-    "0x5d0c60e67d60a12a614376a747542c0a4c805fa1",
-    "0x79fc1d9e8a7425adc44183bf8e1efbcbf752de48",
-    "0x1ba0c1192d11a192c092fe23b874623278b8fb5f",
-    "0xe0b627e26b86b664ee4e3adcd6ceb8b8f59a84f8",
-    "0xb2777b58f50388a9acf264023722c83be025dc1d"
-   ],
-   "operators": [
-    "01node",
-    "chainlayer",
-    "dextrac",
-    "fiews",
-    "galaxy",
-    "linkpool",
-    "matrixedlink",
-    "piertwo",
-    "snzpool",
-    "syncnode"
-   ]
-  },
-  "usr-usd": {
-   "aggregator": "0x5D37a28c16FEBa33D54679C9493e2c5d408680e1",
    "transmitters": [
     "0x92467ba6573b264c61eb9294adfe3969c46b135a",
     "0x53e4cc064aeb70c62a5f9259c5ab9717ccad4fd5",
@@ -39953,45 +39794,6 @@
     "piertwo"
    ]
   },
-  "usr-usd": {
-   "aggregator": "0x91d5fFD8e7060a137925ceD9ad80Dd1979254107",
-   "transmitters": [
-    "0x328e4bdcf3096c36d9cb2d989da6995b461140ac",
-    "0x42b950f1cf4855a54f6d0bd6981687eb4d5d6a18",
-    "0x3a642243e38bea40322aa9a7e59c26aa27cc6f8d",
-    "0x2c14565cddc53f3a60d27e8c345809a31d934642",
-    "0x5b4813ee2d4366d73c89d7870afa82bf2fbb3e71",
-    "0xf87c2e9f08c04f805d15c5e90273227639151860",
-    "0xdb1a1c98f4a23c8c78b7b2c44cd9678ff286a0a1",
-    "0x9dfca5435036ad0069eca7c8e15b0c5c44548952",
-    "0x8bdb5e089e9285037e6874d8f3160b5548611380",
-    "0x1877d26dabef3b5869aaa788ebfb39f1d6c477a0",
-    "0x080f02795ba9003404aceaf102f14443647dbe08",
-    "0xaac815bcd3d1eceacfc51608c4eaf194eefd14f1",
-    "0x342682197497fc9b860e914636847f1a9ad8b037",
-    "0xd979873cfaf9a655f44006fe01b148f1abbc47cc",
-    "0x5d6173e05c3af359dbb13ee12af726e34aaedad2",
-    "0x7511839dffaf432a5dba567bc1aa77115efef882"
-   ],
-   "operators": [
-    "simplyvc",
-    "onchaintech",
-    "tiingo",
-    "shultzpro",
-    "easy2stake",
-    "frameworkventures",
-    "linkpool",
-    "newroad",
-    "validationcloud",
-    "syncnode",
-    "blockdaemon",
-    "galaxy",
-    "linkforest",
-    "linkriver",
-    "snzpool",
-    "01node"
-   ]
-  },
   "vai-usd": {
    "aggregator": "0x9D5763ca9a0BeC8bfC11603F37edA91Edca0CF2c",
    "transmitters": [
@@ -45261,33 +45063,6 @@
     "p2porg",
     "piertwo",
     "deepbase",
-    "syncnode"
-   ]
-  },
-  "ussd-usd": {
-   "aggregator": "0x0F928BC2f45c43E8885d2365Bd75fb132E6C1165",
-   "transmitters": [
-    "0x5e9f336f12edacb7b8120abd3bd7f6d7f2409d64",
-    "0xd9ec021fcca2aa271d8cd106640df0286a5d56db",
-    "0xddf12d19396a6638007b5f235f045c43de35144e",
-    "0xf2ab88678d19e8c7d3d621177a901f7d476ad92b",
-    "0xea4edc7db905bd59d58d9df13c75bcb29553c38c",
-    "0x080f762dc5e50dcf7fe08e2fbd4fc2be36be253f",
-    "0x23055f7099c8daa1a66574087d1ef9fb07f89b1b",
-    "0x88d05fa6a7de0386293d57f1617864afc54cf968",
-    "0x01d4a766da7dc74d39be989bafb44cbc3667b368",
-    "0x238c875b655ddf40b7017956fb2d2e35d1fa6266"
-   ],
-   "operators": [
-    "chainlayer",
-    "deepbase",
-    "dextrac",
-    "fiews",
-    "kytzu",
-    "linkpool",
-    "newroad",
-    "p2porg",
-    "piertwo",
     "syncnode"
    ]
   },
