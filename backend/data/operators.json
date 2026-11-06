@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-24T15:20:08.072593+00:00",
+ "generated_at": "2026-11-06T13:21:30.071752+00:00",
  "sources": {
   "rdd": true,
   "transmitters": true
@@ -62,7 +62,7 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 1228,
+    "feeds": 1225,
     "networks": 13
    },
    "networks": [
@@ -80,7 +80,7 @@
     },
     {
      "network": "bnb",
-     "feeds": 148
+     "feeds": 149
     },
     {
      "network": "celo",
@@ -88,7 +88,7 @@
     },
     {
      "network": "ethereum",
-     "feeds": 183
+     "feeds": 180
     },
     {
      "network": "gnosis",
@@ -112,7 +112,7 @@
     },
     {
      "network": "sonic",
-     "feeds": 36
+     "feeds": 35
     },
     {
      "network": "zksync",
@@ -326,13 +326,13 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 1212,
+    "feeds": 1208,
     "networks": 12
    },
    "networks": [
     {
      "network": "arbitrum",
-     "feeds": 173
+     "feeds": 172
     },
     {
      "network": "avalanche",
@@ -344,7 +344,7 @@
     },
     {
      "network": "bnb",
-     "feeds": 157
+     "feeds": 158
     },
     {
      "network": "celo",
@@ -352,7 +352,7 @@
     },
     {
      "network": "ethereum",
-     "feeds": 182
+     "feeds": 179
     },
     {
      "network": "gnosis",
@@ -376,7 +376,7 @@
     },
     {
      "network": "sonic",
-     "feeds": 36
+     "feeds": 35
     }
    ],
    "addresses": [
@@ -576,13 +576,13 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 1205,
+    "feeds": 1202,
     "networks": 12
    },
    "networks": [
     {
      "network": "arbitrum",
-     "feeds": 179
+     "feeds": 178
     },
     {
      "network": "avalanche",
@@ -594,7 +594,7 @@
     },
     {
      "network": "bnb",
-     "feeds": 141
+     "feeds": 142
     },
     {
      "network": "celo",
@@ -602,7 +602,7 @@
     },
     {
      "network": "ethereum",
-     "feeds": 185
+     "feeds": 183
     },
     {
      "network": "gnosis",
@@ -626,7 +626,7 @@
     },
     {
      "network": "sonic",
-     "feeds": 36
+     "feeds": 35
     }
    ],
    "addresses": [
@@ -823,13 +823,13 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 1138,
+    "feeds": 1135,
     "networks": 11
    },
    "networks": [
     {
      "network": "arbitrum",
-     "feeds": 170
+     "feeds": 169
     },
     {
      "network": "avalanche",
@@ -845,7 +845,7 @@
     },
     {
      "network": "ethereum",
-     "feeds": 167
+     "feeds": 166
     },
     {
      "network": "gnosis",
@@ -865,7 +865,7 @@
     },
     {
      "network": "sonic",
-     "feeds": 36
+     "feeds": 35
     },
     {
      "network": "zksync",
@@ -1112,13 +1112,13 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 961,
+    "feeds": 960,
     "networks": 9
    },
    "networks": [
     {
      "network": "arbitrum",
-     "feeds": 182
+     "feeds": 181
     },
     {
      "network": "base",
@@ -1126,7 +1126,7 @@
     },
     {
      "network": "bnb",
-     "feeds": 106
+     "feeds": 107
     },
     {
      "network": "celo",
@@ -1150,7 +1150,7 @@
     },
     {
      "network": "sonic",
-     "feeds": 36
+     "feeds": 35
     }
    ],
    "addresses": [
@@ -1309,7 +1309,7 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 913,
+    "feeds": 912,
     "networks": 7
    },
    "networks": [
@@ -1323,11 +1323,11 @@
     },
     {
      "network": "bnb",
-     "feeds": 155
+     "feeds": 156
     },
     {
      "network": "ethereum",
-     "feeds": 182
+     "feeds": 180
     },
     {
      "network": "gnosis",
@@ -1514,7 +1514,7 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 883,
+    "feeds": 882,
     "networks": 7
    },
    "networks": [
@@ -1532,7 +1532,7 @@
     },
     {
      "network": "ethereum",
-     "feeds": 151
+     "feeds": 150
     },
     {
      "network": "gnosis",
@@ -1693,7 +1693,7 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 837,
+    "feeds": 836,
     "networks": 10
    },
    "networks": [
@@ -1715,7 +1715,7 @@
     },
     {
      "network": "ethereum",
-     "feeds": 131
+     "feeds": 130
     },
     {
      "network": "linea",
@@ -1900,7 +1900,7 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 811,
+    "feeds": 810,
     "networks": 10
    },
    "networks": [
@@ -1918,7 +1918,7 @@
     },
     {
      "network": "ethereum",
-     "feeds": 125
+     "feeds": 124
     },
     {
      "network": "gnosis",
@@ -2133,7 +2133,7 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 773,
+    "feeds": 771,
     "networks": 9
    },
    "networks": [
@@ -2155,7 +2155,7 @@
     },
     {
      "network": "ethereum",
-     "feeds": 112
+     "feeds": 110
     },
     {
      "network": "optimism",
@@ -2336,13 +2336,13 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 772,
+    "feeds": 769,
     "networks": 7
    },
    "networks": [
     {
      "network": "arbitrum",
-     "feeds": 185
+     "feeds": 184
     },
     {
      "network": "avalanche",
@@ -2358,7 +2358,7 @@
     },
     {
      "network": "ethereum",
-     "feeds": 183
+     "feeds": 181
     },
     {
      "network": "polygon",
@@ -2509,13 +2509,13 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 762,
+    "feeds": 760,
     "networks": 8
    },
    "networks": [
     {
      "network": "arbitrum",
-     "feeds": 179
+     "feeds": 178
     },
     {
      "network": "base",
@@ -2531,7 +2531,7 @@
     },
     {
      "network": "ethereum",
-     "feeds": 72
+     "feeds": 71
     },
     {
      "network": "gnosis",
@@ -2712,7 +2712,7 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 616,
+    "feeds": 613,
     "networks": 7
    },
    "networks": [
@@ -2738,11 +2738,11 @@
     },
     {
      "network": "ethereum",
-     "feeds": 123
+     "feeds": 121
     },
     {
      "network": "sonic",
-     "feeds": 36
+     "feeds": 35
     }
    ],
    "addresses": [
@@ -2880,7 +2880,7 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 551,
+    "feeds": 548,
     "networks": 5
    },
    "networks": [
@@ -2890,11 +2890,11 @@
     },
     {
      "network": "bnb",
-     "feeds": 142
+     "feeds": 141
     },
     {
      "network": "ethereum",
-     "feeds": 145
+     "feeds": 143
     },
     {
      "network": "gnosis",
@@ -3015,7 +3015,7 @@
    "networks": [
     {
      "network": "arbitrum",
-     "feeds": 169
+     "feeds": 168
     },
     {
      "network": "base",
@@ -3023,7 +3023,7 @@
     },
     {
      "network": "ethereum",
-     "feeds": 63
+     "feeds": 64
     },
     {
      "network": "polygon",
@@ -3147,7 +3147,7 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 478,
+    "feeds": 476,
     "networks": 5
    },
    "networks": [
@@ -3165,7 +3165,7 @@
     },
     {
      "network": "ethereum",
-     "feeds": 130
+     "feeds": 128
     },
     {
      "network": "zksync",
@@ -3276,13 +3276,13 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 435,
+    "feeds": 432,
     "networks": 3
    },
    "networks": [
     {
      "network": "arbitrum",
-     "feeds": 187
+     "feeds": 186
     },
     {
      "network": "bnb",
@@ -3290,7 +3290,7 @@
     },
     {
      "network": "ethereum",
-     "feeds": 115
+     "feeds": 113
     }
    ],
    "addresses": [
@@ -3395,7 +3395,7 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 390,
+    "feeds": 387,
     "networks": 6
    },
    "networks": [
@@ -3409,7 +3409,7 @@
     },
     {
      "network": "ethereum",
-     "feeds": 81
+     "feeds": 79
     },
     {
      "network": "linea",
@@ -3421,7 +3421,7 @@
     },
     {
      "network": "sonic",
-     "feeds": 36
+     "feeds": 35
     }
    ],
    "addresses": [
@@ -3538,17 +3538,17 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 357,
+    "feeds": 355,
     "networks": 3
    },
    "networks": [
     {
      "network": "arbitrum",
-     "feeds": 170
+     "feeds": 169
     },
     {
      "network": "ethereum",
-     "feeds": 72
+     "feeds": 71
     },
     {
      "network": "polygon",
@@ -3643,13 +3643,13 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 343,
+    "feeds": 340,
     "networks": 4
    },
    "networks": [
     {
      "network": "bnb",
-     "feeds": 145
+     "feeds": 144
     },
     {
      "network": "celo",
@@ -3657,7 +3657,7 @@
     },
     {
      "network": "ethereum",
-     "feeds": 127
+     "feeds": 125
     },
     {
      "network": "linea",
@@ -3749,13 +3749,13 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 330,
+    "feeds": 328,
     "networks": 6
    },
    "networks": [
     {
      "network": "arbitrum",
-     "feeds": 79
+     "feeds": 78
     },
     {
      "network": "avalanche",
@@ -3763,7 +3763,7 @@
     },
     {
      "network": "ethereum",
-     "feeds": 59
+     "feeds": 58
     },
     {
      "network": "linea",
@@ -3875,7 +3875,7 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 259,
+    "feeds": 256,
     "networks": 4
    },
    "networks": [
@@ -3885,7 +3885,7 @@
     },
     {
      "network": "ethereum",
-     "feeds": 102
+     "feeds": 99
     },
     {
      "network": "polygon",
@@ -3979,7 +3979,7 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 228,
+    "feeds": 214,
     "networks": 4
    },
    "networks": [
@@ -3989,11 +3989,11 @@
     },
     {
      "network": "ethereum",
-     "feeds": 81
+     "feeds": 68
     },
     {
      "network": "sonic",
-     "feeds": 36
+     "feeds": 35
     },
     {
      "network": "zksync",
@@ -4084,13 +4084,13 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 209,
+    "feeds": 208,
     "networks": 3
    },
    "networks": [
     {
      "network": "bnb",
-     "feeds": 116
+     "feeds": 115
     },
     {
      "network": "ethereum",
@@ -4187,13 +4187,13 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 209,
+    "feeds": 208,
     "networks": 2
    },
    "networks": [
     {
      "network": "bnb",
-     "feeds": 106
+     "feeds": 105
     },
     {
      "network": "ethereum",
@@ -4271,17 +4271,17 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 193,
+    "feeds": 191,
     "networks": 2
    },
    "networks": [
     {
      "network": "bnb",
-     "feeds": 114
+     "feeds": 113
     },
     {
      "network": "ethereum",
-     "feeds": 79
+     "feeds": 78
     }
    ],
    "addresses": [
@@ -4443,13 +4443,13 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 163,
+    "feeds": 164,
     "networks": 3
    },
    "networks": [
     {
      "network": "ethereum",
-     "feeds": 88
+     "feeds": 89
     },
     {
      "network": "linea",
@@ -4516,17 +4516,17 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 160,
+    "feeds": 157,
     "networks": 2
    },
    "networks": [
     {
      "network": "ethereum",
-     "feeds": 124
+     "feeds": 122
     },
     {
      "network": "sonic",
-     "feeds": 36
+     "feeds": 35
     }
    ],
    "addresses": [
@@ -4645,17 +4645,17 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 122,
+    "feeds": 119,
     "networks": 2
    },
    "networks": [
     {
      "network": "ethereum",
-     "feeds": 86
+     "feeds": 84
     },
     {
      "network": "sonic",
-     "feeds": 36
+     "feeds": 35
     }
    ],
    "addresses": [
@@ -4719,13 +4719,13 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 99,
+    "feeds": 104,
     "networks": 2
    },
    "networks": [
     {
      "network": "ethereum",
-     "feeds": 58
+     "feeds": 63
     },
     {
      "network": "polygon",
@@ -4851,13 +4851,13 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 96,
+    "feeds": 93,
     "networks": 2
    },
    "networks": [
     {
      "network": "ethereum",
-     "feeds": 64
+     "feeds": 61
     },
     {
      "network": "scroll",
@@ -4979,13 +4979,13 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 69,
+    "feeds": 68,
     "networks": 1
    },
    "networks": [
     {
      "network": "ethereum",
-     "feeds": 69
+     "feeds": 68
     }
    ],
    "addresses": [
@@ -5068,13 +5068,13 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 67,
+    "feeds": 66,
     "networks": 1
    },
    "networks": [
     {
      "network": "ethereum",
-     "feeds": 67
+     "feeds": 66
     }
    ],
    "addresses": [
@@ -5167,13 +5167,13 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 63,
+    "feeds": 62,
     "networks": 1
    },
    "networks": [
     {
      "network": "ethereum",
-     "feeds": 63
+     "feeds": 62
     }
    ],
    "addresses": [
@@ -5266,13 +5266,13 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 36,
+    "feeds": 37,
     "networks": 1
    },
    "networks": [
     {
      "network": "ethereum",
-     "feeds": 36
+     "feeds": 37
     }
    ],
    "addresses": [
@@ -5336,12 +5336,12 @@
     {
      "network": "ethereum",
      "kind": "node",
-     "address": "0x4Ab22C50399B51f40e5A961D17D035877417D9A5"
+     "address": "0x38d3408464Cdfb55b71740112DeD8Ece009Adcb1"
     },
     {
      "network": "ethereum",
      "kind": "node",
-     "address": "0xe883459C2fF696c66B564C832B60c7DB12fd927a"
+     "address": "0x9a87D7ca309A67d405C25A3885bc0aF290B0B85d"
     }
    ]
   }
