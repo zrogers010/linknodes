@@ -1518,28 +1518,28 @@
   "name": "nethermind",
   "status": "active",
   "nodeAddress": [
-   "0x4Ab22C50399B51f40e5A961D17D035877417D9A5",
-   "0xe883459C2fF696c66B564C832B60c7DB12fd927a"
+   "0x38d3408464Cdfb55b71740112DeD8Ece009Adcb1",
+   "0x9a87D7ca309A67d405C25A3885bc0aF290B0B85d"
   ],
   "oracleAddress": "0x0000000000000000000000000000000000000000",
   "csaKeys": [
    {
     "nodeName": "Nethermind Ethereum Mainnet OCR",
-    "nodeAddress": "0x4Ab22C50399B51f40e5A961D17D035877417D9A5",
-    "publicKey": "9f474b01e321ebd965d27fd850dcb9027dc6fd0dfc2c7e6fa38268efd17a1dc1"
+    "nodeAddress": "0x38d3408464Cdfb55b71740112DeD8Ece009Adcb1",
+    "publicKey": "012f2c68915b35d863d31a4e909f69bd1f4015118c4d18dbc454ef45c6c32452"
    }
   ],
   "peerId": [
-   "12D3KooWNMC7xxLnFMSEvzRFvyHqUjyuCwmoUddnXG2gTuuP7f47"
+   "12D3KooWH4bVTZ9dBoJP5Kd9PUXjVjko7RT4UdgcxAP9xSTfC5gW"
   ],
   "ocr2ConfigPublicKey": [
-   "ocr2cfg_evm_858a96e5c6ad7bfcfd96d73668a161c5bd685071b2749ac467257b572a1e180e"
+   "ocr2cfg_evm_21144d75d52f22fb6e769df21f96123edcb56823314ec43e1e0a04bbc3c6a647"
   ],
   "ocr2OffchainPublicKey": [
-   "ocr2off_evm_1f7e45793f826ecca2aac8e97e4a63dae543a4f74970a10ca3aa2ed38828900b"
+   "ocr2off_evm_3bb51780ef1f95dd1ef453a86e825c6b16867864d4a42483107b0356d90dfe56"
   ],
   "ocr2OnchainPublicKey": [
-   "ocr2on_evm_dfffe8a042763d3073b75787fcd6a4e6b10546d5"
+   "ocr2on_evm_0ed87424b253340e6d01b3428ef3ecf8cbec5b38"
   ],
   "forwardingEnabled": true,
   "forwarderAddress": "0x6fBF46dA526E620FA93c342833184F8F6981F522"
