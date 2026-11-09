@@ -141,24 +141,24 @@ def test_query_recomputes_status_with_fixture(clear_cache, mock_registry_with_mi
 def test_cache_lookup_cannot_move_before_resolve(clear_cache, mock_rpc):
     """Test that moving cache lookup before _resolve() would serve stale status.
     
-    This test uses the real stbrl feed with mocked RPC to ensure _resolve() runs
-    before cache lookup. If cache lookup were moved before _resolve(), it would
-    serve stale status even after shutdown.
+    This test uses the real eigen-usd feed (shutdown_date: 2026-10-28) with mocked RPC 
+    to ensure _resolve() runs before cache lookup. If cache lookup were moved before 
+    _resolve(), it would serve stale status even after shutdown.
     """
     client = TestClient(app)
     
-    # Set clock before shutdown, warm the cache
-    set_test_clock(datetime(2026, 10, 18, 23, 59, 0, tzinfo=timezone.utc))
+    # Set clock before shutdown (on shutdown day, still deprecating), warm the cache
+    set_test_clock(datetime(2026, 10, 28, 23, 59, 0, tzinfo=timezone.utc))
     
-    response1 = client.get("/v1/query/ethereum/stbrl-tbrl-exchange-rate")
+    response1 = client.get("/v1/query/ethereum/eigen-usd")
     assert response1.status_code == 200
     assert response1.json()["meta"]["status"] == "deprecating"
     
-    # Advance clock past boundary (feed now shut down)
-    set_test_clock(datetime(2026, 10, 19, 0, 0, 10, tzinfo=timezone.utc))
+    # Advance clock past shutdown_date (day after becomes shut_down: 2026-10-29)
+    set_test_clock(datetime(2026, 10, 29, 0, 0, 10, tzinfo=timezone.utc))
     
     # _resolve() runs BEFORE cache lookup, so it 404s even though cache is warm
-    response2 = client.get("/v1/query/ethereum/stbrl-tbrl-exchange-rate")
+    response2 = client.get("/v1/query/ethereum/eigen-usd")
     assert response2.status_code == 404, \
         f"Expected 404 after shutdown, got {response2.status_code}. " \
         "This test verifies that _resolve() runs before cache lookup."
@@ -169,23 +169,24 @@ def test_cache_lookup_cannot_move_before_resolve(clear_cache, mock_rpc):
 def test_cache_hit_within_same_boundary_side(clear_cache, mock_rpc):
     """Test that cache hit works when clock changes within same side of boundary.
     
-    Uses the real stbrl feed with mocked RPC to verify cache behavior.
+    Uses the real eigen-usd feed (shutdown_date: 2026-10-28) with mocked RPC 
+    to verify cache behavior.
     """
     client = TestClient(app)
     
-    # Set clock before shutdown
-    set_test_clock(datetime(2026, 10, 18, 12, 0, 0, tzinfo=timezone.utc))
+    # Set clock on shutdown day (still deprecating)
+    set_test_clock(datetime(2026, 10, 28, 12, 0, 0, tzinfo=timezone.utc))
     
     # First request - cache miss
-    response1 = client.get("/v1/query/ethereum/stbrl-tbrl-exchange-rate")
+    response1 = client.get("/v1/query/ethereum/eigen-usd")
     assert response1.status_code == 200
     assert response1.json()["meta"].get("cache") != "hit"
     
-    # Change time but stay on same side of boundary (still before 2026-10-19 00:00)
-    set_test_clock(datetime(2026, 10, 18, 18, 0, 0, tzinfo=timezone.utc))
+    # Change time but stay on same side of boundary (still on 2026-10-28, before shutdown)
+    set_test_clock(datetime(2026, 10, 28, 18, 0, 0, tzinfo=timezone.utc))
     
     # Second request - should be cache hit
-    response2 = client.get("/v1/query/ethereum/stbrl-tbrl-exchange-rate")
+    response2 = client.get("/v1/query/ethereum/eigen-usd")
     assert response2.status_code == 200
     assert response2.json()["meta"]["cache"] == "hit", \
         "Cache should hit when clock changes within same boundary side. " \
