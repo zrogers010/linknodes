@@ -169,9 +169,6 @@ TESTNET_CHAINS: dict[str, tuple[str, str, int, str, list[str]]] = {
 
 SKIP_CATEGORIES = {"hidden"}
 
-# Filled by the most recent build_registry() mainnet pass; written in main().
-_LAST_STREAMS_247: list[dict] = []
-
 # 24/7 Data Streams (list-only). These have a feedId and no proxyAddress, so
 # `include()` drops them from the on-chain registry. Kept in streams_247.json.
 STREAMS_247_FILENAME = "streams_247.json"
@@ -776,10 +773,8 @@ def build_registry(chains: dict, environment: str, http_client=None, output_dir=
             print(f"\n{e}\n")
             raise
         
-        # Sidecar only — never part of the on-chain feed catalog shape.
-        _LAST_STREAMS_247.clear()
-        _LAST_STREAMS_247.extend(collected_streams)
-        return registry, total, temp_dir
+        # Return collected streams along with registry
+        return registry, total, temp_dir, collected_streams
     
     except Exception:
         # Clean up temp directory on error
@@ -805,12 +800,12 @@ def main(http_client=None, output_dir=None) -> None:
         # Build both registries first (validate everything before writing)
         print("\nMAINNET:")
         print("-" * 70)
-        mainnet_registry, mainnet_total, mainnet_temp_dir = build_registry(MAINNET_CHAINS, "mainnet", http_client, output_dir)
+        mainnet_registry, mainnet_total, mainnet_temp_dir, mainnet_streams = build_registry(MAINNET_CHAINS, "mainnet", http_client, output_dir)
         print(f"✓ Built mainnet: {mainnet_total} feeds across {len(MAINNET_CHAINS)} chains")
         
         print("\nTESTNET:")
         print("-" * 70)
-        testnet_registry, testnet_total, testnet_temp_dir = build_registry(TESTNET_CHAINS, "testnet", http_client, output_dir)
+        testnet_registry, testnet_total, testnet_temp_dir, testnet_streams = build_registry(TESTNET_CHAINS, "testnet", http_client, output_dir)
         print(f"✓ Built testnet: {testnet_total} feeds across {len(TESTNET_CHAINS)} chains")
         
         # All builds succeeded - write outputs atomically
@@ -819,7 +814,45 @@ def main(http_client=None, output_dir=None) -> None:
         import tempfile
         backend_dir = output_dir or Path(__file__).parent
 
-        streams_247 = list(_LAST_STREAMS_247)
+        # Use mainnet streams (testnet_streams should be empty anyway)
+        streams_247 = list(mainnet_streams)
+        
+        # Safety check: prevent empty or drastically reduced streams_247.json
+        import subprocess
+        try:
+            result = subprocess.run(
+                ["git", "show", "HEAD:backend/streams_247.json"],
+                capture_output=True,
+                text=True,
+                cwd=backend_dir.parent if output_dir else Path(__file__).parent.parent,
+                timeout=5
+            )
+            if result.returncode == 0:
+                committed_streams = json.loads(result.stdout)
+                old_count = committed_streams.get("count", 0)
+                new_count = len(streams_247)
+                
+                # Fail if streams_247 is being emptied or reduced by >50%
+                if old_count > 0:
+                    if new_count == 0:
+                        raise ValueError(
+                            f"❌ SAFETY CHECK FAILED: streams_247.json would be emptied "
+                            f"(old count: {old_count}, new count: 0). This indicates a bug in "
+                            f"the refresh logic. Refusing to commit empty catalog."
+                        )
+                    reduction_pct = ((old_count - new_count) / old_count) * 100
+                    if reduction_pct > 50:
+                        raise ValueError(
+                            f"❌ SAFETY CHECK FAILED: streams_247.json count would drop by "
+                            f"{reduction_pct:.1f}% (from {old_count} to {new_count}). This exceeds "
+                            f"the 50% safety threshold. Review upstream data source changes."
+                        )
+        except subprocess.TimeoutExpired:
+            pass
+        except json.JSONDecodeError:
+            pass
+        except FileNotFoundError:
+            pass
         
         # Write registries to temp files first
         with tempfile.NamedTemporaryFile(mode='w', dir=backend_dir, delete=False, suffix='.tmp') as tmp:

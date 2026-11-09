@@ -106,7 +106,7 @@ jobs:
             - [ ] No unexpected operator changes
             - [ ] Feed count changes are expected
             
-            **Setup note:** Ensure "Allow GitHub Actions to create and approve pull requests" is enabled in repository settings, or use a PAT/App token (GITHUB_TOKEN PRs don't trigger CI by default).
+            **Note on CI:** This PR was created by GitHub Actions using GITHUB_TOKEN, so CI workflows won't auto-trigger due to GitHub's security restrictions. The refresh workflow already runs all validation tests (shape validation, refresh checks, data change checks) before creating this PR, so the data is pre-validated. To enable CI on automated PRs, go to Settings → Actions → General → Workflow permissions and enable "Allow GitHub Actions to create and approve pull requests".
             
             This PR was automatically created by the refresh-data workflow.
           draft: false

@@ -7,7 +7,7 @@
  "schema": "v2",
  "access": "contact-chainlink",
  "note": "List-only catalog of Chainlink 24/7 Data Streams. These entries have a feedId and no on-chain proxyAddress. They are not Data Feeds. Access is currently through Chainlink. Report schema v2 carries a price only (no marketStatus).",
- "count": 17,
+ "count": 18,
  "streams": [
   {
    "name": "NGAS/USD-Streams-247-mainnet-production",
@@ -230,6 +230,21 @@
    "base": "SKHY",
    "quote": "USD",
    "asset_name": "SK hynix Inc. (ADRs)",
+   "network": "arbitrum",
+   "chain_id": 42161,
+   "notes": "schema v2 reports a price only (no marketStatus). Access via Chainlink."
+  },
+  {
+   "name": "SNDK/USD-Streams-247-mainnet-production",
+   "display_name": "SNDK/USD",
+   "path": "sndk-usd-streams-247-mainnet-production",
+   "feed_id": "0x00020a1e538d9b4a90c46ede8008fe4dc61b9da3f7115d29bab7abd91f4da799",
+   "schema": "v2",
+   "asset_class": "Equities",
+   "feed_type": "247Price",
+   "base": "SNDK",
+   "quote": "USD",
+   "asset_name": "SanDisk Corp",
    "network": "arbitrum",
    "chain_id": 42161,
    "notes": "schema v2 reports a price only (no marketStatus). Access via Chainlink."
