@@ -636,7 +636,7 @@ def test_check_rdd_response_codes_collects_all_failures():
             (output_dir / "data" / "nodes").mkdir()
             
             with patch.object(refresh_checks, 'check_rdd_response_codes', side_effect=mock_check):
-                registry, total, temp_dir = build_registry(
+                registry, total, temp_dir, streams = build_registry(
                     MAINNET_CHAINS,
                     "mainnet",
                     http_client=mock_client,
