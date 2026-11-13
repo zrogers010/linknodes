@@ -8,6 +8,11 @@ on:
 permissions:
   contents: write
   pull-requests: write
+  actions: write
+
+concurrency:
+  group: refresh-data
+  cancel-in-progress: false
 
 jobs:
   refresh:
@@ -97,17 +102,9 @@ jobs:
         run: |
           BRANCH_NAME="data/refresh"
           
-          # Fetch to check if remote branch exists
-          git fetch origin "$BRANCH_NAME" || true
-          
-          # Create/switch to branch (either new or reset to remote if it exists)
-          if git rev-parse --verify "origin/$BRANCH_NAME" >/dev/null 2>&1; then
-            # Branch exists remotely - check it out
-            git checkout -B "$BRANCH_NAME" "origin/$BRANCH_NAME"
-          else
-            # New branch - create from current HEAD
-            git checkout -b "$BRANCH_NAME"
-          fi
+          # Always create/reset branch from current HEAD (main), not from remote
+          # This ensures we rebuild from fresh main every day
+          git checkout -B "$BRANCH_NAME"
           
           # Stage and commit changes
           git add -A
@@ -141,7 +138,7 @@ jobs:
           - [ ] No unexpected operator changes
           - [ ] Feed count changes are expected
 
-          **CI Status:** This PR triggers CI checks via workflow_call after each update.
+          **CI Status:** CI checks are dispatched to the refresh branch after each update. Note: This requires ci.yml with workflow_dispatch to be on main (works after merge).
 
           ---
           *This PR is automatically updated by the refresh-data workflow.*"
@@ -162,8 +159,11 @@ jobs:
               --label "data-refresh"
           fi
       
-  # Run CI checks after pushing refresh branch
-  run-ci:
-    needs: refresh
-    if: needs.refresh.outputs.has_changes == 'true'
-    uses: ./.github/workflows/ci.yml
+      - name: Dispatch CI workflow on refresh branch
+        if: steps.check_changes.outputs.has_changes == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          BRANCH_NAME="data/refresh"
+          echo "Dispatching CI workflow to run on $BRANCH_NAME"
+          gh workflow run ci.yml --ref "$BRANCH_NAME"
