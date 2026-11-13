@@ -19,7 +19,7 @@
    "feed_type": "247Price",
    "base": "NGAS",
    "quote": "USD",
-   "asset_name": "Henry Hub Natural Gas",
+   "asset_name": "NatGas",
    "network": "arbitrum",
    "chain_id": 42161,
    "notes": "schema v2 reports a price only (no marketStatus). Access via Chainlink."
@@ -34,7 +34,7 @@
    "feed_type": "247Price",
    "base": "USOIL",
    "quote": "USD",
-   "asset_name": "US Oil",
+   "asset_name": "NY US OIL",
    "network": "arbitrum",
    "chain_id": 42161,
    "notes": "schema v2 reports a price only (no marketStatus). Access via Chainlink."
@@ -49,7 +49,7 @@
    "feed_type": "247Price",
    "base": "USUKOIL",
    "quote": "USD",
-   "asset_name": "US UK Oil",
+   "asset_name": "NY UK OIL",
    "network": "arbitrum",
    "chain_id": 42161,
    "notes": "schema v2 reports a price only (no marketStatus). Access via Chainlink."
