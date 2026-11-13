@@ -11,7 +11,7 @@ import pytest
 from build_registry import main as build_main, MAINNET_CHAINS
 
 
-def test_safety_check_prevents_empty_streams():
+def test_safety_check_prevents_empty_streams(tmp_path):
     """Test that the safety check prevents writing an empty streams_247.json."""
     
     # Create a mock git show that returns a committed version with 17 streams
@@ -34,7 +34,7 @@ def test_safety_check_prevents_empty_streams():
     with patch('subprocess.run', side_effect=mock_run):
         with patch('build_registry.build_registry') as mock_build:
             # Simulate the bug: return empty streams
-            mock_build.return_value = ({}, 0, Path("/tmp"), [])
+            mock_build.return_value = ({}, 0, tmp_path / "build_tmp", [])
             
             # Should raise ValueError due to safety check
             with tempfile.TemporaryDirectory() as tmpdir:
@@ -42,7 +42,7 @@ def test_safety_check_prevents_empty_streams():
                     build_main(output_dir=Path(tmpdir))
 
 
-def test_safety_check_prevents_large_reduction():
+def test_safety_check_prevents_large_reduction(tmp_path):
     """Test that the safety check prevents >50% reduction in streams count."""
     
     mock_committed = {
@@ -64,14 +64,14 @@ def test_safety_check_prevents_large_reduction():
         with patch('build_registry.build_registry') as mock_build:
             # Return only 5 streams (75% reduction)
             mock_streams = [{"name": f"stream-{i}"} for i in range(5)]
-            mock_build.return_value = ({}, 0, Path("/tmp"), mock_streams)
+            mock_build.return_value = ({}, 0, tmp_path / "build_tmp", mock_streams)
             
             with tempfile.TemporaryDirectory() as tmpdir:
                 with pytest.raises(ValueError, match="would drop by.*75"):
                     build_main(output_dir=Path(tmpdir))
 
 
-def test_safety_check_allows_small_changes():
+def test_safety_check_allows_small_changes(tmp_path):
     """Test that small changes (within 50%) are allowed."""
     
     mock_committed = {
@@ -93,8 +93,8 @@ def test_safety_check_allows_small_changes():
         with patch('build_registry.build_registry') as mock_build:
             # Return 15 streams (25% reduction - should be OK)
             mock_streams = [{"name": f"stream-{i}"} for i in range(15)]
-            mainnet_temp = Path("/tmp/mainnet")
-            testnet_temp = Path("/tmp/testnet")
+            mainnet_temp = tmp_path / "mainnet_tmp"
+            testnet_temp = tmp_path / "testnet_tmp"
             
             # Return tuple with 4 values for both calls
             mock_build.side_effect = [
@@ -114,7 +114,7 @@ def test_safety_check_allows_small_changes():
                     assert data["count"] == 15
 
 
-def test_safety_check_allows_increase():
+def test_safety_check_allows_increase(tmp_path):
     """Test that increases in stream count are allowed."""
     
     mock_committed = {
@@ -136,8 +136,8 @@ def test_safety_check_allows_increase():
         with patch('build_registry.build_registry') as mock_build:
             # Return 18 streams (increase)
             mock_streams = [{"name": f"stream-{i}"} for i in range(18)]
-            mainnet_temp = Path("/tmp/mainnet")
-            testnet_temp = Path("/tmp/testnet")
+            mainnet_temp = tmp_path / "mainnet_tmp"
+            testnet_temp = tmp_path / "testnet_tmp"
             
             mock_build.side_effect = [
                 ({"networks": {}}, 100, mainnet_temp, mock_streams),

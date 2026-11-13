@@ -4,6 +4,7 @@ on:
   push:
     branches: [main]
   pull_request:  # Run on all PRs regardless of target branch
+  workflow_dispatch:  # Allow manual trigger and dispatch from refresh-data.yml
 
 jobs:
   backend-tests:
@@ -28,7 +29,7 @@ jobs:
       - name: Run unit tests
         run: |
           cd backend
-          pytest test_shape_validation.py test_svr_matching.py test_shutdown.py test_mutation_killers.py test_request_time_status.py test_regression_pr16_round2.py test_refresh_checks.py test_operators.py test_production_mutations.py test_iso_date_validation.py test_check_data_changes.py test_market_hours.py test_streams_247.py test_agents_catalog.py test_mcp_server.py -v
+          pytest test_shape_validation.py test_svr_matching.py test_shutdown.py test_mutation_killers.py test_request_time_status.py test_regression_pr16_round2.py test_refresh_checks.py test_operators.py test_production_mutations.py test_iso_date_validation.py test_check_data_changes.py test_market_hours.py test_streams_247.py test_streams_safety.py test_stable_stream_names.py test_rolling_pr_logic.py test_agents_catalog.py test_mcp_server.py -v
       
       - name: Start backend server
         run: |

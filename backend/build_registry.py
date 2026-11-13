@@ -174,6 +174,83 @@ SKIP_CATEGORIES = {"hidden"}
 STREAMS_247_FILENAME = "streams_247.json"
 COMMODITY_247_BASES = {"XAU", "XAG", "WTI", "BRENT", "NGAS", "USOIL", "USUKOIL"}
 
+# Stable friendly names for known 24/7 streams (keyed by feed_id).
+# Preserves display_name and asset_name even when upstream labels change.
+STABLE_STREAM_NAMES: dict[str, dict[str, str]] = {
+    "0x0002dc3900b3d54f4953df411362dbf313de801278dc6282c66374dab67309a2": {
+        "display_name": "NGAS/USD",
+        "asset_name": "Henry Hub Natural Gas",
+    },
+    "0x00029569d9be4050b12193ff30be38a0e1f111f19acf78b17a05a10f0a42149d": {
+        "display_name": "WTI/USD",
+        "asset_name": "US Oil",
+    },
+    "0x0002a80555dbbd5893c258b2eace6457a895150b835fcf01d93020c2aeba2d39": {
+        "display_name": "BRENT/USD",
+        "asset_name": "US UK Oil",
+    },
+    "0x00021b1eb5812a1edd3be2b7326c31c88b716b59b86002e4f75e1495325eaa6b": {
+        "display_name": "XAG/USD",
+        "asset_name": "Silver",
+    },
+    "0x0002b15da86226b29abb392d8cbee71a1df850f431561cbc84b6fbdc8155bee7": {
+        "display_name": "XAU/USD",
+        "asset_name": "Gold",
+    },
+    "0x000231a949aa4e6a24b2c2005b16e27d03ed90e08888a2da3a68ebc9c50763df": {
+        "display_name": "AAPL/USD",
+        "asset_name": "Apple Inc",
+    },
+    "0x0002d7eaf1dc8d1cb848ebe83b7cd882876ccc35c05ee6aaa1aa94817c8e8628": {
+        "display_name": "CRCL/USD",
+        "asset_name": "Circle Internet Group Inc",
+    },
+    "0x00026b985114a3203789798bffa5947801f7c6603fce4236a7b7bd4d2fa36ed4": {
+        "display_name": "GOOGL/USD",
+        "asset_name": "Alphabet Inc - A",
+    },
+    "0x0002f4d2afce29d62f4d9509ed8c64d1ffaea7924b31bdc31b95896cd506a180": {
+        "display_name": "HOOD/USD",
+        "asset_name": "Robinhood Markets Inc",
+    },
+    "0x00023f29ea9776b4694ca5c73857fdc6db89e3e9d1774062a7a5bb22c04d3166": {
+        "display_name": "INTC/USD",
+        "asset_name": "Intel Corp",
+    },
+    "0x00029cf3b825f0bbde16429d3237313cb079d7848b409268e8e769148f00e6a5": {
+        "display_name": "MSFT/USD",
+        "asset_name": "Microsoft Corp",
+    },
+    "0x0002c1cbdbce447e10c2d08b25a7747a81ebeadaceae3a959cd5456f1c0bdeae": {
+        "display_name": "MSTR/USD",
+        "asset_name": "Microstrategy Inc Class A",
+    },
+    "0x000262326674119ce222de18eb042ec893c167b1f8213c65f53f234d087b6a42": {
+        "display_name": "MU/USD",
+        "asset_name": "Micron Technology Inc",
+    },
+    "0x0002d9b165cfb7309e8a13af14cbbb608d9990f9fa094d2ac6199d2567f2dae8": {
+        "display_name": "NVDA/USD",
+        "asset_name": "NVIDIA Corp",
+    },
+    "0x0002dd105acada6835556ef0a44552b12af315a49988507c16129d9fda45f1c8": {
+        "display_name": "SKHY/USD",
+        "asset_name": "SK hynix Inc. (ADRs)",
+    },
+    "0x00020a1e538d9b4a90c46ede8008fe4dc61b9da3f7115d29bab7abd91f4da799": {
+        "display_name": "SNDK/USD",
+        "asset_name": "SanDisk Corp",
+    },
+    "0x00020f373c928210ab71e7de682fdccd1b535c01d4d1711d6e7bfbb3c07b9395": {
+        "display_name": "SPCX/USD",
+        "asset_name": "Space Exploration Technologies Corp.",
+    },
+    "0x0002b9e03e28cc440c411328950626324203d6de30ecbe778debb7a812aad324": {
+        "display_name": "TSLA/USD",
+        "asset_name": "Tesla Inc",
+    },
+}
+
 
 def include(feed: dict) -> bool:
     """Determine if a feed should be included in the registry.
@@ -310,23 +387,40 @@ def _stream_asset_class(feed: dict) -> str:
 
 
 def compact_247_stream(feed: dict, network_key: str, chain_id: int) -> dict:
-    """List-only 24/7 stream row. No proxy / no live price fields."""
+    """List-only 24/7 stream row. No proxy / no live price fields.
+    
+    Uses STABLE_STREAM_NAMES to preserve friendly display_name and asset_name
+    for known streams, even when upstream labels change.
+    """
     docs = feed.get("docs") or {}
     name = feed.get("name") or ""
-    display = name.split("-Streams-247")[0] if "-Streams-247" in name else (
-        f"{docs.get('baseAsset') or '?'}/{docs.get('quoteAsset') or '?'}"
-    )
+    feed_id = feed.get("feedId")
+    
+    # Check for stable name override
+    stable = STABLE_STREAM_NAMES.get(feed_id, {})
+    
+    if stable:
+        # Use stable names for known streams
+        display = stable.get("display_name")
+        asset_name = stable.get("asset_name")
+    else:
+        # New/unknown stream: use upstream names
+        display = name.split("-Streams-247")[0] if "-Streams-247" in name else (
+            f"{docs.get('baseAsset') or '?'}/{docs.get('quoteAsset') or '?'}"
+        )
+        asset_name = feed.get("assetName") or docs.get("assetName") or ""
+    
     return {
         "name": name,
         "display_name": display,
         "path": feed.get("path"),
-        "feed_id": feed.get("feedId"),
+        "feed_id": feed_id,
         "schema": docs.get("schema"),
         "asset_class": _stream_asset_class(feed),
         "feed_type": feed.get("feedType") or docs.get("feedType"),
         "base": docs.get("baseAsset"),
         "quote": docs.get("quoteAsset"),
-        "asset_name": feed.get("assetName") or docs.get("assetName") or "",
+        "asset_name": asset_name,
         "network": network_key,
         "chain_id": chain_id,
         "notes": "schema v2 reports a price only (no marketStatus). Access via Chainlink.",
