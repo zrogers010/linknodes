@@ -40,16 +40,30 @@ def test_git_checkout_creates_from_current_head_not_origin():
         "Workflow must use 'git checkout -B $BRANCH_NAME' to create from current HEAD"
     )
     
-    # Should NOT reference origin/ in the checkout command
-    assert 'origin/$BRANCH_NAME' not in workflow_content or \
-           'git fetch origin "$BRANCH_NAME"' in workflow_content, (
-        "Workflow must not checkout from origin/$BRANCH_NAME "
-        "(only fetch is OK, but not checkout -B ... origin/...)"
+    # Parse the commit and push section to verify no origin/ base
+    lines = workflow_content.split('\n')
+    in_commit_section = False
+    checkout_line = None
+    
+    for line in lines:
+        if 'Commit and push to rolling branch' in line:
+            in_commit_section = True
+        if in_commit_section and 'git checkout -B' in line:
+            checkout_line = line
+            break
+    
+    assert checkout_line is not None, "Could not find git checkout command"
+    
+    # Verify checkout line does NOT have origin/ anywhere after checkout -B
+    # Valid: git checkout -B "$BRANCH_NAME"
+    # Invalid: git checkout -B "$BRANCH_NAME" "origin/$BRANCH_NAME"
+    assert 'origin/' not in checkout_line, (
+        f"CRITICAL: Checkout command must not reference origin/: {checkout_line.strip()}"
     )
     
-    # Specifically check that we don't do the broken pattern
-    assert 'git checkout -B "$BRANCH_NAME" "origin/$BRANCH_NAME"' not in workflow_content, (
-        "CRITICAL: Must not checkout from origin/$BRANCH_NAME - causes day-2 failure"
+    # Also verify no literal "data/refresh" string followed by origin reference
+    assert 'data/refresh" "origin/' not in workflow_content, (
+        "Must not checkout from origin/data/refresh - causes day-2 failure"
     )
 
 
@@ -119,8 +133,8 @@ def test_workflow_handles_crash_as_error():
     )
     
     # Should check for exit code 10 (no changes)
-    assert "[ $rc -eq 10 ]" in workflow_content or "elif [ $rc -eq 10 ]" in workflow_content, (
-        "Workflow must check for exit code 10 (no changes)"
+    assert "elif [ $rc -eq 10 ]" in workflow_content, (
+        "Workflow must check for exit code 10 (no changes) with elif, not if"
     )
     
     # Should fail on other exit codes (crash/error)
@@ -128,26 +142,41 @@ def test_workflow_handles_crash_as_error():
         "Workflow must exit with error code when check_data_changes.py crashes"
     )
     
-    # Verify the error case doesn't set has_changes=false
-    # (it should fail the job, not treat it as no-changes)
+    # Parse the check_changes section to verify proper handling
     lines = workflow_content.split('\n')
-    in_check_section = False
-    has_proper_error_handling = False
+    check_section = []
+    in_section = False
     
-    for i, line in enumerate(lines):
-        if 'check_data_changes.py' in line:
-            in_check_section = True
-        if in_check_section and 'exit $rc' in line:
-            # Check that before this line, we don't set has_changes=false for all non-zero
-            prev_lines = '\n'.join(lines[max(0, i-10):i])
-            # Should have elif for 10, then else that exits
-            if '[ $rc -eq 10 ]' in prev_lines or 'elif [ $rc -eq 10 ]' in prev_lines:
-                has_proper_error_handling = True
-            break
+    for line in lines:
+        if 'Check for changes' in line or 'id: check_changes' in line:
+            in_section = True
+        elif in_section:
+            if line.strip().startswith('- name:') and 'Check for changes' not in line:
+                break
+            check_section.append(line)
     
-    assert has_proper_error_handling, (
-        "Workflow must distinguish between exit 10 (no-changes) and crashes (error)"
+    section_text = '\n'.join(check_section)
+    
+    # Verify structure: if rc=0 then changes, elif rc=10 then no-changes, else error
+    assert 'if [ $rc -eq 0 ]' in section_text, "Must have if for exit 0"
+    assert 'elif [ $rc -eq 10 ]' in section_text, "Must have elif for exit 10"
+    assert 'else' in section_text, "Must have else for other exit codes"
+    assert 'exit $rc' in section_text, "Must exit with error in else branch"
+    
+    # Verify that exit 1 (or any other non-0/10) does NOT set has_changes=false
+    # The only places has_changes should be set are in the if and elif blocks
+    has_changes_lines = [line for line in check_section if 'has_changes=' in line]
+    assert len(has_changes_lines) == 2, (
+        f"Expected exactly 2 has_changes assignments (for rc=0 and rc=10), "
+        f"found {len(has_changes_lines)}: {has_changes_lines}"
     )
+    
+    # Verify has_changes is set to true for rc=0 and false for rc=10
+    rc0_block = section_text[section_text.find('if [ $rc -eq 0 ]'):section_text.find('elif [ $rc -eq 10 ]')]
+    rc10_block = section_text[section_text.find('elif [ $rc -eq 10 ]'):section_text.find('else')]
+    
+    assert 'has_changes=true' in rc0_block, "Exit 0 must set has_changes=true"
+    assert 'has_changes=false' in rc10_block, "Exit 10 must set has_changes=false"
 
 
 def test_refresh_workflow_handles_no_changes_cleanly():
@@ -206,6 +235,32 @@ def test_refresh_workflow_dispatches_ci_with_ref():
     # Should NOT use workflow_call (that tests main, not refresh branch)
     assert "uses: ./.github/workflows/ci.yml" not in workflow_content, (
         "Must NOT use workflow_call - it inherits caller's SHA and tests main"
+    )
+    
+    # Verify the dispatch step has the correct if condition (only when has_changes)
+    lines = workflow_content.split('\n')
+    dispatch_section = []
+    in_dispatch = False
+    
+    for i, line in enumerate(lines):
+        if 'Dispatch CI workflow' in line:
+            in_dispatch = True
+            # Capture from a few lines before (to get the if condition)
+            dispatch_section = lines[max(0, i-2):i+10]
+            break
+    
+    assert in_dispatch, "Could not find 'Dispatch CI workflow' step"
+    
+    dispatch_text = '\n'.join(dispatch_section)
+    
+    # Must have if condition checking has_changes
+    assert "if: steps.check_changes.outputs.has_changes == 'true'" in dispatch_text, (
+        "Dispatch step must have 'if: steps.check_changes.outputs.has_changes == true' condition"
+    )
+    
+    # Verify it's not inverted (== 'false' would be wrong)
+    assert "== 'false'" not in dispatch_text, (
+        "Dispatch step must NOT have inverted condition (== 'false')"
     )
 
 
