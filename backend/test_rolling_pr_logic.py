@@ -162,6 +162,11 @@ def test_workflow_handles_crash_as_error():
     assert 'elif [ $rc -eq 10 ]' in section_text, "Must have elif for exit 10"
     assert 'else' in section_text, "Must have else for other exit codes"
     assert 'exit $rc' in section_text, "Must exit with error in else branch"
+    # The no-changes branch must match exit 10 only (e.g. `|| [ $rc -eq 1 ]` would hide crashes)
+    elif_lines = [l.strip() for l in check_section if l.strip().startswith('elif ')]
+    assert elif_lines == ['elif [ $rc -eq 10 ]; then'], (
+        f"Only exit 10 may mean no-changes, found: {elif_lines}"
+    )
     
     # Verify that exit 1 (or any other non-0/10) does NOT set has_changes=false
     # The only places has_changes should be set are in the if and elif blocks
