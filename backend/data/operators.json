@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-24T15:20:08.072593+00:00",
+ "generated_at": "2026-11-13T17:26:37.098248+00:00",
  "sources": {
   "rdd": true,
   "transmitters": true
@@ -62,13 +62,13 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 1228,
+    "feeds": 1223,
     "networks": 13
    },
    "networks": [
     {
      "network": "arbitrum",
-     "feeds": 163
+     "feeds": 160
     },
     {
      "network": "avalanche",
@@ -76,11 +76,11 @@
     },
     {
      "network": "base",
-     "feeds": 181
+     "feeds": 180
     },
     {
      "network": "bnb",
-     "feeds": 148
+     "feeds": 149
     },
     {
      "network": "celo",
@@ -104,7 +104,7 @@
     },
     {
      "network": "polygon",
-     "feeds": 115
+     "feeds": 114
     },
     {
      "network": "scroll",
@@ -112,7 +112,7 @@
     },
     {
      "network": "sonic",
-     "feeds": 36
+     "feeds": 35
     },
     {
      "network": "zksync",
@@ -326,13 +326,13 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 1212,
+    "feeds": 1206,
     "networks": 12
    },
    "networks": [
     {
      "network": "arbitrum",
-     "feeds": 173
+     "feeds": 169
     },
     {
      "network": "avalanche",
@@ -340,11 +340,11 @@
     },
     {
      "network": "base",
-     "feeds": 181
+     "feeds": 180
     },
     {
      "network": "bnb",
-     "feeds": 157
+     "feeds": 158
     },
     {
      "network": "celo",
@@ -368,7 +368,7 @@
     },
     {
      "network": "polygon",
-     "feeds": 115
+     "feeds": 114
     },
     {
      "network": "scroll",
@@ -376,7 +376,7 @@
     },
     {
      "network": "sonic",
-     "feeds": 36
+     "feeds": 35
     }
    ],
    "addresses": [
@@ -576,13 +576,13 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 1205,
+    "feeds": 1200,
     "networks": 12
    },
    "networks": [
     {
      "network": "arbitrum",
-     "feeds": 179
+     "feeds": 175
     },
     {
      "network": "avalanche",
@@ -590,11 +590,11 @@
     },
     {
      "network": "base",
-     "feeds": 181
+     "feeds": 180
     },
     {
      "network": "bnb",
-     "feeds": 141
+     "feeds": 142
     },
     {
      "network": "celo",
@@ -602,7 +602,7 @@
     },
     {
      "network": "ethereum",
-     "feeds": 185
+     "feeds": 186
     },
     {
      "network": "gnosis",
@@ -618,7 +618,7 @@
     },
     {
      "network": "polygon",
-     "feeds": 114
+     "feeds": 113
     },
     {
      "network": "scroll",
@@ -626,7 +626,7 @@
     },
     {
      "network": "sonic",
-     "feeds": 36
+     "feeds": 35
     }
    ],
    "addresses": [
@@ -823,13 +823,13 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 1138,
+    "feeds": 1136,
     "networks": 11
    },
    "networks": [
     {
      "network": "arbitrum",
-     "feeds": 170
+     "feeds": 169
     },
     {
      "network": "avalanche",
@@ -837,7 +837,7 @@
     },
     {
      "network": "base",
-     "feeds": 181
+     "feeds": 180
     },
     {
      "network": "bnb",
@@ -845,7 +845,7 @@
     },
     {
      "network": "ethereum",
-     "feeds": 167
+     "feeds": 169
     },
     {
      "network": "gnosis",
@@ -857,7 +857,7 @@
     },
     {
      "network": "polygon",
-     "feeds": 116
+     "feeds": 115
     },
     {
      "network": "scroll",
@@ -865,7 +865,7 @@
     },
     {
      "network": "sonic",
-     "feeds": 36
+     "feeds": 35
     },
     {
      "network": "zksync",
@@ -1112,21 +1112,21 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 961,
+    "feeds": 955,
     "networks": 9
    },
    "networks": [
     {
      "network": "arbitrum",
-     "feeds": 182
+     "feeds": 178
     },
     {
      "network": "base",
-     "feeds": 181
+     "feeds": 180
     },
     {
      "network": "bnb",
-     "feeds": 106
+     "feeds": 107
     },
     {
      "network": "celo",
@@ -1146,11 +1146,11 @@
     },
     {
      "network": "polygon",
-     "feeds": 120
+     "feeds": 119
     },
     {
      "network": "sonic",
-     "feeds": 36
+     "feeds": 35
     }
    ],
    "addresses": [
@@ -1309,7 +1309,7 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 913,
+    "feeds": 914,
     "networks": 7
    },
    "networks": [
@@ -1323,11 +1323,11 @@
     },
     {
      "network": "bnb",
-     "feeds": 155
+     "feeds": 156
     },
     {
      "network": "ethereum",
-     "feeds": 182
+     "feeds": 183
     },
     {
      "network": "gnosis",
@@ -1339,7 +1339,7 @@
     },
     {
      "network": "polygon",
-     "feeds": 118
+     "feeds": 117
     }
    ],
    "addresses": [
@@ -1524,7 +1524,7 @@
     },
     {
      "network": "base",
-     "feeds": 181
+     "feeds": 180
     },
     {
      "network": "bnb",
@@ -1532,7 +1532,7 @@
     },
     {
      "network": "ethereum",
-     "feeds": 151
+     "feeds": 153
     },
     {
      "network": "gnosis",
@@ -1544,7 +1544,7 @@
     },
     {
      "network": "polygon",
-     "feeds": 118
+     "feeds": 117
     }
    ],
    "addresses": [
@@ -1693,13 +1693,13 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 837,
+    "feeds": 833,
     "networks": 10
    },
    "networks": [
     {
      "network": "arbitrum",
-     "feeds": 163
+     "feeds": 160
     },
     {
      "network": "avalanche",
@@ -1727,7 +1727,7 @@
     },
     {
      "network": "polygon",
-     "feeds": 116
+     "feeds": 115
     },
     {
      "network": "scroll",
@@ -1900,13 +1900,13 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 811,
+    "feeds": 806,
     "networks": 10
    },
    "networks": [
     {
      "network": "arbitrum",
-     "feeds": 109
+     "feeds": 106
     },
     {
      "network": "avalanche",
@@ -1918,7 +1918,7 @@
     },
     {
      "network": "ethereum",
-     "feeds": 125
+     "feeds": 124
     },
     {
      "network": "gnosis",
@@ -1934,7 +1934,7 @@
     },
     {
      "network": "polygon",
-     "feeds": 116
+     "feeds": 115
     },
     {
      "network": "scroll",
@@ -2089,6 +2089,176 @@
    ]
   },
   {
+   "slug": "linkforest",
+   "name": "LinkForest",
+   "aliases": [
+    "LinkForest",
+    "linkForest"
+   ],
+   "website": "https://www.linkforest.io",
+   "sources": {
+    "rdd": true,
+    "transmitters": true
+   },
+   "rdd_ids": {
+    "avalanche": [
+     "linkForest"
+    ],
+    "bnb": [
+     "linkForest"
+    ],
+    "celo": [
+     "linkForest"
+    ],
+    "arbitrum": [
+     "linkForest"
+    ],
+    "scroll": [
+     "linkForest"
+    ],
+    "ethereum": [
+     "linkForest"
+    ],
+    "polygon": [
+     "linkForest"
+    ]
+   },
+   "products": {
+    "data_feeds": true
+   },
+   "counts": {
+    "feeds": 769,
+    "networks": 7
+   },
+   "networks": [
+    {
+     "network": "arbitrum",
+     "feeds": 181
+    },
+    {
+     "network": "avalanche",
+     "feeds": 94
+    },
+    {
+     "network": "bnb",
+     "feeds": 163
+    },
+    {
+     "network": "celo",
+     "feeds": 28
+    },
+    {
+     "network": "ethereum",
+     "feeds": 184
+    },
+    {
+     "network": "polygon",
+     "feeds": 117
+    },
+    {
+     "network": "scroll",
+     "feeds": 2
+    }
+   ],
+   "addresses": [
+    {
+     "network": "arbitrum",
+     "kind": "forwarder",
+     "address": "0xcD96e5a8ab6536394f87b746030bC82C529Cbb66"
+    },
+    {
+     "network": "arbitrum",
+     "kind": "node",
+     "address": "0x51c5C8e2267582562f6cF08cF641A1A174946A50"
+    },
+    {
+     "network": "arbitrum",
+     "kind": "node",
+     "address": "0x8ADa73a56E1aDF6CF23aABE8D72858Bd6DAa0A3e"
+    },
+    {
+     "network": "avalanche",
+     "kind": "forwarder",
+     "address": "0x33d7F4AdBB4Dca1bF1f96469C4246411293387f3"
+    },
+    {
+     "network": "avalanche",
+     "kind": "node",
+     "address": "0x574A2f48049D962cF2e66d4381823Af93817Cd81"
+    },
+    {
+     "network": "bnb",
+     "kind": "forwarder",
+     "address": "0x342682197497FC9b860e914636847F1a9AD8b037"
+    },
+    {
+     "network": "bnb",
+     "kind": "node",
+     "address": "0xE824e2015d39ffA9b42bf76fb692D1Bd93218eAa"
+    },
+    {
+     "network": "bnb",
+     "kind": "node",
+     "address": "0xa6b40a7Bcc64E813C22561c921B81bc7A6b43eF9"
+    },
+    {
+     "network": "bnb",
+     "kind": "oracle",
+     "address": "0xf182052A7514dDf9067d81dc6f7267AA329859F2"
+    },
+    {
+     "network": "celo",
+     "kind": "node",
+     "address": "0x39CEc0a0663565493774506789892A653e0E2440"
+    },
+    {
+     "network": "ethereum",
+     "kind": "forwarder",
+     "address": "0xE9DcbaCc91dB0e37562a8455c80d0734D7CF3bd1"
+    },
+    {
+     "network": "ethereum",
+     "kind": "node",
+     "address": "0x3C4ad65F5b4884397e1F09596c7ac7F8F95b3fF3"
+    },
+    {
+     "network": "ethereum",
+     "kind": "node",
+     "address": "0xca38FE96DF5446fdC971CA25A3612f2EC39bE5D6"
+    },
+    {
+     "network": "ethereum",
+     "kind": "oracle",
+     "address": "0x7A9d706B2A3b54f7Cf3b5F2FcF94c5e2B3d7b24B"
+    },
+    {
+     "network": "polygon",
+     "kind": "forwarder",
+     "address": "0x43B5Ed824B75C03A3B975e489a1Bd3177cD10074"
+    },
+    {
+     "network": "polygon",
+     "kind": "node",
+     "address": "0x250ABd1D4EBC8e70a4981677D5525f827660bDE4"
+    },
+    {
+     "network": "polygon",
+     "kind": "oracle",
+     "address": "0x591b78E79dF82B971D8387d9b0c3bB74185abA68"
+    },
+    {
+     "network": "scroll",
+     "kind": "forwarder",
+     "address": "0x77C275ef21c972b010143800e0A3bB9815312488"
+    },
+    {
+     "network": "scroll",
+     "kind": "node",
+     "address": "0xB637991E9456d53cFDfCd8B8C898F1f3Dda9945B"
+    }
+   ]
+  },
+  {
    "slug": "galaxy",
    "name": "Galaxy",
    "aliases": [
@@ -2133,17 +2303,17 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 773,
+    "feeds": 769,
     "networks": 9
    },
    "networks": [
     {
      "network": "arbitrum",
-     "feeds": 77
+     "feeds": 74
     },
     {
      "network": "base",
-     "feeds": 181
+     "feeds": 180
     },
     {
      "network": "bnb",
@@ -2155,7 +2325,7 @@
     },
     {
      "network": "ethereum",
-     "feeds": 112
+     "feeds": 113
     },
     {
      "network": "optimism",
@@ -2163,7 +2333,7 @@
     },
     {
      "network": "polygon",
-     "feeds": 119
+     "feeds": 118
     },
     {
      "network": "scroll",
@@ -2298,176 +2468,6 @@
    ]
   },
   {
-   "slug": "linkforest",
-   "name": "LinkForest",
-   "aliases": [
-    "LinkForest",
-    "linkForest"
-   ],
-   "website": "https://www.linkforest.io",
-   "sources": {
-    "rdd": true,
-    "transmitters": true
-   },
-   "rdd_ids": {
-    "avalanche": [
-     "linkForest"
-    ],
-    "bnb": [
-     "linkForest"
-    ],
-    "celo": [
-     "linkForest"
-    ],
-    "arbitrum": [
-     "linkForest"
-    ],
-    "scroll": [
-     "linkForest"
-    ],
-    "ethereum": [
-     "linkForest"
-    ],
-    "polygon": [
-     "linkForest"
-    ]
-   },
-   "products": {
-    "data_feeds": true
-   },
-   "counts": {
-    "feeds": 772,
-    "networks": 7
-   },
-   "networks": [
-    {
-     "network": "arbitrum",
-     "feeds": 185
-    },
-    {
-     "network": "avalanche",
-     "feeds": 94
-    },
-    {
-     "network": "bnb",
-     "feeds": 163
-    },
-    {
-     "network": "celo",
-     "feeds": 28
-    },
-    {
-     "network": "ethereum",
-     "feeds": 183
-    },
-    {
-     "network": "polygon",
-     "feeds": 117
-    },
-    {
-     "network": "scroll",
-     "feeds": 2
-    }
-   ],
-   "addresses": [
-    {
-     "network": "arbitrum",
-     "kind": "forwarder",
-     "address": "0xcD96e5a8ab6536394f87b746030bC82C529Cbb66"
-    },
-    {
-     "network": "arbitrum",
-     "kind": "node",
-     "address": "0x51c5C8e2267582562f6cF08cF641A1A174946A50"
-    },
-    {
-     "network": "arbitrum",
-     "kind": "node",
-     "address": "0x8ADa73a56E1aDF6CF23aABE8D72858Bd6DAa0A3e"
-    },
-    {
-     "network": "avalanche",
-     "kind": "forwarder",
-     "address": "0x33d7F4AdBB4Dca1bF1f96469C4246411293387f3"
-    },
-    {
-     "network": "avalanche",
-     "kind": "node",
-     "address": "0x574A2f48049D962cF2e66d4381823Af93817Cd81"
-    },
-    {
-     "network": "bnb",
-     "kind": "forwarder",
-     "address": "0x342682197497FC9b860e914636847F1a9AD8b037"
-    },
-    {
-     "network": "bnb",
-     "kind": "node",
-     "address": "0xE824e2015d39ffA9b42bf76fb692D1Bd93218eAa"
-    },
-    {
-     "network": "bnb",
-     "kind": "node",
-     "address": "0xa6b40a7Bcc64E813C22561c921B81bc7A6b43eF9"
-    },
-    {
-     "network": "bnb",
-     "kind": "oracle",
-     "address": "0xf182052A7514dDf9067d81dc6f7267AA329859F2"
-    },
-    {
-     "network": "celo",
-     "kind": "node",
-     "address": "0x39CEc0a0663565493774506789892A653e0E2440"
-    },
-    {
-     "network": "ethereum",
-     "kind": "forwarder",
-     "address": "0xE9DcbaCc91dB0e37562a8455c80d0734D7CF3bd1"
-    },
-    {
-     "network": "ethereum",
-     "kind": "node",
-     "address": "0x3C4ad65F5b4884397e1F09596c7ac7F8F95b3fF3"
-    },
-    {
-     "network": "ethereum",
-     "kind": "node",
-     "address": "0xca38FE96DF5446fdC971CA25A3612f2EC39bE5D6"
-    },
-    {
-     "network": "ethereum",
-     "kind": "oracle",
-     "address": "0x7A9d706B2A3b54f7Cf3b5F2FcF94c5e2B3d7b24B"
-    },
-    {
-     "network": "polygon",
-     "kind": "forwarder",
-     "address": "0x43B5Ed824B75C03A3B975e489a1Bd3177cD10074"
-    },
-    {
-     "network": "polygon",
-     "kind": "node",
-     "address": "0x250ABd1D4EBC8e70a4981677D5525f827660bDE4"
-    },
-    {
-     "network": "polygon",
-     "kind": "oracle",
-     "address": "0x591b78E79dF82B971D8387d9b0c3bB74185abA68"
-    },
-    {
-     "network": "scroll",
-     "kind": "forwarder",
-     "address": "0x77C275ef21c972b010143800e0A3bB9815312488"
-    },
-    {
-     "network": "scroll",
-     "kind": "node",
-     "address": "0xB637991E9456d53cFDfCd8B8C898F1f3Dda9945B"
-    }
-   ]
-  },
-  {
    "slug": "snzpool",
    "name": "SNZPool",
    "aliases": [
@@ -2509,17 +2509,17 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 762,
+    "feeds": 758,
     "networks": 8
    },
    "networks": [
     {
      "network": "arbitrum",
-     "feeds": 179
+     "feeds": 178
     },
     {
      "network": "base",
-     "feeds": 181
+     "feeds": 180
     },
     {
      "network": "bnb",
@@ -2531,7 +2531,7 @@
     },
     {
      "network": "ethereum",
-     "feeds": 72
+     "feeds": 71
     },
     {
      "network": "gnosis",
@@ -2539,7 +2539,7 @@
     },
     {
      "network": "polygon",
-     "feeds": 119
+     "feeds": 118
     },
     {
      "network": "scroll",
@@ -2712,13 +2712,13 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 616,
+    "feeds": 609,
     "networks": 7
    },
    "networks": [
     {
      "network": "arbitrum",
-     "feeds": 18
+     "feeds": 15
     },
     {
      "network": "avalanche",
@@ -2726,7 +2726,7 @@
     },
     {
      "network": "base",
-     "feeds": 181
+     "feeds": 180
     },
     {
      "network": "bnb",
@@ -2738,11 +2738,11 @@
     },
     {
      "network": "ethereum",
-     "feeds": 123
+     "feeds": 121
     },
     {
      "network": "sonic",
-     "feeds": 36
+     "feeds": 35
     }
    ],
    "addresses": [
@@ -2890,11 +2890,11 @@
     },
     {
      "network": "bnb",
-     "feeds": 142
+     "feeds": 141
     },
     {
      "network": "ethereum",
-     "feeds": 145
+     "feeds": 146
     },
     {
      "network": "gnosis",
@@ -3009,25 +3009,25 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 531,
+    "feeds": 530,
     "networks": 6
    },
    "networks": [
     {
      "network": "arbitrum",
-     "feeds": 169
+     "feeds": 168
     },
     {
      "network": "base",
-     "feeds": 181
+     "feeds": 180
     },
     {
      "network": "ethereum",
-     "feeds": 63
+     "feeds": 65
     },
     {
      "network": "polygon",
-     "feeds": 57
+     "feeds": 56
     },
     {
      "network": "scroll",
@@ -3147,13 +3147,13 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 478,
+    "feeds": 473,
     "networks": 5
    },
    "networks": [
     {
      "network": "arbitrum",
-     "feeds": 98
+     "feeds": 95
     },
     {
      "network": "avalanche",
@@ -3165,7 +3165,7 @@
     },
     {
      "network": "ethereum",
-     "feeds": 130
+     "feeds": 128
     },
     {
      "network": "zksync",
@@ -3276,13 +3276,13 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 435,
+    "feeds": 434,
     "networks": 3
    },
    "networks": [
     {
      "network": "arbitrum",
-     "feeds": 187
+     "feeds": 186
     },
     {
      "network": "bnb",
@@ -3395,7 +3395,7 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 390,
+    "feeds": 387,
     "networks": 6
    },
    "networks": [
@@ -3409,7 +3409,7 @@
     },
     {
      "network": "ethereum",
-     "feeds": 81
+     "feeds": 80
     },
     {
      "network": "linea",
@@ -3417,11 +3417,11 @@
     },
     {
      "network": "polygon",
-     "feeds": 120
+     "feeds": 119
     },
     {
      "network": "sonic",
-     "feeds": 36
+     "feeds": 35
     }
    ],
    "addresses": [
@@ -3538,21 +3538,21 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 357,
+    "feeds": 354,
     "networks": 3
    },
    "networks": [
     {
      "network": "arbitrum",
-     "feeds": 170
+     "feeds": 169
     },
     {
      "network": "ethereum",
-     "feeds": 72
+     "feeds": 71
     },
     {
      "network": "polygon",
-     "feeds": 115
+     "feeds": 114
     }
    ],
    "addresses": [
@@ -3649,7 +3649,7 @@
    "networks": [
     {
      "network": "bnb",
-     "feeds": 145
+     "feeds": 144
     },
     {
      "network": "celo",
@@ -3657,7 +3657,7 @@
     },
     {
      "network": "ethereum",
-     "feeds": 127
+     "feeds": 128
     },
     {
      "network": "linea",
@@ -3749,13 +3749,13 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 330,
+    "feeds": 328,
     "networks": 6
    },
    "networks": [
     {
      "network": "arbitrum",
-     "feeds": 79
+     "feeds": 78
     },
     {
      "network": "avalanche",
@@ -3763,7 +3763,7 @@
     },
     {
      "network": "ethereum",
-     "feeds": 59
+     "feeds": 58
     },
     {
      "network": "linea",
@@ -3875,7 +3875,7 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 259,
+    "feeds": 257,
     "networks": 4
    },
    "networks": [
@@ -3885,11 +3885,11 @@
     },
     {
      "network": "ethereum",
-     "feeds": 102
+     "feeds": 101
     },
     {
      "network": "polygon",
-     "feeds": 47
+     "feeds": 46
     },
     {
      "network": "zksync",
@@ -3979,7 +3979,7 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 228,
+    "feeds": 214,
     "networks": 4
    },
    "networks": [
@@ -3989,11 +3989,11 @@
     },
     {
      "network": "ethereum",
-     "feeds": 81
+     "feeds": 68
     },
     {
      "network": "sonic",
-     "feeds": 36
+     "feeds": 35
     },
     {
      "network": "zksync",
@@ -4059,6 +4059,90 @@
    ]
   },
   {
+   "slug": "onchaintech",
+   "name": "On-chain Tech",
+   "aliases": [
+    "On-chain Tech"
+   ],
+   "website": "https://www.onchain.com.au",
+   "sources": {
+    "rdd": true,
+    "transmitters": true
+   },
+   "rdd_ids": {
+    "bnb": [
+     "onchainTech"
+    ],
+    "ethereum": [
+     "onchainTech"
+    ]
+   },
+   "products": {
+    "data_feeds": true
+   },
+   "counts": {
+    "feeds": 209,
+    "networks": 2
+   },
+   "networks": [
+    {
+     "network": "bnb",
+     "feeds": 105
+    },
+    {
+     "network": "ethereum",
+     "feeds": 104
+    }
+   ],
+   "addresses": [
+    {
+     "network": "bnb",
+     "kind": "forwarder",
+     "address": "0x42b950F1Cf4855a54f6d0bd6981687Eb4d5d6a18"
+    },
+    {
+     "network": "bnb",
+     "kind": "node",
+     "address": "0x1c7a919f551bFbD8C7433a8e513818591454fe86"
+    },
+    {
+     "network": "bnb",
+     "kind": "node",
+     "address": "0xD46a5604CA9fEe830e291248701F616f53Bf174B"
+    },
+    {
+     "network": "bnb",
+     "kind": "payee",
+     "address": "0x9E788De47d7Bcfa3e6F4EF1cecA3161A5339594C"
+    },
+    {
+     "network": "ethereum",
+     "kind": "forwarder",
+     "address": "0x990cfBBDc5aeB794B657b4309017F84479e8Eb7D"
+    },
+    {
+     "network": "ethereum",
+     "kind": "node",
+     "address": "0xB5b90F596341127dE460465dEA9b28b8a6Bd1984"
+    },
+    {
+     "network": "ethereum",
+     "kind": "node",
+     "address": "0xba7ECe0a6Cf48A4A2Ece0a7DEDC90327417f8C6a"
+    },
+    {
+     "network": "ethereum",
+     "kind": "oracle",
+     "address": "0x19B7D9eC084a53c4a43043fd839d9eC7f818AbaB"
+    },
+    {
+     "network": "ethereum",
+     "kind": "payee",
+     "address": "0x9E788De47d7Bcfa3e6F4EF1cecA3161A5339594C"
+    }
+   ]
+  },
+  {
    "slug": "tiingo",
    "name": "Tiingo",
    "aliases": [
@@ -4084,13 +4168,13 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 209,
+    "feeds": 208,
     "networks": 3
    },
    "networks": [
     {
      "network": "bnb",
-     "feeds": 116
+     "feeds": 115
     },
     {
      "network": "ethereum",
@@ -4165,90 +4249,6 @@
    ]
   },
   {
-   "slug": "onchaintech",
-   "name": "On-chain Tech",
-   "aliases": [
-    "On-chain Tech"
-   ],
-   "website": "https://www.onchain.com.au",
-   "sources": {
-    "rdd": true,
-    "transmitters": true
-   },
-   "rdd_ids": {
-    "bnb": [
-     "onchainTech"
-    ],
-    "ethereum": [
-     "onchainTech"
-    ]
-   },
-   "products": {
-    "data_feeds": true
-   },
-   "counts": {
-    "feeds": 209,
-    "networks": 2
-   },
-   "networks": [
-    {
-     "network": "bnb",
-     "feeds": 106
-    },
-    {
-     "network": "ethereum",
-     "feeds": 103
-    }
-   ],
-   "addresses": [
-    {
-     "network": "bnb",
-     "kind": "forwarder",
-     "address": "0x42b950F1Cf4855a54f6d0bd6981687Eb4d5d6a18"
-    },
-    {
-     "network": "bnb",
-     "kind": "node",
-     "address": "0x1c7a919f551bFbD8C7433a8e513818591454fe86"
-    },
-    {
-     "network": "bnb",
-     "kind": "node",
-     "address": "0xD46a5604CA9fEe830e291248701F616f53Bf174B"
-    },
-    {
-     "network": "bnb",
-     "kind": "payee",
-     "address": "0x9E788De47d7Bcfa3e6F4EF1cecA3161A5339594C"
-    },
-    {
-     "network": "ethereum",
-     "kind": "forwarder",
-     "address": "0x990cfBBDc5aeB794B657b4309017F84479e8Eb7D"
-    },
-    {
-     "network": "ethereum",
-     "kind": "node",
-     "address": "0xB5b90F596341127dE460465dEA9b28b8a6Bd1984"
-    },
-    {
-     "network": "ethereum",
-     "kind": "node",
-     "address": "0xba7ECe0a6Cf48A4A2Ece0a7DEDC90327417f8C6a"
-    },
-    {
-     "network": "ethereum",
-     "kind": "oracle",
-     "address": "0x19B7D9eC084a53c4a43043fd839d9eC7f818AbaB"
-    },
-    {
-     "network": "ethereum",
-     "kind": "payee",
-     "address": "0x9E788De47d7Bcfa3e6F4EF1cecA3161A5339594C"
-    }
-   ]
-  },
-  {
    "slug": "shultzpro",
    "name": "ShultzPrime",
    "aliases": [
@@ -4271,17 +4271,17 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 193,
+    "feeds": 191,
     "networks": 2
    },
    "networks": [
     {
      "network": "bnb",
-     "feeds": 114
+     "feeds": 113
     },
     {
      "network": "ethereum",
-     "feeds": 79
+     "feeds": 78
     }
    ],
    "addresses": [
@@ -4360,7 +4360,7 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 170,
+    "feeds": 169,
     "networks": 2
    },
    "networks": [
@@ -4370,7 +4370,7 @@
     },
     {
      "network": "polygon",
-     "feeds": 115
+     "feeds": 114
     }
    ],
    "addresses": [
@@ -4443,13 +4443,13 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 163,
+    "feeds": 166,
     "networks": 3
    },
    "networks": [
     {
      "network": "ethereum",
-     "feeds": 88
+     "feeds": 91
     },
     {
      "network": "linea",
@@ -4522,11 +4522,11 @@
    "networks": [
     {
      "network": "ethereum",
-     "feeds": 124
+     "feeds": 125
     },
     {
      "network": "sonic",
-     "feeds": 36
+     "feeds": 35
     }
    ],
    "addresses": [
@@ -4645,7 +4645,7 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 122,
+    "feeds": 121,
     "networks": 2
    },
    "networks": [
@@ -4655,7 +4655,7 @@
     },
     {
      "network": "sonic",
-     "feeds": 36
+     "feeds": 35
     }
    ],
    "addresses": [
@@ -4719,13 +4719,13 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 99,
+    "feeds": 104,
     "networks": 2
    },
    "networks": [
     {
      "network": "ethereum",
-     "feeds": 58
+     "feeds": 63
     },
     {
      "network": "polygon",
@@ -4790,13 +4790,13 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 97,
+    "feeds": 98,
     "networks": 1
    },
    "networks": [
     {
      "network": "ethereum",
-     "feeds": 97
+     "feeds": 98
     }
    ],
    "addresses": [
@@ -4851,13 +4851,13 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 96,
+    "feeds": 95,
     "networks": 2
    },
    "networks": [
     {
      "network": "ethereum",
-     "feeds": 64
+     "feeds": 63
     },
     {
      "network": "scroll",
@@ -4979,13 +4979,13 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 69,
+    "feeds": 68,
     "networks": 1
    },
    "networks": [
     {
      "network": "ethereum",
-     "feeds": 69
+     "feeds": 68
     }
    ],
    "addresses": [
@@ -5068,13 +5068,13 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 67,
+    "feeds": 66,
     "networks": 1
    },
    "networks": [
     {
      "network": "ethereum",
-     "feeds": 67
+     "feeds": 66
     }
    ],
    "addresses": [
@@ -5167,13 +5167,13 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 63,
+    "feeds": 62,
     "networks": 1
    },
    "networks": [
     {
      "network": "ethereum",
-     "feeds": 63
+     "feeds": 62
     }
    ],
    "addresses": [
@@ -5266,13 +5266,13 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 36,
+    "feeds": 37,
     "networks": 1
    },
    "networks": [
     {
      "network": "ethereum",
-     "feeds": 36
+     "feeds": 37
     }
    ],
    "addresses": [
@@ -5336,12 +5336,12 @@
     {
      "network": "ethereum",
      "kind": "node",
-     "address": "0x4Ab22C50399B51f40e5A961D17D035877417D9A5"
+     "address": "0x38d3408464Cdfb55b71740112DeD8Ece009Adcb1"
     },
     {
      "network": "ethereum",
      "kind": "node",
-     "address": "0xe883459C2fF696c66B564C832B60c7DB12fd927a"
+     "address": "0x9a87D7ca309A67d405C25A3885bc0aF290B0B85d"
     }
    ]
   }
