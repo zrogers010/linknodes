@@ -12,6 +12,8 @@ permissions:
 jobs:
   refresh:
     runs-on: ubuntu-latest
+    outputs:
+      has_changes: ${{ steps.check_changes.outputs.has_changes }}
     
     steps:
       - uses: actions/checkout@v4
@@ -29,6 +31,11 @@ jobs:
       - name: Get current date
         id: date
         run: echo "date=$(date -u +%F)" >> $GITHUB_OUTPUT
+      
+      - name: Configure git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
       
       - name: Install Python dependencies
         run: |
@@ -83,31 +90,80 @@ jobs:
         run: |
           cd backend
           python3 generate_refresh_diff.py > /tmp/diff_summary.md
-          echo "DIFF_SUMMARY<<EOF" >> $GITHUB_OUTPUT
-          cat /tmp/diff_summary.md >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
+          cat /tmp/diff_summary.md >> $GITHUB_STEP_SUMMARY
       
-      - name: Create or update refresh PR
+      - name: Commit and push to rolling branch
         if: steps.check_changes.outputs.has_changes == 'true'
-        uses: peter-evans/create-pull-request@v6
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: 'Data refresh ${{ steps.date.outputs.date }}'
-          branch: data/refresh-${{ steps.date.outputs.date }}
-          delete-branch: true
-          title: 'Data refresh ${{ steps.date.outputs.date }}'
-          body: |
-            Automated data refresh from reference-data-directory and on-chain sources.
-            
-            ${{ steps.diff_summary.outputs.DIFF_SUMMARY }}
-            
-            **Review checklist:**
-            - [ ] Mapping rates look reasonable
-            - [ ] No unexpected operator changes
-            - [ ] Feed count changes are expected
-            
-            **Note on CI:** This PR was created by GitHub Actions using GITHUB_TOKEN, so CI workflows won't auto-trigger due to GitHub's security restrictions (this prevents recursive workflow runs). The refresh workflow already runs all validation tests (shape validation, refresh checks, operator checks, data change validation) before creating this PR, so the data is pre-validated.
-            
-            This PR was automatically created by the refresh-data workflow.
-          draft: false
-          labels: data-refresh
+        run: |
+          BRANCH_NAME="data/refresh"
+          
+          # Fetch to check if remote branch exists
+          git fetch origin "$BRANCH_NAME" || true
+          
+          # Create/switch to branch (either new or reset to remote if it exists)
+          if git rev-parse --verify "origin/$BRANCH_NAME" >/dev/null 2>&1; then
+            # Branch exists remotely - check it out
+            git checkout -B "$BRANCH_NAME" "origin/$BRANCH_NAME"
+          else
+            # New branch - create from current HEAD
+            git checkout -b "$BRANCH_NAME"
+          fi
+          
+          # Stage and commit changes
+          git add -A
+          git commit -m "Data refresh ${{ steps.date.outputs.date }}"
+          
+          # Force push to update the rolling branch
+          git push -f origin "$BRANCH_NAME"
+      
+      - name: Create or update rolling PR
+        if: steps.check_changes.outputs.has_changes == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          BRANCH_NAME="data/refresh"
+          TITLE="Data refresh (rolling, last updated ${{ steps.date.outputs.date }})"
+          
+          # Read diff summary
+          DIFF_SUMMARY=$(cat /tmp/diff_summary.md)
+          
+          # Build PR body
+          PR_BODY="Automated data refresh from reference-data-directory and on-chain sources.
+
+          This is a rolling PR that gets updated daily with the latest data changes.
+
+          **Last updated:** ${{ steps.date.outputs.date }}
+
+          $DIFF_SUMMARY
+
+          **Review checklist:**
+          - [ ] Mapping rates look reasonable
+          - [ ] No unexpected operator changes
+          - [ ] Feed count changes are expected
+
+          **CI Status:** This PR triggers CI checks via workflow_call after each update.
+
+          ---
+          *This PR is automatically updated by the refresh-data workflow.*"
+          
+          # Check if PR exists from this branch
+          PR_NUMBER=$(gh pr list --head "$BRANCH_NAME" --state open --json number --jq '.[0].number' || echo "")
+          
+          if [ -n "$PR_NUMBER" ]; then
+            echo "Updating existing PR #$PR_NUMBER"
+            gh pr edit "$PR_NUMBER" --title "$TITLE" --body "$PR_BODY"
+          else
+            echo "Creating new PR"
+            gh pr create \
+              --head "$BRANCH_NAME" \
+              --base main \
+              --title "$TITLE" \
+              --body "$PR_BODY" \
+              --label "data-refresh"
+          fi
+      
+  # Run CI checks after pushing refresh branch
+  run-ci:
+    needs: refresh
+    if: needs.refresh.outputs.has_changes == 'true'
+    uses: ./.github/workflows/ci.yml
