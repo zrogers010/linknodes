@@ -888,6 +888,21 @@
   ]
  },
  {
+  "id": "temp-ccip-v2-matrixedlink",
+  "website": "",
+  "name": "matrixedlink",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "MatrixedLink",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "65d01200057c785675244c1c883b82e3ff79970ccbfac439d319ab55d1c598d1"
+   }
+  ]
+ },
+ {
   "id": "temp-ccip-v2-newroad",
   "website": "",
   "name": "newroad",

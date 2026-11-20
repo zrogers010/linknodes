@@ -5693,6 +5693,45 @@
     "validationcloud"
    ]
   },
+  "qqqon-usd-247": {
+   "aggregator": "0xC9C5A902b76429aAd892387aDcaf86E82763abFf",
+   "transmitters": [
+    "0x585b3e95eedd03af221f724557d03384864da3ca",
+    "0xfe31f3ecfde29fc4915d80eb8a9d67bff14180b3",
+    "0x0c46dc0ba85eab5a515f819f1a705ed324da687b",
+    "0x7b740d24396b09f992b655a590139d7fbb5c73c8",
+    "0x42afc2f6ae88678296ecb2eba34ccfbd1adc5f93",
+    "0x7a13cd97d442856ff5387d55a7b3f09bf680102b",
+    "0x30d872350fe74f47c85847d6784b42f9b0816f04",
+    "0xf38326579519377178725a741c35999e8051e907",
+    "0xe9dcbacc91db0e37562a8455c80d0734d7cf3bd1",
+    "0x1d5804ae896c64ecc88e15379061ce6230f11895",
+    "0xc917e3bf6c211b326ffd4ed13e7d9a67682095ca",
+    "0xe9e4d87b0e7f97dd622439c26605b3b038c276c4",
+    "0x5ea7eae0ebc1f4256806c8bf234f672d410fc988",
+    "0x5fdf4abaf24d8229defbd28890cb01e0d8108e96",
+    "0xd8d2297bdf4a84569bcec83c92a81549be9c51e6",
+    "0x35a06994a99b335b700bb3c875408489a9f8bbef"
+   ],
+   "operators": [
+    "01node",
+    "blockdaemon",
+    "chainlayer",
+    "dextrac",
+    "easy2stake",
+    "fiews",
+    "galaxy",
+    "inotel",
+    "linkforest",
+    "linkpool",
+    "linkriver",
+    "matrixedlink",
+    "newroad",
+    "omniscience",
+    "simplyvc",
+    "snzpool"
+   ]
+  },
   "qqqon-usd-calculated-kalman-shared-svr": {
    "aggregator": "0x320E22c489e4bb634aC1aa5822543014A6fbB292",
    "transmitters": [
@@ -7127,6 +7166,45 @@
     "validationcloud"
    ]
   },
+  "spyon-usd-247": {
+   "aggregator": "0x1CDc55BF9F77567574c9E2291214853E17CdF397",
+   "transmitters": [
+    "0x585b3e95eedd03af221f724557d03384864da3ca",
+    "0xfe31f3ecfde29fc4915d80eb8a9d67bff14180b3",
+    "0x0c46dc0ba85eab5a515f819f1a705ed324da687b",
+    "0x7b740d24396b09f992b655a590139d7fbb5c73c8",
+    "0x42afc2f6ae88678296ecb2eba34ccfbd1adc5f93",
+    "0x7a13cd97d442856ff5387d55a7b3f09bf680102b",
+    "0x30d872350fe74f47c85847d6784b42f9b0816f04",
+    "0xf38326579519377178725a741c35999e8051e907",
+    "0xe9dcbacc91db0e37562a8455c80d0734d7cf3bd1",
+    "0x1d5804ae896c64ecc88e15379061ce6230f11895",
+    "0xc917e3bf6c211b326ffd4ed13e7d9a67682095ca",
+    "0xe9e4d87b0e7f97dd622439c26605b3b038c276c4",
+    "0x5ea7eae0ebc1f4256806c8bf234f672d410fc988",
+    "0x5fdf4abaf24d8229defbd28890cb01e0d8108e96",
+    "0xd8d2297bdf4a84569bcec83c92a81549be9c51e6",
+    "0x35a06994a99b335b700bb3c875408489a9f8bbef"
+   ],
+   "operators": [
+    "01node",
+    "blockdaemon",
+    "chainlayer",
+    "dextrac",
+    "easy2stake",
+    "fiews",
+    "galaxy",
+    "inotel",
+    "linkforest",
+    "linkpool",
+    "linkriver",
+    "matrixedlink",
+    "newroad",
+    "omniscience",
+    "simplyvc",
+    "snzpool"
+   ]
+  },
   "spyon-usd-calculated-kalman-shared-svr": {
    "aggregator": "0x2053257478bA1FeDF7F99dEF0C412006753aC9Bf",
    "transmitters": [
@@ -7470,6 +7548,45 @@
     "simplyvc",
     "syncnode",
     "validationcloud"
+   ]
+  },
+  "susd-eth": {
+   "aggregator": "0x9929624Dab8665DdcAa1Acf888D9e770859c5a63",
+   "transmitters": [
+    "0xfe31f3ecfde29fc4915d80eb8a9d67bff14180b3",
+    "0x6d53d5e35f5226a1613877e071b81217387ac6b5",
+    "0x4cb67cfee180b6b73b70c7b3fc162e5fcf6532f1",
+    "0xba4555a80e47477bbf23b721563d38b10eb65dfa",
+    "0x3dc0d7c8f6925422af7cfeafaf1588c185c05624",
+    "0x65a43936d7e1295cca6f30f6a0b25fe49cab32c8",
+    "0xe9dcbacc91db0e37562a8455c80d0734d7cf3bd1",
+    "0x0613a20e394593c2aeb627760e6d6fb816d77fbb",
+    "0x4b4df3c44fa13f9d12277458e2069ecbbee1b085",
+    "0x7b740d24396b09f992b655a590139d7fbb5c73c8",
+    "0xe9e4d87b0e7f97dd622439c26605b3b038c276c4",
+    "0xe62efa5462961055757c63931a15601545e4d273",
+    "0x5fdf4abaf24d8229defbd28890cb01e0d8108e96",
+    "0x5dc428646bf9a29a4d623e0cdb57384e811f6f77",
+    "0xe7b837a55df42ecc95bf893c3c31750264932596",
+    "0x585b3e95eedd03af221f724557d03384864da3ca"
+   ],
+   "operators": [
+    "blockdaemon",
+    "blocksizecapital",
+    "deepbase",
+    "stakesystems",
+    "everstake",
+    "validationcloud",
+    "linkforest",
+    "syncnode",
+    "chorusone",
+    "dextrac",
+    "matrixedlink",
+    "vulcan",
+    "omniscience",
+    "shultzpro",
+    "luganodes",
+    "01node"
    ]
   },
   "susd1+-usd1-exchange-rate": {
@@ -11674,6 +11791,33 @@
     "linkforest",
     "linkpool",
     "linkriver"
+   ]
+  },
+  "dlcbtc-por": {
+   "aggregator": "0x647eaE0d2023cD01f15b06b664d68e3dAB0f8b7b",
+   "transmitters": [
+    "0x9cd5b3e0777b3c85803e6c54c48f905315b9bbe6",
+    "0x9aa888f5acdc6ac3dfb84103b798722396f7ceee",
+    "0xcb9fe9e2cad1cb7ce6ae8e64d4115953b67e87d8",
+    "0xcd96e5a8ab6536394f87b746030bc82c529cbb66",
+    "0x402a0a65ff8cb155288d96e5b791885043695317",
+    "0x0d330878352fc96b6c4aee365e83ab2f1e7486c5",
+    "0x1b8e3f415dd41ef5958243dc9f88d40a56f5db98",
+    "0x940ddd8918d28a9678471a9c3813975ad70314d8",
+    "0x650e42fd0f2724a697cfd6903c0d6e3dd822ede0",
+    "0xe6004a0cf3897d4659a1c01162c5eb0b41e6051d"
+   ],
+   "operators": [
+    "chainlayer",
+    "dextrac",
+    "inotel",
+    "linkforest",
+    "linkpool",
+    "linkriver",
+    "matrixedlink",
+    "piertwo",
+    "simplyvc",
+    "snzpool"
    ]
   },
   "doge-usd": {
@@ -17857,6 +18001,33 @@
     "syncnode"
    ]
   },
+  "cbgoogl-usd-247": {
+   "aggregator": "0xA88692Af03872709aCaD4e493F24dF16CA02A8f2",
+   "transmitters": [
+    "0x92467ba6573b264c61eb9294adfe3969c46b135a",
+    "0x53e4cc064aeb70c62a5f9259c5ab9717ccad4fd5",
+    "0x1961b25137863c5a84f1cc68cba3e6ff43e8d77a",
+    "0x5e4666a8b9e9493df49a875762c5a92a063a790d",
+    "0xa916996a8ff9ca7bbddb597c5e7ea0e9d473c16f",
+    "0x5d0c60e67d60a12a614376a747542c0a4c805fa1",
+    "0x79fc1d9e8a7425adc44183bf8e1efbcbf752de48",
+    "0x1ba0c1192d11a192c092fe23b874623278b8fb5f",
+    "0xe0b627e26b86b664ee4e3adcd6ceb8b8f59a84f8",
+    "0xb2777b58f50388a9acf264023722c83be025dc1d"
+   ],
+   "operators": [
+    "01node",
+    "chainlayer",
+    "dextrac",
+    "fiews",
+    "galaxy",
+    "linkpool",
+    "matrixedlink",
+    "piertwo",
+    "snzpool",
+    "syncnode"
+   ]
+  },
   "cbintc-usd": {
    "aggregator": "0x8327BD1d98a2e8874D0d456CBCadE231E3Ab087c",
    "transmitters": [
@@ -17992,6 +18163,33 @@
     "syncnode"
    ]
   },
+  "cbnvda-usd-247": {
+   "aggregator": "0xc1c08815Fc1eF5ca99166e979C9f52C72eC95585",
+   "transmitters": [
+    "0x92467ba6573b264c61eb9294adfe3969c46b135a",
+    "0x53e4cc064aeb70c62a5f9259c5ab9717ccad4fd5",
+    "0x1961b25137863c5a84f1cc68cba3e6ff43e8d77a",
+    "0x5e4666a8b9e9493df49a875762c5a92a063a790d",
+    "0xa916996a8ff9ca7bbddb597c5e7ea0e9d473c16f",
+    "0x5d0c60e67d60a12a614376a747542c0a4c805fa1",
+    "0x79fc1d9e8a7425adc44183bf8e1efbcbf752de48",
+    "0x1ba0c1192d11a192c092fe23b874623278b8fb5f",
+    "0xe0b627e26b86b664ee4e3adcd6ceb8b8f59a84f8",
+    "0xb2777b58f50388a9acf264023722c83be025dc1d"
+   ],
+   "operators": [
+    "01node",
+    "chainlayer",
+    "dextrac",
+    "fiews",
+    "galaxy",
+    "linkpool",
+    "matrixedlink",
+    "piertwo",
+    "snzpool",
+    "syncnode"
+   ]
+  },
   "cbsndk-usd": {
    "aggregator": "0x767B5C02AF56C2621d66C8596aaC32DE7374b55b",
    "transmitters": [
@@ -18048,6 +18246,33 @@
   },
   "cbtsla-usd": {
    "aggregator": "0x0288234d9311C33BE6c3a34b051bff8A799dAA82",
+   "transmitters": [
+    "0x92467ba6573b264c61eb9294adfe3969c46b135a",
+    "0x53e4cc064aeb70c62a5f9259c5ab9717ccad4fd5",
+    "0x1961b25137863c5a84f1cc68cba3e6ff43e8d77a",
+    "0x5e4666a8b9e9493df49a875762c5a92a063a790d",
+    "0xa916996a8ff9ca7bbddb597c5e7ea0e9d473c16f",
+    "0x5d0c60e67d60a12a614376a747542c0a4c805fa1",
+    "0x79fc1d9e8a7425adc44183bf8e1efbcbf752de48",
+    "0x1ba0c1192d11a192c092fe23b874623278b8fb5f",
+    "0xe0b627e26b86b664ee4e3adcd6ceb8b8f59a84f8",
+    "0xb2777b58f50388a9acf264023722c83be025dc1d"
+   ],
+   "operators": [
+    "01node",
+    "chainlayer",
+    "dextrac",
+    "fiews",
+    "galaxy",
+    "linkpool",
+    "matrixedlink",
+    "piertwo",
+    "snzpool",
+    "syncnode"
+   ]
+  },
+  "cbtsla-usd-247": {
+   "aggregator": "0xeD19a5abdDB223e8E6582692d1B29c2b3c0b1BbD",
    "transmitters": [
     "0x92467ba6573b264c61eb9294adfe3969c46b135a",
     "0x53e4cc064aeb70c62a5f9259c5ab9717ccad4fd5",
@@ -18154,6 +18379,33 @@
     "syncnode"
    ]
   },
+  "coinbase-ant-usd": {
+   "aggregator": "0x1D42c391A815C7737F2A01cb7988D857298BdCC5",
+   "transmitters": [
+    "0x92467ba6573b264c61eb9294adfe3969c46b135a",
+    "0x53e4cc064aeb70c62a5f9259c5ab9717ccad4fd5",
+    "0x1961b25137863c5a84f1cc68cba3e6ff43e8d77a",
+    "0x5e4666a8b9e9493df49a875762c5a92a063a790d",
+    "0xa916996a8ff9ca7bbddb597c5e7ea0e9d473c16f",
+    "0x5d0c60e67d60a12a614376a747542c0a4c805fa1",
+    "0x79fc1d9e8a7425adc44183bf8e1efbcbf752de48",
+    "0x1ba0c1192d11a192c092fe23b874623278b8fb5f",
+    "0xe0b627e26b86b664ee4e3adcd6ceb8b8f59a84f8",
+    "0xb2777b58f50388a9acf264023722c83be025dc1d"
+   ],
+   "operators": [
+    "01node",
+    "chainlayer",
+    "dextrac",
+    "fiews",
+    "galaxy",
+    "linkpool",
+    "matrixedlink",
+    "piertwo",
+    "snzpool",
+    "syncnode"
+   ]
+  },
   "comp-usd": {
    "aggregator": "0xf4Faa0370d24Cf7307F91af89381C569AF17F900",
    "transmitters": [
@@ -18179,6 +18431,33 @@
     "piertwo",
     "linkpool",
     "matrixedlink"
+   ]
+  },
+  "cushy-nav": {
+   "aggregator": "0xacE8c8C18a7f51F98F518374d4927631992a1D6c",
+   "transmitters": [
+    "0x92467ba6573b264c61eb9294adfe3969c46b135a",
+    "0x53e4cc064aeb70c62a5f9259c5ab9717ccad4fd5",
+    "0x1961b25137863c5a84f1cc68cba3e6ff43e8d77a",
+    "0x5e4666a8b9e9493df49a875762c5a92a063a790d",
+    "0xa916996a8ff9ca7bbddb597c5e7ea0e9d473c16f",
+    "0x5d0c60e67d60a12a614376a747542c0a4c805fa1",
+    "0x79fc1d9e8a7425adc44183bf8e1efbcbf752de48",
+    "0x1ba0c1192d11a192c092fe23b874623278b8fb5f",
+    "0xe0b627e26b86b664ee4e3adcd6ceb8b8f59a84f8",
+    "0xb2777b58f50388a9acf264023722c83be025dc1d"
+   ],
+   "operators": [
+    "01node",
+    "chainlayer",
+    "dextrac",
+    "fiews",
+    "galaxy",
+    "linkpool",
+    "matrixedlink",
+    "piertwo",
+    "snzpool",
+    "syncnode"
    ]
   },
   "dai-usd": {
@@ -18228,6 +18507,33 @@
     "galaxy",
     "dextrac",
     "fiews",
+    "linkpool",
+    "matrixedlink",
+    "piertwo",
+    "snzpool",
+    "syncnode"
+   ]
+  },
+  "dlcbtc-por": {
+   "aggregator": "0x518788cC82BfE8b89BF205daeb71072389F2b52F",
+   "transmitters": [
+    "0x92467ba6573b264c61eb9294adfe3969c46b135a",
+    "0x53e4cc064aeb70c62a5f9259c5ab9717ccad4fd5",
+    "0x1961b25137863c5a84f1cc68cba3e6ff43e8d77a",
+    "0x5e4666a8b9e9493df49a875762c5a92a063a790d",
+    "0xa916996a8ff9ca7bbddb597c5e7ea0e9d473c16f",
+    "0x5d0c60e67d60a12a614376a747542c0a4c805fa1",
+    "0x79fc1d9e8a7425adc44183bf8e1efbcbf752de48",
+    "0x1ba0c1192d11a192c092fe23b874623278b8fb5f",
+    "0xe0b627e26b86b664ee4e3adcd6ceb8b8f59a84f8",
+    "0xb2777b58f50388a9acf264023722c83be025dc1d"
+   ],
+   "operators": [
+    "01node",
+    "chainlayer",
+    "dextrac",
+    "fiews",
+    "galaxy",
     "linkpool",
     "matrixedlink",
     "piertwo",
@@ -19288,6 +19594,33 @@
     "syncnode"
    ]
   },
+  "nvhome-nav": {
+   "aggregator": "0xaeFA71b2F1e0Ec23e842aD406DA77eb840fcFAdd",
+   "transmitters": [
+    "0x92467ba6573b264c61eb9294adfe3969c46b135a",
+    "0x53e4cc064aeb70c62a5f9259c5ab9717ccad4fd5",
+    "0x1961b25137863c5a84f1cc68cba3e6ff43e8d77a",
+    "0x5e4666a8b9e9493df49a875762c5a92a063a790d",
+    "0xa916996a8ff9ca7bbddb597c5e7ea0e9d473c16f",
+    "0x5d0c60e67d60a12a614376a747542c0a4c805fa1",
+    "0x79fc1d9e8a7425adc44183bf8e1efbcbf752de48",
+    "0x1ba0c1192d11a192c092fe23b874623278b8fb5f",
+    "0xe0b627e26b86b664ee4e3adcd6ceb8b8f59a84f8",
+    "0xb2777b58f50388a9acf264023722c83be025dc1d"
+   ],
+   "operators": [
+    "01node",
+    "chainlayer",
+    "dextrac",
+    "fiews",
+    "galaxy",
+    "linkpool",
+    "matrixedlink",
+    "piertwo",
+    "snzpool",
+    "syncnode"
+   ]
+  },
   "nzd-usd": {
    "aggregator": "0xf74260ed595B7e31829f6f32cAD273563949A4BB",
    "transmitters": [
@@ -20208,6 +20541,33 @@
   },
   "superoethb-eth": {
    "aggregator": "0x8a5Ad59Bf9efDfB686A5b5622B064C17Ba13132f",
+   "transmitters": [
+    "0x92467ba6573b264c61eb9294adfe3969c46b135a",
+    "0x53e4cc064aeb70c62a5f9259c5ab9717ccad4fd5",
+    "0x1961b25137863c5a84f1cc68cba3e6ff43e8d77a",
+    "0x5e4666a8b9e9493df49a875762c5a92a063a790d",
+    "0xa916996a8ff9ca7bbddb597c5e7ea0e9d473c16f",
+    "0x5d0c60e67d60a12a614376a747542c0a4c805fa1",
+    "0x79fc1d9e8a7425adc44183bf8e1efbcbf752de48",
+    "0x1ba0c1192d11a192c092fe23b874623278b8fb5f",
+    "0xe0b627e26b86b664ee4e3adcd6ceb8b8f59a84f8",
+    "0xb2777b58f50388a9acf264023722c83be025dc1d"
+   ],
+   "operators": [
+    "01node",
+    "chainlayer",
+    "dextrac",
+    "fiews",
+    "galaxy",
+    "linkpool",
+    "matrixedlink",
+    "piertwo",
+    "snzpool",
+    "syncnode"
+   ]
+  },
+  "susd.infra-usd.infra-exchange-rate": {
+   "aggregator": "0x180a0B1680926D4B44318770681E36a176a0487F",
    "transmitters": [
     "0x92467ba6573b264c61eb9294adfe3969c46b135a",
     "0x53e4cc064aeb70c62a5f9259c5ab9717ccad4fd5",
@@ -25523,6 +25883,33 @@
     "simplyvc"
    ]
   },
+  "wqqqx-usd-247": {
+   "aggregator": "0x5a9d1340EEcd7d04b16F26D8Fb915Fe7b6Da5280",
+   "transmitters": [
+    "0x52cc676d1ab249e63f9540b6f7eb0f26f2d42ac6",
+    "0x5a076ec8e037de44d7ffddcec2507e79727beb9a",
+    "0xc9abfc8a68d547f8fd94f2fbd7a836d6b704de8d",
+    "0xd8ae94337833f1026899dd6c31cd3a00d03d4d68",
+    "0x595bf4d10c5213202cc1e68e0d3676ab1b1e8573",
+    "0x42423d91b02ccc53ff98dcd68b30e4ab21104d90",
+    "0x5d667786fd900a901a0cb96f489bb80ab712604c",
+    "0xe13815bc6da86cb26713e6c4dc4bd2ec7e6e054d",
+    "0x84d80df801badb2d0762e546ea4815b8d1bc7e69",
+    "0x5622746433de972bc4c69b490753a45fbf806b18"
+   ],
+   "operators": [
+    "01node",
+    "blockdaemon",
+    "chainlayer",
+    "dextrac",
+    "fiews",
+    "galaxy",
+    "inotel",
+    "linkpool",
+    "linkriver",
+    "piertwo"
+   ]
+  },
   "wrseth-eth-exchange-rate": {
    "aggregator": "0x522B8459766a5BCF4B22EDB8160850B23cc95f32",
    "transmitters": [
@@ -25548,6 +25935,33 @@
     "linkriver",
     "piertwo",
     "simplyvc"
+   ]
+  },
+  "wspyx-usd-247": {
+   "aggregator": "0xe3409488774f16a55Ea5c9Ca4260bE6dE04Ed495",
+   "transmitters": [
+    "0x52cc676d1ab249e63f9540b6f7eb0f26f2d42ac6",
+    "0x5a076ec8e037de44d7ffddcec2507e79727beb9a",
+    "0xc9abfc8a68d547f8fd94f2fbd7a836d6b704de8d",
+    "0xd8ae94337833f1026899dd6c31cd3a00d03d4d68",
+    "0x595bf4d10c5213202cc1e68e0d3676ab1b1e8573",
+    "0x42423d91b02ccc53ff98dcd68b30e4ab21104d90",
+    "0x5d667786fd900a901a0cb96f489bb80ab712604c",
+    "0xe13815bc6da86cb26713e6c4dc4bd2ec7e6e054d",
+    "0x84d80df801badb2d0762e546ea4815b8d1bc7e69",
+    "0x5622746433de972bc4c69b490753a45fbf806b18"
+   ],
+   "operators": [
+    "01node",
+    "blockdaemon",
+    "chainlayer",
+    "dextrac",
+    "fiews",
+    "galaxy",
+    "inotel",
+    "linkpool",
+    "linkriver",
+    "piertwo"
    ]
   },
   "wsteth-eth": {

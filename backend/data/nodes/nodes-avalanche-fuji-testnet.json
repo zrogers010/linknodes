@@ -140,7 +140,13 @@
    "0x77Ea71FDC9C2d6e345d41D87bFee5a73d02CFBAc"
   ],
   "oracleAddress": "0x0000000000000000000000000000000000000000",
-  "csaKeys": null,
+  "csaKeys": [
+   {
+    "nodeName": "Chainlink Testnet (0) ocr-ava-fuji-0",
+    "nodeAddress": "0x77Ea71FDC9C2d6e345d41D87bFee5a73d02CFBAc",
+    "publicKey": "686271152d0aebf3bfe73802546fca485b4a15ee94979e18d418d76c3ae86862"
+   }
+  ],
   "peerId": [
    "12D3KooWSFGfqnRmeUFb4G58qePGELQ8SFSRTv6UF2sB4BXW1Mdf"
   ]
@@ -154,7 +160,13 @@
    "0xA114d06Ee4a140DA5b6C0175F7886B7753D0343a"
   ],
   "oracleAddress": "0x0000000000000000000000000000000000000000",
-  "csaKeys": null,
+  "csaKeys": [
+   {
+    "nodeName": "Chainlink Testnet (1) ocr-ava-fuji-1",
+    "nodeAddress": "0x9014aBDCF6E2579F5567A7a7a106e20c5C7a95F5",
+    "publicKey": "84b024804acd4e0b1b61d910d76115a6c0c2b8cd8d2299a8976949beb5fdd543"
+   }
+  ],
   "peerId": [
    "12D3KooWPak9iEGfTVkw5u64ogiqQV8guzxNDEa37Z9oX94f6vRa"
   ]
@@ -162,13 +174,19 @@
  {
   "id": "ocr-ava-fuji-2",
   "website": "",
-  "name": "ocr-ava-fuji-2",
+  "name": "cr-ava-fuji-2",
   "status": "active",
   "nodeAddress": [
    "0xa8be5f4efFd6b3E69C777acFD3D4Eb6a45894eD8"
   ],
   "oracleAddress": "0x0000000000000000000000000000000000000000",
-  "csaKeys": null,
+  "csaKeys": [
+   {
+    "nodeName": "Chainlink Testnet (2) ocr-ava-fuji-2",
+    "nodeAddress": "0xa8be5f4efFd6b3E69C777acFD3D4Eb6a45894eD8",
+    "publicKey": "0bdad1d5756917fe914d818aac2d51967aceffcbdec2c125e4d626d81747c6f2"
+   }
+  ],
   "peerId": [
    "12D3KooWAmq9H8Xg76C4G9WwXeDfT7Mzp9X4V4yns6UiDgVR6XFS"
   ]
@@ -182,7 +200,13 @@
    "0xF23d812Bb3A57478D681d6CcbC50469CA237c05e"
   ],
   "oracleAddress": "0x0000000000000000000000000000000000000000",
-  "csaKeys": null,
+  "csaKeys": [
+   {
+    "nodeName": "Chainlink Testnet (3) ocr-ava-fuji-3",
+    "nodeAddress": "0xF23d812Bb3A57478D681d6CcbC50469CA237c05e",
+    "publicKey": "5c1742c03bfbdf7e6915550021457947ff5040912e36cdd7e5dd1ab19704dfc5"
+   }
+  ],
   "peerId": [
    "12D3KooWCnz8UqBL9Ev4EhExu3mFnMGB6aqw6H75qHgRRWALyLGo"
   ]

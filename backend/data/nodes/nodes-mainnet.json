@@ -1787,6 +1787,16 @@
     "nodeName": "RHINO Ethereum Mainnet OCR",
     "nodeAddress": "0x634438d879a90a25437B87168252c2b983734391",
     "publicKey": "6ee221d9d47302ae1b0da8480659f1935d7ac78f6e1286cb8b711cbee051ad94"
+   },
+   {
+    "nodeName": "chainlink-evm-committee-verifier-rhino",
+    "nodeAddress": "0x80e009Ff98cF56bb14d322F6D561e64CC0fB62e0",
+    "publicKey": "5de4e7604f30925d73ae64abd1678e039d0aabad415a7b223de08f50a89665d8"
+   },
+   {
+    "nodeName": "chainlink-evm-executor-rhino",
+    "nodeAddress": "0x4dD763c8F96a8dF0e2C6C4790be7566296d7de97",
+    "publicKey": "7f9c00373d0f9c5974e9808731a98e75c332e101b062a0a73679c6a2edbfa98c"
    }
   ],
   "peerId": [
@@ -2638,6 +2648,21 @@
     "nodeName": "Linkriver",
     "nodeAddress": "0x0000000000000000000000000000000000000000",
     "publicKey": "8e9089bc948da82043229def0c6ca02f6bf730f0b4b7931a27ae8773498ff3df"
+   }
+  ]
+ },
+ {
+  "id": "temp-ccip-v2-matrixedlink",
+  "website": "",
+  "name": "matrixedlink",
+  "status": "active",
+  "nodeAddress": [],
+  "oracleAddress": "0x0000000000000000000000000000000000000000",
+  "csaKeys": [
+   {
+    "nodeName": "MatrixedLink",
+    "nodeAddress": "0x0000000000000000000000000000000000000000",
+    "publicKey": "65d01200057c785675244c1c883b82e3ff79970ccbfac439d319ab55d1c598d1"
    }
   ]
  },

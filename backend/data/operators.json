@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-13T17:26:37.098248+00:00",
+ "generated_at": "2026-11-20T13:21:12.658149+00:00",
  "sources": {
   "rdd": true,
   "transmitters": true
@@ -62,7 +62,7 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 1223,
+    "feeds": 1235,
     "networks": 13
    },
    "networks": [
@@ -76,7 +76,7 @@
     },
     {
      "network": "base",
-     "feeds": 180
+     "feeds": 188
     },
     {
      "network": "bnb",
@@ -88,7 +88,7 @@
     },
     {
      "network": "ethereum",
-     "feeds": 183
+     "feeds": 185
     },
     {
      "network": "gnosis",
@@ -100,7 +100,7 @@
     },
     {
      "network": "optimism",
-     "feeds": 146
+     "feeds": 148
     },
     {
      "network": "polygon",
@@ -326,13 +326,13 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 1206,
+    "feeds": 1220,
     "networks": 12
    },
    "networks": [
     {
      "network": "arbitrum",
-     "feeds": 169
+     "feeds": 170
     },
     {
      "network": "avalanche",
@@ -340,7 +340,7 @@
     },
     {
      "network": "base",
-     "feeds": 180
+     "feeds": 188
     },
     {
      "network": "bnb",
@@ -352,7 +352,7 @@
     },
     {
      "network": "ethereum",
-     "feeds": 182
+     "feeds": 185
     },
     {
      "network": "gnosis",
@@ -364,7 +364,7 @@
     },
     {
      "network": "optimism",
-     "feeds": 139
+     "feeds": 141
     },
     {
      "network": "polygon",
@@ -576,13 +576,13 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 1200,
+    "feeds": 1213,
     "networks": 12
    },
    "networks": [
     {
      "network": "arbitrum",
-     "feeds": 175
+     "feeds": 176
     },
     {
      "network": "avalanche",
@@ -590,7 +590,7 @@
     },
     {
      "network": "base",
-     "feeds": 180
+     "feeds": 188
     },
     {
      "network": "bnb",
@@ -602,7 +602,7 @@
     },
     {
      "network": "ethereum",
-     "feeds": 186
+     "feeds": 188
     },
     {
      "network": "gnosis",
@@ -614,7 +614,7 @@
     },
     {
      "network": "optimism",
-     "feeds": 140
+     "feeds": 142
     },
     {
      "network": "polygon",
@@ -823,13 +823,13 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 1136,
+    "feeds": 1149,
     "networks": 11
    },
    "networks": [
     {
      "network": "arbitrum",
-     "feeds": 169
+     "feeds": 170
     },
     {
      "network": "avalanche",
@@ -837,7 +837,7 @@
     },
     {
      "network": "base",
-     "feeds": 180
+     "feeds": 188
     },
     {
      "network": "bnb",
@@ -845,7 +845,7 @@
     },
     {
      "network": "ethereum",
-     "feeds": 169
+     "feeds": 171
     },
     {
      "network": "gnosis",
@@ -853,7 +853,7 @@
     },
     {
      "network": "optimism",
-     "feeds": 138
+     "feeds": 140
     },
     {
      "network": "polygon",
@@ -1112,17 +1112,17 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 955,
+    "feeds": 966,
     "networks": 9
    },
    "networks": [
     {
      "network": "arbitrum",
-     "feeds": 178
+     "feeds": 179
     },
     {
      "network": "base",
-     "feeds": 180
+     "feeds": 188
     },
     {
      "network": "bnb",
@@ -1142,7 +1142,7 @@
     },
     {
      "network": "optimism",
-     "feeds": 157
+     "feeds": 159
     },
     {
      "network": "polygon",
@@ -1309,13 +1309,13 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 914,
+    "feeds": 919,
     "networks": 7
    },
    "networks": [
     {
      "network": "arbitrum",
-     "feeds": 190
+     "feeds": 191
     },
     {
      "network": "avalanche",
@@ -1327,7 +1327,7 @@
     },
     {
      "network": "ethereum",
-     "feeds": 183
+     "feeds": 185
     },
     {
      "network": "gnosis",
@@ -1335,7 +1335,7 @@
     },
     {
      "network": "optimism",
-     "feeds": 143
+     "feeds": 145
     },
     {
      "network": "polygon",
@@ -1514,7 +1514,7 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 883,
+    "feeds": 896,
     "networks": 7
    },
    "networks": [
@@ -1524,7 +1524,7 @@
     },
     {
      "network": "base",
-     "feeds": 180
+     "feeds": 188
     },
     {
      "network": "bnb",
@@ -1532,7 +1532,7 @@
     },
     {
      "network": "ethereum",
-     "feeds": 153
+     "feeds": 156
     },
     {
      "network": "gnosis",
@@ -1540,7 +1540,7 @@
     },
     {
      "network": "optimism",
-     "feeds": 152
+     "feeds": 154
     },
     {
      "network": "polygon",
@@ -1693,13 +1693,13 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 833,
+    "feeds": 838,
     "networks": 10
    },
    "networks": [
     {
      "network": "arbitrum",
-     "feeds": 160
+     "feeds": 161
     },
     {
      "network": "avalanche",
@@ -1715,7 +1715,7 @@
     },
     {
      "network": "ethereum",
-     "feeds": 131
+     "feeds": 133
     },
     {
      "network": "linea",
@@ -1723,7 +1723,7 @@
     },
     {
      "network": "optimism",
-     "feeds": 148
+     "feeds": 150
     },
     {
      "network": "polygon",
@@ -1900,13 +1900,13 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 806,
+    "feeds": 809,
     "networks": 10
    },
    "networks": [
     {
      "network": "arbitrum",
-     "feeds": 106
+     "feeds": 107
     },
     {
      "network": "avalanche",
@@ -1918,7 +1918,7 @@
     },
     {
      "network": "ethereum",
-     "feeds": 124
+     "feeds": 126
     },
     {
      "network": "gnosis",
@@ -2089,176 +2089,6 @@
    ]
   },
   {
-   "slug": "linkforest",
-   "name": "LinkForest",
-   "aliases": [
-    "LinkForest",
-    "linkForest"
-   ],
-   "website": "https://www.linkforest.io",
-   "sources": {
-    "rdd": true,
-    "transmitters": true
-   },
-   "rdd_ids": {
-    "avalanche": [
-     "linkForest"
-    ],
-    "bnb": [
-     "linkForest"
-    ],
-    "celo": [
-     "linkForest"
-    ],
-    "arbitrum": [
-     "linkForest"
-    ],
-    "scroll": [
-     "linkForest"
-    ],
-    "ethereum": [
-     "linkForest"
-    ],
-    "polygon": [
-     "linkForest"
-    ]
-   },
-   "products": {
-    "data_feeds": true
-   },
-   "counts": {
-    "feeds": 769,
-    "networks": 7
-   },
-   "networks": [
-    {
-     "network": "arbitrum",
-     "feeds": 181
-    },
-    {
-     "network": "avalanche",
-     "feeds": 94
-    },
-    {
-     "network": "bnb",
-     "feeds": 163
-    },
-    {
-     "network": "celo",
-     "feeds": 28
-    },
-    {
-     "network": "ethereum",
-     "feeds": 184
-    },
-    {
-     "network": "polygon",
-     "feeds": 117
-    },
-    {
-     "network": "scroll",
-     "feeds": 2
-    }
-   ],
-   "addresses": [
-    {
-     "network": "arbitrum",
-     "kind": "forwarder",
-     "address": "0xcD96e5a8ab6536394f87b746030bC82C529Cbb66"
-    },
-    {
-     "network": "arbitrum",
-     "kind": "node",
-     "address": "0x51c5C8e2267582562f6cF08cF641A1A174946A50"
-    },
-    {
-     "network": "arbitrum",
-     "kind": "node",
-     "address": "0x8ADa73a56E1aDF6CF23aABE8D72858Bd6DAa0A3e"
-    },
-    {
-     "network": "avalanche",
-     "kind": "forwarder",
-     "address": "0x33d7F4AdBB4Dca1bF1f96469C4246411293387f3"
-    },
-    {
-     "network": "avalanche",
-     "kind": "node",
-     "address": "0x574A2f48049D962cF2e66d4381823Af93817Cd81"
-    },
-    {
-     "network": "bnb",
-     "kind": "forwarder",
-     "address": "0x342682197497FC9b860e914636847F1a9AD8b037"
-    },
-    {
-     "network": "bnb",
-     "kind": "node",
-     "address": "0xE824e2015d39ffA9b42bf76fb692D1Bd93218eAa"
-    },
-    {
-     "network": "bnb",
-     "kind": "node",
-     "address": "0xa6b40a7Bcc64E813C22561c921B81bc7A6b43eF9"
-    },
-    {
-     "network": "bnb",
-     "kind": "oracle",
-     "address": "0xf182052A7514dDf9067d81dc6f7267AA329859F2"
-    },
-    {
-     "network": "celo",
-     "kind": "node",
-     "address": "0x39CEc0a0663565493774506789892A653e0E2440"
-    },
-    {
-     "network": "ethereum",
-     "kind": "forwarder",
-     "address": "0xE9DcbaCc91dB0e37562a8455c80d0734D7CF3bd1"
-    },
-    {
-     "network": "ethereum",
-     "kind": "node",
-     "address": "0x3C4ad65F5b4884397e1F09596c7ac7F8F95b3fF3"
-    },
-    {
-     "network": "ethereum",
-     "kind": "node",
-     "address": "0xca38FE96DF5446fdC971CA25A3612f2EC39bE5D6"
-    },
-    {
-     "network": "ethereum",
-     "kind": "oracle",
-     "address": "0x7A9d706B2A3b54f7Cf3b5F2FcF94c5e2B3d7b24B"
-    },
-    {
-     "network": "polygon",
-     "kind": "forwarder",
-     "address": "0x43B5Ed824B75C03A3B975e489a1Bd3177cD10074"
-    },
-    {
-     "network": "polygon",
-     "kind": "node",
-     "address": "0x250ABd1D4EBC8e70a4981677D5525f827660bDE4"
-    },
-    {
-     "network": "polygon",
-     "kind": "oracle",
-     "address": "0x591b78E79dF82B971D8387d9b0c3bB74185abA68"
-    },
-    {
-     "network": "scroll",
-     "kind": "forwarder",
-     "address": "0x77C275ef21c972b010143800e0A3bB9815312488"
-    },
-    {
-     "network": "scroll",
-     "kind": "node",
-     "address": "0xB637991E9456d53cFDfCd8B8C898F1f3Dda9945B"
-    }
-   ]
-  },
-  {
    "slug": "galaxy",
    "name": "Galaxy",
    "aliases": [
@@ -2303,7 +2133,7 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 769,
+    "feeds": 781,
     "networks": 9
    },
    "networks": [
@@ -2313,7 +2143,7 @@
     },
     {
      "network": "base",
-     "feeds": 180
+     "feeds": 188
     },
     {
      "network": "bnb",
@@ -2325,11 +2155,11 @@
     },
     {
      "network": "ethereum",
-     "feeds": 113
+     "feeds": 115
     },
     {
      "network": "optimism",
-     "feeds": 132
+     "feeds": 134
     },
     {
      "network": "polygon",
@@ -2468,6 +2298,176 @@
    ]
   },
   {
+   "slug": "linkforest",
+   "name": "LinkForest",
+   "aliases": [
+    "LinkForest",
+    "linkForest"
+   ],
+   "website": "https://www.linkforest.io",
+   "sources": {
+    "rdd": true,
+    "transmitters": true
+   },
+   "rdd_ids": {
+    "avalanche": [
+     "linkForest"
+    ],
+    "bnb": [
+     "linkForest"
+    ],
+    "celo": [
+     "linkForest"
+    ],
+    "arbitrum": [
+     "linkForest"
+    ],
+    "scroll": [
+     "linkForest"
+    ],
+    "ethereum": [
+     "linkForest"
+    ],
+    "polygon": [
+     "linkForest"
+    ]
+   },
+   "products": {
+    "data_feeds": true
+   },
+   "counts": {
+    "feeds": 773,
+    "networks": 7
+   },
+   "networks": [
+    {
+     "network": "arbitrum",
+     "feeds": 182
+    },
+    {
+     "network": "avalanche",
+     "feeds": 94
+    },
+    {
+     "network": "bnb",
+     "feeds": 163
+    },
+    {
+     "network": "celo",
+     "feeds": 28
+    },
+    {
+     "network": "ethereum",
+     "feeds": 187
+    },
+    {
+     "network": "polygon",
+     "feeds": 117
+    },
+    {
+     "network": "scroll",
+     "feeds": 2
+    }
+   ],
+   "addresses": [
+    {
+     "network": "arbitrum",
+     "kind": "forwarder",
+     "address": "0xcD96e5a8ab6536394f87b746030bC82C529Cbb66"
+    },
+    {
+     "network": "arbitrum",
+     "kind": "node",
+     "address": "0x51c5C8e2267582562f6cF08cF641A1A174946A50"
+    },
+    {
+     "network": "arbitrum",
+     "kind": "node",
+     "address": "0x8ADa73a56E1aDF6CF23aABE8D72858Bd6DAa0A3e"
+    },
+    {
+     "network": "avalanche",
+     "kind": "forwarder",
+     "address": "0x33d7F4AdBB4Dca1bF1f96469C4246411293387f3"
+    },
+    {
+     "network": "avalanche",
+     "kind": "node",
+     "address": "0x574A2f48049D962cF2e66d4381823Af93817Cd81"
+    },
+    {
+     "network": "bnb",
+     "kind": "forwarder",
+     "address": "0x342682197497FC9b860e914636847F1a9AD8b037"
+    },
+    {
+     "network": "bnb",
+     "kind": "node",
+     "address": "0xE824e2015d39ffA9b42bf76fb692D1Bd93218eAa"
+    },
+    {
+     "network": "bnb",
+     "kind": "node",
+     "address": "0xa6b40a7Bcc64E813C22561c921B81bc7A6b43eF9"
+    },
+    {
+     "network": "bnb",
+     "kind": "oracle",
+     "address": "0xf182052A7514dDf9067d81dc6f7267AA329859F2"
+    },
+    {
+     "network": "celo",
+     "kind": "node",
+     "address": "0x39CEc0a0663565493774506789892A653e0E2440"
+    },
+    {
+     "network": "ethereum",
+     "kind": "forwarder",
+     "address": "0xE9DcbaCc91dB0e37562a8455c80d0734D7CF3bd1"
+    },
+    {
+     "network": "ethereum",
+     "kind": "node",
+     "address": "0x3C4ad65F5b4884397e1F09596c7ac7F8F95b3fF3"
+    },
+    {
+     "network": "ethereum",
+     "kind": "node",
+     "address": "0xca38FE96DF5446fdC971CA25A3612f2EC39bE5D6"
+    },
+    {
+     "network": "ethereum",
+     "kind": "oracle",
+     "address": "0x7A9d706B2A3b54f7Cf3b5F2FcF94c5e2B3d7b24B"
+    },
+    {
+     "network": "polygon",
+     "kind": "forwarder",
+     "address": "0x43B5Ed824B75C03A3B975e489a1Bd3177cD10074"
+    },
+    {
+     "network": "polygon",
+     "kind": "node",
+     "address": "0x250ABd1D4EBC8e70a4981677D5525f827660bDE4"
+    },
+    {
+     "network": "polygon",
+     "kind": "oracle",
+     "address": "0x591b78E79dF82B971D8387d9b0c3bB74185abA68"
+    },
+    {
+     "network": "scroll",
+     "kind": "forwarder",
+     "address": "0x77C275ef21c972b010143800e0A3bB9815312488"
+    },
+    {
+     "network": "scroll",
+     "kind": "node",
+     "address": "0xB637991E9456d53cFDfCd8B8C898F1f3Dda9945B"
+    }
+   ]
+  },
+  {
    "slug": "snzpool",
    "name": "SNZPool",
    "aliases": [
@@ -2509,17 +2509,17 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 758,
+    "feeds": 769,
     "networks": 8
    },
    "networks": [
     {
      "network": "arbitrum",
-     "feeds": 178
+     "feeds": 179
     },
     {
      "network": "base",
-     "feeds": 180
+     "feeds": 188
     },
     {
      "network": "bnb",
@@ -2531,7 +2531,7 @@
     },
     {
      "network": "ethereum",
-     "feeds": 71
+     "feeds": 73
     },
     {
      "network": "gnosis",
@@ -2712,7 +2712,7 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 609,
+    "feeds": 618,
     "networks": 7
    },
    "networks": [
@@ -2726,7 +2726,7 @@
     },
     {
      "network": "base",
-     "feeds": 180
+     "feeds": 188
     },
     {
      "network": "bnb",
@@ -2738,7 +2738,7 @@
     },
     {
      "network": "ethereum",
-     "feeds": 121
+     "feeds": 122
     },
     {
      "network": "sonic",
@@ -2880,7 +2880,7 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 551,
+    "feeds": 556,
     "networks": 5
    },
    "networks": [
@@ -2894,7 +2894,7 @@
     },
     {
      "network": "ethereum",
-     "feeds": 146
+     "feeds": 149
     },
     {
      "network": "gnosis",
@@ -2902,7 +2902,7 @@
     },
     {
      "network": "optimism",
-     "feeds": 147
+     "feeds": 149
     }
    ],
    "addresses": [
@@ -3009,21 +3009,21 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 530,
+    "feeds": 542,
     "networks": 6
    },
    "networks": [
     {
      "network": "arbitrum",
-     "feeds": 168
+     "feeds": 169
     },
     {
      "network": "base",
-     "feeds": 180
+     "feeds": 188
     },
     {
      "network": "ethereum",
-     "feeds": 65
+     "feeds": 68
     },
     {
      "network": "polygon",
@@ -3147,7 +3147,7 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 473,
+    "feeds": 474,
     "networks": 5
    },
    "networks": [
@@ -3165,7 +3165,7 @@
     },
     {
      "network": "ethereum",
-     "feeds": 128
+     "feeds": 129
     },
     {
      "network": "zksync",
@@ -3395,7 +3395,7 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 387,
+    "feeds": 389,
     "networks": 6
    },
    "networks": [
@@ -3409,7 +3409,7 @@
     },
     {
      "network": "ethereum",
-     "feeds": 80
+     "feeds": 82
     },
     {
      "network": "linea",
@@ -3538,7 +3538,7 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 354,
+    "feeds": 355,
     "networks": 3
    },
    "networks": [
@@ -3548,7 +3548,7 @@
     },
     {
      "network": "ethereum",
-     "feeds": 71
+     "feeds": 72
     },
     {
      "network": "polygon",
@@ -3643,7 +3643,7 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 343,
+    "feeds": 345,
     "networks": 4
    },
    "networks": [
@@ -3657,7 +3657,7 @@
     },
     {
      "network": "ethereum",
-     "feeds": 128
+     "feeds": 130
     },
     {
      "network": "linea",
@@ -3875,7 +3875,7 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 257,
+    "feeds": 258,
     "networks": 4
    },
    "networks": [
@@ -3885,7 +3885,7 @@
     },
     {
      "network": "ethereum",
-     "feeds": 101
+     "feeds": 102
     },
     {
      "network": "polygon",
@@ -4271,7 +4271,7 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 191,
+    "feeds": 192,
     "networks": 2
    },
    "networks": [
@@ -4281,7 +4281,7 @@
     },
     {
      "network": "ethereum",
-     "feeds": 78
+     "feeds": 79
     }
    ],
    "addresses": [
@@ -4516,13 +4516,13 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 160,
+    "feeds": 161,
     "networks": 2
    },
    "networks": [
     {
      "network": "ethereum",
-     "feeds": 125
+     "feeds": 126
     },
     {
      "network": "sonic",
@@ -4790,13 +4790,13 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 98,
+    "feeds": 101,
     "networks": 1
    },
    "networks": [
     {
      "network": "ethereum",
-     "feeds": 98
+     "feeds": 101
     }
    ],
    "addresses": [
@@ -4851,13 +4851,13 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 95,
+    "feeds": 96,
     "networks": 2
    },
    "networks": [
     {
      "network": "ethereum",
-     "feeds": 63
+     "feeds": 64
     },
     {
      "network": "scroll",
@@ -4979,13 +4979,13 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 68,
+    "feeds": 69,
     "networks": 1
    },
    "networks": [
     {
      "network": "ethereum",
-     "feeds": 68
+     "feeds": 69
     }
    ],
    "addresses": [
@@ -5120,13 +5120,13 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 63,
+    "feeds": 64,
     "networks": 1
    },
    "networks": [
     {
      "network": "ethereum",
-     "feeds": 63
+     "feeds": 64
     }
    ],
    "addresses": [
@@ -5266,13 +5266,13 @@
     "data_feeds": true
    },
    "counts": {
-    "feeds": 37,
+    "feeds": 38,
     "networks": 1
    },
    "networks": [
     {
      "network": "ethereum",
-     "feeds": 37
+     "feeds": 38
     }
    ],
    "addresses": [
