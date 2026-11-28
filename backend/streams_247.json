@@ -7,7 +7,7 @@
  "schema": "v2",
  "access": "contact-chainlink",
  "note": "List-only catalog of Chainlink 24/7 Data Streams. These entries have a feedId and no on-chain proxyAddress. They are not Data Feeds. Access is currently through Chainlink. Report schema v2 carries a price only (no marketStatus).",
- "count": 18,
+ "count": 19,
  "streams": [
   {
    "name": "NGAS/USD-Streams-247-mainnet-production",
@@ -95,6 +95,21 @@
    "base": "AAPL",
    "quote": "USD",
    "asset_name": "Apple Inc",
+   "network": "arbitrum",
+   "chain_id": 42161,
+   "notes": "schema v2 reports a price only (no marketStatus). Access via Chainlink."
+  },
+  {
+   "name": "ANT/USD-Streams-247-mainnet-production",
+   "display_name": "ANT/USD",
+   "path": "ant-usd-streams-247-mainnet-production",
+   "feed_id": "0x0002e2d401ec30553b4c3ef7bb898d5126b74acaa83493fa40fc3a2dd503a9bb",
+   "schema": "v2",
+   "asset_class": "Equities",
+   "feed_type": "247Price",
+   "base": "ANT",
+   "quote": "USD",
+   "asset_name": "Anthropic",
    "network": "arbitrum",
    "chain_id": 42161,
    "notes": "schema v2 reports a price only (no marketStatus). Access via Chainlink."
